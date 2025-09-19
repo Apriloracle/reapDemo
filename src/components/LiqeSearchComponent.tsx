@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearch } from '../contexts/SearchContext';
-import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
+
 
 interface LiqeSearchComponentProps {
   onFilter: (filteredData: any[]) => void;
