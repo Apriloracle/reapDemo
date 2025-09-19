@@ -38,7 +38,6 @@ import { merchantProductsStore } from '../stores/MerchantProductsStore';
 import { categoryStore } from '../stores/CategoryStore';
 import SwiperComponent from './SwiperComponent'; // Import the new component
 import ButtonSwipe from './ButtonSwipe'; 
-import SimilarProductsPage from '../pages/SimilarProductsPage'; // Import the new page
 import DiscoveryPage from '../pages/DiscoveryPage'; // Import the new page
 import ProductDetailPage from '../pages/ProductDetailPage'; // Import the new page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
@@ -1291,7 +1290,6 @@ const TelegramMiniApp: React.FC = () => {
           <Route path="/watch-ads" element={<WatchAdsComponent />} />
           <Route path="/surveys" element={<SurveyList localWalletAddress={localWalletAddress} address={address} />} />
           <Route path="/profile" element={<ProfileComponent localWalletAddress={localWalletAddress} address={address} />} />
-          <Route path="/similar/:asin" element={<SimilarProductsPage />} /> {/* New route for similar products */}
           <Route path="/products/:asin" element={<ProductDetailPage />} /> {/* New route for product details */}
           <Route path="/discovery" element={<DiscoveryPage />} /> {/* New route for discovery page */}
         </Routes>
