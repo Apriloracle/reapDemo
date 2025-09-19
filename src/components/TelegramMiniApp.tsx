@@ -196,41 +196,7 @@ const MainPage: React.FC<MainPageProps> = ({
         }
       }
 
-      // Format interaction data for clustering
-      const interaction = {
-        ASIN: product.asin,
-        InteractionLevel: interactionType === 'click' ? 1 : 0.5,
-        InteractionCount: 1,
-        timestamp: Date.now(),
-        merchantName,
-        category: product.category || 'unknown',
-        price: product.price || 0
-      };
 
-      // Process through clustering engine
-      await clusteringEngine.current.processInteraction(interaction);
-
-      // New: Fetch the real product vector and add it to the 10k profile
-      if (interactionType === 'click') {
-        const realProductVector = await vectorCacheService.getVector(product.asin);
-        if (realProductVector) {
-          await hypervectorProfileStore.addRealProductVector(realProductVector);
-        }
-      }
-
-    } catch (error) {
-      console.error('Error handling product interaction:', error);
-    }
-  };
-
-  const handleFilterChange = (categories: number[]) => {
-    setSelectedCategories(categories);
-    // Update the hypervector profile with the new filter selection
-    // We'll create a "composite" key to represent the filter state
-    const filterKey = `filter_selection:[${categories.sort().join(',')}]`;
-    console.log(`Updating profile with filter key: ${filterKey}`);
-    hypervectorProfileStore.addInteraction('filter_select', filterKey);
-  };
 
   return (
     <SearchProvider store={categoryStore.store}>
