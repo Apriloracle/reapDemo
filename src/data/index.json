@@ -1,0 +1,410 @@
+[
+  {
+    "categoryId": 1,
+    "categoryName": "Beading & Jewelry Making",
+    "totalResults": 8246,
+    "file": "category-1.json"
+  },
+  {
+    "categoryId": 6,
+    "categoryName": "Sewing Products",
+    "totalResults": 8198,
+    "file": "category-6.json"
+  },
+  {
+    "categoryId": 7,
+    "categoryName": "Craft & Hobby Fabric",
+    "totalResults": 7665,
+    "file": "category-7.json"
+  },
+  {
+    "categoryId": 9,
+    "categoryName": "Arts, Crafts & Sewing Storage",
+    "totalResults": 7592,
+    "file": "category-9.json"
+  },
+  {
+    "categoryId": 10,
+    "categoryName": "Painting, Drawing & Art Supplies",
+    "totalResults": 9346,
+    "file": "category-10.json"
+  },
+  {
+    "categoryId": 11,
+    "categoryName": "Craft Supplies & Materials",
+    "totalResults": 7778,
+    "file": "category-11.json"
+  },
+  {
+    "categoryId": 99,
+    "categoryName": "Travel Duffel Bags",
+    "totalResults": 2401,
+    "file": "category-99.json"
+  },
+  {
+    "categoryId": 100,
+    "categoryName": "Messenger Bags",
+    "totalResults": 1244,
+    "file": "category-100.json"
+  },
+  {
+    "categoryId": 101,
+    "categoryName": "Travel Tote Bags",
+    "totalResults": 1716,
+    "file": "category-101.json"
+  },
+  {
+    "categoryId": 102,
+    "categoryName": "Garment Bags",
+    "totalResults": 40,
+    "file": "category-102.json"
+  },
+  {
+    "categoryId": 103,
+    "categoryName": "Luggage Sets",
+    "totalResults": 149,
+    "file": "category-103.json"
+  },
+  {
+    "categoryId": 104,
+    "categoryName": "Suitcases",
+    "totalResults": 924,
+    "file": "category-104.json"
+  },
+  {
+    "categoryId": 105,
+    "categoryName": "Travel Accessories",
+    "totalResults": 16160,
+    "file": "category-105.json"
+  },
+  {
+    "categoryId": 106,
+    "categoryName": "Rain Umbrellas",
+    "totalResults": 1774,
+    "file": "category-106.json"
+  },
+  {
+    "categoryId": 107,
+    "categoryName": "Backpacks",
+    "totalResults": 9580,
+    "file": "category-107.json"
+  },
+  {
+    "categoryId": 108,
+    "categoryName": "Luggage",
+    "totalResults": 3267,
+    "file": "category-108.json"
+  },
+  {
+    "categoryId": 109,
+    "categoryName": "Laptop Bags",
+    "totalResults": 5618,
+    "file": "category-109.json"
+  },
+  {
+    "categoryId": 138,
+    "categoryName": "Commercial Door Products",
+    "totalResults": 8066,
+    "file": "category-138.json"
+  },
+  {
+    "categoryId": 140,
+    "categoryName": "Industrial Materials",
+    "totalResults": 7839,
+    "file": "category-140.json"
+  },
+  {
+    "categoryId": 141,
+    "categoryName": "Industrial Hardware",
+    "totalResults": 9364,
+    "file": "category-141.json"
+  },
+  {
+    "categoryId": 142,
+    "categoryName": "Abrasive & Finishing Products",
+    "totalResults": 8646,
+    "file": "category-142.json"
+  },
+  {
+    "categoryId": 145,
+    "categoryName": "Test, Measure & Inspect",
+    "totalResults": 4370,
+    "file": "category-145.json"
+  },
+  {
+    "categoryId": 146,
+    "categoryName": "Industrial Power & Hand Tools",
+    "totalResults": 6743,
+    "file": "category-146.json"
+  },
+  {
+    "categoryId": 166,
+    "categoryName": "Furniture",
+    "totalResults": 5829,
+    "file": "category-166.json"
+  },
+  {
+    "categoryId": 167,
+    "categoryName": "Household Cleaning Supplies",
+    "totalResults": 8523,
+    "file": "category-167.json"
+  },
+  {
+    "categoryId": 201,
+    "categoryName": "Home Appliances",
+    "totalResults": 7006,
+    "file": "category-201.json"
+  },
+  {
+    "categoryId": 207,
+    "categoryName": "Power Tools & Hand Tools",
+    "totalResults": 3852,
+    "file": "category-207.json"
+  },
+  {
+    "categoryId": 215,
+    "categoryName": "Tools & Home Improvement",
+    "totalResults": 1719,
+    "file": "category-215.json"
+  },
+  {
+    "categoryId": 163,
+    "categoryName": "Bath Products",
+    "totalResults": 8600,
+    "file": "category-163.json"
+  },
+  {
+    "categoryId": 164,
+    "categoryName": "Bedding",
+    "totalResults": 8337,
+    "file": "category-164.json"
+  },
+  {
+    "categoryId": 165,
+    "categoryName": "Home Décor Products",
+    "totalResults": 8189,
+    "file": "category-165.json"
+  },
+  {
+    "categoryId": 169,
+    "categoryName": "Home Lighting & Ceiling Fans",
+    "totalResults": 4073,
+    "file": "category-169.json"
+  },
+  {
+    "categoryId": 170,
+    "categoryName": "Kitchen & Dining",
+    "totalResults": 4882,
+    "file": "category-170.json"
+  },
+  {
+    "categoryId": 173,
+    "categoryName": "Home Storage & Organization",
+    "totalResults": 15437,
+    "file": "category-173.json"
+  },
+  {
+    "categoryId": 174,
+    "categoryName": "Wall Art",
+    "totalResults": 8527,
+    "file": "category-174.json"
+  },
+  {
+    "categoryId": 175,
+    "categoryName": "Vacuum Cleaners & Floor Care",
+    "totalResults": 8283,
+    "file": "category-175.json"
+  },
+  {
+    "categoryId": 176,
+    "categoryName": "Ironing Products",
+    "totalResults": 2353,
+    "file": "category-176.json"
+  },
+  {
+    "categoryId": 178,
+    "categoryName": "Pet Bird Supplies",
+    "totalResults": 4396,
+    "file": "category-178.json"
+  },
+  {
+    "categoryId": 179,
+    "categoryName": "Cat Supplies",
+    "totalResults": 8950,
+    "file": "category-179.json"
+  },
+  {
+    "categoryId": 180,
+    "categoryName": "Dog Supplies",
+    "totalResults": 8325,
+    "file": "category-180.json"
+  },
+  {
+    "categoryId": 181,
+    "categoryName": "Fish & Aquatic Pets",
+    "totalResults": 7093,
+    "file": "category-181.json"
+  },
+  {
+    "categoryId": 182,
+    "categoryName": "Horse Supplies",
+    "totalResults": 3865,
+    "file": "category-182.json"
+  },
+  {
+    "categoryId": 183,
+    "categoryName": "Reptiles & Amphibian Supplies",
+    "totalResults": 3583,
+    "file": "category-183.json"
+  },
+  {
+    "categoryId": 184,
+    "categoryName": "Small Animal Supplies",
+    "totalResults": 6011,
+    "file": "category-184.json"
+  },
+  {
+    "categoryId": 12,
+    "categoryName": "Gift Wrapping Supplies",
+    "totalResults": 8664,
+    "file": "category-12.json"
+  },
+  {
+    "categoryId": 13,
+    "categoryName": "Party Decorations",
+    "totalResults": 8611,
+    "file": "category-13.json"
+  },
+  {
+    "categoryId": 40,
+    "categoryName": "Baby Stationery",
+    "totalResults": 1651,
+    "file": "category-40.json"
+  },
+  {
+    "categoryId": 137,
+    "categoryName": "Stationery & Gift Wrapping Supplies",
+    "totalResults": 456,
+    "file": "category-137.json"
+  },
+  {
+    "categoryId": 177,
+    "categoryName": "Party Supplies",
+    "totalResults": 6935,
+    "file": "category-177.json"
+  },
+  {
+    "categoryId": 216,
+    "categoryName": "Kids' Party Supplies",
+    "totalResults": 4241,
+    "file": "category-216.json"
+  },
+  {
+    "categoryId": 217,
+    "categoryName": "Toy Figures & Playsets",
+    "totalResults": 7973,
+    "file": "category-217.json"
+  },
+  {
+    "categoryId": 218,
+    "categoryName": "Novelty Toys & Amusements",
+    "totalResults": 7432,
+    "file": "category-218.json"
+  },
+  {
+    "categoryId": 219,
+    "categoryName": "Arts & Crafts Supplies",
+    "totalResults": 8313,
+    "file": "category-219.json"
+  },
+  {
+    "categoryId": 220,
+    "categoryName": "Building Toys",
+    "totalResults": 6398,
+    "file": "category-220.json"
+  },
+  {
+    "categoryId": 221,
+    "categoryName": "Dolls & Accessories",
+    "totalResults": 7521,
+    "file": "category-221.json"
+  },
+  {
+    "categoryId": 230,
+    "categoryName": "Baby & Toddler Toys",
+    "totalResults": 9020,
+    "file": "category-230.json"
+  },
+  {
+    "categoryId": 231,
+    "categoryName": "Tricycles, Scooters & Wagons",
+    "totalResults": 6890,
+    "file": "category-231.json"
+  },
+  {
+    "categoryId": 232,
+    "categoryName": "Finger Toys",
+    "totalResults": 1883,
+    "file": "category-232.json"
+  },
+  {
+    "categoryId": 233,
+    "categoryName": "Toy Vehicle Playsets",
+    "totalResults": 2634,
+    "file": "category-233.json"
+  },
+  {
+    "categoryId": 234,
+    "categoryName": "Kids' Play Trains & Trams",
+    "totalResults": 526,
+    "file": "category-234.json"
+  },
+  {
+    "categoryId": 235,
+    "categoryName": "Kids' Play Trucks",
+    "totalResults": 2438,
+    "file": "category-235.json"
+  },
+  {
+    "categoryId": 236,
+    "categoryName": "Kids' Play Cars & Race Cars",
+    "totalResults": 4689,
+    "file": "category-236.json"
+  },
+  {
+    "categoryId": 237,
+    "categoryName": "Kids' Play Boats",
+    "totalResults": 438,
+    "file": "category-237.json"
+  },
+  {
+    "categoryId": 238,
+    "categoryName": "Kids' Play Buses",
+    "totalResults": 274,
+    "file": "category-238.json"
+  },
+  {
+    "categoryId": 239,
+    "categoryName": "Kids' Play Tractors",
+    "totalResults": 455,
+    "file": "category-239.json"
+  },
+  {
+    "categoryId": 198,
+    "categoryName": "Sports & Fitness",
+    "totalResults": 6662,
+    "file": "category-198.json"
+  },
+  {
+    "categoryId": 199,
+    "categoryName": "Outdoor Recreation",
+    "totalResults": 3550,
+    "file": "category-199.json"
+  },
+  {
+    "categoryId": 200,
+    "categoryName": "Sports & Outdoors",
+    "totalResults": 2654,
+    "file": "category-200.json"
+  }
+]
