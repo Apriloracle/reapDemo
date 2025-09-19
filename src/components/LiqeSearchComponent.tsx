@@ -18,10 +18,6 @@ const LiqeSearchComponent: React.FC<LiqeSearchComponentProps> = ({ onFilter }) =
         onFilter(results);
 
         // New: Add the search query to the user's profile
-        if (query.trim()) {
-          console.log(`LiqeSearchComponent: Adding search term to profile: "${query}"`);
-          hypervectorProfileStore.addInteraction('search_term', query.trim());
-        }
       }
     }, 300); // 300ms debounce delay
 
