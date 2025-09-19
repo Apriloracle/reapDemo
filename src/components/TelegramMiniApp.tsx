@@ -43,9 +43,7 @@ import ProductDetailPage from '../pages/ProductDetailPage'; // Import the new pa
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
-import CategoryFilter from './CategoryFilter';
-import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
-import { vectorCacheService } from '../services/VectorCacheService';
+
 
 
 // const DAILY_TAP_LIMIT = 9000;
