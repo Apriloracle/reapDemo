@@ -124,8 +124,24 @@ const MainPage: React.FC<MainPageProps> = ({
       setIsLoading(true);
       try {
         // Hardcode categoryId for testing
-        const categoryId = 171; // Assuming 'Amazon' has categoryId 1 from index.json
+        const categoryId = 167; // Assuming 'Amazon' has categoryId 1 from index.json
         const merchantName = "Amazon"; // Hardcode merchant name for display
+
+        // Check if products are already in the store
+        const productsFromStore = await categoryStore.getDisplayProducts(categoryId.toString());
+        if (productsFromStore.length > 0) {
+          setCategoryProducts(prev => ({
+            ...prev,
+            [categoryId.toString()]: productsFromStore
+          }));
+          setRecommendations([{ categoryId: categoryId.toString(), merchantName: "Amazon" }]); // Set a dummy recommendation to trigger display
+          setFilteredProducts(prev => ({
+            ...prev,
+            [categoryId.toString()]: productsFromStore
+          }));
+          setIsLoading(false);
+          return;
+        }
 
         const response = await fetch(`https://productsandsimilarproductsendpoint-50775725716.asia-southeast1.run.app/products?categoryId=${categoryId}&page=1&limit=250`);
         if (!response.ok) {
@@ -148,16 +164,16 @@ const MainPage: React.FC<MainPageProps> = ({
         await categoryStore.addProducts(categoryId.toString(), formattedProducts);
 
         // Retrieve products from the category store
-        const productsFromStore = await categoryStore.getDisplayProducts(categoryId.toString());
+        const newProductsFromStore = await categoryStore.getDisplayProducts(categoryId.toString());
 
         setCategoryProducts(prev => ({
           ...prev,
-          [categoryId.toString()]: productsFromStore
+          [categoryId.toString()]: newProductsFromStore
         }));
         setRecommendations([{ categoryId: categoryId.toString(), merchantName: "Amazon" }]); // Set a dummy recommendation to trigger display
         setFilteredProducts(prev => ({
           ...prev,
-          [categoryId.toString()]: productsFromStore
+          [categoryId.toString()]: newProductsFromStore
         }));
       } catch (error) {
         console.error('Error fetching test products:', error);
@@ -244,16 +260,16 @@ const MainPage: React.FC<MainPageProps> = ({
       />
 
       <div 
-        style={{ display: 'flex', justifyContent: 'center', gap: '1rem', alignItems: 'center', cursor: 'pointer' }}
+        style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', alignItems: 'center', cursor: 'pointer' }}
         onClick={() => navigate('/discovery')}
       >
-        <div style={{ pointerEvents: 'none', flexGrow: 1 }}>
+        <div style={{ pointerEvents: 'none' }}>
+          <CategoryFilter onFilterChange={() => {}} />
+        </div>
+        <div style={{ pointerEvents: 'none' }}>
           <LiqeSearchComponent
             onFilter={() => {}}
           />
-        </div>
-        <div style={{ pointerEvents: 'none' }}>
-          <CategoryFilter onFilterChange={() => {}} />
         </div>
       </div>
       
@@ -1303,3 +1319,4 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
