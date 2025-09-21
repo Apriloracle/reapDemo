@@ -35,6 +35,18 @@ class SimilarProductsStore {
     }
     return [];
   }
+
+  getProductByAsin(asin: string) {
+    const tableNames = this.store.getTableIds();
+    for (const tableName of tableNames) {
+      const table = this.store.getTable(tableName);
+      if (table[asin]) {
+        return table[asin];
+      }
+    }
+    return null;
+  }
 }
 
 export const similarProductsStore = new SimilarProductsStore();
+
