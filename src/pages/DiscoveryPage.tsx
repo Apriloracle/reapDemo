@@ -8,28 +8,44 @@ import { searchService } from '../services/SearchService';
 import { discoveryEngineService } from '../services/DiscoveryEngineService';
 import { graphSearchService } from '../services/GraphSearchService';
 import { Product } from '../lib/types';
+import { discoverySearchStore } from '../stores/DiscoverySearchStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [similarProducts, setSimilarProducts] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     discoveryEngineService.initialize();
+    discoverySearchStore.initialize().then(() => {
+      const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
+      if (cachedProducts.length > 0) {
+        setProducts(cachedProducts);
+      }
+    });
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, []);
 
   const performSearch = async (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+    const cachedProducts = discoverySearchStore.getSearchResults(searchTerm) as unknown as Product[];
+    if (cachedProducts.length > 0) {
+      setProducts(cachedProducts);
+      return;
+    }
+
     // For now, we'll use a placeholder for the user vector.
     // This will be replaced with the actual user profile vector later.
-    const placeholderUserVector = { '1': 1 }; 
+    const placeholderUserVector = { '1': 1 };
     const placeholderUserContext = {};
 
     const topProducts = await searchService.performSemanticSearch(searchTerm);
     setProducts(topProducts);
+    await discoverySearchStore.addSearchResults(searchTerm, topProducts);
 
     const discoveryResults = await discoveryEngineService.discover(
       placeholderUserVector,
@@ -55,8 +71,13 @@ const DiscoveryPage: React.FC = () => {
   return (
     <div className={discoveryStyles.page}>
       <div className={discoveryStyles.searchHeader}>
-        <LiqeSearchComponent ref={searchInputRef} onSearch={performSearch} />
+        <button onClick={() => navigate('/')} className={discoveryStyles.backButton}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
         <CategoryFilter onFilterChange={() => {}} />
+        <LiqeSearchComponent ref={searchInputRef} onSearch={performSearch} />
       </div>
 
       <div style={{ marginTop: '1.5rem' }}>
@@ -70,29 +91,10 @@ const DiscoveryPage: React.FC = () => {
           ))}
         </div>
 
-        {similarProducts.length > 0 && (
-          <div>
-            <h2 className={discoveryStyles.sectionHeader}>Similar Products</h2>
-            <div className={discoveryStyles.productGrid}>
-              {similarProducts.map((product, index) => (
-                <ProductCard
-                  key={product.metadata?.asin || index}
-                  product={{
-                    asin: product.metadata?.asin || `similar-${index}`,
-                    name: product.metadata?.title || `Similar Product ${index + 1}`,
-                    imageUrl: '',
-                    price: product.metadata?.price || 0,
-                    score: product.similarity,
-                  }}
-                  onClick={() => handleProductClick(product.metadata?.asin)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 };
 
 export default DiscoveryPage;
+
