@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from '../styles/ProductDetail.module.css';
+import { similarProductsStore } from '../stores/SimilarProductsStore';
 
 const Navigation: React.FC = () => {
   const location = useLocation();
@@ -127,12 +128,13 @@ const ProductDetailPage = () => {
       setError(null);
 
       try {
-        const response = await fetch(`http://34.87.114.120:3666/product/${asin}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch product details for ASIN: ${asin}`);
+        await similarProductsStore.initialize();
+        const productData = similarProductsStore.getProductByAsin(asin);
+        if (productData) {
+          setProduct(productData);
+        } else {
+          throw new Error(`Product with ASIN: ${asin} not found in local store.`);
         }
-        const productData = await response.json();
-        setProduct(productData);
       } catch (err) {
         console.error('Error fetching product details:', err);
         setError(err instanceof Error ? err.message : String(err));
@@ -158,16 +160,51 @@ const ProductDetailPage = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate(-1)} className={styles.backButton}>
-        &larr; Back
-      </button>
-      <div className={styles.imageContainer}>
-        <img src={product.imgUrl} alt={product.title} className={styles.productImage} />
+      <div className={styles.header}>
+        <button onClick={() => navigate(-1)} className={styles.backButton}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div className={styles.headerIcons}>
+          <button className={styles.iconButton}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+          <button className={styles.iconButton}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div className={styles.productContent}>
+        <div className={styles.imageContainer}>
+          <img src={product.imgUrl} alt={product.title} className={styles.productImage} />
+        </div>
       </div>
       <div className={styles.detailsContainer}>
+        <p className={styles.price}>
+          <span className={styles.dollarSign}>$</span>{product.price}
+        </p>
         <h1 className={styles.title}>{product.title}</h1>
-        <p className={styles.price}>{product.price}</p>
         <p className={styles.brand}>{product.brand}</p>
+        {product.productURL && (
+          <div className={styles.cartContainer}>
+            <a href={product.productURL} target="_blank" rel="noopener noreferrer" className={styles.cartLink}>
+              <svg className={styles.cartIcon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        )}
         <div className={styles.attributes}>
           {product.attributes?.map((attr: string, index: number) => (
             <span key={index} className={styles.attribute}>{attr}</span>
@@ -180,3 +217,4 @@ const ProductDetailPage = () => {
 };
 
 export default ProductDetailPage;
+
