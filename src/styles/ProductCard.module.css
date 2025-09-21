@@ -63,3 +63,22 @@
   color: #A0AEC0;
   padding: 0 0.5rem; /* Add some horizontal padding */
 }
+
+.loadingIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666;
+}
+
+.productPrice {
+  color: #f05e23;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.priceSymbol {
+  font-size: 0.85em;
+  margin-right: 0.3em;
+}
