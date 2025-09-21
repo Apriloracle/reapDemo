@@ -1,0 +1,23 @@
+.pillButton {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #4a4a4a;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.pillButton:hover {
+  background-color: #3a3a3a;
+  border-color: #6a6a6a;
+}
+
+.pillButton.selected {
+  background-color: #f05e23;
+  color: #ffffff;
+  border-color: #f05e23;
+  font-weight: bold;
+}
