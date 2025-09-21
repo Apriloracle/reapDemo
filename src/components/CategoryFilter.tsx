@@ -5,6 +5,7 @@ import categoryIndex from '../data/index.json';
 import { Z512Codebook } from '../config/z512-codebook';
 import { Hypervector } from '../lib/hypervectors';
 import { HypervectorProfileStore } from '../stores/HypervectorProfileStore';
+import styles from '../styles/CategoryFilter.module.css';
 
 interface Category {
   categoryId: number;
@@ -46,46 +47,25 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ onFilterChange }) => {
   const topCategories = categoryIndex.slice(0, 15); // Show a manageable number of categories
 
   return (
-    <div style={{ position: 'relative', marginBottom: '1rem' }}>
+    <div className={styles.categoryFilter}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        style={{
-          padding: '0.5rem 1rem',
-          backgroundColor: '#1a202c',
-          color: '#f05e23',
-          border: '1px solid #f05e23',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          width: '100%',
-        }}
+        className={`${styles.categoryButton} ${selectedCategories.size > 0 ? styles.selected : ''}`}
       >
         {selectedCategories.size > 0
           ? `${selectedCategories.size} Categories Selected`
-          : 'Select Categories'}
+          : 'Categories'}
       </button>
       {isOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          backgroundColor: '#2d3748',
-          border: '1px solid #4A5568',
-          borderRadius: '4px',
-          marginTop: '0.25rem',
-          padding: '0.5rem',
-          zIndex: 10,
-          maxHeight: '200px',
-          overflowY: 'auto',
-        }}>
+        <div className={styles.dropdown}>
           {topCategories.map((category) => (
-            <div key={category.categoryId} style={{ marginBottom: '0.5rem' }}>
-              <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+            <div key={category.categoryId} className={styles.categoryItem}>
+              <label className={styles.categoryLabel}>
                 <input
                   type="checkbox"
                   checked={selectedCategories.has(category.categoryId)}
                   onChange={() => handleCategoryToggle(category.categoryId)}
-                  style={{ marginRight: '0.5rem' }}
+                  className={styles.checkbox}
                 />
                 {category.categoryName}
               </label>
