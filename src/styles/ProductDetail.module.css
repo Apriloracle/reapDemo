@@ -6,14 +6,33 @@
 }
 
 .backButton {
-  background-color: #f05e23;
+  background-color: transparent;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0;
+  border-radius: 0;
   cursor: pointer;
-  margin-bottom: 1rem;
   font-size: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.headerIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+.iconButton {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .imageContainer {
@@ -80,4 +99,23 @@
 .dollarSign {
   font-size: 1.08rem;
   vertical-align: super;
+}
+
+.cartContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.cartLink {
+  color: #f05e23;
+  text-decoration: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: inline-block; /* Ensures padding is applied correctly */
+}
+
+.cartIcon {
+  width: 28px;
+  height: 28px;
 }
