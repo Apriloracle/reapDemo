@@ -1,0 +1,16 @@
+{
+  "searchResultLayout": {
+    "variants": {
+      "A": 50,
+      "B": 50
+    },
+    "description": "Tests two different layouts for the product search results page."
+  },
+  "predictiveSuggestionsUI": {
+    "variants": {
+      "control": 80,
+      "new_design": 20
+    },
+    "description": "Tests a new UI for predictive search suggestions."
+  }
+}
