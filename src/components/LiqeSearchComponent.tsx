@@ -1,50 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { useSearch } from '../contexts/SearchContext';
 
-
 interface LiqeSearchComponentProps {
-  onFilter: (filteredData: any[]) => void;
+  onFilter?: (filteredData: any[]) => void; // Made optional
+  onSearch?: (searchTerm: string) => void; // Added new prop
 }
 
-const LiqeSearchComponent: React.FC<LiqeSearchComponentProps> = ({ onFilter }) => {
+const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onFilter, onSearch }, ref) => {
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const searchService = useSearch();
 
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      if (searchService) {
-        const results = searchService.search(query);
-        onFilter(results);
+  const handleSearch = async () => {
+    const searchTerm = query.trim();
+    if (onSearch && searchTerm) {
+      await onSearch(searchTerm);
+    }
+    if (onFilter && searchService) {
+      const results = searchService.search(query);
+      onFilter(results);
+    }
+  };
 
-        // New: Add the search query to the user's profile
-      }
-    }, 300); // 300ms debounce delay
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent form submission from reloading the page
+      handleSearch();
+    }
+  };
 
-    return () => {
-      clearTimeout(debounceTimer);
-    };
-  }, [query, searchService, onFilter]);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent form submission from reloading the page
+    handleSearch();
+  };
 
   return (
-    <div style={{ marginBottom: '1rem' }}>
+    <form onSubmit={handleSubmit}>
       <input
+        ref={ref}
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         placeholder="Search products..."
         style={{
           padding: '0.5rem',
-          borderRadius: '4px',
+          borderRadius: '20px',
           border: `1px solid ${isFocused ? '#f05e23' : '#ccc'}`,
           width: '250px',
           outline: 'none', // Remove default focus outline
         }}
       />
-    </div>
+    </form>
   );
-};
+});
 
 export default LiqeSearchComponent;
+
