@@ -65,6 +65,44 @@ class CategoryStore {
     return [];
   }
 
+  async fetchProductsByAsins(asins: string[]): Promise<any[]> {
+    if (asins.length === 0) {
+      return [];
+    }
+
+    try {
+      const products = await Promise.all(
+        asins.map(async (asin) => {
+          const response = await fetch(`https://getproductdetails-50775725716.asia-southeast1.run.app/product/${asin}`);
+          if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+          }
+          return response.json();
+        })
+      );
+
+      // Assuming the API returns an array of products, group them by category
+      const productsByCategory: { [key: string]: any[] } = {};
+      for (const product of products) {
+        const categoryId = product.category_id || 'unknown';
+        if (!productsByCategory[categoryId]) {
+          productsByCategory[categoryId] = [];
+        }
+        productsByCategory[categoryId].push(product);
+      }
+
+      // Add the fetched products to the store
+      for (const categoryId in productsByCategory) {
+        await this.addProducts(categoryId, productsByCategory[categoryId]);
+      }
+
+      return products;
+    } catch (error) {
+      console.error('Failed to fetch products by ASINs:', error);
+      return [];
+    }
+  }
+
   async getDisplayProducts(categoryId: string, limit = 60): Promise<any[]> {
     const cachedProducts = this.store.getTable(`products-${categoryId}`);
     if (cachedProducts) {
@@ -100,3 +138,4 @@ class CategoryStore {
 }
 
 export const categoryStore = new CategoryStore();
+
