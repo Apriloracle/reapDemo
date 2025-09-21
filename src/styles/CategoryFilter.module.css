@@ -1,0 +1,62 @@
+.categoryFilter {
+  position: relative;
+}
+
+.categoryButton {
+  padding: 0.5rem 1rem;
+  background-color: #0d0d0d;
+  color: #fff;
+  border: 1px solid #f05e23;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.categoryButton:hover {
+  background-color: #e0e0e0;
+}
+
+.categoryButton.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.categoryItem {
+  margin-bottom: 0.25rem;
+}
+
+.categoryLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.categoryLabel:hover {
+  background-color: #f55e07;
+}
+
+.checkbox {
+  margin-right: 0.75rem;
+}
