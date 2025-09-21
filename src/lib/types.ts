@@ -45,3 +45,13 @@ export enum HyperplaneJsonKey {
     w = 'w',
     b = 'b',
 }
+
+export interface Product {
+  asin: string;
+  name: string;
+  imageUrl?: string;
+  price?: number;
+  score?: number;
+  vector?: Record<string, number>;
+}
+
