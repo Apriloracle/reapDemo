@@ -52,6 +52,12 @@ class CategoryStore {
     await this.persister.save();
   }
 
+  async addProductsByCategory(productsByCategory: { [key: string]: any[] }) {
+    for (const categoryId in productsByCategory) {
+      await this.addProducts(categoryId, productsByCategory[categoryId]);
+    }
+  }
+
   async getProducts(categoryId: string, forceRefresh = false): Promise<any[]> {
     // Check cache first
     if (!forceRefresh && this.isCacheValid(categoryId)) {
@@ -135,7 +141,23 @@ class CategoryStore {
     }
     return allProducts;
   }
+
+  async getRandomProducts(limit = 20): Promise<any[]> {
+    const allProducts: any[] = [];
+    for (const tableId of this.store.getTableIds()) {
+      if (tableId.startsWith('products-')) {
+        const productsTable = this.store.getTable(tableId);
+        if (productsTable) {
+          allProducts.push(...Object.values(productsTable));
+        }
+      }
+    }
+
+    const shuffled = [...allProducts].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, limit);
+  }
 }
 
 export const categoryStore = new CategoryStore();
+
 
