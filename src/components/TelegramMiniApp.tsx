@@ -268,7 +268,7 @@ const MainPage: React.FC<MainPageProps> = ({
         </div>
         <div style={{ pointerEvents: 'none' }}>
           <LiqeSearchComponent
-            onFilter={() => {}}
+            onSearch={() => {}}
           />
         </div>
       </div>
