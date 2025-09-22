@@ -40,7 +40,7 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ flexGrow: 1 }}>
       <input
         ref={ref}
         type="text"
@@ -54,8 +54,9 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
           padding: '0.5rem',
           borderRadius: '20px',
           border: `1px solid ${isFocused ? '#f05e23' : '#ccc'}`,
-          width: '250px',
+          width: '100%',
           outline: 'none', // Remove default focus outline
+          boxSizing: 'border-box',
         }}
       />
     </form>
@@ -63,5 +64,6 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
 });
 
 export default LiqeSearchComponent;
+
 
 
