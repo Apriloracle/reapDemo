@@ -123,25 +123,35 @@ const MainPage: React.FC<MainPageProps> = ({
     const fetchTestProducts = async () => {
       setIsLoading(true);
       try {
-        // Hardcode categoryId for testing
-        const categoryId = 167; // Assuming 'Amazon' has categoryId 1 from index.json
-        const merchantName = "Amazon"; // Hardcode merchant name for display
+        // First, try to get random products from the store
+        const randomProducts = await categoryStore.getRandomProducts(54);
+        if (randomProducts.length > 0) {
+          const formattedProducts = randomProducts.map((p: any) => ({
+            ...p,
+            name: p.name || p.title,
+            imageUrl: p.imageUrl || p.imgUrl,
+          }));
 
-        // Check if products are already in the store
-        const productsFromStore = await categoryStore.getDisplayProducts(categoryId.toString());
-        if (productsFromStore.length > 0) {
-          setCategoryProducts(prev => ({
-            ...prev,
-            [categoryId.toString()]: productsFromStore
-          }));
-          setRecommendations([{ categoryId: categoryId.toString(), merchantName: "Amazon" }]); // Set a dummy recommendation to trigger display
-          setFilteredProducts(prev => ({
-            ...prev,
-            [categoryId.toString()]: productsFromStore
-          }));
+          const productsByCategory: { [key: string]: any[] } = {};
+          const recommendations: any[] = [];
+          for (const product of formattedProducts) {
+            const categoryId = product.categoryId || 'unknown';
+            if (!productsByCategory[categoryId]) {
+              productsByCategory[categoryId] = [];
+              recommendations.push({ categoryId, merchantName: product.category || 'Unknown' });
+            }
+            productsByCategory[categoryId].push(product);
+          }
+          setCategoryProducts(productsByCategory);
+          setRecommendations(recommendations);
+          setFilteredProducts(productsByCategory);
           setIsLoading(false);
           return;
         }
+
+        // If no random products, fall back to fetching test products
+        const categoryId = 167; // Assuming 'Amazon' has categoryId 1 from index.json
+        const merchantName = "Amazon"; // Hardcode merchant name for display
 
         const response = await fetch(`https://productsandsimilarproductsendpoint-50775725716.asia-southeast1.run.app/products?categoryId=${categoryId}&page=1&limit=250`);
         if (!response.ok) {
@@ -170,7 +180,7 @@ const MainPage: React.FC<MainPageProps> = ({
           ...prev,
           [categoryId.toString()]: newProductsFromStore
         }));
-        setRecommendations([{ categoryId: categoryId.toString(), merchantName: "Amazon" }]); // Set a dummy recommendation to trigger display
+        setRecommendations([{ categoryId: categoryId.toString(), merchantName: "" }]); // Set a dummy recommendation to trigger display
         setFilteredProducts(prev => ({
           ...prev,
           [categoryId.toString()]: newProductsFromStore
@@ -296,14 +306,6 @@ const MainPage: React.FC<MainPageProps> = ({
         ) : (
           recommendations.map((deal) => (
             <div key={deal.categoryId} style={{ marginBottom: '2rem' }}>
-              <h3 style={{ 
-                color: '#f05e23', 
-                marginBottom: '1rem',
-                fontSize: '1.2rem',
-                fontWeight: 'bold'
-              }}>
-                {deal.merchantName}
-              </h3>
               <div style={{ 
                 display: 'grid', 
                 gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', 
@@ -1319,4 +1321,5 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
 
