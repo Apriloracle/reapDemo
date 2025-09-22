@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { similarProductsStore } from '../stores/SimilarProductsStore';
+import { categoryStore } from '../stores/CategoryStore';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
 import { graphSearchService } from '../services/GraphSearchService';
 import styles from '../styles/ProductCard.module.css';
@@ -66,6 +67,16 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
         setSimilarProducts(validProducts);
         if (asin) {
           await similarProductsStore.addSimilarProducts(asin, validProducts);
+          // Also cache in categoryStore
+          const productsByCategory: { [key: string]: any[] } = {};
+          for (const product of validProducts) {
+            const categoryId = product.categoryId || 'unknown';
+            if (!productsByCategory[categoryId]) {
+              productsByCategory[categoryId] = [];
+            }
+            productsByCategory[categoryId].push(product);
+          }
+          await categoryStore.addProductsByCategory(productsByCategory);
         }
         
       } catch (err) {
