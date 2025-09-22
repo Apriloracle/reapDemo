@@ -1,24 +1,29 @@
-import React, { useState, forwardRef } from 'react';
-import { useSearch } from '../contexts/SearchContext';
+import React, { useState, forwardRef, useEffect } from 'react';
 
 interface LiqeSearchComponentProps {
-  onFilter?: (filteredData: any[]) => void; // Made optional
-  onSearch?: (searchTerm: string) => void; // Added new prop
+  onSearch?: (searchTerm: string) => void;
 }
 
-const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onFilter, onSearch }, ref) => {
+const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onSearch }, ref) => {
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const searchService = useSearch();
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (query) {
+        handleSearch();
+      }
+    }, 300); // 300ms debounce
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [query]);
 
   const handleSearch = async () => {
     const searchTerm = query.trim();
     if (onSearch && searchTerm) {
       await onSearch(searchTerm);
-    }
-    if (onFilter && searchService) {
-      const results = searchService.search(query);
-      onFilter(results);
     }
   };
 
@@ -58,4 +63,5 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
 });
 
 export default LiqeSearchComponent;
+
 
