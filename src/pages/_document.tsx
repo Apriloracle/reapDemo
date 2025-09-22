@@ -6,6 +6,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
           <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js" defer />
           <link rel="manifest" href="/manifest.json" />
         </Head>
@@ -25,7 +26,7 @@ class MyDocument extends Document {
               gtag('config', 'G-RNVC517N8T');
             `}
           </Script>
-          <script src="/src/install-tracking.js" defer />
+          
         </body>
       </Html>
     );
