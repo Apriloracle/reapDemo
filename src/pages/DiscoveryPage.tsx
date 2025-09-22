@@ -52,8 +52,10 @@ const DiscoveryPage: React.FC = () => {
     setKeywordProducts(keywordResults);
     setServerProducts(serverResults);
 
-    // Cache semantic search results
-    await discoverySearchStore.addSearchResults(searchTerm, semanticResults);
+    // Cache all search results
+    const allResults = [...semanticResults, ...keywordResults, ...serverResults];
+    const uniqueResults = Array.from(new Map(allResults.map(p => [p.asin, p])).values());
+    await discoverySearchStore.addSearchResults(searchTerm, uniqueResults);
   };
 
   const handleProductClick = (asin: string) => {
@@ -102,4 +104,5 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
