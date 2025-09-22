@@ -112,7 +112,7 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
           </svg>
         </button>
         <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
-          <LiqeSearchComponent onFilter={() => {}} />
+          <LiqeSearchComponent onSearch={() => {}} />
         </div>
       </div>
       <h2 style={{ color: '#f05e23', marginBottom: '1rem' }}>Similar Products</h2>
