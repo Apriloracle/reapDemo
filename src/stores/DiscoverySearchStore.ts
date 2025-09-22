@@ -25,13 +25,19 @@ class DiscoverySearchStore {
     });
 
     this.store.setTable(`search-${searchTerm}`, productsTable);
+    this.store.setValue(`timestamp-${searchTerm}`, Date.now());
     await this.persister.save();
   }
 
   getSearchResults(searchTerm: string) {
-    const cachedProducts = this.store.getTable(`search-${searchTerm}`);
-    if (cachedProducts) {
-      return Object.values(cachedProducts);
+    const timestamp = this.store.getValue(`timestamp-${searchTerm}`) as number;
+    const oneHour = 60 * 60 * 1000;
+
+    if (timestamp && (Date.now() - timestamp < oneHour)) {
+      const cachedProducts = this.store.getTable(`search-${searchTerm}`);
+      if (cachedProducts) {
+        return Object.values(cachedProducts);
+      }
     }
     return [];
   }
