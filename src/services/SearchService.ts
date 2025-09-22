@@ -127,7 +127,7 @@ class SearchService {
         return {
           asin: result.asin,
           name: details?.title || result.name,
-          imageUrl: details?.imgUrl || '',
+          imageUrl: details?.imageUrl || '',
           price: details?.price || 0,
         };
       })
@@ -143,7 +143,11 @@ class SearchService {
         throw new Error('Network response was not ok');
       }
       const products = await response.json();
-      return products;
+      return products.map((p: any) => ({
+        ...p,
+        name: p.title,
+        imageUrl: p.imgUrl,
+      }));
     } catch (error) {
       console.error('Error fetching server search results:', error);
       return [];
@@ -152,4 +156,5 @@ class SearchService {
 }
 
 export const searchService = new SearchService();
+
 
