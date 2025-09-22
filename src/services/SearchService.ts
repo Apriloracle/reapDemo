@@ -14,8 +14,8 @@ interface Product {
 }
 
 class SearchService {
-  public async performSearch(searchTerm: string): Promise<Product[]> {
-    console.log(`Performing search for: ${searchTerm}`);
+  public async performKeywordSearch(searchTerm: string): Promise<Product[]> {
+    console.log(`Performing keyword search for: ${searchTerm}`);
 
     // 1. Generate query vector
     const queryWords = searchTerm.toLowerCase().split(' ');
@@ -136,19 +136,20 @@ class SearchService {
     return finalProducts;
   }
 
-  /**
-   * Synchronous search method for backward compatibility.
-   * NOTE: This is a temporary wrapper. The UI should ideally
-   * handle the async nature of performSearch.
-   */
-  public search(searchTerm: string): Product[] {
-    console.log(`Legacy search called for: ${searchTerm}`);
-    // This is not ideal as it swallows the async nature.
-    // The calling component will not get results back from this.
-    // It's primarily to prevent crashes from components expecting a sync method.
-    this.performSearch(searchTerm);
-    return []; // Return empty array as we can't wait for async results here.
+  public async performServerKeywordSearch(searchTerm: string): Promise<Product[]> {
+    try {
+      const response = await fetch(`https://productsearchproxy-50775725716.asia-southeast1.run.app/search?q=${searchTerm}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const products = await response.json();
+      return products;
+    } catch (error) {
+      console.error('Error fetching server search results:', error);
+      return [];
+    }
   }
 }
 
 export const searchService = new SearchService();
+
