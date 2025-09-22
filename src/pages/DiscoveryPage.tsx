@@ -14,15 +14,22 @@ const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [keywordProducts, setKeywordProducts] = useState<Product[]>([]);
+  const [serverProducts, setServerProducts] = useState<Product[]>([]);
   const [similarProducts, setSimilarProducts] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const shuffleAndLimit = (array: Product[], limit: number) => {
+    const shuffled = [...array].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, limit);
+  };
 
   useEffect(() => {
     discoveryEngineService.initialize();
     discoverySearchStore.initialize().then(() => {
       const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
       if (cachedProducts.length > 0) {
-        setProducts(cachedProducts);
+        setProducts(shuffleAndLimit(cachedProducts, 20));
       }
     });
     if (searchInputRef.current) {
@@ -32,29 +39,21 @@ const DiscoveryPage: React.FC = () => {
 
   const performSearch = async (searchTerm: string) => {
     setSearchTerm(searchTerm);
-    const cachedProducts = discoverySearchStore.getSearchResults(searchTerm) as unknown as Product[];
-    if (cachedProducts.length > 0) {
-      setProducts(cachedProducts);
-      return;
-    }
 
-    // For now, we'll use a placeholder for the user vector.
-    // This will be replaced with the actual user profile vector later.
-    const placeholderUserVector = { '1': 1 };
-    const placeholderUserContext = {};
+    // Perform all three searches in parallel
+    const [semanticResults, keywordResults, serverResults] = await Promise.all([
+      searchService.performSemanticSearch(searchTerm),
+      searchService.performKeywordSearch(searchTerm),
+      searchService.performServerKeywordSearch(searchTerm)
+    ]);
 
-    const topProducts = await searchService.performSemanticSearch(searchTerm);
-    setProducts(topProducts);
-    await discoverySearchStore.addSearchResults(searchTerm, topProducts);
+    // Update state with results
+    setProducts(semanticResults);
+    setKeywordProducts(keywordResults);
+    setServerProducts(serverResults);
 
-    const discoveryResults = await discoveryEngineService.discover(
-      placeholderUserVector,
-      placeholderUserContext
-    );
-
-    if (discoveryResults.discoveries.similar_products) {
-      setSimilarProducts(discoveryResults.discoveries.similar_products.similarProducts);
-    }
+    // Cache semantic search results
+    await discoverySearchStore.addSearchResults(searchTerm, semanticResults);
   };
 
   const handleProductClick = (asin: string) => {
@@ -68,21 +67,27 @@ const DiscoveryPage: React.FC = () => {
     }
   };
 
+  const uniqueProducts = Array.from(new Map([...products, ...keywordProducts, ...serverProducts].map(p => [p.asin, p])).values());
+  const displayedProducts = shuffleAndLimit(uniqueProducts, 20);
+
   return (
     <div className={discoveryStyles.page}>
       <div className={discoveryStyles.searchHeader}>
         <button onClick={() => navigate('/')} className={discoveryStyles.backButton}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
         <CategoryFilter onFilterChange={() => {}} />
-        <LiqeSearchComponent ref={searchInputRef} onSearch={performSearch} />
+        <LiqeSearchComponent 
+          ref={searchInputRef} 
+          onSearch={performSearch} 
+        />
       </div>
 
       <div style={{ marginTop: '1.5rem' }}>
         <div className={discoveryStyles.productGrid}>
-          {products.map((product) => (
+          {displayedProducts.map((product) => (
             <ProductCard
               key={product.asin}
               product={product}
