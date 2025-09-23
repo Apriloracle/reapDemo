@@ -1,3 +1,5 @@
+import { Metadata } from 'next'; // Add this import
+
 export async function generateMetadata(): Promise<Metadata> {
     return {
         other: {
@@ -17,4 +19,4 @@ export async function generateMetadata(): Promise<Metadata> {
         }),
         },
     };
-    }
+}
