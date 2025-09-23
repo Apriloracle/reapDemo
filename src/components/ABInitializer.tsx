@@ -9,6 +9,7 @@ interface ABInitializerProps {
   children: ReactNode;
 }
 
+
 export const ABInitializer = ({ children }: ABInitializerProps) => {
   const { setAssignments } = useExperiment();
   const [isInitialized, setIsInitialized] = useState(false);
