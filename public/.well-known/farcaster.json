@@ -1,11 +1,11 @@
 {
-  "accountAssociation": {  // these will be added in step 5
+  "accountAssociation": { 
     "header": "",
     "payload": "",
     "signature": ""
   },
   "baseBuilder": {
-    "allowedAddresses": ["0x8f9A95775B64C1df8064D2d194A460F93945e17e"] // add your Base Account address here
+    "allowedAddresses": ["0x8f9A95775B64C1df8064D2d194A460F93945e17e"] 
   },
   "miniapp": {
     "version": "1",
