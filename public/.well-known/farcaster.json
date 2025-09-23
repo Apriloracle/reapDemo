@@ -1,0 +1,34 @@
+{
+  "accountAssociation": {  // these will be added in step 5
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "baseBuilder": {
+    "allowedAddresses": ["0x8f9A95775B64C1df8064D2d194A460F93945e17e"] // add your Base Account address here
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Reap",
+    "homeUrl": "https://reap.deals",
+    "iconUrl": "https://reap.deals/192x192.png",
+    "splashImageUrl": "https://reap.deals/512x512.png",
+    "splashBackgroundColor": "#ffffff",
+    "webhookUrl": "",
+    "subtitle": "Effortless Savings",
+    "description": "Save money on everyday purchases, instantly",
+    "screenshotUrls": [
+      "",
+      "",
+      ""
+    ],
+    "primaryCategory": "shopping",
+    "tags": ["deals", "miniapp", "baseapp", "save", "shopping", "fast"],
+    "heroImageUrl": "https://reap.deals/og.png",
+    "tagline": "Effortless Savings",
+    "ogTitle": "Reap",
+    "ogDescription": "Save money on everyday purchases, instantly",
+    "ogImageUrl": "https://reap.deals/og.png",
+    "noindex": true
+  }
+}
