@@ -30,6 +30,6 @@
     "ogTitle": "Reap",
     "ogDescription": "Save money on everyday purchases, instantly",
     "ogImageUrl": "https://reap.deals/og.png",
-    "noindex": true
+    "noindex": false
   }
 }
