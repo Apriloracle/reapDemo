@@ -25,11 +25,11 @@
     ],
     "primaryCategory": "shopping",
     "tags": ["deals", "miniapp", "baseapp", "save", "shopping"],
-    "heroImageUrl": "https://reap.deals/og.png",
+    "heroImageUrl": "https://reap.deals/1200x630.png",
     "tagline": "Effortless Savings",
     "ogTitle": "Reap",
     "ogDescription": "Save money on everyday purchases, instantly",
-    "ogImageUrl": "https://reap.deals/og.png",
+    "ogImageUrl": "https://reap.deals/1200x630.png",
     "noindex": false
   }
 }
