@@ -5,7 +5,7 @@ export async function generateMetadata(): Promise<Metadata> {
         other: {
         'fc:miniapp': JSON.stringify({
             version: 'next',
-            imageUrl: 'https://reap.deals/embed-image.png',
+            imageUrl: 'https://reap.deals/embed-image',
             button: {
                 title: `launch Reap`,
                 action: {
