@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
                     type: 'launch_miniapp',
                     name: 'Reap',
                     url: 'https://reap.deals',
-                    splashImageUrl: 'https://reap.deals/512x512.png',
+                    splashImageUrl: 'https://reap.deals/200x200.png',
                     splashBackgroundColor: '#ffffff',
                 },
             },
