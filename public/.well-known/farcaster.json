@@ -8,7 +8,7 @@
   "baseBuilder": {
     "allowedAddresses": ["0x31AB637bD325b4BF5018b39DD155681D03348189"]
   },
-  "miniapp": {
+  "frame": {
     "version": "1",
     "name": "Reap",
     "homeUrl": "https://reap.deals",
