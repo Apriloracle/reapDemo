@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { dataProbeService } from '../services/DataProbeService';
-import { DataProbeTransferService } from '../services/DataProbeTransferService';
 import { similarProductsStore } from '../stores/SimilarProductsStore';
 import { categoryStore } from '../stores/CategoryStore';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
