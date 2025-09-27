@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { dataProbeService } from '../services/DataProbeService';
+import { DataProbeTransferService } from '../services/DataProbeTransferService';
 import { similarProductsStore } from '../stores/SimilarProductsStore';
 import { categoryStore } from '../stores/CategoryStore';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
@@ -19,6 +21,10 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
   const [error, setError] = useState<string | null>(null);
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const [storeUpdate, setStoreUpdate] = useState(0);
+
+  useEffect(() => {
+    DataProbeTransferService.getInstance();
+  }, []);
 
   useEffect(() => {
     const fetchSimilarProducts = async () => {
@@ -62,7 +68,7 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
         );
         
         const productsDetails = await Promise.all(productDetailsPromises);
-        const validProducts = productsDetails.filter(p => p);
+        const validProducts = productsDetails.filter(p => p && p.price > 0);
         
         setSimilarProducts(validProducts);
         if (asin) {
@@ -98,10 +104,16 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
   };
 
   const handleProductInteraction = (product: any, interactionType: 'click' | 'view') => {
-    console.log(`Product ${product.asin} interacted: ${interactionType}`);
+    const interactionString = `Product ${product.asin} interacted: ${interactionType}`;
+    console.log(interactionString);
+    dataProbeService.runProbe(interactionString);
     if (interactionType === 'click') {
       navigate(`/products/${product.asin}`);
     }
+  };
+
+  const handleSearch = () => {
+    navigate('/discovery');
   };
 
   return (
@@ -118,12 +130,12 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
             cursor: 'pointer',
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
-        <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
-          <LiqeSearchComponent onSearch={() => {}} />
+        <div style={{ flexGrow: 1, marginLeft: '1rem' }} onClick={handleSearch}>
+          <LiqeSearchComponent onSearch={handleSearch} />
         </div>
       </div>
       <h2 style={{ color: '#f05e23', marginBottom: '1rem' }}>Similar Products</h2>
@@ -207,3 +219,4 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
 };
 
 export default SimilarProductsComponent;
+
