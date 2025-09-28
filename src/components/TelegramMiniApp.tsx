@@ -1,3 +1,4 @@
+import { sdk } from '@farcaster/miniapp-sdk';
 import React, { useEffect, useState, useRef, useContext, useMemo } from 'react'
 import { ConnectKitButton } from 'connectkit';
 import { useAccount } from 'wagmi'
@@ -6,7 +7,6 @@ import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { createYjsPersister } from 'tinybase/persisters/persister-yjs';
 import { Doc } from 'yjs';
 import WebApp from '@twa-dev/sdk'
-import { sdk as FarcasterSDK } from '@farcaster/miniapp-sdk'; // <-- ADDED FOR FARCASTER
 import { LocalWallet } from "@thirdweb-dev/wallets";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
@@ -127,7 +127,7 @@ const MainPage: React.FC<MainPageProps> = ({
         // First, try to get random products from the store
         const randomProducts = await categoryStore.getRandomProducts(54);
         if (randomProducts.length > 0) {
-          const formattedProducts = randomProducts.map((p: any) => ({
+          const formattedProducts = randomProducts.filter((p: any) => p.price > 0).map((p: any) => ({
             ...p,
             name: p.name || p.title,
             imageUrl: p.imageUrl || p.imgUrl,
@@ -165,7 +165,7 @@ const MainPage: React.FC<MainPageProps> = ({
           return;
         }
 
-        const formattedProducts = responseData.data.map((p: any) => ({
+        const formattedProducts = responseData.data.filter((p: any) => p.price > 0).map((p: any) => ({
           ...p,
           name: p.title,
           imageUrl: p.imgUrl, // Use imgUrl from the provided data structure
@@ -438,6 +438,10 @@ const TelegramMiniApp: React.FC = () => {
   const [wsProvider, setWsProvider] = useState<WebsocketProvider | null>(null);
 
   useEffect(() => {
+    sdk.actions.ready();
+  }, []);
+
+  useEffect(() => {
     const initializeRecommendationNode = async () => {
       const ydoc = new Y.Doc();
       const provider = new WebsocketProvider(getRandomWebSocketURL(), '', ydoc);
@@ -620,6 +624,25 @@ const TelegramMiniApp: React.FC = () => {
       if (!walletAddress) {
         throw new Error("No wallet connected");
       }
+
+      // Comment out the API call
+      /*
+      const response = await fetch('https://us-central1-fourth-buffer-421320.cloudfunctions.net/handleTapProxy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ address: walletAddress }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to process the tap');
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+      */
       
       // Keep the rest of the functionality
       const currentScore = clickStore.getCell('stats', 'clicks', 'count') as number;
@@ -637,94 +660,63 @@ const TelegramMiniApp: React.FC = () => {
       if (Math.random() < 0.01) {
         setShowSurvey(true);
       }
+      /*
+      } else {
+        throw new Error(result.message || 'Unknown error occurred');
+      }
+      */
+
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
       console.error('Error processing tap:', err);
     }
   };
 
-  // ========================================================================
-  // =====> START: MODIFIED useEffect FOR PLATFORM INITIALIZATION <=========
-  // ========================================================================
+  // Modify the existing useEffect hook to remove daily tap loading
   useEffect(() => {
-    const initializePlatform = async () => {
-      // Check if we are inside a Farcaster client
-      // The `window.farcaster.isFrame` check is a common pattern.
-      if ((window as any).farcaster?.isFrame) {
-        console.log('Initializing for Farcaster Mini App...');
-        try {
-          FarcasterSDK.actions.ready();
-          console.log('Farcaster SDK is ready.');
-          
-          // Use PeerDID as the identity/login mechanism for Farcaster users
+    const initWebApp = async () => {
+      try {
+        setWebApp(WebApp);
+        WebApp.ready();
+        WebApp.expand();
+
+        const searchParams = new URLSearchParams(WebApp.initData);
+        const userDataStr = searchParams.get('user');
+        
+        if (userDataStr) {
+          const userData = JSON.parse(userDataStr);
+          setUserId(userData.id.toString());
+          console.log('User ID:', userData.id);
+          // Automatically log in the user
+          handleLogin(userData.id.toString(), 'telegram');
+        } else {
+          console.log('User data not found in initData, falling back to Peer:DID');
+          // Check for existing Peer:DID first
           let peerDID = await getPeerDID();
+          
           if (!peerDID) {
+            // If no Peer:DID exists, generate one
             await generateAndStorePeerDID();
+            // Get the newly generated Peer:DID
             peerDID = await getPeerDID();
           }
-          if (peerDID) {
-            handleLogin(peerDID, 'peerDID');
-          } else {
-             console.error('Failed to generate or retrieve Peer:DID for Farcaster session.');
-             setError("Unable to initialize user data. Please try reloading the app.");
-          }
-        } catch (error) {
-          console.error('Failed to initialize Farcaster SDK:', error);
-        }
-      }
-      // Check if we are inside the Telegram Web App
-      else if (WebApp.platform !== 'unknown') {
-        console.log('Initializing for Telegram Web App...');
-        try {
-          setWebApp(WebApp);
-          WebApp.ready();
-          WebApp.expand();
 
-          const searchParams = new URLSearchParams(WebApp.initData);
-          const userDataStr = searchParams.get('user');
-          
-          if (userDataStr) {
-            const userData = JSON.parse(userDataStr);
-            setUserId(userData.id.toString());
-            handleLogin(userData.id.toString(), 'telegram');
-          } else {
-            console.log('User data not found in TWA initData, falling back to Peer:DID');
-            let peerDID = await getPeerDID();
-            if (!peerDID) {
-              await generateAndStorePeerDID();
-              peerDID = await getPeerDID();
-            }
-            if (peerDID) {
-                handleLogin(peerDID, 'peerDID');
-            } else {
-                setError("Unable to initialize user data. Please try reloading the app.");
-            }
-          }
-        } catch (error) {
-          console.error('Failed to initialize Telegram WebApp:', error);
-        }
-      }
-      // Fallback for standard web browser
-      else {
-        console.log('Running in a standard web browser or unknown environment.');
-        // Your existing PeerDID logic is the perfect fallback
-        let peerDID = await getPeerDID();
-        if (!peerDID) {
-          await generateAndStorePeerDID();
-          peerDID = await getPeerDID();
-        }
-        if (peerDID) {
+          if (peerDID) {
+            console.log('Using Peer:DID for login:', peerDID);
             handleLogin(peerDID, 'peerDID');
-        } else {
+          } else {
+            console.error('Failed to generate or retrieve Peer:DID');
             setError("Unable to initialize user data. Please try reloading the app.");
+          }
         }
+      } catch (error) {
+        console.error('Failed to initialize WebApp:', error);
       }
     };
 
-    initializePlatform();
+    initWebApp();
     loadPersistedData();
 
-    // The rest of your setup logic remains here
     clickStore.setTables({
       stats: { clicks: { count: 0 } }
     });
@@ -744,6 +736,7 @@ const TelegramMiniApp: React.FC = () => {
       'count',
       (_, __, ___, ____, newValue) => {
         setScore(newValue as number);
+        console.log('Score updated:', newValue);
         clickPersister.save().catch(console.error);
       }
     );
@@ -754,6 +747,7 @@ const TelegramMiniApp: React.FC = () => {
       'count',
       (_, __, ___, ____, newValue) => {
         setShares(newValue as number);
+        console.log('Shares updated:', newValue);
         sharePersister.save().catch(console.error);
       }
     );
@@ -773,6 +767,7 @@ const TelegramMiniApp: React.FC = () => {
       (_, __, ___, ____, newValue) => {
         const newDisplayValue = aprilBalanceStore.getCell('balance', 'april', 'displayValue') as string;
         setAprilBalance({ value: newValue as string, displayValue: newDisplayValue, display: newDisplayValue });
+        console.log('APRIL balance updated:', newValue);
         aprilBalancePersister.save().catch(console.error);
       }
     );
@@ -782,24 +777,41 @@ const TelegramMiniApp: React.FC = () => {
       const walletAddress = localWalletAddress || address;
       if (walletAddress) {
         try {
-          const response = await fetch(`https://us-central1-fourth-buffer-421320.cloudfunctions.net/getAprilBalances?address=${walletAddress}`);
+          const response = await fetch(`https://us-central1-fourth-buffer-421320.cloudfunctions.net/getAprilBalances?address=${walletAddress}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-          if (!response.ok) throw new Error('Failed to fetch APRIL balance');
+          if (!response.ok) {
+            throw new Error('Failed to fetch APRIL balance');
+          }
 
           const data = await response.json();
+          
+          // Extract display values from both chains
           const chain42220Value = parseFloat(data.chain42220.result.displayValue);
           const chain137Value = parseFloat(data.chain137.result.displayValue);
+          
+          // Add the values together
           const totalDisplayValue = chain42220Value + chain137Value;
           
+          // Log the total balance
+          console.log('Total APRIL balance:', totalDisplayValue.toString());
+
+          // Update the state with the total balance
           setAprilBalance({ 
-            value: totalDisplayValue.toString(),
+            value: (chain42220Value + chain137Value).toString(),
             displayValue: totalDisplayValue.toFixed(18),
             display: totalDisplayValue.toFixed(18)
           });
 
-          aprilBalanceStore.setCell('balance', 'april', 'value', totalDisplayValue.toString());
+          // Update the store with the total balance
+          aprilBalanceStore.setCell('balance', 'april', 'value', (chain42220Value + chain137Value).toString());
           aprilBalanceStore.setCell('balance', 'april', 'displayValue', totalDisplayValue.toFixed(18));
 
+          // Update the Celo and Polygon balances
           setCeloAprilBalance(chain42220Value.toFixed(18));
           setPolygonAprilBalance(chain137Value.toFixed(18));
         } catch (error) {
@@ -809,38 +821,73 @@ const TelegramMiniApp: React.FC = () => {
     };
 
     fetchAprilBalance();
-    const balanceInterval = setInterval(fetchAprilBalance, 60000);
+    // Set up an interval to fetch APRIL balance periodically (e.g., every 60 seconds)
+    const intervalId = setInterval(fetchAprilBalance, 60000);
 
     const fetchAprilPrice = async () => {
       try {
-        const response = await fetch('https://us-central1-fourth-buffer-421320.cloudfunctions.net/getAprilPrice');
-        if (!response.ok) throw new Error('Failed to fetch APRIL price');
-        const rawData = await response.text();
+        const response = await fetch('https://us-central1-fourth-buffer-421320.cloudfunctions.net/getAprilPrice', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error('Failed to fetch APRIL price');
+        }
+    
+        const rawData = await response.text(); // Get the response as text
+        console.log('Raw API response:', rawData); // Log the raw response
+
+        // Try to parse the response as JSON, if it fails, assume it's a plain number
         let data;
         try {
           data = JSON.parse(rawData);
         } catch (e) {
+          // If parsing fails, assume the response is a plain number
           data = parseFloat(rawData.replace('Current April price: ', '').trim());
         }
+
         let price: number;
-        if (typeof data === 'number') {
+        if (typeof data === 'string') {
+          price = parseFloat(data);
+        } else if (typeof data === 'number') {
           price = data;
+        } else if (typeof data === 'object' && data !== null) {
+          // If the response is an object, try to find a numeric property
+          const numericValue = Object.values(data).find(value => typeof value === 'number');
+          if (numericValue !== undefined) {
+            price = numericValue;
+          } else {
+            throw new Error('Unexpected response format');
+          }
         } else {
-          throw new Error('Unexpected price format');
+          throw new Error('Unexpected response format');
         }
-        if (isNaN(price)) throw new Error('Invalid price value');
-        const formattedPrice = price.toFixed(6);
+
+        if (isNaN(price)) {
+          throw new Error('Invalid price value');
+        }
+
+        const formattedPrice = price.toFixed(6); // Format to 6 decimal places
+        console.log('Parsed APRIL USD Price:', formattedPrice); // Log the parsed price
+
         aprilPriceStore.setCell('price', 'APRIL', 'usd', formattedPrice);
         aprilPriceStore.setCell('price', 'APRIL', 'lastFetchTime', Date.now());
         await aprilPricePersister.save();
         setAprilUsdPrice(parseFloat(formattedPrice));
       } catch (error) {
         console.error('Error fetching APRIL price:', error);
+        // If there's an error, we'll use the last stored price if available
         const storedPrice = aprilPriceStore.getCell('price', 'APRIL', 'usd') as string | undefined;
         if (storedPrice) {
           setAprilUsdPrice(parseFloat(storedPrice));
+          console.log('Using stored APRIL USD Price:', storedPrice);
         } else {
+          // If no stored price is available, we set the price to the default value (0)
           setAprilUsdPrice(DEFAULT_APRIL_PRICE);
+          console.log('Using default APRIL USD Price:', DEFAULT_APRIL_PRICE);
         }
       }
     };
@@ -849,15 +896,24 @@ const TelegramMiniApp: React.FC = () => {
       await aprilPricePersister.load();
       const storedPrice = aprilPriceStore.getCell('price', 'APRIL', 'usd') as string | undefined;
       const lastFetchTime = aprilPriceStore.getCell('price', 'APRIL', 'lastFetchTime') as number | undefined;
-      if (storedPrice && lastFetchTime && (Date.now() - lastFetchTime < 2 * 60 * 60 * 1000)) {
-        setAprilUsdPrice(parseFloat(storedPrice));
-        return;
+
+      if (storedPrice && lastFetchTime) {
+        const timeSinceLastFetch = Date.now() - lastFetchTime;
+        if (timeSinceLastFetch < 2 * 60 * 60 * 1000) { // Less than 2 hours
+          setAprilUsdPrice(parseFloat(storedPrice));
+          console.log('APRIL USD Price (from local store):', storedPrice);
+          return;
+        }
       }
+
       await fetchAprilPrice();
     };
 
     loadAprilPrice();
-    const priceInterval = setInterval(loadAprilPrice, 2 * 60 * 60 * 1000);
+
+    const intervalId3 = setInterval(() => {
+      loadAprilPrice();
+    }, 2 * 60 * 60 * 1000); // 2 hours
 
     return () => {
       clickStore.delListener(scoreListenerId);
@@ -867,14 +923,11 @@ const TelegramMiniApp: React.FC = () => {
       dailyPersister.destroy();
       aprilBalanceStore.delListener(aprilBalanceListenerId);
       aprilBalancePersister.destroy();
-      clearInterval(balanceInterval);
-      clearInterval(priceInterval);
+      clearInterval(intervalId);
+      clearInterval(intervalId3);
       aprilPricePersister.destroy();
     };
   }, [localWalletAddress, address]);
-  // ======================================================================
-  // =====> END: MODIFIED useEffect FOR PLATFORM INITIALIZATION <=========
-  // ======================================================================
 
   // Update loadPersistedData function
   const loadPersistedData = async () => {
@@ -923,8 +976,9 @@ const TelegramMiniApp: React.FC = () => {
           strategy: "encryptedJson",
           password: userIdParam,
         });
+        // Removed the console.log that was printing the login method
       } catch (loadError) {
-        console.log(`No existing wallet found for ${loginMethod}, creating new one`);
+        console.log(`No existing wallet found, creating new one`);
         await wallet.generate();
         await wallet.save({
           strategy: "encryptedJson",
@@ -961,16 +1015,22 @@ const TelegramMiniApp: React.FC = () => {
     try {
       const response = await fetch('https://asia-southeast1-fourth-buffer-421320.cloudfunctions.net/welcomePrizeProxy', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ address: walletAddress }),
       });
 
-      if (!response.ok) throw new Error('Failed to claim welcome prize');
+      if (!response.ok) {
+        throw new Error('Failed to claim welcome prize');
+      }
 
       const result = await response.json();
       console.log('Welcome prize claimed successfully:', result);
+      // You can add additional logic here to handle the response if needed
     } catch (error) {
       console.error('Error claiming welcome prize:', error);
+      // You can decide whether to show this error to the user or handle it silently
     }
   };
 
@@ -1018,12 +1078,24 @@ const TelegramMiniApp: React.FC = () => {
   const handleSurveyResponse = async (question: string, response: string) => {
     console.log(`Survey question: ${question}`);
     console.log(`Survey response: ${response}`);
+    // Here you would typically send the survey response to your backend
+    // For example:
+    // await updateUserPreferences(userId, question, response);
   };
 
-  const calculateTotalBalanceUsd = (aprilBalance: { displayValue: string }, aprilPrice: number | null) => {
+  const calculateTotalBalanceUsd = (aprilBalance: { value: string; displayValue: string }, aprilPrice: number | null) => {
     if (!aprilPrice) return 0;
     const balance = parseFloat(aprilBalance.displayValue);
     return balance * aprilPrice;
+  };
+
+  const formatUsdBalance = (balance: number): string => {
+    return balance.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   };
 
   useEffect(() => {
@@ -1036,6 +1108,34 @@ const TelegramMiniApp: React.FC = () => {
       appRef.current.style.height = `${window.innerHeight}px`;
     }
   }, []);
+
+  const sendInlineKeyboardMessage = () => {
+    if (WebApp && WebApp.sendData) {
+      const botUsername = 'Reapmini_bot'; // Replace with your actual bot username
+      const startParameter = 'earn';
+
+      const inlineKeyboard = JSON.stringify({
+        inline_keyboard: [
+          [
+            { text: "Earn", url: `https://t.me/${botUsername}?start=${startParameter}` },
+            { text: "Join Channel", url: "https://t.me/apriloraclenews" }, // Replace with your actual channel URL
+            { text: "Join Group", url: "https://t.me/apriloracle" } // Replace with your actual group URL
+          ]
+        ]
+      });
+
+      if (WebApp.initDataUnsafe.user) {
+        WebApp.sendData(JSON.stringify({
+          method: "sendMessage",
+          chat_id: WebApp.initDataUnsafe.user.id,
+          text: "Welcome to Reap Mini! Choose an option to get started:",
+          reply_markup: inlineKeyboard
+        }));
+      } else {
+        console.error('User data is not available.');
+      }
+    }
+  };
 
   const Navigation: React.FC = () => {
     const location = useLocation();
@@ -1091,8 +1191,9 @@ const TelegramMiniApp: React.FC = () => {
           }}
         >
          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 6H17C17 3.2 14.8 1 12 1C9.2 1 7 3.2 7 6H5C3.9 6 3 6.9 3 8V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6ZM12 3C13.7 3 15 4.3 15 6H9C9 4.3 10.3 3 12 3ZM19 20H5V8H19V20ZM12 12C10.3 12 9 10.7 9 9H7C7 11.8 9.2 14 12 14C14.8 14 17 11.8 17 9H15C15 10.7 13.7 12 12 12Z" fill="currentColor"/>
-         </svg>
+<path d="M19 6H17C17 3.2 14.8 1 12 1C9.2 1 7 3.2 7 6H5C3.9 6 3 6.9 3 8V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6ZM12 3C13.7 3 15 4.3 15 6H9C9 4.3 10.3 3 12 3ZM19 20H5V8H19V20ZM12 12C10.3 12 9 10.7 9 9H7C7 11.8 9.2 14 12 14C14.8 14 17 11.8 17 9H15C15 10.7 13.7 12 12 12Z" fill="currentColor"/>
+</svg>
+
           <span style={{ marginTop: '2px' }}>Deals</span>
         </button>
   
@@ -1163,7 +1264,7 @@ const TelegramMiniApp: React.FC = () => {
   };
 
   return (
-      <div ref={appRef} style={{ backgroundColor: '#000000', color: '#FFFFFF', padding: '1rem', maxWidth: '28rem', margin: '0 auto', fontFamily: 'sans-serif', position: 'relative', overflowY: 'auto', paddingBottom: '70px' }}>
+      <div ref={appRef} style={{ backgroundColor: '#000000', color: '#FFFFFF', padding: '1rem', maxWidth: '28rem', margin: '0 auto', fontFamily: 'sans-serif', position: 'relative', overflowY: 'auto' }}>
         {/* Connection status icon now uses websocket context */}
         <div 
           style={{
@@ -1173,7 +1274,7 @@ const TelegramMiniApp: React.FC = () => {
             width: '12px',
             height: '12px',
             borderRadius: '50%',
-            backgroundColor: provider ? '#4CAF50' : '#f44336', // Green for connected, Red for disconnected
+            backgroundColor: provider ? '#0d0d0d' : '#000000',
             transition: 'background-color 0.3s ease',
           }}
           title={provider ? 'Connected to sync server' : 'Disconnected from sync server'}
@@ -1181,12 +1282,12 @@ const TelegramMiniApp: React.FC = () => {
 
         <InitialDataFetcher />
         <PeerSync 
-          onConnectionStatus={handleConnectionStatus}
+  
           onReady={handlePeerSyncReady}
         />
          <BrainInitializer>
-           <></>
-         </BrainInitializer>
+        <> </> 
+      </BrainInitializer>
 
         <Routes>
           <Route path="/" element={<MainPage {...mainPageProps} />} />
@@ -1220,9 +1321,9 @@ const TelegramMiniApp: React.FC = () => {
           <Route path="/watch-ads" element={<WatchAdsComponent />} />
           <Route path="/surveys" element={<SurveyList localWalletAddress={localWalletAddress} address={address} />} />
           <Route path="/profile" element={<ProfileComponent localWalletAddress={localWalletAddress} address={address} />} />
-          <Route path="/similar/:asin" element={<SimilarProductsPage />} />
-          <Route path="/products/:asin" element={<ProductDetailPage />} />
-          <Route path="/discovery" element={<DiscoveryPage />} />
+          <Route path="/similar/:asin" element={<SimilarProductsPage />} /> {/* New route for similar products */}
+          <Route path="/products/:asin" element={<ProductDetailPage />} /> {/* New route for product details */}
+          <Route path="/discovery" element={<DiscoveryPage />} /> {/* New route for discovery page */}
         </Routes>
 
         <Navigation />
