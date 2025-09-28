@@ -101,7 +101,6 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
   const handleProductInteraction = (product: any, interactionType: 'click' | 'view') => {
     const interactionString = `Product ${product.asin} interacted: ${interactionType}`;
     console.log(interactionString);
-    dataProbeService.runProbe(interactionString);
     if (interactionType === 'click') {
       navigate(`/products/${product.asin}`);
     }
