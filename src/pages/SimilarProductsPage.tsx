@@ -10,3 +10,4 @@ const SimilarProductsPage: React.FC = () => {
 };
 
 export default SimilarProductsPage;
+
