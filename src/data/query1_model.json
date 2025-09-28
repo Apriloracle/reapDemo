@@ -1,1 +1,13 @@
-query1_model.json
+{
+  "biasNeuronCount": 1,
+  "inputNeuronCount": 3,
+  "outputNeuronCount": 1,
+  "totalNeuronCount": 9,
+  "connections": [
+    {
+      "sourceIdx": 1,
+      "targetIdx": 4,
+      "weight": 0.5
+    }
+}
+
