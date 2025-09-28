@@ -1,5 +1,6 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { upsertProducts } from './ProductIndexStore';
 
 class SimilarProductsStore {
   public store;
@@ -26,12 +27,15 @@ class SimilarProductsStore {
 
     this.store.setTable(`similar-${asin}`, productsTable);
     await this.persister.save();
+
+    // Also write to the new central index
+    upsertProducts(products, { similaritySourceId: asin });
   }
 
   getSimilarProducts(asin: string) {
     const cachedProducts = this.store.getTable(`similar-${asin}`);
     if (cachedProducts) {
-      return Object.values(cachedProducts);
+      return Object.values(cachedProducts).filter((p: any) => p && p.price > 0);
     }
     return [];
   }
@@ -49,4 +53,5 @@ class SimilarProductsStore {
 }
 
 export const similarProductsStore = new SimilarProductsStore();
+
 
