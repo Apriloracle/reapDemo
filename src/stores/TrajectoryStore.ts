@@ -18,3 +18,4 @@ persister.startAutoLoad();
 persister.startAutoSave();
 
 export default store;
+
