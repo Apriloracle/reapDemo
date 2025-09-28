@@ -114,6 +114,3 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
-
-
