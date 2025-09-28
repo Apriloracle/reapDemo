@@ -7,8 +7,10 @@ import discoveryStyles from '../styles/DiscoveryPage.module.css';
 import { searchService } from '../services/SearchService';
 import { discoveryEngineService } from '../services/DiscoveryEngineService';
 import { graphSearchService } from '../services/GraphSearchService';
+import trajectoryService from '../services/TrajectoryService';
 import { Product } from '../lib/types';
 import { discoverySearchStore } from '../stores/DiscoverySearchStore';
+import { categoryStore } from '../stores/CategoryStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const DiscoveryPage: React.FC = () => {
   };
 
   useEffect(() => {
+    trajectoryService.initialize();
     discoveryEngineService.initialize();
     discoverySearchStore.initialize().then(() => {
       const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
@@ -56,21 +59,28 @@ const DiscoveryPage: React.FC = () => {
     const allResults = [...semanticResults, ...keywordResults, ...serverResults];
     const uniqueResults = Array.from(new Map(allResults.map(p => [p.asin, p])).values());
     await discoverySearchStore.addSearchResults(searchTerm, uniqueResults);
+
+    // Also cache in categoryStore
+    const productsByCategory: { [key: string]: any[] } = {};
+    for (const product of uniqueResults) {
+      const categoryId = product.categoryId || 'unknown';
+      if (!productsByCategory[categoryId]) {
+        productsByCategory[categoryId] = [];
+      }
+      productsByCategory[categoryId].push(product);
+    }
+    await categoryStore.addProductsByCategory(productsByCategory);
   };
 
-  const handleProductClick = (asin: string) => {
-    if (asin) {
-      // --- New Graph Search Integration ---
-      const userId = 'u123'; // Hardcoded for demonstration
-      const searchResults = graphSearchService.findUserInteractions(userId, 'click');
-      console.log(`Graph search for user "${userId}" with action "click":`, searchResults);
-      // ------------------------------------
-      navigate(`/similar/${asin}`);
+  const handleProductClick = (product: Product) => {
+    if (product && product.asin) {
+      trajectoryService.generateTrajectory(product);
+      navigate(`/similar/${product.asin}`);
     }
   };
 
   const uniqueProducts = Array.from(new Map([...products, ...keywordProducts, ...serverProducts].map(p => [p.asin, p])).values());
-  const displayedProducts = shuffleAndLimit(uniqueProducts, 20);
+  const displayedProducts = shuffleAndLimit(uniqueProducts.filter(p => p.price > 0), 20);
 
   return (
     <div className={discoveryStyles.page}>
@@ -93,7 +103,7 @@ const DiscoveryPage: React.FC = () => {
             <ProductCard
               key={product.asin}
               product={product}
-              onClick={() => handleProductClick(product.asin)}
+              onClick={() => handleProductClick(product)}
             />
           ))}
         </div>
@@ -104,5 +114,6 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
 
