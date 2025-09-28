@@ -20,9 +20,6 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const [storeUpdate, setStoreUpdate] = useState(0);
 
-  useEffect(() => {
-    DataProbeTransferService.getInstance();
-  }, []);
 
   useEffect(() => {
     const fetchSimilarProducts = async () => {
