@@ -80,7 +80,7 @@ const DiscoveryPage: React.FC = () => {
   };
 
   const uniqueProducts = Array.from(new Map([...products, ...keywordProducts, ...serverProducts].map(p => [p.asin, p])).values());
-  const displayedProducts = shuffleAndLimit(uniqueProducts.filter(p => p.price > 0), 20);
+  const displayedProducts = shuffleAndLimit(uniqueProducts.filter(p => (p.price || 0) > 0), 20);
 
   return (
     <div className={discoveryStyles.page}>
@@ -114,3 +114,4 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
