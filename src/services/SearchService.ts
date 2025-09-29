@@ -34,7 +34,7 @@ class SearchService {
             asin: asin,
             name: productData.title,
             score: score,
-            categoryId: categoryId,
+            categoryId: String(categoryId),
           });
         }
       });
@@ -155,5 +155,6 @@ class SearchService {
 }
 
 export const searchService = new SearchService();
+
 
 
