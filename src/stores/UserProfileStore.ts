@@ -1,5 +1,6 @@
 import { createStore, Store, Row } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { upsertUserProfile } from './ProductIndexStore';
 
 // Base interface for type safety when working with profiles
 interface BaseUserProfile {
@@ -26,7 +27,9 @@ class UserProfileStore {
   private constructor() {
     console.log('Initializing UserProfileStore');
     this.store = createStore();
-    this.persister = createLocalPersister(this.store, 'user-profile');
+    if (typeof window !== 'undefined') {
+      this.persister = createLocalPersister(this.store, 'user-profile');
+    }
   }
 
   public static getInstance(): UserProfileStore {
@@ -49,6 +52,7 @@ class UserProfileStore {
   }
 
   public async initialize() {
+    if (typeof window === 'undefined') return;
     console.log('Loading persisted profile data...');
     
     // First try to load from localStorage
@@ -65,7 +69,9 @@ class UserProfileStore {
     }
 
     // Fallback to TinyBase persister
-    await this.persister.load();
+    if (this.persister) {
+      await this.persister.load();
+    }
     const profile = this.store.getRow('profiles', 'current');
     console.log('Loaded profile from TinyBase:', profile);
   }
@@ -83,8 +89,13 @@ class UserProfileStore {
       this.store.setRow('profiles', 'current', storageProfile);
       await this.persister.save();
       
+      // Also write to the new central index
+      upsertUserProfile(profile);
+
       // Save to localStorage as well
-      localStorage.setItem('userProfile', JSON.stringify(profile));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userProfile', JSON.stringify(profile));
+      }
       
       // Notify listeners of the change
       this.notifyListeners(profile);
@@ -100,15 +111,17 @@ class UserProfileStore {
     console.log('Getting profile...');
     
     // First try localStorage
-    const localStorageData = localStorage.getItem('userProfile');
-    if (localStorageData) {
-      try {
-        const profile = JSON.parse(localStorageData);
-        if (profile && typeof profile === 'object') {
-          return profile as UserProfile;
+    if (typeof window !== 'undefined') {
+      const localStorageData = localStorage.getItem('userProfile');
+      if (localStorageData) {
+        try {
+          const profile = JSON.parse(localStorageData);
+          if (profile && typeof profile === 'object') {
+            return profile as UserProfile;
+          }
+        } catch (error) {
+          console.error('Error parsing localStorage profile:', error);
         }
-      } catch (error) {
-        console.error('Error parsing localStorage profile:', error);
       }
     }
 
@@ -174,4 +187,4 @@ class UserProfileStore {
 }
 
 export const userProfileStore = UserProfileStore.getInstance();
-export default userProfileStore; 
+export default userProfileStore;
