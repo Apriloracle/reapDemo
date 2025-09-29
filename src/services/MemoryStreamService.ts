@@ -1,6 +1,6 @@
-import CPPN from 'cppnjs/networks/cppn.js';
-import cppnConnection from 'cppnjs/networks/cppnConnection.js';
-import cppnActivationFactory from 'cppnjs/activationFunctions/cppnActivationFactory.js';
+import CPPN from 'cppnjs/networks/cppn';
+import cppnConnection from 'cppnjs/networks/cppnConnection';
+import cppnActivationFactory from 'cppnjs/activationFunctions/cppnActivationFactory';
 
 import { blake3Hash } from '@webbuf/blake3';
 import { WebBuf } from 'webbuf';
@@ -130,3 +130,4 @@ class MemoryStreamService {
 }
 
 export const memoryStreamService = new MemoryStreamService();
+
