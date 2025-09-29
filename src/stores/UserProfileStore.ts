@@ -27,9 +27,6 @@ class UserProfileStore {
   private constructor() {
     console.log('Initializing UserProfileStore');
     this.store = createStore();
-    if (typeof window !== 'undefined') {
-      this.persister = createLocalPersister(this.store, 'user-profile');
-    }
   }
 
   public static getInstance(): UserProfileStore {
@@ -54,6 +51,10 @@ class UserProfileStore {
   public async initialize() {
     if (typeof window === 'undefined') return;
     console.log('Loading persisted profile data...');
+    
+    if (!this.persister) {
+      this.persister = createLocalPersister(this.store, 'user-profile');
+    }
     
     // First try to load from localStorage
     const localStorageData = localStorage.getItem('userProfile');
@@ -188,3 +189,4 @@ class UserProfileStore {
 
 export const userProfileStore = UserProfileStore.getInstance();
 export default userProfileStore;
+
