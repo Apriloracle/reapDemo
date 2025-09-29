@@ -81,7 +81,7 @@ export const upsertProducts = (products: Product[], context: Record<string, any>
     // This is a simple implementation; a more sophisticated NLP approach could be used later.
     const tags = [
       ...(product.name?.toLowerCase().split(' ') ?? []),
-      product.categoryId,
+      (product as any).categoryId,
       context.merchantName,
     ].filter(Boolean); // Filter out any null/undefined values
 
@@ -171,3 +171,4 @@ queries.setQueryDefinition(
     });
   }
 );
+
