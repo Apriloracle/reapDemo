@@ -9,10 +9,6 @@ import { userProfileStore } from './UserProfileStore';
 const store = createStore();
 let persister: any;
 
-if (typeof window !== 'undefined') {
-  persister = createLocalPersister(store, 'product-index');
-}
-
 // 2. Create an Indexes and Queries object for the store.
 const indexes = createIndexes(store);
 const queries = createQueries(store);
@@ -135,7 +131,10 @@ export const getProductIndexes = (): Indexes => indexes;
  * Initializes the ProductIndexStore by loading persisted data.
  */
 export const initializeProductIndexStore = async () => {
-  if (persister) {
+  if (typeof window !== 'undefined') {
+    if (!persister) {
+      persister = createLocalPersister(store, 'product-index');
+    }
     await persister.load();
     console.log('ProductIndexStore initialized from persister.');
   }
@@ -171,4 +170,5 @@ queries.setQueryDefinition(
     });
   }
 );
+
 
