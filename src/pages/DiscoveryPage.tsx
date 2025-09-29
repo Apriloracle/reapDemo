@@ -63,7 +63,7 @@ const DiscoveryPage: React.FC = () => {
     // Also cache in categoryStore
     const productsByCategory: { [key: string]: any[] } = {};
     for (const product of uniqueResults) {
-      const categoryId = product.categoryId || 'unknown';
+      const categoryId = (product as any).categoryId || 'unknown';
       if (!productsByCategory[categoryId]) {
         productsByCategory[categoryId] = [];
       }
