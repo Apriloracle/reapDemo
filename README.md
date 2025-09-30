@@ -1,4 +1,4 @@
-# Reap App
+# Reap
 REAP is an AI-driven, blockchain-based platform that revolutionizes the personalized deals marketplace. It connects users with hyper-personalized, high-value deals while enabling businesses to reach their ideal customers with unprecedented precision.
 
 
