@@ -1,15 +1,15 @@
-export interface StandardCurve {
-  name: string;
-  p: string;
-  a: string;
-  b: string;
-  G: string;
-  n: string;
-  h: string;
-}
+type CurveName =
+  | 'secp224r1'
+  | 'secp256r1'
+  | 'secp384r1'
+  | 'secp521r1'
+  | 'brainpoolP224r1'
+  | 'brainpoolP256r1'
+  | 'brainpoolP384r1'
+  | 'brainpoolP512r1';
 
-export function getCurveForElliptic(curveName: string): string {
-  const curves = {
+export function getCurveForElliptic(curveName: CurveName): string {
+  const curves: Record<CurveName, string> = {
     secp224r1: 'p224',
     secp256r1: 'p256',
     secp384r1: 'p384',
@@ -20,12 +20,9 @@ export function getCurveForElliptic(curveName: string): string {
     brainpoolP512r1: 'brainpoolP512r1',
   };
 
-  if (!curves[curveName]) {
-    throw new Error('Invalid curve: ' + curveName);
-  }
-
-  return curves[curveName];
+  return curves[curveName]; // ✅ no error now
 }
+
 
 export function getECDSACurveBits(curveName: string): string {
   const curveBits: { [key: string]: number } = {
