@@ -2,7 +2,9 @@ import { attributeToPosition, attributeToPosition_ID } from '../../constants/con
 import type { SelfAppDisclosureConfig } from '../appType.ts';
 
 export function formatAndUnpackForbiddenCountriesList(
-  forbiddenCountriesList_packed: string[]
+  // VVVV FIX #1 HERE VVVV
+  forbiddenCountriesList_packed: Record<string, string>
+  // ^^^^ FIX #1 HERE ^^^^
 ): string[] {
   const forbiddenCountriesList_packed_formatted = [
     forbiddenCountriesList_packed['forbidden_countries_list_packed[0]'],
@@ -28,7 +30,9 @@ function trimu0000(unpackedReveal: string[]): string[] {
 }
 
 export function formatAndUnpackReveal(
-  revealedData_packed: string[],
+  // VVVV FIX #2 HERE VVVV
+  revealedData_packed: Record<string, string>,
+  // ^^^^ FIX #2 HERE ^^^^
   id_type: 'passport' | 'id'
 ): string[] {
   const revealedData_packed_formatted_passport = [
