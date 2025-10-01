@@ -265,6 +265,20 @@ export function getParamsECDSA(cert: Certificate): PublicKeyDetailsECDSA {
         }
       }
     }
+    if (!curveName || curveName === 'Unknown') {
+  return {
+    curve: 'Unknown',
+    params: {} as StandardCurve,
+    bits: 'Unknown',
+    x: 'Unknown',
+    y: 'Unknown',
+  };
+}
+
+// here curveName is guaranteed valid
+const elliptic = initElliptic();
+const ec = new elliptic.ec(getCurveForElliptic(curveName as CurveName));
+
 
     // Get the public key x and y parameters
     const publicKeyBuffer = cert.subjectPublicKeyInfo.subjectPublicKey.valueBlock.valueHexView;
