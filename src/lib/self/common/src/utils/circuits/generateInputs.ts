@@ -6,10 +6,10 @@ import {
   MAX_PADDED_SIGNED_ATTR_LEN,
   MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS,
   OFAC_TREE_LEVELS,
-} from '../../constants/constants.js';
-import { getCurrentDateYYMMDD } from '../date.js';
-import { hash, packBytesAndPoseidon } from '../hash.js';
-import { formatMrz } from '../passports/format.js';
+} from '../../constants/constants.ts';
+import { getCurrentDateYYMMDD } from '../date.ts';
+import { hash, packBytesAndPoseidon } from '../hash.ts';
+import { formatMrz } from '../passports/format.ts';
 import {
   extractSignatureFromDSC,
   findStartPubKeyIndex,
@@ -19,7 +19,7 @@ import {
   getPassportSignatureInfos,
   pad,
   padWithZeroes,
-} from '../passports/passport.js';
+} from '../passports/passport.ts';
 import {
   generateMerkleProof,
   generateSMTProof,
@@ -31,10 +31,10 @@ import {
   getNameDobLeaf,
   getNameYobLeaf,
   getPassportNumberAndNationalityLeaf,
-} from '../trees.js';
-import type { PassportData } from '../types.js';
-import { formatCountriesList } from './formatInputs.js';
-import { stringToAsciiBigIntArray } from './uuid.js';
+} from '../trees.ts';
+import type { PassportData } from '../types.ts';
+import { formatCountriesList } from './formatInputs.ts';
+import { stringToAsciiBigIntArray } from './uuid.ts';
 
 import type { LeanIMT } from '@openpassport/zk-kit-lean-imt';
 import type { SMT } from '@openpassport/zk-kit-smt';
@@ -99,11 +99,21 @@ export function generateCircuitInputsDSC(
   passportData: PassportData,
   serializedCscaTree: string[][]
 ) {
+  // VVVV THIS IS THE FIX VVVV
+  if (!passportData.csca_parsed || !passportData.dsc_parsed) {
+    throw new Error(
+      'CSCA or DSC certificate data is missing and required for generating DSC circuit inputs.'
+    );
+  }
+  // ^^^^ THIS IS THE FIX ^^^^
+
   const passportMetadata = passportData.passportMetadata;
   const cscaParsed = passportData.csca_parsed;
   const dscParsed = passportData.dsc_parsed;
   const raw_dsc = passportData.dsc;
+  
   // CSCA is padded with 0s to max_csca_bytes
+  // No error here anymore, as TypeScript knows cscaParsed is defined.
   const cscaTbsBytesPadded = padWithZeroes(cscaParsed.tbsBytes, max_csca_bytes);
   const dscTbsBytes = dscParsed.tbsBytes;
 
