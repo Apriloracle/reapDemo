@@ -3,7 +3,7 @@ import { Certificate, RSAPublicKey, RSASSAPSSParams } from 'pkijs';
 
 import { circuitNameFromMode } from '../../constants/constants.ts';
 import type { Mode } from '../appType.ts';
-import type { StandardCurve } from './curves.ts';
+import type { StandardCurve, CurveName } from './curves.ts';
 import { getCurveForElliptic, getECDSACurveBits, identifyCurve } from './curves.ts';
 import type {
   CertificateData,
