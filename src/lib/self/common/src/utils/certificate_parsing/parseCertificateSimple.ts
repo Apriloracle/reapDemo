@@ -193,8 +193,8 @@ export function getParamsECDSA(cert: Certificate): PublicKeyDetailsECDSA {
     }
 
     let curveName,
-      bits,
-      x,
+      bits = 'Unknown',
+      x = 'Unknown',
       y = 'Unknown';
     const curveParams: StandardCurve = {} as StandardCurve;
 
