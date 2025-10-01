@@ -9,7 +9,7 @@ export interface StandardCurve {
 }
 
 
-type CurveName =
+export type CurveName =
   | 'secp224r1'
   | 'secp256r1'
   | 'secp384r1'
