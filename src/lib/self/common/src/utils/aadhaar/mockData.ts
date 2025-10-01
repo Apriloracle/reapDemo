@@ -27,7 +27,7 @@ import {
   decompressByteArray,
   extractPhoto,
   splitToWords,
-} from '@anon-aadhaar/core';
+} from '../../../../../../anon-aadhaar/packages/core/src/index';
 import { LeanIMT } from '@openpassport/zk-kit-lean-imt';
 import { SMT } from '@openpassport/zk-kit-smt';
 import { bufferToHex, Uint8ArrayToCharArray } from '@zk-email/helpers/dist/binary-format.js';
@@ -593,3 +593,4 @@ export function processQRData(
 
   return processQRDataSimple(QRData);
 }
+
