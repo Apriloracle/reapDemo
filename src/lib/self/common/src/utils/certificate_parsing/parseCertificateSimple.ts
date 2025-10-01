@@ -1,19 +1,19 @@
 import * as asn1js from 'asn1js';
 import { Certificate, RSAPublicKey, RSASSAPSSParams } from 'pkijs';
 
-import { circuitNameFromMode } from '../../constants/constants.js';
-import type { Mode } from '../appType.js';
-import type { StandardCurve } from './curves.js';
-import { getCurveForElliptic, getECDSACurveBits, identifyCurve } from './curves.js';
+import { circuitNameFromMode } from '../../constants/constants.ts';
+import type { Mode } from '../appType.ts';
+import type { StandardCurve } from './curves.ts';
+import { getCurveForElliptic, getECDSACurveBits, identifyCurve } from './curves.ts';
 import type {
   CertificateData,
   PublicKeyDetailsECDSA,
   PublicKeyDetailsRSA,
   PublicKeyDetailsRSAPSS,
-} from './dataStructure.js';
-import { initElliptic } from './elliptic.js';
-import { getFriendlyName, getSecpFromNist } from './oids.js';
-import { getIssuerCountryCode, getSubjectKeyIdentifier } from './utils.js';
+} from './dataStructure.ts';
+import { initElliptic } from './elliptic.ts';
+import { getFriendlyName, getSecpFromNist } from './oids.ts';
+import { getIssuerCountryCode, getSubjectKeyIdentifier } from './utils.ts';
 
 export const getAuthorityKeyIdentifier = (cert: Certificate): string | null => {
   const authorityKeyIdentifier = cert.extensions?.find(
