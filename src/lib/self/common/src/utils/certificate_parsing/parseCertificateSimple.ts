@@ -15,12 +15,15 @@ import { initElliptic } from './elliptic.js';
 import { getFriendlyName, getSecpFromNist } from './oids.js';
 import { getIssuerCountryCode, getSubjectKeyIdentifier } from './utils.js';
 
-export const getAuthorityKeyIdentifier = (cert: Certificate): string => {
-  const authorityKeyIdentifier = cert.extensions.find((ext) => ext.extnID === '2.5.29.35');
+export const getAuthorityKeyIdentifier = (cert: Certificate): string | null => {
+  const authorityKeyIdentifier = cert.extensions?.find(
+    (ext) => ext.extnID === '2.5.29.35'
+  );
+
   if (authorityKeyIdentifier) {
-    let akiValue = Buffer.from(authorityKeyIdentifier.extnValue.valueBlock.valueHexView).toString(
-      'hex'
-    );
+    let akiValue = Buffer.from(
+      authorityKeyIdentifier.extnValue.valueBlock.valueHexView
+    ).toString('hex');
 
     // Match the ASN.1 sequence header pattern: 30 followed by length
     const sequenceMatch = akiValue.match(/^30([0-9a-f]{2}|8[0-9a-f][0-9a-f])/i);
@@ -32,14 +35,15 @@ export const getAuthorityKeyIdentifier = (cert: Certificate): string => {
     const keyIdMatch = akiValue.match(/80([0-9a-f]{2})/i);
     if (keyIdMatch) {
       const keyIdLength = parseInt(keyIdMatch[1], 16);
-      // Extract the actual key ID (length * 2 because hex)
       const startIndex = akiValue.indexOf(keyIdMatch[0]) + 4;
       akiValue = akiValue.slice(startIndex, startIndex + keyIdLength * 2);
       return akiValue.toUpperCase();
     }
   }
+
   return null;
 };
+
 
 function getParamsRSA(cert: Certificate): PublicKeyDetailsRSA {
   const publicKeyValue = cert.subjectPublicKeyInfo.parsedKey as RSAPublicKey;
