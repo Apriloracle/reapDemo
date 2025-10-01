@@ -247,13 +247,24 @@ if (eContent.length > maxEContentLen) {
   throw new Error(`eContent too long (${eContent.length} bytes).`);
 }
 
+const maxEContentLenForDg1 = MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction];
+  if (maxEContentLenForDg1 === undefined) {
+    throw new Error(`Unsupported dg1 hash function: ${passportMetadata.dg1HashFunction}`);
+  }
+
   const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(
     eContent,
-    MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction]
+    maxEContentLenForDg1
   );
+  
+const maxSignedAttrLen = MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction];
+  if (maxSignedAttrLen === undefined) {
+    throw new Error(`Unsupported eContent hash function for signed attr: ${passportMetadata.eContentHashFunction}`);
+  }
+
   const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(
     signedAttr,
-    MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction]
+    maxSignedAttrLen
   );
   
   const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
@@ -324,13 +335,23 @@ if (eContent.length > maxEContentLen) {
   throw new Error(`eContent too long (${eContent.length} bytes).`);
 }
 
+const maxEContentLenForDg1 = MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction];
+  if (maxEContentLenForDg1 === undefined) {
+    throw new Error(`Unsupported dg1 hash function: ${passportMetadata.dg1HashFunction}`);
+  }
+
   const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(
     eContent,
-    MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction]
+    maxEContentLenForDg1
   );
+const maxSignedAttrLen = MAX_PADDED_SIGNED_ATTR_LEN[passportMetadata.eContentHashFunction];
+  if (maxSignedAttrLen === undefined) {
+    throw new Error(`Unsupported eContent hash function for signed attr: ${passportMetadata.eContentHashFunction}`);
+  }
+
   const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(
     signedAttr,
-    MAX_PADDED_SIGNED_ATTR_LEN[passportMetadata.eContentHashFunction]
+    maxSignedAttrLen
   );
 
   const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
