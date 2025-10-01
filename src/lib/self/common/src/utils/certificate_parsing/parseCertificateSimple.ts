@@ -284,7 +284,7 @@ const ec = new elliptic.ec(getCurveForElliptic(curveName as CurveName));
     const publicKeyBuffer = cert.subjectPublicKeyInfo.subjectPublicKey.valueBlock.valueHexView;
     if (publicKeyBuffer && curveName !== 'Unknown') {
       const elliptic = initElliptic();
-      const ec = new elliptic.ec(getCurveForElliptic(curveName));
+      const ec = new elliptic.ec(getCurveForElliptic(curveName as CurveName));
       const key = ec.keyFromPublic(publicKeyBuffer);
       const x_point = key.getPublic().getX().toString('hex');
       const y_point = key.getPublic().getY().toString('hex');
