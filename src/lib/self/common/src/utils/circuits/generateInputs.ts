@@ -97,41 +97,40 @@ export function generateCircuitInputsCountryVerifier(
 
 export function generateCircuitInputsDSC(
   passportData: PassportData,
-  serializedCscaTree: string[][]
+  serializedCsaTree: string[][]
 ) {
-  // VVVV THIS IS THE DEFINITIVE FIX VVVV
-  const { csca_parsed: cscaParsed, dsc_parsed: dscParsed } = passportData;
+  // VVVV THIS IS THE FINAL, CORRECTED FIX VVVV
+  const { csca_parsed: cscaParsed, dsc_parsed: dscParsed, passportMetadata } = passportData;
 
-  // 1. Check if the parsed certificate objects exist.
-  if (!cscaParsed || !dscParsed) {
+  // 1. Check if all required top-level objects exist.
+  if (!cscaParsed || !dscParsed || !passportMetadata) {
     throw new Error(
-      'CSCA or DSC certificate data is missing and required for generating DSC circuit inputs.'
+      'CSCA, DSC, or Passport Metadata is missing and required for generating DSC circuit inputs.'
     );
   }
 
-  // 2. Check if the tbsBytes property exists on the now-confirmed objects.
+  // 2. Check if the tbsBytes properties exist on the now-confirmed objects.
   if (!cscaParsed.tbsBytes || !dscParsed.tbsBytes) {
     throw new Error(
       'CSCA or DSC certificate TBS bytes are missing and required for generating DSC circuit inputs.'
     );
   }
-  // ^^^^ AFTER THESE CHECKS, TYPESCRIPT IS SATISFIED ^^^^
+  // ^^^^ AFTER THESE CHECKS, ALL REQUIRED DATA IS CONFIRMED TO EXIST ^^^^
 
-  const passportMetadata = passportData.passportMetadata;
   const raw_dsc = passportData.dsc;
 
   // No error here, as TypeScript now knows cscaParsed and cscaParsed.tbsBytes are defined.
   const cscaTbsBytesPadded = padWithZeroes(cscaParsed.tbsBytes, max_csca_bytes);
   const dscTbsBytes = dscParsed.tbsBytes;
 
-  // DSC is padded using sha padding because it will be hashed in the circuit
+  // No error here, as TypeScript now knows passportMetadata is defined.
   const [dscTbsBytesPadded, dscTbsBytesLen] = pad(passportMetadata.cscaHashFunction)(
     dscTbsBytes,
     max_dsc_bytes
   );
   
   const leaf = getLeafCscaTree(cscaParsed);
-  const [root, path, siblings] = getCscaTreeInclusionProof(leaf, serializedCscaTree);
+  const [root, path, siblings] = getCscaTreeInclusionProof(leaf, serializedCsaTree);
 
   const csca_pubKey_formatted = getCertificatePubKey(
     cscaParsed,
