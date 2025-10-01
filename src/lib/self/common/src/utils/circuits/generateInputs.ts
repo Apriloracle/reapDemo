@@ -224,53 +224,35 @@ export function generateCircuitInputsRegisterForTests(
   passportData: PassportData,
   serializedDscTree: string
 ) {
-  // VVVV THIS IS THE FIX VVVV
   const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
 
+  // Comprehensive checks for all potentially undefined properties used in this function
+  if (!mrz || !eContent || !signedAttr) {
+    throw new Error('MRZ, eContent, or signedAttr is missing from passport data.');
+  }
   if (!dscParsed || !cscaParsed || !passportMetadata) {
     throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
   }
   if (!dscParsed.tbsBytes) {
     throw new Error('DSC TBS bytes are missing.');
   }
-  // Add check for eContent and signedAttr
-  if (!eContent || !signedAttr) {
-    throw new Error('eContent or signedAttr is missing from passport data.');
-  }
-  // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
-
   const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
   const mrz_formatted = formatMrz(mrz);
 
   if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
-    console.error(
-      `eContent too long (${eContent.length} bytes). Max length is ${MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]} bytes.`
-    );
-    throw new Error(
-      `This length of datagroups (${eContent.length} bytes) is currently unsupported. Please contact us so we add support!`
-    );
+    throw new Error(`eContent too long (${eContent.length} bytes).`);
   }
 
-  const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(
-    eContent,
-    MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction]
-  );
-  const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(
-    signedAttr,
-    MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction]
-  );
-
+  const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(eContent, MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction]);
+  const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(signedAttr, MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction]);
+  
   const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
   const [root, path, siblings, leaf_depth] = getDscTreeInclusionProof(dsc_leaf, serializedDscTree);
   const csca_tree_leaf = getLeafCscaTree(cscaParsed);
 
-  const [startIndex, keyLength] = findStartPubKeyIndex(
-    dscParsed,
-    dscTbsBytesPadded,
-    dscParsed.signatureAlgorithm
-  );
+  const [startIndex, keyLength] = findStartPubKeyIndex(dscParsed, dscTbsBytesPadded, dscParsed.signatureAlgorithm);
 
   const inputs = {
     raw_dsc: dscTbsBytesPadded.map((x) => x.toString()),
@@ -295,9 +277,7 @@ export function generateCircuitInputsRegisterForTests(
   };
 
   return Object.entries(inputs)
-    .map(([key, value]) => ({
-      [key]: formatInput(value),
-    }))
+    .map(([key, value]) => ({ [key]: formatInput(value) }))
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 }
 
@@ -306,53 +286,35 @@ export function generateCircuitInputsRegister(
   passportData: PassportData,
   serializedDscTree: string
 ) {
-  // VVVV THIS IS THE FIX VVVV
   const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
 
+  // Comprehensive checks for all potentially undefined properties used in this function
+  if (!mrz || !eContent || !signedAttr) {
+    throw new Error('MRZ, eContent, or signedAttr is missing from passport data.');
+  }
   if (!dscParsed || !cscaParsed || !passportMetadata) {
     throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
   }
   if (!dscParsed.tbsBytes) {
     throw new Error('DSC TBS bytes are missing.');
   }
-  // Add check for eContent and signedAttr
-  if (!eContent || !signedAttr) {
-    throw new Error('eContent or signedAttr is missing from passport data.');
-  }
-  // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
-
   const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
   const mrz_formatted = formatMrz(mrz);
 
   if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
-    console.error(
-      `eContent too long (${eContent.length} bytes). Max length is ${MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]} bytes.`
-    );
-    throw new Error(
-      `This length of datagroups (${eContent.length} bytes) is currently unsupported. Please contact us so we add support!`
-    );
+    throw new Error(`eContent too long (${eContent.length} bytes).`);
   }
 
-  const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(
-    eContent,
-    MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction]
-  );
-  const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(
-    signedAttr,
-    MAX_PADDED_SIGNED_ATTR_LEN[passportMetadata.eContentHashFunction]
-  );
+  const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(eContent, MAX_PADDED_ECONTENT_LEN[passportMetadata.dg1HashFunction]);
+  const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(signedAttr, MAX_PADDED_SIGNED_ATTR_LEN[passportMetadata.eContentHashFunction]);
 
   const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
   const [root, path, siblings, leaf_depth] = getDscTreeInclusionProof(dsc_leaf, serializedDscTree);
   const csca_tree_leaf = getLeafCscaTree(cscaParsed);
 
-  const [startIndex, keyLength] = findStartPubKeyIndex(
-    dscParsed,
-    dscTbsBytesPadded,
-    dscParsed.signatureAlgorithm
-  );
+  const [startIndex, keyLength] = findStartPubKeyIndex(dscParsed, dscTbsBytesPadded, dscParsed.signatureAlgorithm);
 
   const inputs = {
     raw_dsc: dscTbsBytesPadded.map((x) => x.toString()),
@@ -377,9 +339,7 @@ export function generateCircuitInputsRegister(
   };
 
   return Object.entries(inputs)
-    .map(([key, value]) => ({
-      [key]: formatInput(value),
-    }))
+    .map(([key, value]) => ({ [key]: formatInput(value) }))
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 }
 
@@ -399,44 +359,35 @@ export function generateCircuitInputsVCandDisclose(
   forbidden_countries_list: string[],
   user_identifier: string
 ) {
-  const { mrz, eContent, signedAttr, documentType } = passportData;
-  const passportMetadata = passportData.passportMetadata;
-  const isPassportType = documentType === 'passport' || documentType === 'mock_passport';
+  const { mrz, eContent, documentType, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
 
+  // Comprehensive checks for all potentially undefined properties used in this function
+  if (!mrz || !eContent) {
+    throw new Error('MRZ or eContent is missing from passport data.');
+  }
+  if (!dscParsed || !cscaParsed || !passportMetadata) {
+    throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
+  }
+  
+  const isPassportType = documentType === 'passport' || documentType === 'mock_passport';
   const formattedMrz = formatMrz(mrz);
 
-  const eContent_shaBytes = hash(
-    passportMetadata.eContentHashFunction,
-    Array.from(eContent),
-    'bytes'
-  );
-  const eContent_packed_hash = packBytesAndPoseidon(
-    (eContent_shaBytes as number[]).map((byte) => byte & 0xff)
-  );
-
-  const dsc_tree_leaf = getLeafDscTree(passportData.dsc_parsed, passportData.csca_parsed);
+  const eContent_shaBytes = hash(passportMetadata.eContentHashFunction, Array.from(eContent), 'bytes');
+  const eContent_packed_hash = packBytesAndPoseidon((eContent_shaBytes as number[]).map((byte) => byte & 0xff));
+  
+  const dsc_tree_leaf = getLeafDscTree(dscParsed, cscaParsed);
 
   const commitment = generateCommitment(secret, attestation_id, passportData);
   const index = findIndexInTree(merkletree, BigInt(commitment));
-  const { siblings, path, leaf_depth } = generateMerkleProof(
-    merkletree,
-    index,
-    COMMITMENT_TREE_DEPTH
-  );
+  const { siblings, path, leaf_depth } = generateMerkleProof(merkletree, index, COMMITMENT_TREE_DEPTH);
   const formattedMajority = majority.length === 1 ? `0${majority}` : majority;
   const majority_ascii = formattedMajority.split('').map((char) => char.charCodeAt(0));
 
-  // Define default values for SMT proofs (BigInt(0) for roots/keys, array of 0s for siblings)
   const defaultSiblings = Array(OFAC_TREE_LEVELS).fill(BigInt(0));
-  let passportNoProof = {
-    root: BigInt(0),
-    closestleaf: BigInt(0),
-    siblings: defaultSiblings,
-  };
+  let passportNoProof = { root: BigInt(0), closestleaf: BigInt(0), siblings: defaultSiblings };
   let nameDobProof;
   let nameYobProof;
 
-  // Calculate leaves based on document type (using OFAC logic for slicing)
   const nameSlice = isPassportType ? formattedMrz.slice(10, 49) : formattedMrz.slice(65, 95);
   const dobSlice = isPassportType ? formattedMrz.slice(62, 68) : formattedMrz.slice(35, 41);
   const yobSlice = isPassportType ? formattedMrz.slice(62, 64) : formattedMrz.slice(35, 37);
@@ -445,19 +396,16 @@ export function generateCircuitInputsVCandDisclose(
 
   const namedob_leaf = getNameDobLeaf(nameSlice, dobSlice);
   const nameyob_leaf = getNameYobLeaf(nameSlice, yobSlice);
-
-  // Generate Name/DOB and Name/YOB proofs (always needed)
+  
   nameDobProof = generateSMTProof(nameAndDob_smt, namedob_leaf);
   nameYobProof = generateSMTProof(nameAndYob_smt, nameyob_leaf);
 
-  // Generate Passport Number proof only if it's a passport type and SMT is provided
   if (isPassportType) {
     if (!passportNo_smt) {
       console.warn('Document type is passport, but passportNo_smt tree was not provided.');
     } else {
       const passportNo_leaf = getPassportNumberAndNationalityLeaf(passNoSlice, nationalitySlice);
       const proofResult = generateSMTProof(passportNo_smt, passportNo_leaf);
-      // Explicitly cast root and closestleaf to bigint
       passportNoProof = {
         root: BigInt(proofResult.root),
         closestleaf: BigInt(proofResult.closestleaf),
@@ -465,7 +413,7 @@ export function generateCircuitInputsVCandDisclose(
       };
     }
   }
-  // Build Final Input Object
+
   const baseInputs = {
     secret: formatInput(secret),
     attestation_id: formatInput(attestation_id),
@@ -495,7 +443,6 @@ export function generateCircuitInputsVCandDisclose(
     ofac_nameyob_smt_siblings: formatInput(nameYobProof.siblings),
   };
 
-  // Conditionally include passport OFAC inputs
   const finalInputs = {
     ...baseInputs,
     ...ofacNameInputs,
