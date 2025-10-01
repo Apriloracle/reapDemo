@@ -224,9 +224,16 @@ export function generateCircuitInputsRegisterForTests(
   passportData: PassportData,
   serializedDscTree: string
 ) {
-  const { mrz, eContent, signedAttr } = passportData;
-  const passportMetadata = passportData.passportMetadata;
-  const dscParsed = passportData.dsc_parsed;
+  // VVVV THIS IS THE FIX VVVV
+  const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
+
+  if (!dscParsed || !cscaParsed || !passportMetadata) {
+    throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
+  }
+  if (!dscParsed.tbsBytes) {
+    throw new Error('DSC TBS bytes are missing.');
+  }
+  // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
 
@@ -251,11 +258,10 @@ export function generateCircuitInputsRegisterForTests(
     MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction]
   );
 
-  const dsc_leaf = getLeafDscTree(dscParsed, passportData.csca_parsed); // TODO: WRONG
+  const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
   const [root, path, siblings, leaf_depth] = getDscTreeInclusionProof(dsc_leaf, serializedDscTree);
-  const csca_tree_leaf = getLeafCscaTree(passportData.csca_parsed);
+  const csca_tree_leaf = getLeafCscaTree(cscaParsed);
 
-  // Get start index of DSC pubkey based on algorithm
   const [startIndex, keyLength] = findStartPubKeyIndex(
     dscParsed,
     dscTbsBytesPadded,
@@ -291,14 +297,21 @@ export function generateCircuitInputsRegisterForTests(
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 }
 
-export function generateCircuitInputsRegister(
+export function generateCircuitInputsRegisterForTests(
   secret: string,
   passportData: PassportData,
   serializedDscTree: string
 ) {
-  const { mrz, eContent, signedAttr } = passportData;
-  const passportMetadata = passportData.passportMetadata;
-  const dscParsed = passportData.dsc_parsed;
+  // VVVV THIS IS THE FIX VVVV
+  const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
+
+  if (!dscParsed || !cscaParsed || !passportMetadata) {
+    throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
+  }
+  if (!dscParsed.tbsBytes) {
+    throw new Error('DSC TBS bytes are missing.');
+  }
+  // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
 
@@ -320,14 +333,13 @@ export function generateCircuitInputsRegister(
   );
   const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(
     signedAttr,
-    MAX_PADDED_SIGNED_ATTR_LEN[passportMetadata.eContentHashFunction]
+    MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction]
   );
 
-  const dsc_leaf = getLeafDscTree(dscParsed, passportData.csca_parsed); // TODO: WRONG
+  const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
   const [root, path, siblings, leaf_depth] = getDscTreeInclusionProof(dsc_leaf, serializedDscTree);
-  const csca_tree_leaf = getLeafCscaTree(passportData.csca_parsed);
+  const csca_tree_leaf = getLeafCscaTree(cscaParsed);
 
-  // Get start index of DSC pubkey based on algorithm
   const [startIndex, keyLength] = findStartPubKeyIndex(
     dscParsed,
     dscTbsBytesPadded,
