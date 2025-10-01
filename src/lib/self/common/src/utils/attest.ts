@@ -119,7 +119,7 @@ export async function checkPCR0Mapping(imageHashHex: string): Promise<boolean> {
   }
 
   // Convert the PCR0 hash from hex to a byte array, ensuring proper "0x" prefix
-  const pcr0Bytes = ethers.utils.getBytes(`0x${imageHashHex.padStart(96, '0')}`);
+ const pcr0Bytes = ethers.utils.arrayify(`0x${imageHashHex.padStart(96, '0')}`);
 
   if (pcr0Bytes.length !== 48) {
     throw new Error(`Invalid PCR0 bytes length: expected 48, got ${pcr0Bytes.length}`);
