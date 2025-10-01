@@ -371,7 +371,7 @@ export function parseCertificateSimple(pem: string): CertificateData {
     certificateData.rawPem = pem;
 
     const authorityKeyIdentifier = getAuthorityKeyIdentifier(cert);
-    certificateData.authorityKeyIdentifier = authorityKeyIdentifier;
+    certificateData.authorityKeyIdentifier = authorityKeyIdentifier ?? '';
 
     // corner case for rsapss
     if (
