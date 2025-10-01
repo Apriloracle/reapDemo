@@ -1,3 +1,14 @@
+export interface StandardCurve {
+  name: string;
+  p: string;
+  a: string;
+  b: string;
+  G: string;
+  n: string;
+  h: string;
+}
+
+
 type CurveName =
   | 'secp224r1'
   | 'secp256r1'
