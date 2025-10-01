@@ -99,25 +99,28 @@ export function generateCircuitInputsDSC(
   passportData: PassportData,
   serializedCscaTree: string[][]
 ) {
-  // VVVV THIS IS THE CORRECTED FIX VVVV
-  if (
-    !passportData.csca_parsed?.tbsBytes ||
-    !passportData.dsc_parsed?.tbsBytes
-  ) {
+  // VVVV THIS IS THE DEFINITIVE FIX VVVV
+  const { csca_parsed: cscaParsed, dsc_parsed: dscParsed } = passportData;
+
+  // 1. Check if the parsed certificate objects exist.
+  if (!cscaParsed || !dscParsed) {
+    throw new Error(
+      'CSCA or DSC certificate data is missing and required for generating DSC circuit inputs.'
+    );
+  }
+
+  // 2. Check if the tbsBytes property exists on the now-confirmed objects.
+  if (!cscaParsed.tbsBytes || !dscParsed.tbsBytes) {
     throw new Error(
       'CSCA or DSC certificate TBS bytes are missing and required for generating DSC circuit inputs.'
     );
   }
-  // ^^^^ THIS IS THE CORRECTED FIX ^^^^
+  // ^^^^ AFTER THESE CHECKS, TYPESCRIPT IS SATISFIED ^^^^
 
   const passportMetadata = passportData.passportMetadata;
-  // Because of the check above, TypeScript now knows these are defined.
-  const cscaParsed = passportData.csca_parsed;
-  const dscParsed = passportData.dsc_parsed;
   const raw_dsc = passportData.dsc;
-  
-  // CSCA is padded with 0s to max_csca_bytes
-  // No error here, as TypeScript knows cscaParsed.tbsBytes is a number[]
+
+  // No error here, as TypeScript now knows cscaParsed and cscaParsed.tbsBytes are defined.
   const cscaTbsBytesPadded = padWithZeroes(cscaParsed.tbsBytes, max_csca_bytes);
   const dscTbsBytes = dscParsed.tbsBytes;
 
@@ -126,9 +129,10 @@ export function generateCircuitInputsDSC(
     dscTbsBytes,
     max_dsc_bytes
   );
+  
   const leaf = getLeafCscaTree(cscaParsed);
   const [root, path, siblings] = getCscaTreeInclusionProof(leaf, serializedCscaTree);
-  // Parse CSCA certificate and get its public key
+
   const csca_pubKey_formatted = getCertificatePubKey(
     cscaParsed,
     passportMetadata.cscaSignatureAlgorithm,
@@ -142,19 +146,20 @@ export function generateCircuitInputsDSC(
     cscaParsed,
     signatureRaw
   );
-  // Get start index of CSCA pubkey based on algorithm
+
   const [startIndex, keyLength] = findStartPubKeyIndex(
     cscaParsed,
     cscaTbsBytesPadded,
     passportMetadata.cscaSignatureAlgorithm
   );
+
   return {
     raw_csca: cscaTbsBytesPadded.map((x) => x.toString()),
     raw_csca_actual_length: BigInt(cscaParsed.tbsBytes.length).toString(),
     csca_pubKey_offset: startIndex.toString(),
     csca_pubKey_actual_size: BigInt(keyLength).toString(),
     raw_dsc: Array.from(dscTbsBytesPadded).map((x) => x.toString()),
-    raw_dsc_padded_length: BigInt(dscTbsBytesLen).toString(), // with the sha padding actually
+    raw_dsc_padded_length: BigInt(dscTbsBytesLen).toString(),
     csca_pubKey: csca_pubKey_formatted,
     signature,
     merkle_root: root,
