@@ -128,7 +128,12 @@ export async function checkPCR0Mapping(imageHashHex: string): Promise<boolean> {
   const celoProvider = new ethers.providers.JsonRpcProvider(RPC_URL);
 
   // Create a contract instance for the PCR0Manager
-  const pcr0Manager = new Contract(PCR0_MANAGER_ADDRESS, PCR0ManagerABI, celoProvider);
+  const pcr0Manager = new ethers.Contract(
+  PCR0_MANAGER_ADDRESS,
+  PCR0ManagerABI,
+  celoProvider
+);
+
 
   try {
     // Query the contract: isPCR0Set returns true if the given PCR0 value is set
