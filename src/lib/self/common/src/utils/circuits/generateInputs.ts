@@ -233,6 +233,10 @@ export function generateCircuitInputsRegisterForTests(
   if (!dscParsed.tbsBytes) {
     throw new Error('DSC TBS bytes are missing.');
   }
+  // Add check for eContent and signedAttr
+  if (!eContent || !signedAttr) {
+    throw new Error('eContent or signedAttr is missing from passport data.');
+  }
   // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
@@ -310,6 +314,10 @@ export function generateCircuitInputsRegister(
   }
   if (!dscParsed.tbsBytes) {
     throw new Error('DSC TBS bytes are missing.');
+  }
+  // Add check for eContent and signedAttr
+  if (!eContent || !signedAttr) {
+    throw new Error('eContent or signedAttr is missing from passport data.');
   }
   // ^^^^ END OF FIX ^^^^
 
