@@ -99,21 +99,25 @@ export function generateCircuitInputsDSC(
   passportData: PassportData,
   serializedCscaTree: string[][]
 ) {
-  // VVVV THIS IS THE FIX VVVV
-  if (!passportData.csca_parsed || !passportData.dsc_parsed) {
+  // VVVV THIS IS THE CORRECTED FIX VVVV
+  if (
+    !passportData.csca_parsed?.tbsBytes ||
+    !passportData.dsc_parsed?.tbsBytes
+  ) {
     throw new Error(
-      'CSCA or DSC certificate data is missing and required for generating DSC circuit inputs.'
+      'CSCA or DSC certificate TBS bytes are missing and required for generating DSC circuit inputs.'
     );
   }
-  // ^^^^ THIS IS THE FIX ^^^^
+  // ^^^^ THIS IS THE CORRECTED FIX ^^^^
 
   const passportMetadata = passportData.passportMetadata;
+  // Because of the check above, TypeScript now knows these are defined.
   const cscaParsed = passportData.csca_parsed;
   const dscParsed = passportData.dsc_parsed;
   const raw_dsc = passportData.dsc;
   
   // CSCA is padded with 0s to max_csca_bytes
-  // No error here anymore, as TypeScript knows cscaParsed is defined.
+  // No error here, as TypeScript knows cscaParsed.tbsBytes is a number[]
   const cscaTbsBytesPadded = padWithZeroes(cscaParsed.tbsBytes, max_csca_bytes);
   const dscTbsBytes = dscParsed.tbsBytes;
 
