@@ -77,11 +77,23 @@ export function getAttributeFromUnpackedReveal(
   attribute: string,
   id_type: 'passport' | 'id'
 ) {
-  const position =
-    id_type === 'passport' ? attributeToPosition[attribute] : attributeToPosition_ID[attribute];
+  const positionMap =
+    id_type === 'passport' ? attributeToPosition : attributeToPosition_ID;
+
+  // This 'in' check is a type guard. It validates the key and makes the code safe.
+  if (!(attribute in positionMap)) {
+    console.warn(`Invalid attribute "${attribute}" for id_type "${id_type}".`);
+    return ''; // Return empty string if the attribute doesn't exist for the given type.
+  }
+
+  // After the guard, TypeScript knows 'attribute' is a valid key.
+  // We use a safe cast here that is guaranteed to work because of the check above.
+  const position = positionMap[attribute as keyof typeof positionMap];
+  
   let attributeValue = '';
   for (let i = position[0]; i <= position[1]; i++) {
-    if (unpackedReveal[i] !== '\u0000') {
+    // Safety check in case the unpackReveal array is shorter than expected
+    if (unpackedReveal[i] && unpackedReveal[i] !== '\u0000') {
       attributeValue += unpackedReveal[i];
     }
   }
