@@ -224,23 +224,27 @@ export function generateCircuitInputsRegisterForTests(
   passportData: PassportData,
   serializedDscTree: string
 ) {
-  const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
-
-  // Comprehensive checks for all potentially undefined properties used in this function
-  if (!mrz || !eContent || !signedAttr) {
+  // VVVV THIS IS THE DEFINITIVE FIX VVVV
+  // 1. Perform all validation checks on the original object first.
+  if (!passportData.mrz || !passportData.eContent || !passportData.signedAttr) {
     throw new Error('MRZ, eContent, or signedAttr is missing from passport data.');
   }
-  if (!dscParsed || !cscaParsed || !passportMetadata) {
+  if (!passportData.dsc_parsed || !passportData.csca_parsed || !passportData.passportMetadata) {
     throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
   }
-  if (!dscParsed.tbsBytes) {
+  if (!passportData.dsc_parsed.tbsBytes) {
     throw new Error('DSC TBS bytes are missing.');
   }
+
+  // 2. Now that all properties are validated, we can safely use them.
+  const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
+  // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
   const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
   const mrz_formatted = formatMrz(mrz);
 
+  // This line will now compile correctly.
   if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
     throw new Error(`eContent too long (${eContent.length} bytes).`);
   }
@@ -286,23 +290,27 @@ export function generateCircuitInputsRegister(
   passportData: PassportData,
   serializedDscTree: string
 ) {
-  const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
-
-  // Comprehensive checks for all potentially undefined properties used in this function
-  if (!mrz || !eContent || !signedAttr) {
+  // VVVV THIS IS THE DEFINITIVE FIX VVVV
+  // 1. Perform all validation checks on the original object first.
+  if (!passportData.mrz || !passportData.eContent || !passportData.signedAttr) {
     throw new Error('MRZ, eContent, or signedAttr is missing from passport data.');
   }
-  if (!dscParsed || !cscaParsed || !passportMetadata) {
+  if (!passportData.dsc_parsed || !passportData.csca_parsed || !passportData.passportMetadata) {
     throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
   }
-  if (!dscParsed.tbsBytes) {
+  if (!passportData.dsc_parsed.tbsBytes) {
     throw new Error('DSC TBS bytes are missing.');
   }
+
+  // 2. Now that all properties are validated, we can safely use them.
+  const { mrz, eContent, signedAttr, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
+  // ^^^^ END OF FIX ^^^^
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
   const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
   const mrz_formatted = formatMrz(mrz);
 
+  // This line will now compile correctly.
   if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
     throw new Error(`eContent too long (${eContent.length} bytes).`);
   }
@@ -359,15 +367,18 @@ export function generateCircuitInputsVCandDisclose(
   forbidden_countries_list: string[],
   user_identifier: string
 ) {
-  const { mrz, eContent, documentType, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
-
-  // Comprehensive checks for all potentially undefined properties used in this function
-  if (!mrz || !eContent) {
+  // VVVV THIS IS THE DEFINITIVE FIX VVVV
+  // 1. Perform all validation checks on the original object first.
+  if (!passportData.mrz || !passportData.eContent) {
     throw new Error('MRZ or eContent is missing from passport data.');
   }
-  if (!dscParsed || !cscaParsed || !passportMetadata) {
+  if (!passportData.dsc_parsed || !passportData.csca_parsed || !passportData.passportMetadata) {
     throw new Error('Required parsed data (DSC, CSCA, or Metadata) is missing.');
   }
+  
+  // 2. Now that all properties are validated, we can safely use them.
+  const { mrz, eContent, documentType, dsc_parsed: dscParsed, csca_parsed: cscaParsed, passportMetadata } = passportData;
+  // ^^^^ END OF FIX ^^^^
   
   const isPassportType = documentType === 'passport' || documentType === 'mock_passport';
   const formattedMrz = formatMrz(mrz);
