@@ -1,4 +1,3 @@
-import { flag } from 'country-emoji';
 import getCountryISO2 from 'country-iso-3-to-2';
 import { writeFileSync } from 'fs';
 import path from 'path';
@@ -11,7 +10,6 @@ try {
   const countryOptions = Object.keys(countryCodes).map((countryCode, index) => ({
     countryCode,
     countryName: countryCodes[countryCode as keyof typeof countryCodes],
-    flagEmoji: flag(getCountryISO2(countryCode)),
     index,
   }));
 
