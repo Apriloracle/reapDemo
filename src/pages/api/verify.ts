@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { SelfBackendVerifier, AllIds, DefaultConfigStore } from "@selfxyz/core";
+import { SelfBackendVerifier, AllIds, DefaultConfigStore } from "../../lib/self/core";
 
 // IMPORTANT: These parameters MUST match your client-side SelfAppBuilder configuration exactly
 const selfBackendVerifier = new SelfBackendVerifier(
@@ -13,7 +13,7 @@ const selfBackendVerifier = new SelfBackendVerifier(
     ofac: true,
   }),
   // Add the scope parameter to match the frontend configuration
-  process.env.NEXT_PUBLIC_SELF_SCOPE || "self-workshop"
+  (process.env.NEXT_PUBLIC_SELF_SCOPE || "self-workshop") as any
 );
 
 
@@ -86,3 +86,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
