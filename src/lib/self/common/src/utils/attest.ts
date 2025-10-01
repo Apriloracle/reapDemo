@@ -125,7 +125,7 @@ export async function checkPCR0Mapping(imageHashHex: string): Promise<boolean> {
     throw new Error(`Invalid PCR0 bytes length: expected 48, got ${pcr0Bytes.length}`);
   }
 
-  const celoProvider = new JsonRpcProvider(RPC_URL);
+  const celoProvider = new ethers.providers.JsonRpcProvider(RPC_URL);
 
   // Create a contract instance for the PCR0Manager
   const pcr0Manager = new Contract(PCR0_MANAGER_ADDRESS, PCR0ManagerABI, celoProvider);
