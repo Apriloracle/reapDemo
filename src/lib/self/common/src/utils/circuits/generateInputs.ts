@@ -230,13 +230,17 @@ export function generateCircuitInputsRegisterForTests(
     throw new Error('DSC TBS bytes are missing.');
   }
 
-  const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
-  const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
-  const mrz_formatted = formatMrz(mrz);
+const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
+const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
+const mrz_formatted = formatMrz(mrz);
 
-  if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
-    throw new Error(`eContent too long (${eContent.length} bytes).`);
-  }
+if (!signatureAlgorithmFullName) {
+  throw new Error('Signature algorithm full name is missing.');
+}
+
+if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
+  throw new Error(`eContent too long (${eContent.length} bytes).`);
+}
 
   const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(
     eContent,
@@ -299,12 +303,17 @@ export function generateCircuitInputsRegister(
   }
 
   const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
-  const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
-  const mrz_formatted = formatMrz(mrz);
+const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
 
-  if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
-    throw new Error(`eContent too long (${eContent.length} bytes).`);
-  }
+if (!signatureAlgorithmFullName) {
+  throw new Error('Signature algorithm full name is missing.');
+}
+
+const mrz_formatted = formatMrz(mrz);
+
+if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
+  throw new Error(`eContent too long (${eContent.length} bytes).`);
+}
 
   const [eContentPadded, eContentLen] = pad(passportMetadata.eContentHashFunction)(
     eContent,
