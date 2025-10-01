@@ -297,7 +297,7 @@ export function generateCircuitInputsRegisterForTests(
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 }
 
-export function generateCircuitInputsRegisterForTests(
+export function generateCircuitInputsRegister(
   secret: string,
   passportData: PassportData,
   serializedDscTree: string
@@ -333,7 +333,7 @@ export function generateCircuitInputsRegisterForTests(
   );
   const [signedAttrPadded, signedAttrPaddedLen] = pad(passportMetadata.signedAttrHashFunction)(
     signedAttr,
-    MAX_PADDED_SIGNED_ATTR_LEN_FOR_TESTS[passportMetadata.eContentHashFunction]
+    MAX_PADDED_SIGNED_ATTR_LEN[passportMetadata.eContentHashFunction]
   );
 
   const dsc_leaf = getLeafDscTree(dscParsed, cscaParsed);
