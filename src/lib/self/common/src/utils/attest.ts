@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { JsonRpcProvider, Contract, getBytes } from 'ethers';
 import forge from 'node-forge';
 import { PCR0_MANAGER_ADDRESS, RPC_URL } from '../constants/constants.js';
 
@@ -119,15 +119,15 @@ export async function checkPCR0Mapping(imageHashHex: string): Promise<boolean> {
   }
 
   // Convert the PCR0 hash from hex to a byte array, ensuring proper "0x" prefix
-  const pcr0Bytes = ethers.getBytes(`0x${imageHashHex.padStart(96, '0')}`);
+  const pcr0Bytes = getBytes(`0x${imageHashHex.padStart(96, '0')}`);
   if (pcr0Bytes.length !== 48) {
     throw new Error(`Invalid PCR0 bytes length: expected 48, got ${pcr0Bytes.length}`);
   }
 
-  const celoProvider = new ethers.JsonRpcProvider(RPC_URL);
+  const celoProvider = new JsonRpcProvider(RPC_URL);
 
   // Create a contract instance for the PCR0Manager
-  const pcr0Manager = new ethers.Contract(PCR0_MANAGER_ADDRESS, PCR0ManagerABI, celoProvider);
+  const pcr0Manager = new Contract(PCR0_MANAGER_ADDRESS, PCR0ManagerABI, celoProvider);
 
   try {
     // Query the contract: isPCR0Set returns true if the given PCR0 value is set
@@ -200,3 +200,4 @@ export function validatePKIToken(
     };
   }
 }
+
