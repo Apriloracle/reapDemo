@@ -238,7 +238,12 @@ if (!signatureAlgorithmFullName) {
   throw new Error('Signature algorithm full name is missing.');
 }
 
-if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
+const maxEContentLen = MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName];
+if (maxEContentLen === undefined) {
+  throw new Error(`Unsupported signature algorithm: ${signatureAlgorithmFullName}`);
+}
+
+if (eContent.length > maxEContentLen) {
   throw new Error(`eContent too long (${eContent.length} bytes).`);
 }
 
@@ -302,16 +307,20 @@ export function generateCircuitInputsRegister(
     throw new Error('DSC TBS bytes are missing.');
   }
 
-  const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
+const [dscTbsBytesPadded] = pad(dscParsed.hashAlgorithm)(dscParsed.tbsBytes, max_dsc_bytes);
 const { pubKey, signature, signatureAlgorithmFullName } = getPassportSignatureInfos(passportData);
+const mrz_formatted = formatMrz(mrz);
 
 if (!signatureAlgorithmFullName) {
   throw new Error('Signature algorithm full name is missing.');
 }
 
-const mrz_formatted = formatMrz(mrz);
+const maxEContentLen = MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName];
+if (maxEContentLen === undefined) {
+  throw new Error(`Unsupported signature algorithm: ${signatureAlgorithmFullName}`);
+}
 
-if (eContent.length > MAX_PADDED_ECONTENT_LEN[signatureAlgorithmFullName]) {
+if (eContent.length > maxEContentLen) {
   throw new Error(`eContent too long (${eContent.length} bytes).`);
 }
 
