@@ -1,5 +1,5 @@
-import { formatDG1Attribute, formatName } from './format.js';
-import type { IdDocInput } from './genMockIdDoc.js';
+import { formatDG1Attribute, formatName } from './format.ts';
+import type { IdDocInput } from './genMockIdDoc.ts';
 
 export function genDG1(idDocInput: IdDocInput) {
   switch (idDocInput.idType) {
@@ -11,6 +11,25 @@ export function genDG1(idDocInput: IdDocInput) {
 }
 
 function genDG1IdCard(idDocInput: IdDocInput) {
+  // Validate required fields
+  if (!idDocInput.nationality) {
+    throw new Error('Nationality is required for ID card generation');
+  }
+  if (!idDocInput.passportNumber) {
+    throw new Error('Document number is required for ID card generation');
+  }
+  if (!idDocInput.birthDate) {
+    throw new Error('Birth date is required for ID card generation');
+  }
+  if (!idDocInput.sex) {
+    throw new Error('Sex is required for ID card generation');
+  }
+  if (!idDocInput.expiryDate) {
+    throw new Error('Expiry date is required for ID card generation');
+  }
+  if (!idDocInput.firstName || !idDocInput.lastName) {
+    throw new Error('First name and last name are required for ID card generation');
+  }
   const doc_type_index = [0, 1];
   const issuing_state_index = [2, 4];
   const document_number_index = [5, 13];
@@ -52,6 +71,24 @@ function genDG1IdCard(idDocInput: IdDocInput) {
 }
 
 function genDG1Passport(idDocInput: IdDocInput) {
+    if (!idDocInput.nationality) {
+    throw new Error('Nationality is required for passport generation');
+  }
+  if (!idDocInput.passportNumber) {
+    throw new Error('Passport number is required for passport generation');
+  }
+  if (!idDocInput.birthDate) {
+    throw new Error('Birth date is required for passport generation');
+  }
+  if (!idDocInput.sex) {
+    throw new Error('Sex is required for passport generation');
+  }
+  if (!idDocInput.expiryDate) {
+    throw new Error('Expiry date is required for passport generation');
+  }
+  if (!idDocInput.firstName || !idDocInput.lastName) {
+    throw new Error('First name and last name are required for passport generation');
+  }
   const doc_type_index = [0, 1];
   const issuing_state_index = [2, 4];
   const name_index = [5, 43];
