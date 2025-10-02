@@ -7,9 +7,9 @@ import {
   DEFAULT_MAJORITY,
   ID_CARD_ATTESTATION_ID,
   PASSPORT_ATTESTATION_ID,
-} from '../../constants/constants.js';
-import type { DocumentCategory, PassportData } from '../../types/index.js';
-import type { SelfApp, SelfAppDisclosureConfig } from '../../utils/appType.js';
+} from '../../constants/constants.ts';
+import type { DocumentCategory, PassportData } from '../../types/index.ts';
+import type { SelfApp, SelfAppDisclosureConfig } from '../../utils/appType.ts';
 import {
   calculateUserIdentifierHash,
   generateCircuitInputsDSC,
@@ -17,13 +17,13 @@ import {
   generateCircuitInputsVCandDisclose,
   getCircuitNameFromPassportData,
   hashEndpointWithScope,
-} from '../../utils/index.js';
-import type { AadhaarData, IDDocument, OfacTree } from '../../utils/types.js';
+} from '../../utils/index.ts';
+import type { AadhaarData, IDDocument, OfacTree } from '../../utils/types.ts';
 
 import { LeanIMT } from '@openpassport/zk-kit-lean-imt';
 import { SMT } from '@openpassport/zk-kit-smt';
 
-export { generateCircuitInputsRegister } from './generateInputs.js';
+export { generateCircuitInputsRegister } from './generateInputs.ts';
 
 export function generateTEEInputsAadhaarDisclose(
   secret: string,
@@ -120,16 +120,18 @@ export function generateTEEInputsDSC(
 
 /*** DISCLOSURE ***/
 
-function getSelectorDg1(document: DocumentCategory, disclosures: SelfAppDisclosureConfig) {
+function getSelectorDg1(document: DocumentCategory, disclosures: SelfAppDisclosureConfig): string[] {
   switch (document) {
     case 'passport':
       return getSelectorDg1Passport(disclosures);
     case 'id_card':
       return getSelectorDg1IdCard(disclosures);
+    default:
+      throw new Error(`Unsupported document category: ${document}`);
   }
 }
 
-function getSelectorDg1Passport(disclosures: SelfAppDisclosureConfig) {
+function getSelectorDg1Passport(disclosures: SelfAppDisclosureConfig): string[] {
   const selector_dg1 = Array(88).fill('0');
   Object.entries(disclosures).forEach(([attribute, reveal]) => {
     if (['ofac', 'excludedCountries', 'minimumAge'].includes(attribute)) {
@@ -143,7 +145,7 @@ function getSelectorDg1Passport(disclosures: SelfAppDisclosureConfig) {
   return selector_dg1;
 }
 
-function getSelectorDg1IdCard(disclosures: SelfAppDisclosureConfig) {
+function getSelectorDg1IdCard(disclosures: SelfAppDisclosureConfig): string[] {
   const selector_dg1 = Array(90).fill('0');
   Object.entries(disclosures).forEach(([attribute, reveal]) => {
     if (['ofac', 'excludedCountries', 'minimumAge'].includes(attribute)) {
