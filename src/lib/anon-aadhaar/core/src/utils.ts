@@ -1,5 +1,7 @@
-import { PackedGroth16Proof } from './types'
-import { Groth16Proof } from 'snarkjs'
+
+import { PackedGroth16Proof, Groth16Proof } from './types'
+// V-- FIX: Removed the import from snarkjs
+// import { Groth16Proof } from 'snarkjs'
 import pako from 'pako'
 import { storageService as defaultStorageService } from './storage'
 
@@ -44,6 +46,7 @@ export function splitToWords(
  * @param originalProof The proof generated with SnarkJS.
  * @returns The proof compatible with Semaphore.
  */
+// This function will now correctly use the Groth16Proof interface from types.ts
 export function packGroth16Proof(
   groth16Proof: Groth16Proof
 ): PackedGroth16Proof {
