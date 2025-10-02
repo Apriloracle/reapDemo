@@ -307,6 +307,15 @@ export function getNAndKCSCA(sigAlg: 'rsa' | 'ecdsa' | 'rsapss') {
 /// @dev valid for only for the passport/dsc chain
 export function getPassportSignatureInfos(passportData: PassportData) {
   const passportMetadata = passportData.passportMetadata;
+  
+  if (!passportMetadata) {
+    throw new Error('Passport metadata is missing');
+  }
+
+  if (!passportData.dsc_parsed) {
+    throw new Error('DSC parsed data is missing');
+  }
+
   const signatureAlgorithmFullName = getSignatureAlgorithmFullName(
     passportData.dsc_parsed,
     passportMetadata.signatureAlgorithm,
