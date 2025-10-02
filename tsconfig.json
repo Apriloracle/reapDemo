@@ -19,6 +19,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "src/lib/anon-aadhaar/snarkjs.d.ts", "src/**/*.ts", "src/**/*.tsx", "**/*.d.ts"],
+  "include": ["next-env.d.ts", "src/lib/anon-aadhaar/snarkjs.d.ts", "src/declarations.d.ts", "src/**/*.ts", "src/**/*.tsx", "**/*.d.ts"],
   "exclude": ["node_modules"]
 }
