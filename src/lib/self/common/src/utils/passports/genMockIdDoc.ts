@@ -61,7 +61,7 @@ const defaultIdDocInput: IdDocInput = {
 };
 
 // Generate mock Aadhaar document
-function genMockAadhaarDoc(input: IdDocInput): AadhaarData {
+//function genMockAadhaarDoc(input: IdDocInput): AadhaarData {
   const name = input.firstName
     ? `${input.firstName} ${input.lastName || ''}`.trim()
     : generateRandomName();
