@@ -36,8 +36,8 @@ export function calculateUserIdentifierHash(
     userDefinedData
   );
   const inputBytes = Buffer.from(solidityPackedUserContextData.slice(2), 'hex');
-  const sha256Hash = ethers.sha256(inputBytes);
-  const ripemdHash = ethers.ripemd160(sha256Hash);
+  const sha256Hash = ethers.utils.sha256(inputBytes);
+  const ripemdHash = ethers.utils.ripemd160(sha256Hash);
   return BigInt(ripemdHash);
 }
 
