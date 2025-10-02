@@ -27,6 +27,7 @@
     "@types/pako": "^2.0.3",
     "@pcd/pcd-types": "^0.15.0",
     "@zk-email/helpers": "^6.4.2",
+    "@ethersproject/keccak256": "^5.8.0",
     "@vlcn.io/crsqlite-wasm": "^0.16.0",
     "@openpassport/zk-kit-lean-imt": "^0.0.6",
     "@openpassport/zk-kit-smt": "^0.0.1",
