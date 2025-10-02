@@ -1,11 +1,23 @@
+// --- START OF FILE types.ts (Corrected) ---
+
 import {
   NumberArgument,
   StringArrayArgument,
   StringArgument,
 } from '@pcd/pcd-types'
-import { Groth16Proof } from 'snarkjs'
+// V-- FIX: Removed Groth16Proof from this import
+import {} from 'snarkjs'
 
 export type BigNumberish = string | bigint
+
+// FIX: Define the interface for Groth16Proof here. This is the best place for it.
+export interface Groth16Proof {
+  pi_a: [string, string, string]
+  pi_b: [[string, string], [string, string], [string, string]]
+  pi_c: [string, string, string]
+  protocol: string
+  curve: string
+}
 
 export const AnonAadhaarTypeName = 'anon-aadhaar'
 
@@ -42,7 +54,8 @@ export type AnonAadhaarClaim = {
  * @dev proof of a correct claim
  */
 export type AnonAadhaarProof = {
-  groth16Proof: Groth16Proof // 3 points on curve if we use groth16
+  // This will now correctly refer to the interface defined above
+  groth16Proof: Groth16Proof
   pubkeyHash: string
   timestamp: string
   nullifierSeed: string
