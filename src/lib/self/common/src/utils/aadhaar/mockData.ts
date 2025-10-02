@@ -112,7 +112,7 @@ export function processQRDataSimple(qrData: string) {
   const qrDataBytes = convertBigIntToByteArray(BigInt(qrData));
   const decodedData = decompressByteArray(qrDataBytes);
   const signedData = decodedData.slice(0, decodedData.length - 256);
-  const [qrDataPaddedNumber, qrDataPaddedLen] = shaPad(signedData, 512 * 3);
+  const [qrDataPaddedNumber, qrDataPaddedLen] = shaPad(Array.from(signedData), 512 * 3);
   const qrDataPadded = new Uint8Array(qrDataPaddedNumber);
   let photoEOI = 0;
   for (let i = 0; i < qrDataPadded.length - 1; i++) {
