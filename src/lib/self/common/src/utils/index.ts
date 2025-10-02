@@ -4,7 +4,7 @@ export type {
   PublicKeyDetailsECDSA,
   PublicKeyDetailsRSA,
 } from './certificate_parsing/dataStructure.ts';
-export type { IdDocInput } from './passports/genMockIdDoc.ts';
+//export type { IdDocInput } from './passports/genMockIdDoc.ts';
 export type { PassportMetadata } from './passports/passport_parsing/parsePassportData.ts';
 export type { TEEPayload, TEEPayloadBase, TEEPayloadDisclose } from './proving.ts';
 export type { UserIdType } from './circuits/uuid.ts';
