@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import forge from 'node-forge';
 
-import { IDENTITY_VERIFICATION_HUB_ADDRESS, RPC_URL } from '../../constants/constants.js';
+import { IDENTITY_VERIFICATION_HUB_ADDRESS, RPC_URL } from '../../constants/constants.ts';
 
 import {
   convertBigIntToByteArray,
