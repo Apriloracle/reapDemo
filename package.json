@@ -28,6 +28,7 @@
     "@vlcn.io/crsqlite-wasm": "^0.16.0",
     "@openpassport/zk-kit-lean-imt": "^0.0.6",
     "@openpassport/zk-kit-smt": "^0.0.1",
+    "@stablelib/cbor": "^2.0.1",
     "@webbuf/blake3": "^3.0.28",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
