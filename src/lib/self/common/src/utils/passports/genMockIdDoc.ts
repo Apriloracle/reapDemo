@@ -251,6 +251,8 @@ function generateDataGroupHashes(mrzHash: number[], hashLen: number): [number, n
 
   return dataGroups;
 }
+// Replace the entire sign function (lines 260-303) with this:
+
 function sign(
   privateKeyPem: string,
   dsc: string,
@@ -261,11 +263,11 @@ function sign(
 
   if (signatureAlgorithm === 'rsapss') {
     const privateKey = forge.pki.privateKeyFromPem(privateKeyPem);
-    const md = forge.md[hashAlgorithm].create();
+    const md = (forge.md as any)[hashAlgorithm].create();
     md.update(forge.util.binary.raw.encode(new Uint8Array(eContent)));
     const pss = forge.pss.create({
-      md: forge.md[hashAlgorithm].create(),
-      mgf: forge.mgf.mgf1.create(forge.md[hashAlgorithm].create()),
+      md: (forge.md as any)[hashAlgorithm].create(),
+      mgf: forge.mgf.mgf1.create((forge.md as any)[hashAlgorithm].create()),
       saltLength: parseInt((publicKeyDetails as PublicKeyDetailsRSAPSS).saltLength),
     });
     const signatureBytes = privateKey.sign(md, pss);
@@ -292,9 +294,9 @@ function sign(
     return signatureBytes;
   } else {
     const privKey = forge.pki.privateKeyFromPem(privateKeyPem);
-    const md = forge.md[hashAlgorithm].create();
+    const md = (forge.md as any)[hashAlgorithm].create();
     md.update(forge.util.binary.raw.encode(new Uint8Array(eContent)));
     const forgeSignature = privKey.sign(md);
     return Array.from(forgeSignature, (c: string) => c.charCodeAt(0));
   }
-
+}
