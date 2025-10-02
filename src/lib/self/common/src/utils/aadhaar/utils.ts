@@ -13,7 +13,7 @@ import {
   rawDataToCompressedQR,
   replaceBytesBetween,
   returnFullId,
-} from '@anon-aadhaar/core';
+} from '@/lib/anon-aadhaar/core/src/index';
 
 export interface ExtractedQRData {
   name: string;
