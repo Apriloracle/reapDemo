@@ -189,10 +189,16 @@ export function generateCommitment(
   ]).toString();
 }
 
+// Replace the getPassportSignature function (around lines 189-207) with this:
+
 function getPassportSignature(passportData: PassportData, n: number, k: number): any {
   // if (isAadhaarDocument(passportData)) {
   //   return splitToWords(BigInt(bytesToBigDecimal(passportData.signature)), n, k);
   // }
+
+  if (!passportData.dsc_parsed) {
+    throw new Error('DSC parsed data is missing');
+  }
 
   const { signatureAlgorithm } = passportData.dsc_parsed;
   if (signatureAlgorithm === 'ecdsa') {
