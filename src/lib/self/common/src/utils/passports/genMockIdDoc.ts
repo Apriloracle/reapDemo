@@ -269,7 +269,4 @@ function sign(
     const forgeSignature = privKey.sign(md);
     return Array.from(forgeSignature, (c: string) => c.charCodeAt(0));
   }
-}
-export function genMockIdDoc() {
-  throw new Error("genMockIdDoc is disabled in this build.");
-}
+
