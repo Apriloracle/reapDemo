@@ -130,6 +130,10 @@ export function genMockIdDoc(
     dsc = mockDSC.dsc;
     privateKeyPem = mockDSC.privateKeyPem;
   } else {
+    // This is the fix: Ensure signatureType is not undefined
+    if (!mergedInput.signatureType) {
+      throw new Error('Signature type is missing for mock document generation.');
+    }
     ({ privateKeyPem, dsc } = getMockDSC(mergedInput.signatureType));
   }
 
@@ -142,7 +146,7 @@ export function genMockIdDoc(
   const eContent = formatAndConcatenateDataHashes(dataGroupHashes, 63);
   const eContentHash = hash(mergedInput.eContentHashAlgo, eContent);
   const signedAttr = generateSignedAttr(eContentHash as number[]);
-  const hashAlgo = mergedInput.signatureType.split('_')[1];
+  const hashAlgo = mergedInput.signatureType.split('_')[1]; // This line is now safe
   const signature = sign(privateKeyPem, dsc, hashAlgo, signedAttr);
   const signatureBytes = Array.from(signature, (byte) => (byte < 128 ? byte : byte - 256));
   return {
