@@ -145,25 +145,29 @@ if (!mergedInput.dgHashAlgo) {
   throw new Error('DG hash algorithm is missing for mock document generation.');
 }
 
-  // FIX for the formatted MRZ data:
-  const formattedMrz = formatMrz(dg1);
+// FIX for the formatted MRZ data:
+const formattedMrz = formatMrz(dg1);
 if (!formattedMrz) {
   throw new Error('Failed to format MRZ data from DG1.');
 }
 const dg1_hash = hash(mergedInput.dgHashAlgo, formattedMrz);
   
-  const dataGroupHashes = generateDataGroupHashes(
-    dg1_hash as number[],
-    getHashLen(mergedInput.dgHashAlgo)
-  );
+const dataGroupHashes = generateDataGroupHashes(
+  dg1_hash as number[],
+  getHashLen(mergedInput.dgHashAlgo)
+);
 
-  if (!mergedInput.eContentHashAlgo) {
-    throw new Error('eContent hash algorithm is missing for mock document generation.');
-  }
+if (!mergedInput.eContentHashAlgo) {
+  throw new Error('eContent hash algorithm is missing for mock document generation.');
+}
 
-  const eContent = formatAndConcatenateDataHashes(dataGroupHashes, 63);
-  const eContentHash = hash(mergedInput.eContentHashAlgo, eContent);
-  const signedAttr = generateSignedAttr(eContentHash as number[]);
+const eContent = formatAndConcatenateDataHashes(dataGroupHashes, 63);
+const eContentHash = hash(mergedInput.eContentHashAlgo, eContent);
+const signedAttr = generateSignedAttr(eContentHash as number[]);
+
+if (!mergedInput.signatureType) {
+  throw new Error('Signature type is missing for signature generation.');
+}
   
   const hashAlgo = mergedInput.signatureType.split('_')[1]; 
   const signature = sign(privateKeyPem, dsc, hashAlgo, signedAttr);
