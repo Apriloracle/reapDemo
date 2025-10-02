@@ -253,6 +253,8 @@ function generateDataGroupHashes(mrzHash: number[], hashLen: number): [number, n
 }
 // Replace the entire sign function (lines 260-303) with this:
 
+// Replace the entire sign function (lines 260-303) with this:
+
 function sign(
   privateKeyPem: string,
   dsc: string,
@@ -274,7 +276,7 @@ function sign(
     return Array.from(signatureBytes, (c: string) => c.charCodeAt(0));
   } else if (signatureAlgorithm === 'ecdsa') {
     const curve = (publicKeyDetails as PublicKeyDetailsECDSA).curve;
-    const curveForElliptic = getCurveForElliptic(curve);
+    const curveForElliptic = getCurveForElliptic(curve as any);
     const ec = new elliptic.ec(curveForElliptic);
 
     const privateKeyDer = Buffer.from(
