@@ -228,13 +228,14 @@ export function getCountryLeaf(
 ): bigint {
   if (country_by.length !== 3 || country_to.length !== 3) {
     console.log('parsed passport length is not 3:', i, country_to, country_by);
-    return;
+    return BigInt(0); // <-- FIX: Return a bigint
   }
   try {
     const country = country_by.concat(country_to);
     return poseidon6(country);
   } catch (err) {
     console.log('err : sanc_country hash', err, i, country_by, country_to);
+    return BigInt(0); // <-- FIX: Return a bigint on error
   }
 }
 
@@ -690,16 +691,17 @@ export function getPassportNumberAndNationalityLeaf(
 ): bigint {
   if (passport.length !== 9) {
     console.log('parsed passport length is not 9:', i, passport);
-    return;
+    return BigInt(0); // <-- FIX: Return a bigint
   }
   if (nationality.length !== 3) {
     console.log('parsed nationality length is not 3:', i, nationality);
-    return;
+    return BigInt(0); // <-- FIX: Return a bigint
   }
   try {
     const fullHash = poseidon12(passport.concat(nationality));
     return generateSmallKey(fullHash);
   } catch (err) {
     console.log('err : passport', err, i, passport);
+    return BigInt(0); // <-- FIX: Return a bigint on error
   }
 }
