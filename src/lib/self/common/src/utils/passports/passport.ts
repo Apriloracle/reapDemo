@@ -144,6 +144,8 @@ export function formatSignatureDSCCircuit(
 
 // Replace the generateCommitment function (lines 145-171) with this:
 
+// Replace the generateCommitment function (lines 145-171) with this:
+
 export function generateCommitment(
   secret: string,
   attestation_id: string,
@@ -153,6 +155,14 @@ export function generateCommitment(
 
   if (!passportMetadata) {
     throw new Error('Passport metadata is missing');
+  }
+
+  if (!passportData.dsc_parsed) {
+    throw new Error('DSC parsed data is missing');
+  }
+
+  if (!passportData.csca_parsed) {
+    throw new Error('CSCA parsed data is missing');
   }
 
   const dg1_packed_hash = packBytesAndPoseidon(formatMrz(passportData.mrz));
