@@ -133,6 +133,8 @@ function verifyRSA(dsc: CertificateData, csca: CertificateData, hashAlgorithm: s
   }
 }
 
+// Replace the verifyRSAPSS function (around lines 139-172) with this:
+
 function verifyRSAPSS(
   dsc: CertificateData,
   csca: CertificateData,
@@ -156,8 +158,8 @@ function verifyRSAPSS(
 
     try {
       const pss = forge.pss.create({
-        md: forge.md[hashAlgorithm].create(),
-        mgf: forge.mgf.mgf1.create(forge.md[hashAlgorithm].create()),
+        md: (forge.md as any)[hashAlgorithm].create(),
+        mgf: forge.mgf.mgf1.create((forge.md as any)[hashAlgorithm].create()),
         saltLength: saltLength,
       });
       return publicKey.verify(tbsHash, signature, pss);
