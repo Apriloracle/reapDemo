@@ -89,7 +89,7 @@ const qrData = processQRData(
   console.log('qrDataString', qrDataString);
 
   // Extract signature from the decoded data
-  //const signatureBytes = qrData.decodedData.slice(
+  const signatureBytes = qrData.decodedData.slice(
     qrData.decodedData.length - 256,
     qrData.decodedData.length
   );
