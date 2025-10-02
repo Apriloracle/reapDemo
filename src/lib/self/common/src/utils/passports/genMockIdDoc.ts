@@ -136,18 +136,21 @@ export function genMockIdDoc(
     ({ privateKeyPem, dsc } = getMockDSC(mergedInput.signatureType));
   }
 
-  const dg1 = genDG1(mergedInput);
+const dg1 = genDG1(mergedInput);
+if (!dg1) {
+  throw new Error('Failed to generate DG1 data.');
+}
 
-  if (!mergedInput.dgHashAlgo) {
-    throw new Error('DG hash algorithm is missing for mock document generation.');
-  }
+if (!mergedInput.dgHashAlgo) {
+  throw new Error('DG hash algorithm is missing for mock document generation.');
+}
 
   // FIX for the formatted MRZ data:
   const formattedMrz = formatMrz(dg1);
-  if (!formattedMrz) {
-    throw new Error('Failed to format MRZ data from DG1.');
-  }
-  const dg1_hash = hash(mergedInput.dgHashAlgo, formattedMrz);
+if (!formattedMrz) {
+  throw new Error('Failed to format MRZ data from DG1.');
+}
+const dg1_hash = hash(mergedInput.dgHashAlgo, formattedMrz);
   
   const dataGroupHashes = generateDataGroupHashes(
     dg1_hash as number[],
