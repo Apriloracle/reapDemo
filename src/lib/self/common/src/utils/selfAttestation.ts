@@ -1,4 +1,16 @@
-import type { Groth16Proof, PublicSignals } from 'snarkjs';
+// --- START OF FILE selfAttestation.ts (Corrected) ---
+
+// V-- FIX: The import from 'snarkjs' is removed.
+// import type { Groth16Proof, PublicSignals } from 'snarkjs';
+
+// FIX: We define the interface for Groth16Proof directly, just like in the other files.
+export interface Groth16Proof {
+  pi_a: [string, string, string];
+  pi_b: [[string, string], [string, string], [string, string]];
+  pi_c: [string, string, string];
+  protocol: string;
+  curve: string;
+}
 
 export interface SelfVerificationResult {
   isValid: boolean;
@@ -29,14 +41,14 @@ export interface SelfVerificationResult {
   };
   proof: {
     value: {
-      proof: Groth16Proof;
-      publicSignals: PublicSignals;
+      proof: Groth16Proof; // This now correctly refers to our interface
+      publicSignals: string[]; // <-- FIX: Replaced PublicSignals with string[]
     };
   };
   error: any;
 }
 
-export function parsePublicSignalsDisclose(publicSignals) {
+export function parsePublicSignalsDisclose(publicSignals: string[]) { // <-- FIX: Type for the argument
   return {
     revealedData_packed: publicSignals.slice(0, 2),
     forbidden_countries_list_packed: publicSignals.slice(3),
