@@ -34,15 +34,16 @@ export function parseDscCertificateData(
       if (csca) {
         cscaParsed = parseCertificateSimple(csca);
         const details = brutforceSignatureAlgorithmDsc(dscCert, cscaParsed);
-        if (details) {
-          cscaFound = true;
-          cscaHashAlgorithm = details.hashAlgorithm;
-          cscaSignatureAlgorithm = details.signatureAlgorithm;
-          cscaCurveOrExponent = getCurveOrExponent(cscaParsed);
-          cscaSignatureAlgorithmBits = parseInt(cscaParsed.publicKeyDetails.bits);
-          cscaSaltLength = details.saltLength;
+ if (details) {
+          if (cscaParsed.publicKeyDetails) {
+            cscaFound = true;
+            cscaHashAlgorithm = details.hashAlgorithm;
+            cscaSignatureAlgorithm = details.signatureAlgorithm;
+            cscaCurveOrExponent = getCurveOrExponent(cscaParsed);
+            cscaSignatureAlgorithmBits = parseInt(cscaParsed.publicKeyDetails.bits);
+            cscaSaltLength = details.saltLength;
+          }
         }
-      }
     } catch (error) {}
   } else {
     console.log('js: dscCert.authorityKeyIdentifier not found');
