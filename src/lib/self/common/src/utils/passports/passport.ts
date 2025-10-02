@@ -216,6 +216,10 @@ export function generateNullifier(passportData: IDDocument) {
     return nullifierHash(passportData.extractedFields);
   }
 
+  if (!passportData.passportMetadata) {
+    throw new Error('Passport metadata is missing');
+  }
+
   const signedAttr_shaBytes = hash(
     passportData.passportMetadata.signedAttrHashFunction,
     Array.from(passportData.signedAttr),
