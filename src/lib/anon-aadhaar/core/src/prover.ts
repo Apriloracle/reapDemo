@@ -1,3 +1,5 @@
+// --- START OF FILE prover.ts (Corrected) ---
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   AnonAadhaarArgs,
@@ -5,11 +7,15 @@ import {
   ArtifactsOrigin,
   ProverState,
 } from './types'
-import { Groth16Proof, PublicSignals, ZKArtifact, groth16 } from 'snarkjs'
+// V-- FIX: Removed ZKArtifact from the import list
+import { Groth16Proof, PublicSignals, groth16 } from 'snarkjs'
 import { storageService as defaultStorageService } from './storage'
 import { handleError, retrieveFileExtension, searchZkeyChunks } from './utils'
 
 type Witness = AnonAadhaarArgs
+
+// A type alias to represent the different forms the ZK artifacts can take.
+type ZKFile = string | ArrayBuffer | Uint8Array // <-- FIX: Added a type alias for clarity
 
 // Search for the chunks in localforage and recompose the zkey from it.
 export const loadZkeyChunks = async (
@@ -48,7 +54,8 @@ export const loadZkeyChunks = async (
   return zkey
 }
 
-async function fetchKey(keyURL: string, maxRetries = 3): Promise<ZKArtifact> {
+// <-- FIX: Changed the return type from ZKArtifact to ArrayBuffer
+async function fetchKey(keyURL: string, maxRetries = 3): Promise<ArrayBuffer> {
   let attempts = 0
   while (attempts < maxRetries) {
     try {
@@ -62,7 +69,7 @@ async function fetchKey(keyURL: string, maxRetries = 3): Promise<ZKArtifact> {
       }
 
       const data = await response.arrayBuffer()
-      return data as Buffer
+      return data // <-- FIX: Removed unnecessary 'as Buffer' cast
     } catch (error) {
       attempts++
       if (attempts >= maxRetries) {
@@ -71,13 +78,14 @@ async function fetchKey(keyURL: string, maxRetries = 3): Promise<ZKArtifact> {
       await new Promise(resolve => setTimeout(resolve, 1000 * attempts))
     }
   }
-  return keyURL
+  // This part of the code is unreachable but is needed for TypeScript to not complain.
+  throw new Error('Failed to fetch key after multiple retries.')
 }
 
 interface KeyPathInterface {
   keyURL: string
   artifactsOrigin: ArtifactsOrigin
-  getKey: () => Promise<ZKArtifact>
+  getKey: () => Promise<ZKFile> // <-- FIX: Replaced ZKArtifact with our ZKFile type
 }
 
 export class KeyPath implements KeyPathInterface {
@@ -88,7 +96,7 @@ export class KeyPath implements KeyPathInterface {
     this.keyURL = keyURL
     this.artifactsOrigin = ArtifactsOrigin
   }
-  async getKey(): Promise<ZKArtifact> {
+  async getKey(): Promise<ZKFile> { // <-- FIX: Replaced ZKArtifact with our ZKFile type
     switch (this.artifactsOrigin) {
       case ArtifactsOrigin.local:
         return this.keyURL
@@ -129,8 +137,8 @@ export class AnonAadhaarProver implements ProverInferace {
     witness: Witness,
     updateState?: (state: ProverState) => void
   ): Promise<AnonAadhaarProof> {
-    let wasmBuffer: ZKArtifact
-    let zkeyBuffer: ZKArtifact
+    let wasmBuffer: ZKFile // <-- FIX: Replaced ZKArtifact with our ZKFile type
+    let zkeyBuffer: ZKFile // <-- FIX: Replaced ZKArtifact with our ZKFile type
     switch (this.proverType) {
       case ArtifactsOrigin.local:
         if (updateState) updateState(ProverState.FetchingWasm)
@@ -171,7 +179,10 @@ export class AnonAadhaarProver implements ProverInferace {
       publicSignals: PublicSignals
     }
     try {
-      result = await groth16.fullProve(input, wasmBuffer, zkeyBuffer)
+      // The `any` type assertion is a pragmatic way to handle the fact that
+      // fullProve expects specific types but our variables are a union type.
+      // TypeScript can't know which type it will be at this point.
+      result = await groth16.fullProve(input, wasmBuffer as any, zkeyBuffer as any)
     } catch (e) {
       console.error(e)
       if (updateState) updateState(ProverState.Error)
