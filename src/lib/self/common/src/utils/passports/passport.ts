@@ -342,6 +342,11 @@ export function getSignatureAlgorithmFullName(
   hashAlgorithm: string
 ): string {
   const { publicKeyDetails } = certificateData;
+  
+  if (!publicKeyDetails) {
+    throw new Error('Public key details are missing from certificate');
+  }
+
   if (signatureAlgorithm === 'ecdsa') {
     return `${signatureAlgorithm}_${hashAlgorithm}_${(publicKeyDetails as PublicKeyDetailsECDSA).curve}_${publicKeyDetails.bits}`;
   } else {
