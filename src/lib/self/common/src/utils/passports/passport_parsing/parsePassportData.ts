@@ -123,6 +123,21 @@ export function parsePassportData(
     dscSignatureAlgorithmBits = parseInt(parsedDsc.publicKeyDetails?.bits || '0');
 
     dscMetaData = parseDscCertificateData(parsedDsc, skiPem);
+  } else {
+    // THIS IS THE FIX:
+    // This `else` block ensures that `dscMetaData` is always assigned a value,
+    // even if `passportData.dsc` is missing.
+    dscMetaData = {
+      cscaFound: false,
+      cscaHashAlgorithm: '',
+      cscaSignatureAlgorithm: '',
+      cscaCurveOrExponent: '',
+      cscaSignatureAlgorithmBits: 0,
+      cscaSaltLength: 0,
+      csca: '',
+      cscaParsed: {} as CertificateData,
+      cscaBits: 0,
+    };
   }
 
   return {
@@ -141,12 +156,14 @@ export function parsePassportData(
     eContentHashFunction,
     eContentHashOffset,
     signedAttrSize: passportData.signedAttr?.length || 0,
-   signedAttrHashFunction: brutForcedPublicKeyDetails?.hashAlgorithm || 'unknown',
+    signedAttrHashFunction: brutForcedPublicKeyDetails?.hashAlgorithm || 'unknown',
     signatureAlgorithm: brutForcedPublicKeyDetails?.signatureAlgorithm || 'unknown',
     saltLength: brutForcedPublicKeyDetails?.saltLength || 0,
     curveOrExponent: parsedDsc ? getCurveOrExponent(parsedDsc) : 'unknown',
     signatureAlgorithmBits: dscSignatureAlgorithmBits,
     countryCode: passportData.mrz ? getCountryCodeFromMrz(passportData.mrz) : 'unknown',
+    // Now that `dscMetaData` is always initialized, the optional chaining (`?.`) is no longer strictly necessary,
+    // but leaving it in is harmless and adds a layer of safety.
     cscaFound: dscMetaData?.cscaFound || false,
     cscaHashFunction: dscMetaData?.cscaHashAlgorithm || '',
     cscaSignatureAlgorithm: dscMetaData?.cscaSignatureAlgorithm || '',
