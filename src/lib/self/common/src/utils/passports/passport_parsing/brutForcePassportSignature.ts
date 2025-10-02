@@ -68,6 +68,8 @@ export function verifySignature(
       return verifyRSA(passportData, hashAlgorithm);
     case 'rsapss':
       return verifyRSAPSS(passportData, hashAlgorithm, saltLength);
+    default:
+      return false;
   }
 }
 
@@ -83,7 +85,7 @@ function verifyECDSA(passportData: PassportData, hashAlgorithm: string) {
   const cert = new Certificate({ schema: asn1Data.result });
   const publicKeyInfo = cert.subjectPublicKeyInfo;
   const publicKeyBuffer = publicKeyInfo.subjectPublicKey.valueBlock.valueHexView;
-  const curveForElliptic = getCurveForElliptic((publicKeyDetails as PublicKeyDetailsECDSA).curve);
+  const curveForElliptic = getCurveForElliptic((publicKeyDetails as PublicKeyDetailsECDSA).curve as any);
   const ec = new elliptic.ec(curveForElliptic);
 
   const key = ec.keyFromPublic(publicKeyBuffer);
@@ -91,7 +93,6 @@ function verifyECDSA(passportData: PassportData, hashAlgorithm: string) {
   const signature_crypto = Buffer.from(encryptedDigest).toString('hex');
 
   return key.verify(msgHash, signature_crypto);
-}
 
 function verifyRSA(passportData: PassportData, hashAlgorithm: string) {
   const { dsc, signedAttr, encryptedDigest } = passportData;
@@ -118,8 +119,8 @@ function verifyRSAPSS(passportData: PassportData, hashAlgorithm: string, saltLen
   }
   try {
     const pss = forge.pss.create({
-      md: forge.md[hashAlgorithm].create(),
-      mgf: forge.mgf.mgf1.create(forge.md[hashAlgorithm].create()),
+      md: (forge.md as any)[hashAlgorithm].create(),
+      mgf: forge.mgf.mgf1.create((forge.md as any)[hashAlgorithm].create()),
       saltLength: saltLength,
     });
     return publicKey.verify(msgHash as string, signature, pss);
