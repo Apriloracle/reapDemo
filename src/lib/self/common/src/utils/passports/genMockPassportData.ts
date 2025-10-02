@@ -160,9 +160,9 @@ function sign(
     });
     const signatureBytes = privateKey.sign(md, pss);
     return Array.from(signatureBytes, (c: string) => c.charCodeAt(0));
-  } else if (signatureAlgorithm === 'ecdsa') {
+   } else if (signatureAlgorithm === 'ecdsa') {
     const curve = (publicKeyDetails as PublicKeyDetailsECDSA).curve;
-    const curveForElliptic = getCurveForElliptic(curve);
+    const curveForElliptic = getCurveForElliptic(curve as any);
     const ec = new elliptic.ec(curveForElliptic);
 
     const privateKeyDer = Buffer.from(
