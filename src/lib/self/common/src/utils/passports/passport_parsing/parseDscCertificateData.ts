@@ -20,43 +20,54 @@ export function parseDscCertificateData(
   dscCert: CertificateData,
   skiPem: any = null
 ): DscCertificateMetaData {
-  let csca,
-    cscaParsed,
-    cscaHashAlgorithm,
-    cscaSignatureAlgorithm,
-    cscaCurveOrExponent,
-    cscaSignatureAlgorithmBits,
-    cscaSaltLength;
+  let csca: string | undefined,
+    cscaParsed: CertificateData | undefined,
+    cscaHashAlgorithm: string | undefined,
+    cscaSignatureAlgorithm: string | undefined,
+    cscaCurveOrExponent: string | undefined,
+    cscaSignatureAlgorithmBits: number | undefined,
+    cscaSaltLength: number | undefined;
   let cscaFound = false;
+
   if (dscCert.authorityKeyIdentifier) {
-  try {
+    try {
       csca = getCSCAFromSKI(dscCert.authorityKeyIdentifier, skiPem);
       if (csca) {
         cscaParsed = parseCertificateSimple(csca);
         const details = brutforceSignatureAlgorithmDsc(dscCert, cscaParsed);
- if (details) {
+
+        if (details) {
           if (cscaParsed.publicKeyDetails) {
             cscaFound = true;
             cscaHashAlgorithm = details.hashAlgorithm;
             cscaSignatureAlgorithm = details.signatureAlgorithm;
             cscaCurveOrExponent = getCurveOrExponent(cscaParsed);
-            cscaSignatureAlgorithmBits = parseInt(cscaParsed.publicKeyDetails.bits);
+            cscaSignatureAlgorithmBits = parseInt(
+              cscaParsed.publicKeyDetails.bits
+            );
             cscaSaltLength = details.saltLength;
           }
         }
+      }
     } catch (error) {}
   } else {
     console.log('js: dscCert.authorityKeyIdentifier not found');
   }
+
+  // FIX: Add the return statement and provide default values
+  // for any potentially undefined variables to match the interface.
   return {
     cscaFound: cscaFound,
-    cscaHashAlgorithm: cscaHashAlgorithm,
-    cscaSignatureAlgorithm: cscaSignatureAlgorithm,
-    cscaCurveOrExponent: cscaCurveOrExponent,
-    cscaSignatureAlgorithmBits: cscaSignatureAlgorithmBits,
-    cscaSaltLength: cscaSaltLength,
-    csca: csca,
-    cscaParsed: cscaParsed,
-    cscaBits: cscaSignatureAlgorithmBits,
+    cscaHashAlgorithm: cscaHashAlgorithm || '',
+    cscaSignatureAlgorithm: cscaSignatureAlgorithm || '',
+    cscaCurveOrExponent: cscaCurveOrExponent || '',
+    cscaSignatureAlgorithmBits: cscaSignatureAlgorithmBits || 0,
+    cscaSaltLength: cscaSaltLength || 0,
+    csca: csca || '',
+    // Here we must provide an empty object that conforms to CertificateData
+    // or use a type assertion if we know the consumer can handle null/undefined.
+    // For safety, we provide a default structure.
+    cscaParsed: cscaParsed || ({} as CertificateData),
+    cscaBits: cscaSignatureAlgorithmBits || 0,
   };
 }
