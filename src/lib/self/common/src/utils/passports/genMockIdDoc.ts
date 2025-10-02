@@ -74,7 +74,7 @@ function genMockAadhaarDoc(input: IdDocInput): AadhaarData {
   console.log('dateOfBirth', dateOfBirth);
 
   // Generate Aadhaar QR data using processQRData
-  const qrData = processQRData(
+  //const qrData = processQRData(
     AADHAAR_MOCK_PRIVATE_KEY_PEM,
     name,
     dateOfBirth,
