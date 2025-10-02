@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
-  AnonAAadhaarArgs,
+  AnonAadhaarArgs,
   AnonAadhaarProof,
   ArtifactsOrigin,
   ProverState,
