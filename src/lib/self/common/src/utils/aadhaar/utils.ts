@@ -381,7 +381,7 @@ export const generateTestData = ({
 
 export async function getAadharRegistrationWindow() {
   try {
-    const provider = new ethers.JsonRpcProvider(RPC_URL);
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
 
     const identityVerificationHub = new ethers.Contract(
       IDENTITY_VERIFICATION_HUB_ADDRESS,
