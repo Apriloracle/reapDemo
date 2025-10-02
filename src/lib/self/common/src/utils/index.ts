@@ -39,7 +39,7 @@ export {
   getPayload,
   getWSDbRelayerUrl,
 } from './proving.ts';
-export { extractQRDataFields, getAadharRegistrationWindow } from './aadhaar/utils.ts';
+//export { extractQRDataFields, getAadharRegistrationWindow } from './aadhaar/utils.ts';
 export { formatMrz } from './passports/format.ts';
 export { genAndInitMockPassportData } from './passports/genMockPassportData.ts';
 export {
