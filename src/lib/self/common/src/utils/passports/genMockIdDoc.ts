@@ -8,7 +8,7 @@ import type { hashAlgosTypes } from '../../constants/constants.ts';
 import { API_URL_STAGING } from '../../constants/constants.ts';
 import { countries } from '../../constants/countries.ts';
 //import { convertByteArrayToBigInt, processQRData } from '../aadhaar/mockData.ts';
-import { extractQRDataFields } from '../aadhaar/utils.ts';
+//import { extractQRDataFields } from '../aadhaar/utils.ts';
 import { getCurveForElliptic } from '../certificate_parsing/curves.ts';
 import type {
   PublicKeyDetailsECDSA,
