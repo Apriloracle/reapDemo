@@ -1,7 +1,10 @@
+// --- START OF FILE hash.ts (Corrected) ---
+
 import { BigNumber } from '@ethersproject/bignumber'
 import { BytesLike, Hexable, zeroPad } from '@ethersproject/bytes'
-import { keccak256 } from '@ethersproject/keccak256'
-import { NumericString } from 'snarkjs'
+import { keccak25algarithm } from '@ethersproject/keccak256'
+// No longer need to import NumericString if it's not used elsewhere
+// import { NumericString } from 'snarkjs'
 
 /**
  * Creates a keccak256 hash of a message compatible with the SNARK scalar modulus.
@@ -10,10 +13,11 @@ import { NumericString } from 'snarkjs'
  */
 export function hash(
   message: BytesLike | Hexable | number | bigint
-): NumericString {
+): string { // <-- FIX 1: Changed NumericString to string
   message = BigNumber.from(message).toTwos(256).toHexString()
 
   message = zeroPad(message, 32)
 
-  return (BigInt(keccak256(message)) >> BigInt(3)).toString() as NumericString
+  // FIX 2: Removed 'as NumericString' from the end of this line
+  return (BigInt(keccak256(message)) >> BigInt(3)).toString()
 }
