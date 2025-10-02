@@ -130,7 +130,6 @@ export function genMockIdDoc(
     dsc = mockDSC.dsc;
     privateKeyPem = mockDSC.privateKeyPem;
   } else {
-    // This is the fix: Ensure signatureType is not undefined
     if (!mergedInput.signatureType) {
       throw new Error('Signature type is missing for mock document generation.');
     }
@@ -138,17 +137,32 @@ export function genMockIdDoc(
   }
 
   const dg1 = genDG1(mergedInput);
+
+  // FIX for dgHashAlgo:
+  if (!mergedInput.dgHashAlgo) {
+    throw new Error('DG hash algorithm is missing for mock document generation.');
+  }
+
   const dg1_hash = hash(mergedInput.dgHashAlgo, formatMrz(dg1));
   const dataGroupHashes = generateDataGroupHashes(
     dg1_hash as number[],
     getHashLen(mergedInput.dgHashAlgo)
   );
+
+  // You will likely have the same issue here, so we'll fix it proactively:
+  if (!mergedInput.eContentHashAlgo) {
+    throw new Error('eContent hash algorithm is missing for mock document generation.');
+  }
+
   const eContent = formatAndConcatenateDataHashes(dataGroupHashes, 63);
   const eContentHash = hash(mergedInput.eContentHashAlgo, eContent);
   const signedAttr = generateSignedAttr(eContentHash as number[]);
-  const hashAlgo = mergedInput.signatureType.split('_')[1]; // This line is now safe
+  
+  // This line is now safe because we checked signatureType above
+  const hashAlgo = mergedInput.signatureType.split('_')[1]; 
   const signature = sign(privateKeyPem, dsc, hashAlgo, signedAttr);
   const signatureBytes = Array.from(signature, (byte) => (byte < 128 ? byte : byte - 256));
+  
   return {
     dsc: dsc,
     mrz: dg1,
