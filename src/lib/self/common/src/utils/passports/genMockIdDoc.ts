@@ -21,7 +21,7 @@ import { genDG1 } from './dg1.ts';
 import { formatAndConcatenateDataHashes, formatMrz, generateSignedAttr } from './format.ts';
 import { getMockDSC } from './getMockDSC.ts';
 import { initPassportDataParsing } from './passport.ts';
-//import {
+import {
   AADHAAR_MOCK_PRIVATE_KEY_PEM,
   AADHAAR_MOCK_PUBLIC_KEY_PEM,
 } from '../../mock_certificates/aadhaar/mockAadhaarCert.ts';
