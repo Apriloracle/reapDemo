@@ -69,7 +69,7 @@ export function verifySignature(
     case 'rsapss':
       return verifyRSAPSS(passportData, hashAlgorithm, saltLength);
     default:
-      return false;
+      return false;  
   }
 }
 
@@ -93,7 +93,8 @@ function verifyECDSA(passportData: PassportData, hashAlgorithm: string) {
   const signature_crypto = Buffer.from(encryptedDigest).toString('hex');
 
   return key.verify(msgHash, signature_crypto);
-
+}
+  
 function verifyRSA(passportData: PassportData, hashAlgorithm: string) {
   const { dsc, signedAttr, encryptedDigest } = passportData;
   const cert = forge.pki.certificateFromPem(dsc);
