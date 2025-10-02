@@ -72,6 +72,8 @@ function verifySignature(
       return verifyRSA(dsc, csca, hashAlgorithm);
     case 'rsapss':
       return verifyRSAPSS(dsc, csca, hashAlgorithm, saltLength);
+    default:
+      return false;
   }
 }
 
