@@ -86,10 +86,10 @@ export async function checkDocumentSupported(
     if (!isValid) {
       return {
         status: 'registration_circuit_not_supported',
-        details: circuitName,
+        details: circuitName || '', // <-- FIX
       };
     }
-    return { status: 'passport_supported', details: circuitName };
+    return { status: 'passport_supported', details: circuitName || '' }; // <-- FIX
   }
 
   const passportMetadata = passportData.passportMetadata;
@@ -107,7 +107,7 @@ export async function checkDocumentSupported(
   if (!isRegisterValid) {
     return {
       status: 'registration_circuit_not_supported',
-      details: registerCircuitName,
+      details: registerCircuitName || '', // <-- FIX
     };
   }
 
@@ -117,10 +117,10 @@ export async function checkDocumentSupported(
   );
   if (!isDscValid) {
     console.warn('DSC circuit not supported:', dscCircuitName);
-    return { status: 'dsc_circuit_not_supported', details: dscCircuitName };
+    return { status: 'dsc_circuit_not_supported', details: dscCircuitName || '' }; // <-- FIX
   }
 
-  return { status: 'passport_supported', details: dscCircuitName };
+  return { status: 'passport_supported', details: dscCircuitName || '' }; // <-- FIX
 }
 
 export async function checkIfPassportDscIsInTree(
