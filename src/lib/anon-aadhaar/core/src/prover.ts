@@ -2,20 +2,19 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
-  AnonAadhaarArgs,
+  AnonAAadhaarArgs,
   AnonAadhaarProof,
   ArtifactsOrigin,
   ProverState,
 } from './types'
-// V-- FIX: Removed Groth16Proof from the import list
-import { PublicSignals, groth16 } from 'snarkjs'
+// V-- FIX: Removed PublicSignals from the import list
+import { groth16 } from 'snarkjs'
 import { storageService as defaultStorageService } from './storage'
 import { handleError, retrieveFileExtension, searchZkeyChunks } from './utils'
 
 type Witness = AnonAadhaarArgs
 type ZKFile = string | ArrayBuffer | Uint8Array
 
-// FIX: Define the interface for the proof object ourselves.
 export interface Groth16Proof {
   pi_a: [string, string, string]
   pi_b: [[string, string], [string, string], [string, string]]
@@ -180,8 +179,8 @@ export class AnonAadhaarProver implements ProverInferace {
 
     if (updateState) updateState(ProverState.Proving)
     let result: {
-      proof: Groth16Proof // This now correctly refers to our interface
-      publicSignals: PublicSignals
+      proof: Groth16Proof
+      publicSignals: string[] // <-- FINAL FIX: Replaced PublicSignals with string[]
     }
     try {
       result = await groth16.fullProve(input, wasmBuffer as any, zkeyBuffer as any)
