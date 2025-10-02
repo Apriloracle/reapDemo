@@ -88,7 +88,7 @@ function verifyECDSA(dsc: CertificateData, csca: CertificateData, hashAlgorithm:
   const publicKeyInfo_csca = cert_csca.subjectPublicKeyInfo;
   const publicKeyBuffer_csca = publicKeyInfo_csca.subjectPublicKey.valueBlock.valueHexView;
   const curveForElliptic_csca = getCurveForElliptic(
-    (csca.publicKeyDetails as PublicKeyDetailsECDSA).curve
+    (csca.publicKeyDetails as PublicKeyDetailsECDSA).curve as any
   );
   const ec_csca = new elliptic.ec(curveForElliptic_csca);
   const key_csca = ec_csca.keyFromPublic(publicKeyBuffer_csca);
@@ -105,6 +105,7 @@ function verifyECDSA(dsc: CertificateData, csca: CertificateData, hashAlgorithm:
   const signature_crypto = Buffer.from(signatureValue).toString('hex');
   return key_csca.verify(tbsHash, signature_crypto);
 }
+
 function verifyRSA(dsc: CertificateData, csca: CertificateData, hashAlgorithm: string): boolean {
   try {
     const cscaCert = forge.pki.certificateFromPem(csca.rawPem);
