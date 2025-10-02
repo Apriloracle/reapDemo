@@ -1,32 +1,32 @@
 // generate a mock id document
 
-//import * as asn1 from 'asn1js';
-//import elliptic from 'elliptic';
-//import forge from 'node-forge';
+import * as asn1 from 'asn1js';
+import elliptic from 'elliptic';
+import forge from 'node-forge';
 
-//import type { hashAlgosTypes } from '../../constants/constants.ts';
-//import { API_URL_STAGING } from '../../constants/constants.ts';
-//import { countries } from '../../constants/countries.ts';
-//import { convertByteArrayToBigInt, processQRData } from '../aadhaar/mockData.ts';
-//import { extractQRDataFields } from '../aadhaar/utils.ts';
-//import { getCurveForElliptic } from '../certificate_parsing/curves.ts';
-//import type {
+import type { hashAlgosTypes } from '../../constants/constants.ts';
+import { API_URL_STAGING } from '../../constants/constants.ts';
+import { countries } from '../../constants/countries.ts';
+import { convertByteArrayToBigInt, processQRData } from '../aadhaar/mockData.ts';
+import { extractQRDataFields } from '../aadhaar/utils.ts';
+import { getCurveForElliptic } from '../certificate_parsing/curves.ts';
+import type {
   PublicKeyDetailsECDSA,
   PublicKeyDetailsRSAPSS,
 } from '../certificate_parsing/dataStructure.ts';
-//import { parseCertificateSimple } from '../certificate_parsing/parseCertificateSimple.ts';
-//import { getHashLen, hash } from '../hash.ts';
-//import type { AadhaarData, DocumentType, PassportData, SignatureAlgorithm } from '../types.ts';
-//import { genDG1 } from './dg1.ts';
-//import { formatAndConcatenateDataHashes, formatMrz, generateSignedAttr } from './format.ts';
-//import { getMockDSC } from './getMockDSC.ts';
-//import { initPassportDataParsing } from './passport.ts';
-//import {
+import { parseCertificateSimple } from '../certificate_parsing/parseCertificateSimple.ts';
+import { getHashLen, hash } from '../hash.ts';
+import type { AadhaarData, DocumentType, PassportData, SignatureAlgorithm } from '../types.ts';
+import { genDG1 } from './dg1.ts';
+import { formatAndConcatenateDataHashes, formatMrz, generateSignedAttr } from './format.ts';
+import { getMockDSC } from './getMockDSC.ts';
+import { initPassportDataParsing } from './passport.ts';
+import {
   AADHAAR_MOCK_PRIVATE_KEY_PEM,
   AADHAAR_MOCK_PUBLIC_KEY_PEM,
 } from '../../mock_certificates/aadhaar/mockAadhaarCert.ts';
 
-//export interface IdDocInput {
+export interface IdDocInput {
   idType: 'mock_passport' | 'mock_id_card' | 'mock_aadhaar';
   dgHashAlgo?: hashAlgosTypes;
   eContentHashAlgo?: hashAlgosTypes;
@@ -43,7 +43,7 @@
   state?: string;
 }
 
-//const defaultIdDocInput: IdDocInput = {
+const defaultIdDocInput: IdDocInput = {
   idType: 'mock_passport',
   dgHashAlgo: 'sha256',
   eContentHashAlgo: 'sha256',
@@ -61,7 +61,7 @@
 };
 
 // Generate mock Aadhaar document
-//function genMockAadhaarDoc(input: IdDocInput): AadhaarData {
+function genMockAadhaarDoc(input: IdDocInput): AadhaarData {
   const name = input.firstName
     ? `${input.firstName} ${input.lastName || ''}`.trim()
     : generateRandomName();
@@ -74,7 +74,7 @@
   console.log('dateOfBirth', dateOfBirth);
 
   // Generate Aadhaar QR data using processQRData
-  //const qrData = processQRData(
+const qrData = processQRData(
     AADHAAR_MOCK_PRIVATE_KEY_PEM,
     name,
     dateOfBirth,
@@ -85,7 +85,7 @@
   );
 
   // Convert QR data to string format
-  //const qrDataString = convertByteArrayToBigInt(qrData.qrDataBytes).toString();
+  const qrDataString = convertByteArrayToBigInt(qrData.qrDataBytes).toString();
   console.log('qrDataString', qrDataString);
 
   // Extract signature from the decoded data
@@ -109,7 +109,7 @@
   };
 }
 
-//export function genMockIdDoc(
+export function genMockIdDoc(
   userInput: Partial<IdDocInput> = {},
   mockDSC?: { dsc: string; privateKeyPem: string }
 ): PassportData | AadhaarData {
@@ -158,13 +158,13 @@
   };
 }
 
-//export function genMockIdDocAndInitDataParsing(userInput: Partial<IdDocInput> = {}) {
+export function genMockIdDocAndInitDataParsing(userInput: Partial<IdDocInput> = {}) {
   return initPassportDataParsing({
     ...(genMockIdDoc(userInput) as PassportData),
   });
 }
 
-//export async function generateMockDSC(
+export async function generateMockDSC(
   signatureType: string
 ): Promise<{ privateKeyPem: string; dsc: string }> {
   const response = await fetch(`${API_URL_STAGING}/generate-dsc`, {
@@ -185,7 +185,7 @@
   return { privateKeyPem: data.data.privateKeyPem, dsc: data.data.dsc };
 }
 
-//function generateRandomName(): string {
+function generateRandomName(): string {
   // Generate random letter combinations for first and last name
   const generateRandomLetters = (length: number): string => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -200,12 +200,12 @@
   return `${firstName} ${lastName}`;
 }
 
-//function generateRandomBytes(length: number): number[] {
+function generateRandomBytes(length: number): number[] {
   // Generate numbers between -128 and 127 to match the existing signed byte format
   return Array.from({ length }, () => Math.floor(Math.random() * 256) - 128);
 }
 
-//function generateDataGroupHashes(mrzHash: number[], hashLen: number): [number, number[]][] {
+function generateDataGroupHashes(mrzHash: number[], hashLen: number): [number, number[]][] {
   // Generate hashes for DGs 2-15 (excluding some DGs that aren't typically used)
   const dataGroups: [number, number[]][] = [
     [1, mrzHash], // DG1 must be the MRZ hash
@@ -223,7 +223,7 @@
 
   return dataGroups;
 }
-//function sign(
+function sign(
   privateKeyPem: string,
   dsc: string,
   hashAlgorithm: string,
