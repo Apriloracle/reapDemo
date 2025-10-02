@@ -435,11 +435,15 @@ export async function prepareAadhaarRegisterData(qrData: string, secret: string,
       const certificate = forge.pki.certificateFromPem(cert);
       const publicKey = certificate.publicKey as forge.pki.rsa.PublicKey;
 
-      try {
+ try {
         const md = forge.md.sha256.create();
         md.update(forge.util.binary.raw.encode(sharedData.signedData));
 
-        const isValid = publicKey.verify(md.digest().getBytes(), signatureBytes);
+        // Correctly encode the signature Uint8Array to a binary string
+        const isValid = publicKey.verify(
+          md.digest().getBytes(),
+          forge.util.binary.raw.encode(signatureBytes)
+        );
         return isValid;
       } catch (error) {
         return false;
