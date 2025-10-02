@@ -4,27 +4,27 @@ import * as asn1 from 'asn1js';
 import elliptic from 'elliptic';
 import forge from 'node-forge';
 
-import type { hashAlgosTypes } from '../../constants/constants.js';
-import { API_URL_STAGING } from '../../constants/constants.js';
-import { countries } from '../../constants/countries.js';
-import { convertByteArrayToBigInt, processQRData } from '../aadhaar/mockData.js';
-import { extractQRDataFields } from '../aadhaar/utils.js';
-import { getCurveForElliptic } from '../certificate_parsing/curves.js';
+import type { hashAlgosTypes } from '../../constants/constants.ts';
+import { API_URL_STAGING } from '../../constants/constants.ts';
+import { countries } from '../../constants/countries.ts';
+//import { convertByteArrayToBigInt, processQRData } from '../aadhaar/mockData.ts';
+import { extractQRDataFields } from '../aadhaar/utils.ts';
+import { getCurveForElliptic } from '../certificate_parsing/curves.ts';
 import type {
   PublicKeyDetailsECDSA,
   PublicKeyDetailsRSAPSS,
-} from '../certificate_parsing/dataStructure.js';
-import { parseCertificateSimple } from '../certificate_parsing/parseCertificateSimple.js';
-import { getHashLen, hash } from '../hash.js';
-import type { AadhaarData, DocumentType, PassportData, SignatureAlgorithm } from '../types.js';
-import { genDG1 } from './dg1.js';
-import { formatAndConcatenateDataHashes, formatMrz, generateSignedAttr } from './format.js';
-import { getMockDSC } from './getMockDSC.js';
-import { initPassportDataParsing } from './passport.js';
-import {
+} from '../certificate_parsing/dataStructure.ts';
+import { parseCertificateSimple } from '../certificate_parsing/parseCertificateSimple.ts';
+import { getHashLen, hash } from '../hash.ts';
+import type { AadhaarData, DocumentType, PassportData, SignatureAlgorithm } from '../types.ts';
+import { genDG1 } from './dg1.ts';
+import { formatAndConcatenateDataHashes, formatMrz, generateSignedAttr } from './format.ts';
+import { getMockDSC } from './getMockDSC.ts';
+import { initPassportDataParsing } from './passport.ts';
+//import {
   AADHAAR_MOCK_PRIVATE_KEY_PEM,
   AADHAAR_MOCK_PUBLIC_KEY_PEM,
-} from '../../mock_certificates/aadhaar/mockAadhaarCert.js';
+} from '../../mock_certificates/aadhaar/mockAadhaarCert.ts';
 
 export interface IdDocInput {
   idType: 'mock_passport' | 'mock_id_card' | 'mock_aadhaar';
