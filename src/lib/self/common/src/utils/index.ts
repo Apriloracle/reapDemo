@@ -8,14 +8,8 @@ export type { IdDocInput } from './passports/genMockIdDoc.ts';
 export type { PassportMetadata } from './passports/passport_parsing/parsePassportData.ts';
 export type { TEEPayload, TEEPayloadBase, TEEPayloadDisclose } from './proving.ts';
 export type { UserIdType } from './circuits/uuid.ts';
-export {
-  EndpointType,
-  Mode,
-  SelfApp,
-  SelfAppBuilder,
-  SelfAppDisclosureConfig,
-  getUniversalLink,
-} from './appType.ts';
+export type { EndpointType, Mode, SelfAppDisclosureConfig } from './appType.ts';
+export { SelfApp, SelfAppBuilder, getUniversalLink } from './appType.ts';
 export { bigIntToString, formatEndpoint, hashEndpointWithScope, stringToBigInt } from './scope.ts';
 export { brutforceSignatureAlgorithmDsc } from './passports/passport_parsing/brutForceDscSignature.ts';
 export { buildSMT, getLeafCscaTree, getLeafDscTree } from './trees.ts';
