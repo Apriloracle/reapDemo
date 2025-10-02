@@ -29,8 +29,7 @@ import {
   parseDscCertificateData,
 } from './passports/passport_parsing/parseDscCertificateData.js';
 
-import { IMT } from '@openpassport/zk-kit-imt';
-import { LeanIMT } from '@openpassport/zk-kit-lean-imt';
+import { LeanIMT, LeanIMT as IMT } from '@openpassport/zk-kit-lean-imt';
 import type { ChildNodes } from '@openpassport/zk-kit-smt';
 import { SMT } from '@openpassport/zk-kit-smt';
 
