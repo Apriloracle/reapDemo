@@ -3,7 +3,7 @@ import { createIndexes, Indexes } from 'tinybase/indexes';
 import { createQueries, Queries } from 'tinybase/queries';
 import { Product } from '@/lib/types'; // Assuming a Product type exists
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
-import { userProfileStore } from './UserProfileStore';
+import userProfileStore from '../stores/UserProfileStore';
 
 // 1. Create a single, global store instance.
 const store = createStore();
@@ -103,17 +103,32 @@ export const upsertProducts = (products: Product[], context: Record<string, any>
  * Adds or updates the user profile in the central store.
  * @param profile The user profile object.
  */
-export const upsertUserProfile = (profile: any) => {
+export const upsertUserProfile = () => {
+  const userProfileStore = getUserProfileStore();
+  if (!userProfileStore) {
+    console.warn("UserProfileStore not available.");
+    return;
+  }
+
+  const profile = userProfileStore.getProfile();
+  if (!profile) {
+    console.warn("No user profile found to upsert.");
+    return;
+  }
+
   const rowData = {
     ...profile,
     interests: JSON.stringify(profile.interests ?? []),
     shopping: JSON.stringify(profile.shopping ?? []),
   };
+
   store.setRow(USER_PROFILE_TABLE, 'currentUser', rowData);
+
   if (persister) {
     persister.save();
   }
 };
+
 
 /**
  * Retrieves the raw Tinybase Store instance.
