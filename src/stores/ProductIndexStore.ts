@@ -3,7 +3,6 @@ import { createIndexes, Indexes } from 'tinybase/indexes';
 import { createQueries, Queries } from 'tinybase/queries';
 import { Product } from '@/lib/types'; // Assuming a Product type exists
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
-import { getUserProfileStore } from './UserProfileStore';
 
 // 1. Create a single, global store instance.
 const store = createStore();
@@ -101,9 +100,11 @@ export const upsertProducts = (products: Product[], context: Record<string, any>
 
 /**
  * Adds or updates the user profile in the central store.
- * @param profile The user profile object.
+ * This is now an async function that dynamically imports the UserProfileStore.
  */
-export const upsertUserProfile = () => {
+export const upsertUserProfile = async () => {
+  // Dynamically import to prevent server-side execution
+  const { getUserProfileStore } = await import('./UserProfileStore');
   const userProfileStore = getUserProfileStore();
   if (!userProfileStore) {
     console.warn("UserProfileStore not available.");
@@ -125,7 +126,7 @@ export const upsertUserProfile = () => {
   store.setRow(USER_PROFILE_TABLE, 'currentUser', rowData);
 
   if (persister) {
-    persister.save();
+    await persister.save();
   }
 };
 
@@ -161,29 +162,42 @@ export const initializeProductIndexStore = async () => {
  */
 export const getProductQueries = (): Queries => queries;
 
-// Define the personalized products query
-queries.setQueryDefinition(
-  'getPersonalizedProducts',
-  PRODUCTS_TABLE,
-  ({ select, join, where }) => {
-    // Select all columns from the products table
-    select('*');
+/**
+ * Initializes the personalized products query.
+ * This function should only be called on the client-side.
+ */
+export const initializePersonalizedQuery = async () => {
+  // First, ensure the profile data is present in the ProductIndexStore
+  await upsertUserProfile();
 
-    // Join with the user profile table
-    join(USER_PROFILE_TABLE, 'currentUser').as('userProfile');
+  // Define the personalized products query
+  queries.setQueryDefinition(
+    'getPersonalizedProducts',
+    PRODUCTS_TABLE,
+    ({ select, join, where }) => {
+      // Select all columns from the products table
+      select('*');
 
-    // Filter products where the product's tags intersect with the user's interests
-    where((getTableCell) => {
-      const productTags = (getTableCell('tags') as string)?.toLowerCase().split(',') ?? [];
-      const userProfileRow = store.getRow(USER_PROFILE_TABLE, 'currentUser');
-      const userInterests = userProfileRow.interests ? JSON.parse(userProfileRow.interests as string).map((i: string) => i.toLowerCase()) : [];
+      // Join with the user profile table
+      join(USER_PROFILE_TABLE, 'currentUser').as('userProfile');
 
-      if (userInterests.length === 0) {
-        return true;
-      }
-      return userInterests.some((interest: string) => productTags.includes(interest.toLowerCase()));
-    });
-  }
-);
+      // Filter products where the product's tags intersect with the user's interests
+      where((getTableCell) => {
+        const productTags = (getTableCell('tags') as string)?.toLowerCase().split(',') ?? [];
+        const userProfileRow = store.getRow(USER_PROFILE_TABLE, 'currentUser');
+        
+        if (!userProfileRow || !userProfileRow.interests) {
+          return true; // If no profile or interests, show all products
+        }
+        
+        const userInterests = JSON.parse(userProfileRow.interests as string).map((i: string) => i.toLowerCase());
 
-
+        if (userInterests.length === 0) {
+          return true;
+        }
+        return userInterests.some((interest: string) => productTags.includes(interest.toLowerCase()));
+      });
+    }
+  );
+  console.log('Personalized products query has been initialized.');
+};
