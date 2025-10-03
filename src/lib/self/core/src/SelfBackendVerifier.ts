@@ -154,7 +154,7 @@ export class SelfBackendVerifier {
       if (!verificationConfig) {
         issues.push({
           type: ConfigMismatch.ConfigNotFound,
-          message: `Config not found for ${config-d}`,
+          message: `Config not found for ${configId}`,
         });
         throw new ConfigMismatchError(issues);
       }
