@@ -168,7 +168,7 @@ export class SelfBackendVerifier {
     );
     const forbiddenCountriesListVerificationConfig = verificationConfig.excludedCountries;
 
-    const isForbiddenCountryListValid = (forbiddenCountriesListVerificationConfig ?? []).every((country) =>
+const isForbiddenCountryListValid = (forbiddenCountriesListVerificationConfig ?? []).every((country) =>
       forbiddenCountriesList.includes(country as Country3LetterCode)
     );
     if (!isForbiddenCountryListValid) {
@@ -178,7 +178,8 @@ export class SelfBackendVerifier {
           'Forbidden countries list in config does not match with the one in the circuit\nCircuit: ' +
           forbiddenCountriesList.join(', ') +
           '\nConfig: ' +
-          forbiddenCountriesListVerificationConfig.join(', '),
+          // THIS IS THE FIX:
+          (forbiddenCountriesListVerificationConfig ?? []).join(', '),
       });
     }
 
