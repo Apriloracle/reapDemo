@@ -168,7 +168,7 @@ export class SelfBackendVerifier {
     );
     const forbiddenCountriesListVerificationConfig = verificationConfig.excludedCountries;
 
-    const isForbiddenCountryListValid = forbiddenCountriesListVerificationConfig.every((country) =>
+    const isForbiddenCountryListValid = (forbiddenCountriesListVerificationConfig ?? []).every((country) =>
       forbiddenCountriesList.includes(country as Country3LetterCode)
     );
     if (!isForbiddenCountryListValid) {
