@@ -91,8 +91,7 @@ class UserProfileStore {
       this.store.setRow('profiles', 'current', storageProfile);
       await this.persister.save();
       
-      // Also write to the new central index
-      upsertUserProfile(profile);
+     
 
       // Save to localStorage as well
       if (typeof window !== 'undefined') {
