@@ -30,7 +30,7 @@ const DiscoveryPage: React.FC = () => {
     trajectoryService.initialize();
     discoveryEngineService.initialize();
     discoverySearchStore.initialize().then(() => {
-      const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
+      const cachedProducts = discoverySearchStore.getAllProducts() as Product[];
       if (cachedProducts.length > 0) {
         setProducts(shuffleAndLimit(cachedProducts, 20));
       }
@@ -39,7 +39,7 @@ const DiscoveryPage: React.FC = () => {
       searchInputRef.current.focus();
     }
   }, []);
-
+  
   const performSearch = async (searchTerm: string) => {
     setSearchTerm(searchTerm);
 
