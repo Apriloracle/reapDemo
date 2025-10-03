@@ -1,7 +1,6 @@
 import { createStore, Store, Row } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
-
 // Base interface for type safety when working with profiles
 interface BaseUserProfile {
   sex: string;
@@ -27,8 +26,6 @@ class UserProfileStore {
   private constructor() {
     console.log('Initializing UserProfileStore');
     this.store = createStore();
-    
-    // Only create persister in browser environment
     if (typeof window !== 'undefined') {
       this.persister = createLocalPersister(this.store, 'user-profile');
     }
@@ -54,7 +51,6 @@ class UserProfileStore {
   }
 
   public async initialize() {
-    if (typeof window === 'undefined') return;
     console.log('Loading persisted profile data...');
     
     // First try to load from localStorage
@@ -71,9 +67,7 @@ class UserProfileStore {
     }
 
     // Fallback to TinyBase persister
-    if (this.persister) {
-      await this.persister.load();
-    }
+    await this.persister.load();
     const profile = this.store.getRow('profiles', 'current');
     console.log('Loaded profile from TinyBase:', profile);
   }
@@ -91,12 +85,8 @@ class UserProfileStore {
       this.store.setRow('profiles', 'current', storageProfile);
       await this.persister.save();
       
-     
-
       // Save to localStorage as well
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('userProfile', JSON.stringify(profile));
-      }
+      localStorage.setItem('userProfile', JSON.stringify(profile));
       
       // Notify listeners of the change
       this.notifyListeners(profile);
@@ -112,17 +102,15 @@ class UserProfileStore {
     console.log('Getting profile...');
     
     // First try localStorage
-    if (typeof window !== 'undefined') {
-      const localStorageData = localStorage.getItem('userProfile');
-      if (localStorageData) {
-        try {
-          const profile = JSON.parse(localStorageData);
-          if (profile && typeof profile === 'object') {
-            return profile as UserProfile;
-          }
-        } catch (error) {
-          console.error('Error parsing localStorage profile:', error);
+    const localStorageData = localStorage.getItem('userProfile');
+    if (localStorageData) {
+      try {
+        const profile = JSON.parse(localStorageData);
+        if (profile && typeof profile === 'object') {
+          return profile as UserProfile;
         }
+      } catch (error) {
+        console.error('Error parsing localStorage profile:', error);
       }
     }
 
