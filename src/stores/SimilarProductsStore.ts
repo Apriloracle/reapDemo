@@ -27,9 +27,6 @@ class SimilarProductsStore {
 
     this.store.setTable(`similar-${asin}`, productsTable);
     await this.persister.save();
-
-    // Also write to the new central index
-    upsertProducts(products, { similaritySourceId: asin });
   }
 
   getSimilarProducts(asin: string) {
