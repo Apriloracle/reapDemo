@@ -1,6 +1,6 @@
 // src/services/ProfileSyncService.ts
 
-import { userProfileStore, UserProfile } from '../stores/UserProfileStore';
+import { getUserProfileStore, UserProfile } from '../stores/UserProfileStore';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
 import { Codebook } from '../config/hypervector-codebook';
 import { Hypervector } from '../lib/hypervectors';
@@ -12,19 +12,18 @@ const VECTOR_DIMENSION_10K = 10000;
  * A service that synchronizes the traditional user profile with the hypervector profile.
  */
 class ProfileSyncService {
-  /**
-   * Initializes the service by setting up a listener for profile changes.
-   */
   public initialize() {
-    userProfileStore.addChangeListener(this.onProfileChange.bind(this));
-    this.syncInitialProfile();
+    const store = getUserProfileStore();
+    if (!store) {
+      console.warn("UserProfileStore not available.");
+      return;
+    }
+    store.addChangeListener(this.onProfileChange.bind(this));
+    this.syncInitialProfile(store);
   }
 
-  /**
-   * Synchronizes the initial profile data when the app starts.
-   */
-  private async syncInitialProfile() {
-    const initialProfile = userProfileStore.getProfile();
+  private async syncInitialProfile(store: ReturnType<typeof getUserProfileStore>) {
+    const initialProfile = store?.getProfile();
     if (initialProfile) {
       await this.onProfileChange(initialProfile);
     }
