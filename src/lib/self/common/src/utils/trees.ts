@@ -250,8 +250,8 @@ export function getCscaTreeInclusionProof(leaf: string, _serialized_csca_tree: a
   const proof = tree.createProof(index);
   return [
     tree.root,
-    proof.pathIndices.map((index) => index.toString()),
-    proof.siblings.flat().map((sibling) => sibling.toString()),
+    proof.pathIndices.map((index: any) => index.toString()),
+    proof.siblings.flat().map((sibling: any) => sibling.toString()),
   ];
 }
 
