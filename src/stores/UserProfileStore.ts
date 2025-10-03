@@ -1,8 +1,5 @@
-// --- START OF FILE UserProfileStore.ts (Corrected) ---
-
 import { createStore, Store, Row } from 'tinybase';
-// FIX: We import the TYPE of the persister, not the creation function at the top level.
-import { Persister } from 'tinybase/persisters'; 
+import type { LocalPersister } from 'tinybase/persisters/persister-browser';
 import { upsertUserProfile } from './ProductIndexStore';
 
 // Base interface for type safety when working with profiles
@@ -23,8 +20,8 @@ type ProfileChangeListener = (profile: UserProfile) => void;
 
 class UserProfileStore {
   private store: Store;
-  // FIX: Change the type of persister. It can be null if not on the browser.
-  private persister: Persister | null = null; 
+  // FIX: Use the specific LocalPersister type for the property.
+  private persister: LocalPersister | null = null;
   private static instance: UserProfileStore;
   private listeners: Set<ProfileChangeListener> = new Set();
 
@@ -40,15 +37,13 @@ class UserProfileStore {
     return UserProfileStore.instance;
   }
 
-  // FIX: New private method to safely initialize the persister only on the client-side.
-  private async getOrCreatePersister(): Promise<Persister | null> {
-    // Check if we are in a browser environment.
+  // This private method to safely initialize the persister remains the same and is correct.
+  private async getOrCreatePersister(): Promise<LocalPersister | null> {
     if (typeof window === 'undefined') {
       return null;
     }
 
     if (!this.persister) {
-      // Dynamically import the browser-specific persister function.
       const { createLocalPersister } = await import('tinybase/persisters/persister-browser');
       this.persister = createLocalPersister(this.store, 'user-profile');
     }
@@ -68,12 +63,10 @@ class UserProfileStore {
   }
 
   public async initialize() {
-    // Always check for browser environment before using localStorage or persister.
     if (typeof window === 'undefined') return;
     
     console.log('Loading persisted profile data...');
     
-    // First try to load from localStorage
     const localStorageData = localStorage.getItem('userProfile');
     if (localStorageData) {
       try {
@@ -86,7 +79,6 @@ class UserProfileStore {
       }
     }
 
-    // Fallback to TinyBase persister
     const persister = await this.getOrCreatePersister();
     if (persister) {
       await persister.load();
@@ -98,7 +90,6 @@ class UserProfileStore {
   public async saveProfile(profile: UserProfile) {
     console.log('Saving profile:', profile);
     
-    // Check for browser environment before saving.
     if (typeof window === 'undefined') {
       console.warn('Attempted to save profile on the server. Skipping.');
       return;
@@ -206,4 +197,3 @@ class UserProfileStore {
 
 export const userProfileStore = UserProfileStore.getInstance();
 export default userProfileStore;
-
