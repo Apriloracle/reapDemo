@@ -1,5 +1,6 @@
 import type { SelfApp } from '../../common/src/utils/appType.ts';
-import { getUniversalLink, REDIRECT_URL, WS_DB_RELAYER } from '../../common/src/constants/constants.ts';
+import { REDIRECT_URL, WS_DB_RELAYER } from '../../common/src/constants/constants.ts';
+import { getUniversalLink } from '../../common/src/utils/utils.ts';
 import Lottie from 'lottie-react';
 import { QRCodeSVG } from 'qrcode.react';
 import React, { useEffect, useRef, useState } from 'react';
