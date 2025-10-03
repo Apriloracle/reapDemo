@@ -1,5 +1,5 @@
-import { VerificationConfig } from 'src/types/types.js';
-import { IConfigStorage } from './interface.js';
+import { VerificationConfig } from 'src/types/types.ts';
+import { IConfigStorage } from './interface.ts';
 
 export class DefaultConfigStore implements IConfigStorage {
   constructor(private config: VerificationConfig) {}
