@@ -109,7 +109,8 @@ setInterval(() => {
     }
   }
 }, 2000);
-
+}
+  
   stopStream() {
     if (!this.running) {
       console.log("MemoryStreamService is not running.");
