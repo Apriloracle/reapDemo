@@ -1,4 +1,4 @@
-import { ethers, JsonRpcProvider } from 'ethers';
+import { ethers} from 'ethers';
 import { hashEndpointWithScope } from '../../common/src/utils/scope.ts';
 import { discloseIndices } from './utils/constants.ts';
 import { formatRevealedDataPacked } from './utils/id.ts';
@@ -22,7 +22,7 @@ const CELO_TESTNET_RPC_URL = 'https://forno.celo-sepolia.celo-testnet.org';
 export class SelfBackendVerifier {
   protected scope: string;
   protected configStorage: IConfigStorage;
-  protected provider: JsonRpcProvider;
+  protected provider: ethers.providers.JsonRpcProvider;
   protected allowedIds: Map<AttestationId, boolean>;
   protected userIdentifierType: UserIdType;
 
@@ -34,8 +34,8 @@ export class SelfBackendVerifier {
     configStorage: IConfigStorage,
     userIdentifierType: UserIdType
   ) {
-    const rpcUrl = mockPassport ? CELO_TESTNET_RPC_URL : CELO_MAINNET_RPC_URL;
-    const provider = new JsonRpcProvider(rpcUrl);
+   const rpcUrl = mockPassport ? CELO_TESTNET_RPC_URL : CELO_MAINNET_RPC_URL;
+   const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     this.provider = provider;
     this.scope = hashEndpointWithScope(endpoint, scope);
     this.allowedIds = allowedIds;
