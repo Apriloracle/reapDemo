@@ -142,7 +142,7 @@ export class SelfBackendVerifier {
       });
     }
 
-    let verificationConfig: VerificationConfig | null;
+    let verificationConfig: VerificationConfig | null = null;
     try {
       verificationConfig = await this.configStorage.getConfig(configId);
     } catch (error) {
