@@ -61,16 +61,19 @@ const DiscoveryPage: React.FC = () => {
     await discoverySearchStore.addSearchResults(searchTerm, uniqueResults);
 
     // Also cache in categoryStore
-    const productsByCategory: { [key: string]: any[] } = {};
-    for (const product of uniqueResults) {
-      const categoryId = product.categoryId || 'unknown';
-      if (!productsByCategory[categoryId]) {
-        productsByCategory[categoryId] = [];
-      }
-      productsByCategory[categoryId].push(product);
+  const productsByCategory: { [key: string]: ProductWithCategory[] } = {};
+
+  for (const product of uniqueResults as ProductWithCategory[]) {
+    const categoryId = product.categoryId || 'unknown';
+
+    if (!productsByCategory[categoryId]) {
+      productsByCategory[categoryId] = [];
     }
-    await categoryStore.addProductsByCategory(productsByCategory);
-  };
+    productsByCategory[categoryId].push(product);
+  }
+
+  await categoryStore.addProductsByCategory(productsByCategory);
+};
 
   const handleProductClick = (product: Product) => {
     if (product && product.asin) {
