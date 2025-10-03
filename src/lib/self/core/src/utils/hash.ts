@@ -9,7 +9,12 @@ import { ethers } from 'ethers';
  * @returns A 40-character hexadecimal user identifier string prefixed with "0x"
  */
 export function calculateUserIdentifierHash(userContextData: Buffer): string {
-  const sha256Hash = ethers.sha256(userContextData);
-  const ripemdHash = ethers.ripemd160(sha256Hash);
-  return ripemdHash.toString().padStart(40, '0');
+  // FIX: Use the 'ethers.utils' namespace for v5
+  const sha256Hash = ethers.utils.sha256(userContextData);
+  const ripemdHash = ethers.utils.ripemd160(sha256Hash);
+
+  // FIX: The ripemd160 function already returns the correctly formatted
+  // 0x-prefixed hex string of the correct length.
+  return ripemdHash;
 }
+
