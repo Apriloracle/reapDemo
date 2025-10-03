@@ -9,6 +9,7 @@ interface Product {
   url: string;
 }
 
+
 const AmazonProductsComponent: React.FC = () => {
   const [keywords, setKeywords] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
