@@ -129,7 +129,7 @@ class UserProfileStore {
         await persister.save();
       }
       
-      upsertUserProfile();
+      await upsertUserProfile();
       localStorage.setItem('userProfile', JSON.stringify(profile));
       this.notifyListeners(profile);
       
