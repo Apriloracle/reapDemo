@@ -1,6 +1,6 @@
 import { createStore, Store, Row } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
-import { upsertUserProfile } from './ProductIndexStore';
+
 
 // Base interface for type safety when working with profiles
 interface BaseUserProfile {
