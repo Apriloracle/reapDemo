@@ -1,4 +1,4 @@
-import { PublicSignals } from 'snarkjs';
+// import { PublicSignals } from 'snarkjs';
 import { discloseIndices } from './constants.ts';
 import { AttestationId } from '../types/types.ts';
 import { ProofError } from '../errors/index.ts';
@@ -12,7 +12,8 @@ import { ProofError } from '../errors/index.ts';
  * @returns The number of public signals corresponding to revealed data
  */
 export function getRevealedDataPublicSignalsLength(attestationId: AttestationId): number {
-  switch (attestationId) {
+  // We need to cast attestationId to a number for the switch statement
+  switch (Number(attestationId)) {
     case 1:
       return 93 / 31;
     case 2:
@@ -24,10 +25,11 @@ export function getRevealedDataPublicSignalsLength(attestationId: AttestationId)
   }
 }
 
-export const bytesCount: Record<AttestationId, number[]> = {
-  1: [31, 31, 31],
-  2: [31, 31, 31, 1],
-  3: [31, 31, 31, 26],
+// The key here needs to be a string to be properly indexed.
+export const bytesCount: Record<string, number[]> = {
+  '1': [31, 31, 31],
+  '2': [31, 31, 31, 1],
+  '3': [31, 31, 31, 26],
 };
 
 /**
@@ -41,14 +43,18 @@ export const bytesCount: Record<AttestationId, number[]> = {
  */
 export function getRevealedDataBytes(
   attestationId: AttestationId,
-  publicSignals: PublicSignals
+  // FIX: Replaced PublicSignals with a more appropriate type like string[]
+  publicSignals: (string | bigint)[]
 ): number[] {
   let bytes: number[] = [];
-  for (let i = 0; i < getRevealedDataPublicSignalsLength(attestationId); i++) {
+  const numericAttestationId = Number(attestationId);
+  const indices = discloseIndices[numericAttestationId as keyof typeof discloseIndices];
+
+  for (let i = 0; i < getRevealedDataPublicSignalsLength(numericAttestationId); i++) {
     let publicSignal = BigInt(
-      publicSignals[discloseIndices[attestationId].revealedDataPackedIndex + i]
+      publicSignals[indices.revealedDataPackedIndex + i]
     );
-    for (let j = 0; j < bytesCount[attestationId][i]; j++) {
+    for (let j = 0; j < bytesCount[numericAttestationId][i]; j++) {
       bytes.push(Number(publicSignal & 0xffn));
       publicSignal = publicSignal >> 8n;
     }
