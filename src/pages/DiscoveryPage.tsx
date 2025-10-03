@@ -12,6 +12,11 @@ import { Product } from '../lib/types';
 import { discoverySearchStore } from '../stores/DiscoverySearchStore';
 import { categoryStore } from '../stores/CategoryStore';
 
+
+interface ProductWithCategory extends Product {
+  categoryId?: string;
+}
+
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
