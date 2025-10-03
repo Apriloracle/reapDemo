@@ -43,7 +43,7 @@ export class SelfBackendVerifier {
     this.userIdentifierType = userIdentifierType;
   }
 
-  public async verify(
+ public async verify(
     attestationId: AttestationId,
     proof: VcAndDiscloseProof,
     pubSignals: BigNumberish[],
@@ -59,12 +59,37 @@ export class SelfBackendVerifier {
       });
     }
 
+    // --- START OF FIX ---
+
+    // 1. Add a check to ensure attestationId is a valid key type (number).
+    if (typeof attestationId !== 'number') {
+      issues.push({
+        type: ConfigMismatch.InvalidId,
+        message: 'Attestation ID must be a number, but received type: ' + typeof attestationId,
+      });
+      // Throw early if the ID type is fundamentally wrong.
+      throw new ConfigMismatchError(issues);
+    }
+    
+    // 2. Get the correct index mapping once and reuse it.
+    //    We cast attestationId to `keyof typeof discloseIndices` to tell TypeScript it's a valid key.
+    const indices = discloseIndices[attestationId as keyof typeof discloseIndices];
+    if (!indices) {
+       issues.push({
+        type: ConfigMismatch.InvalidId,
+        message: 'No disclose indices found for attestation ID: ' + attestationId,
+      });
+      throw new ConfigMismatchError(issues);
+    }
+
+    // --- END OF FIX ---
+
     const publicSignals = pubSignals
       .map(String)
       .map((x) => (/[a-f]/g.test(x) && x.length > 0 ? '0x' + x : x));
     //check if user context hash matches
     const userContextHashInCircuit = BigInt(
-      publicSignals[discloseIndices[attestationId].userIdentifierIndex]
+      publicSignals[indices.userIdentifierIndex] // <-- Use the new `indices` variable
     );
     const userContextHash = BigInt(
       calculateUserIdentifierHash(Buffer.from(userContextData, 'hex'))
@@ -82,13 +107,13 @@ export class SelfBackendVerifier {
     }
 
     //check if scope matches
-    const isValidScope = this.scope === publicSignals[discloseIndices[attestationId].scopeIndex];
+    const isValidScope = this.scope === publicSignals[indices.scopeIndex]; // <-- Use `indices`
     if (!isValidScope) {
       issues.push({
         type: ConfigMismatch.InvalidScope,
         message:
           'Scope does not match with the one in the circuit\nCircuit: ' +
-          publicSignals[discloseIndices[attestationId].scopeIndex] +
+          publicSignals[indices.scopeIndex] + // <-- Use `indices`
           '\nScope: ' +
           this.scope,
       });
@@ -96,7 +121,7 @@ export class SelfBackendVerifier {
 
     //check if attestation id matches
     const isValidAttestationId =
-      attestationId.toString() === publicSignals[discloseIndices[attestationId].attestationIdIndex];
+      attestationId.toString() === publicSignals[indices.attestationIdIndex]; // <-- Use `indices`
     if (!isValidAttestationId) {
       issues.push({
         type: ConfigMismatch.InvalidAttestationId,
@@ -129,7 +154,7 @@ export class SelfBackendVerifier {
       if (!verificationConfig) {
         issues.push({
           type: ConfigMismatch.ConfigNotFound,
-          message: `Config not found for ${configId}`,
+          message: `Config not found for ${config-d}`,
         });
         throw new ConfigMismatchError(issues);
       }
@@ -138,7 +163,7 @@ export class SelfBackendVerifier {
     //check if forbidden countries list matches
     const forbiddenCountriesList: string[] = unpackForbiddenCountriesList(
       [0, 1, 2, 3].map(
-        (x) => publicSignals[discloseIndices[attestationId].forbiddenCountriesListPackedIndex + x]
+        (x) => publicSignals[indices.forbiddenCountriesListPackedIndex + x] // <-- Use `indices`
       )
     );
     const forbiddenCountriesListVerificationConfig = verificationConfig.excludedCountries;
@@ -181,16 +206,16 @@ export class SelfBackendVerifier {
     circuitTimestampYy = [
       2,
       0,
-      +publicSignals[discloseIndices[attestationId].currentDateIndex],
-      +publicSignals[discloseIndices[attestationId].currentDateIndex + 1],
+      +publicSignals[indices.currentDateIndex], // <-- Use `indices`
+      +publicSignals[indices.currentDateIndex + 1], // <-- Use `indices`
     ];
     circuitTimestampMm = [
-      +publicSignals[discloseIndices[attestationId].currentDateIndex + 2],
-      +publicSignals[discloseIndices[attestationId].currentDateIndex + 3],
+      +publicSignals[indices.currentDateIndex + 2], // <-- Use `indices`
+      +publicSignals[indices.currentDateIndex + 3], // <-- Use `indices`
     ];
     circuitTimestampDd = [
-      +publicSignals[discloseIndices[attestationId].currentDateIndex + 4],
-      +publicSignals[discloseIndices[attestationId].currentDateIndex + 5],
+      +publicSignals[indices.currentDateIndex + 4], // <-- Use `indices`
+      +publicSignals[indices.currentDateIndex + 5], // <-- Use `indices`
     ];
 
     const circuitTimestamp = new Date(
@@ -269,4 +294,3 @@ export class SelfBackendVerifier {
       },
     };
   }
-}
