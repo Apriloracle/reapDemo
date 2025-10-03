@@ -285,7 +285,7 @@ export function getDscTreeInclusionProof(
     throw new Error('Your public key was not found in the registry');
   }
   const { siblings, path, leaf_depth } = generateMerkleProof(tree, index, DSC_TREE_DEPTH);
-  return [tree.root, path, siblings, leaf_depth];
+  return [tree.root.toString(), path, siblings, leaf_depth];
 }
 
 /** get leaf for DSC and CSCA Trees */
