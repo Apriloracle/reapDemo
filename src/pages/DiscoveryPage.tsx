@@ -11,6 +11,8 @@ import trajectoryService from '../services/TrajectoryService';
 import { Product } from '../lib/types';
 import { discoverySearchStore } from '../stores/DiscoverySearchStore';
 import { categoryStore } from '../stores/CategoryStore';
+import { initializeProductIndexStore, initializePersonalizedQuery } from '../stores/ProductIndexStore';
+import { getUserProfileStore } from '../stores/UserProfileStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -27,14 +29,25 @@ const DiscoveryPage: React.FC = () => {
   };
 
   useEffect(() => {
-    trajectoryService.initialize();
-    discoveryEngineService.initialize();
-    discoverySearchStore.initialize().then(() => {
+    const initializeClientSideStores = async () => {
+      // Initialize stores that depend on browser APIs
+      getUserProfileStore(); // Ensures the singleton instance is created
+      await initializeProductIndexStore();
+      await initializePersonalizedQuery();
+
+      // Initialize other services and stores
+      trajectoryService.initialize();
+      discoveryEngineService.initialize();
+      await discoverySearchStore.initialize();
+      
       const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
       if (cachedProducts.length > 0) {
         setProducts(shuffleAndLimit(cachedProducts, 20));
       }
-    });
+    };
+
+    initializeClientSideStores();
+
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
@@ -114,4 +127,3 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
