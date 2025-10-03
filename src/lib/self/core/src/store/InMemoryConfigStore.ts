@@ -19,7 +19,16 @@ export class InMemoryConfigStore implements IConfigStorage {
     return !existed;
   }
 
-  async getConfig(configId: string): Promise<VerificationConfig> {
-    return this.configs.get(configId);
+async getConfig(configId: string): Promise<VerificationConfig> {
+    const config = this.configs.get(configId);
+
+    // This is the FIX:
+    // Check if the config was found. If not, throw an error.
+    if (!config) {
+      throw new Error(`Configuration with ID "${configId}" not found.`);
+    }
+
+    // If the code reaches here, TypeScript knows `config` is a valid VerificationConfig.
+    return config;
   }
 }
