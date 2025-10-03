@@ -55,7 +55,7 @@ export class SelfBackendVerifier {
     if (!allowedId) {
       issues.push({
         type: ConfigMismatch.InvalidId,
-        message: 'Attestation ID is not allowed, received: ' + attestationId,
+        message: 'Attestation ID is not allowed, received: ' + attestationId.toString(),
       });
     }
 
