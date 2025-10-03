@@ -20,48 +20,49 @@ type ProfileChangeListener = (profile: UserProfile) => void;
 
 class UserProfileStore {
   private store: Store;
-  // FIX: Use the specific LocalPersister type for the property.
   private persister: LocalPersister | null = null;
-  private static instance: UserProfileStore;
+  private static instance: UserProfileStore | null = null;
   private listeners: Set<ProfileChangeListener> = new Set();
 
-private constructor() {
-  console.log('Initializing UserProfileStore');
-  this.store = createStore();
-  
-  // Only initialize in browser
-  if (typeof window !== 'undefined') {
-    this.initialize().catch(error => {
-      console.error('Error during UserProfileStore initialization:', error);
-    });
+  private constructor() {
+    console.log('Initializing UserProfileStore');
+    this.store = createStore();
   }
-}
 
-  public static getInstance(): UserProfileStore {
+  public static getInstance(): UserProfileStore | null {
+    // Only create instance in browser
+    if (typeof window === 'undefined') {
+      console.log('UserProfileStore: Skipping getInstance on server');
+      return null;
+    }
+
     if (!UserProfileStore.instance) {
       UserProfileStore.instance = new UserProfileStore();
+      // Initialize asynchronously
+      UserProfileStore.instance.initialize().catch(error => {
+        console.error('Error during UserProfileStore initialization:', error);
+      });
     }
     return UserProfileStore.instance;
   }
 
-private async getOrCreatePersister(): Promise<LocalPersister | null> {
-  // Check if we're in a browser environment
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  if (!this.persister) {
-    try {
-      const { createLocalPersister } = await import('tinybase/persisters/persister-browser');
-      this.persister = createLocalPersister(this.store, 'user-profile');
-    } catch (error) {
-      console.error('Error creating persister:', error);
+  private async getOrCreatePersister(): Promise<LocalPersister | null> {
+    if (typeof window === 'undefined') {
       return null;
     }
+
+    if (!this.persister) {
+      try {
+        const { createLocalPersister } = await import('tinybase/persisters/persister-browser');
+        this.persister = createLocalPersister(this.store, 'user-profile');
+      } catch (error) {
+        console.error('Error creating persister:', error);
+        return null;
+      }
+    }
+    return this.persister;
   }
-  return this.persister;
-}
-  
+
   public addChangeListener(listener: ProfileChangeListener) {
     this.listeners.add(listener);
   }
@@ -74,38 +75,37 @@ private async getOrCreatePersister(): Promise<LocalPersister | null> {
     this.listeners.forEach(listener => listener(profile));
   }
 
-public async initialize() {
-  // Only run in browser
-  if (typeof window === 'undefined') {
-    console.log('Skipping UserProfileStore initialization on server');
-    return;
-  }
-  
-  console.log('Loading persisted profile data...');
-  
-  const localStorageData = localStorage.getItem('userProfile');
-  if (localStorageData) {
-    try {
-      const profile = JSON.parse(localStorageData);
-      await this.saveProfile(profile);
-      console.log('Loaded profile from localStorage:', profile);
+  public async initialize() {
+    if (typeof window === 'undefined') {
+      console.log('Skipping UserProfileStore initialization on server');
       return;
-    } catch (error) {
-      console.error('Error loading from localStorage:', error);
     }
-  }
+    
+    console.log('Loading persisted profile data...');
+    
+    const localStorageData = localStorage.getItem('userProfile');
+    if (localStorageData) {
+      try {
+        const profile = JSON.parse(localStorageData);
+        await this.saveProfile(profile);
+        console.log('Loaded profile from localStorage:', profile);
+        return;
+      } catch (error) {
+        console.error('Error loading from localStorage:', error);
+      }
+    }
 
-  const persister = await this.getOrCreatePersister();
-  if (persister) {
-    try {
-      await persister.load();
-      const profile = this.store.getRow('profiles', 'current');
-      console.log('Loaded profile from TinyBase:', profile);
-    } catch (error) {
-      console.error('Error loading from persister:', error);
+    const persister = await this.getOrCreatePersister();
+    if (persister) {
+      try {
+        await persister.load();
+        const profile = this.store.getRow('profiles', 'current');
+        console.log('Loaded profile from TinyBase:', profile);
+      } catch (error) {
+        console.error('Error loading from persister:', error);
+      }
     }
   }
-}
 
   public async saveProfile(profile: UserProfile) {
     console.log('Saving profile:', profile);
@@ -215,5 +215,10 @@ public async initialize() {
   }
 }
 
-export const userProfileStore = UserProfileStore.getInstance();
-export default userProfileStore;
+// Helper function to safely get the instance
+export function getUserProfileStore(): UserProfileStore | null {
+  return UserProfileStore.getInstance();
+}
+
+// Don't create instance at module level - let components call getUserProfileStore() when needed
+export default getUserProfileStore;
