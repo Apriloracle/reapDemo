@@ -43,18 +43,21 @@ export const bytesCount: Record<string, number[]> = {
  */
 export function getRevealedDataBytes(
   attestationId: AttestationId,
-  // FIX: Replaced PublicSignals with a more appropriate type like string[]
   publicSignals: (string | bigint)[]
 ): number[] {
   let bytes: number[] = [];
-  const numericAttestationId = Number(attestationId);
-  const indices = discloseIndices[numericAttestationId as keyof typeof discloseIndices];
+  
+  // Use `attestationId` directly. Its type is specific enough for indexing.
+  const indices = discloseIndices[attestationId];
 
-  for (let i = 0; i < getRevealedDataPublicSignalsLength(numericAttestationId); i++) {
+  // Pass `attestationId` directly to the function that expects it.
+  for (let i = 0; i < getRevealedDataPublicSignalsLength(attestationId); i++) {
     let publicSignal = BigInt(
       publicSignals[indices.revealedDataPackedIndex + i]
     );
-    for (let j = 0; j < bytesCount[numericAttestationId][i]; j++) {
+
+    // Use `attestationId` directly to index `bytesCount`.
+    for (let j = 0; j < bytesCount[attestationId][i]; j++) {
       bytes.push(Number(publicSignal & 0xffn));
       publicSignal = publicSignal >> 8n;
     }
