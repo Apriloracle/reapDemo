@@ -3,7 +3,7 @@ import { createIndexes, Indexes } from 'tinybase/indexes';
 import { createQueries, Queries } from 'tinybase/queries';
 import { Product } from '@/lib/types'; // Assuming a Product type exists
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
-import userProfileStore from '../stores/UserProfileStore';
+import { getUserProfileStore } from './UserProfileStore';
 
 // 1. Create a single, global store instance.
 const store = createStore();
