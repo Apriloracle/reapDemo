@@ -1,4 +1,4 @@
-import { AttestationId } from 'src/types/types.js';
+import { AttestationId } from 'src/types/types.ts';
 
 export const discloseIndices = {
   1: {
