@@ -1,6 +1,10 @@
-import { Country3LetterCode } from '@selfxyz/common/constants/countries';
+import { Country3LetterCode } from '../../../common/src/constants/countries.ts';
 import type { BigNumberish } from 'ethers';
-import { discloseIndices } from 'src/utils/constants.ts';
+
+// FIX: Changed this from an absolute path ('src/...') to a relative path.
+// It goes up one level from the `types` directory to the `src` directory (inside `core`)
+// and then into the `utils` folder.
+import { discloseIndices } from '../utils/constants.ts';
 
 export type VcAndDiscloseProof = {
   a: [BigNumberish, BigNumberish];
