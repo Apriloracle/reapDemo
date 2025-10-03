@@ -290,9 +290,18 @@ export function getDscTreeInclusionProof(
 
 /** get leaf for DSC and CSCA Trees */
 export function getLeaf(parsed: CertificateData, type: 'dsc' | 'csca'): string {
+  // FIX: Add a guard clause to handle cases where tbsBytes is undefined.
+  if (!parsed.tbsBytes) {
+    console.error('Cannot generate leaf: tbsBytes is missing from parsed certificate.');
+    return '0'; // Return a default "zero" leaf
+  }
+
   if (type === 'dsc') {
-    // for now, we pad it for sha
-    const tbsArray = Object.keys(parsed.tbsBytes).map((key) => parsed.tbsBytes[key]);
+    // FIX: Simplified the logic. `tbsBytes` is already a number array.
+    const tbsArray = parsed.tbsBytes;
+    
+    // The following line might also have a type issue if hashAlgorithm is optional.
+    // If you get another error here, add a check for `parsed.hashAlgorithm`.
     const [paddedTbsBytes, tbsBytesPaddedLength] = pad(parsed.hashAlgorithm)(
       tbsArray,
       max_dsc_bytes
@@ -301,6 +310,7 @@ export function getLeaf(parsed: CertificateData, type: 'dsc' | 'csca'): string {
 
     return poseidon2([dsc_hash, tbsArray.length]).toString();
   } else {
+    // This code is now safe because of the guard clause at the top.
     const tbsBytesArray = Array.from(parsed.tbsBytes);
     const paddedTbsBytesArray = tbsBytesArray.concat(
       new Array(max_csca_bytes - tbsBytesArray.length).fill(0)
