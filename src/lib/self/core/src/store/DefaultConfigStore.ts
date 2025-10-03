@@ -1,4 +1,4 @@
-import { VerificationConfig } from 'src/types/types.ts';
+import { VerificationConfig } from '../types/types.ts';
 import { IConfigStorage } from './interface.ts';
 
 export class DefaultConfigStore implements IConfigStorage {
