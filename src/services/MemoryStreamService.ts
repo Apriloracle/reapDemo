@@ -8,7 +8,7 @@ import cppnActivationFactory from 'cppnjs/activationFunctions/cppnActivationFact
 import { blake3Hash } from '@webbuf/blake3';
 import { WebBuf } from 'webbuf';
 import trajectoryStore from '../stores/TrajectoryStore';
-import { getUserProfileStore } from '../stores/UserProfileStore';
+import { userProfileStore } from '../stores/UserProfileStore';
 import { discoverySearchStore } from '../stores/DiscoverySearchStore';
 import modelData from '../data/query1_model.json';
 import mergedGraphData from '../data/graphs/merged_graph.json';
@@ -77,40 +77,37 @@ class MemoryStreamService {
     this.running = true;
     console.log("MemoryStreamService started.");
     
-setInterval(() => {
-  if (this.running && this.currentAsin) {
-    // Get the store instance (may be null on server)
-    const userProfileStoreInstance = getUserProfileStore();
-    
-    // 1. Hash the Tinybase state
-    const tinybaseState = {
-      trajectory: trajectoryStore.getTable("trajectory"),
-      userProfile: userProfileStoreInstance ? userProfileStoreInstance.getProfile() : null,
-      searchResults: discoverySearchStore.getAllProducts(),
-    };
-    const userStateVector = hashToLatentVector(JSON.stringify(tinybaseState));
-    console.log("User State Latent Vector:", userStateVector);
+    setInterval(() => {
+      if (this.running && this.currentAsin) {
+        // 1. Hash the Tinybase state
+        const tinybaseState = {
+          trajectory: trajectoryStore.getTable("trajectory"),
+          userProfile: userProfileStore.getProfile(),
+          searchResults: discoverySearchStore.getAllProducts(),
+        };
+        const userStateVector = hashToLatentVector(JSON.stringify(tinybaseState));
+        console.log("User State Latent Vector:", userStateVector);
 
-    // 2. Hash the dynamically provided product pathway
-    // @ts-ignore
-    const priceBucketNode = mergedGraphData.nodes.find(node => 
-      node.attributes.type === 'price_bucket' && 
-      node.attributes.products && 
-      this.currentAsin &&
-      node.attributes.products.includes(this.currentAsin)
-    );
+        // 2. Hash the dynamically provided product pathway
+        // @ts-ignore
+        const priceBucketNode = mergedGraphData.nodes.find(node => 
+          node.attributes.type === 'price_bucket' && 
+          node.attributes.products && 
+          this.currentAsin &&
+          node.attributes.products.includes(this.currentAsin)
+        );
 
-    if (priceBucketNode) {
-      // For this test, we'll just hash the attributes of the price bucket node.
-      const productPathwayVector = hashToLatentVector(JSON.stringify(priceBucketNode.attributes));
-      console.log(`Product Pathway Latent Vector for ${this.currentAsin}:`, productPathwayVector);
-    } else {
-      console.log(`Product with ASIN ${this.currentAsin} not found in any price_bucket.`);
-    }
+        if (priceBucketNode) {
+          // For this test, we'll just hash the attributes of the price bucket node.
+          const productPathwayVector = hashToLatentVector(JSON.stringify(priceBucketNode.attributes));
+          console.log(`Product Pathway Latent Vector for ${this.currentAsin}:`, productPathwayVector);
+        } else {
+          console.log(`Product with ASIN ${this.currentAsin} not found in any price_bucket.`);
+        }
+      }
+    }, 2000); // Increased interval to 2 seconds to reduce console spam
   }
-}, 2000);
-}
-  
+
   stopStream() {
     if (!this.running) {
       console.log("MemoryStreamService is not running.");
@@ -136,6 +133,3 @@ setInterval(() => {
 }
 
 export const memoryStreamService = new MemoryStreamService();
-
-
-

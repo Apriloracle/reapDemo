@@ -1,5 +1,5 @@
 import { createStore, Store, Row } from 'tinybase';
-import type { LocalPersister } from 'tinybase/persisters/persister-browser';
+import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { upsertUserProfile } from './ProductIndexStore';
 
 // Base interface for type safety when working with profiles
@@ -20,47 +20,25 @@ type ProfileChangeListener = (profile: UserProfile) => void;
 
 class UserProfileStore {
   private store: Store;
-  private persister: LocalPersister | null = null;
-  private static instance: UserProfileStore | null = null;
+  private persister: any;
+  private static instance: UserProfileStore;
   private listeners: Set<ProfileChangeListener> = new Set();
 
   private constructor() {
     console.log('Initializing UserProfileStore');
     this.store = createStore();
+    
+    // Only create persister in browser environment
+    if (typeof window !== 'undefined') {
+      this.persister = createLocalPersister(this.store, 'user-profile');
+    }
   }
 
-  public static getInstance(): UserProfileStore | null {
-    // Only create instance in browser
-    if (typeof window === 'undefined') {
-      console.log('UserProfileStore: Skipping getInstance on server');
-      return null;
-    }
-
+  public static getInstance(): UserProfileStore {
     if (!UserProfileStore.instance) {
       UserProfileStore.instance = new UserProfileStore();
-      // Initialize asynchronously
-      UserProfileStore.instance.initialize().catch(error => {
-        console.error('Error during UserProfileStore initialization:', error);
-      });
     }
     return UserProfileStore.instance;
-  }
-
-  private async getOrCreatePersister(): Promise<LocalPersister | null> {
-    if (typeof window === 'undefined') {
-      return null;
-    }
-
-    if (!this.persister) {
-      try {
-        const { createLocalPersister } = await import('tinybase/persisters/persister-browser');
-        this.persister = createLocalPersister(this.store, 'user-profile');
-      } catch (error) {
-        console.error('Error creating persister:', error);
-        return null;
-      }
-    }
-    return this.persister;
   }
 
   public addChangeListener(listener: ProfileChangeListener) {
@@ -76,13 +54,10 @@ class UserProfileStore {
   }
 
   public async initialize() {
-    if (typeof window === 'undefined') {
-      console.log('Skipping UserProfileStore initialization on server');
-      return;
-    }
-    
+    if (typeof window === 'undefined') return;
     console.log('Loading persisted profile data...');
     
+    // First try to load from localStorage
     const localStorageData = localStorage.getItem('userProfile');
     if (localStorageData) {
       try {
@@ -95,42 +70,36 @@ class UserProfileStore {
       }
     }
 
-    const persister = await this.getOrCreatePersister();
-    if (persister) {
-      try {
-        await persister.load();
-        const profile = this.store.getRow('profiles', 'current');
-        console.log('Loaded profile from TinyBase:', profile);
-      } catch (error) {
-        console.error('Error loading from persister:', error);
-      }
+    // Fallback to TinyBase persister
+    if (this.persister) {
+      await this.persister.load();
     }
+    const profile = this.store.getRow('profiles', 'current');
+    console.log('Loaded profile from TinyBase:', profile);
   }
 
   public async saveProfile(profile: UserProfile) {
     console.log('Saving profile:', profile);
-    
-    if (typeof window === 'undefined') {
-      console.warn('Attempted to save profile on the server. Skipping.');
-      return;
-    }
-
     try {
+      // Convert arrays to strings for storage
       const storageProfile: Row = {
         ...profile,
         interests: JSON.stringify(profile.interests),
         shopping: JSON.stringify(profile.shopping)
       };
-      
+      console.log('Converted profile for storage:', storageProfile);
       this.store.setRow('profiles', 'current', storageProfile);
+      await this.persister.save();
       
-      const persister = await this.getOrCreatePersister();
-      if (persister) {
-        await persister.save();
+      // Also write to the new central index
+      upsertUserProfile(profile);
+
+      // Save to localStorage as well
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userProfile', JSON.stringify(profile));
       }
       
-      await upsertUserProfile();
-      localStorage.setItem('userProfile', JSON.stringify(profile));
+      // Notify listeners of the change
       this.notifyListeners(profile);
       
       console.log('Profile saved successfully');
@@ -143,6 +112,7 @@ class UserProfileStore {
   public getProfile(): UserProfile | null {
     console.log('Getting profile...');
     
+    // First try localStorage
     if (typeof window !== 'undefined') {
       const localStorageData = localStorage.getItem('userProfile');
       if (localStorageData) {
@@ -157,6 +127,7 @@ class UserProfileStore {
       }
     }
 
+    // Fallback to TinyBase store
     const profile = this.store.getRow('profiles', 'current');
     console.log('Raw profile from store:', profile);
     
@@ -166,6 +137,7 @@ class UserProfileStore {
     }
 
     try {
+      // Parse stored strings back to arrays, with fallbacks for missing data
       const userProfile = {
         sex: profile.sex as string || '',
         age: profile.age as string || '',
@@ -192,10 +164,14 @@ class UserProfileStore {
       shopping: []
     };
     
+    console.log('UserProfileStore: Current profile before update:', currentProfile);
+    
     const updatedProfile = {
       ...currentProfile,
       ...updates
-    } as UserProfile; 
+    } as UserProfile; // Type assertion to fix TypeScript error
+    
+    console.log('UserProfileStore: Profile after merge:', updatedProfile);
     
     await this.saveProfile(updatedProfile);
     console.log('UserProfileStore: Profile saved successfully');
@@ -208,17 +184,9 @@ class UserProfileStore {
   }
 
   public async destroy() {
-    const persister = await this.getOrCreatePersister();
-    if (persister) {
-      await persister.destroy();
-    }
+    await this.persister.destroy();
   }
 }
 
-// Helper function to safely get the instance
-export function getUserProfileStore(): UserProfileStore | null {
-  return UserProfileStore.getInstance();
-}
-
-// Don't create instance at module level - let components call getUserProfileStore() when needed
-export default getUserProfileStore;
+export const userProfileStore = UserProfileStore.getInstance();
+export default userProfileStore;

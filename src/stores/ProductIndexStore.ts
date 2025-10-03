@@ -3,7 +3,7 @@ import { createIndexes, Indexes } from 'tinybase/indexes';
 import { createQueries, Queries } from 'tinybase/queries';
 import { Product } from '@/lib/types'; // Assuming a Product type exists
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
-// import { userProfileStore } from './UserProfileStore';
+import { userProfileStore } from './UserProfileStore';
 
 // 1. Create a single, global store instance.
 const store = createStore();
@@ -147,27 +147,27 @@ export const initializeProductIndexStore = async () => {
 export const getProductQueries = (): Queries => queries;
 
 // Define the personalized products query
-// queries.setQueryDefinition(
-//   'getPersonalizedProducts',
-//   PRODUCTS_TABLE,
-//   ({ select, join, where }) => {
-//     // Select all columns from the products table
-//     select('*');
+queries.setQueryDefinition(
+  'getPersonalizedProducts',
+  PRODUCTS_TABLE,
+  ({ select, join, where }) => {
+    // Select all columns from the products table
+    select('*');
 
-//     // Join with the user profile table
-//     join(USER_PROFILE_TABLE, 'currentUser').as('userProfile');
+    // Join with the user profile table
+    join(USER_PROFILE_TABLE, 'currentUser').as('userProfile');
 
-//     // Filter products where the product's tags intersect with the user's interests
-//     where((getTableCell) => {
-//       const productTags = (getTableCell('tags') as string)?.toLowerCase().split(',') ?? [];
-//       const userProfileRow = store.getRow(USER_PROFILE_TABLE, 'currentUser');
-//       const userInterests = userProfileRow.interests ? JSON.parse(userProfileRow.interests as string).map((i: string) => i.toLowerCase()) : [];
+    // Filter products where the product's tags intersect with the user's interests
+    where((getTableCell) => {
+      const productTags = (getTableCell('tags') as string)?.toLowerCase().split(',') ?? [];
+      const userProfileRow = store.getRow(USER_PROFILE_TABLE, 'currentUser');
+      const userInterests = userProfileRow.interests ? JSON.parse(userProfileRow.interests as string).map((i: string) => i.toLowerCase()) : [];
 
-//       if (userInterests.length === 0) {
-//         return true;
-//       }
-//       return userInterests.some((interest: string) => productTags.includes(interest.toLowerCase()));
-//     });
-//   }
-// );
+      if (userInterests.length === 0) {
+        return true;
+      }
+      return userInterests.some((interest: string) => productTags.includes(interest.toLowerCase()));
+    });
+  }
+);
 
