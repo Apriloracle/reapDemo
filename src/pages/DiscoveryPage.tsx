@@ -27,19 +27,16 @@ const DiscoveryPage: React.FC = () => {
   };
 
   useEffect(() => {
-    // Only initialize stores in browser environment
-    if (typeof window !== 'undefined') {
-      trajectoryService.initialize();
-      discoveryEngineService.initialize();
-      discoverySearchStore.initialize().then(() => {
-        const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
-        if (cachedProducts.length > 0) {
-          setProducts(shuffleAndLimit(cachedProducts, 20));
-        }
-      });
-      if (searchInputRef.current) {
-        searchInputRef.current.focus();
+    trajectoryService.initialize();
+    discoveryEngineService.initialize();
+    discoverySearchStore.initialize().then(() => {
+      const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
+      if (cachedProducts.length > 0) {
+        setProducts(shuffleAndLimit(cachedProducts, 20));
       }
+    });
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
     }
   }, []);
 
@@ -66,7 +63,7 @@ const DiscoveryPage: React.FC = () => {
     // Also cache in categoryStore
     const productsByCategory: { [key: string]: any[] } = {};
     for (const product of uniqueResults) {
-      const categoryId = (product as any).categoryId || 'unknown';
+      const categoryId = product.categoryId || 'unknown';
       if (!productsByCategory[categoryId]) {
         productsByCategory[categoryId] = [];
       }
@@ -83,7 +80,7 @@ const DiscoveryPage: React.FC = () => {
   };
 
   const uniqueProducts = Array.from(new Map([...products, ...keywordProducts, ...serverProducts].map(p => [p.asin, p])).values());
-  const displayedProducts = shuffleAndLimit(uniqueProducts.filter(p => (p.price || 0) > 0), 20);
+  const displayedProducts = shuffleAndLimit(uniqueProducts, 20);
 
   return (
     <div className={discoveryStyles.page}>
@@ -117,3 +114,4 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
