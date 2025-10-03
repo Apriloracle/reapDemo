@@ -1,6 +1,6 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
-import { upsertProducts } from './ProductIndexStore';
+
 
 class SimilarProductsStore {
   public store;
