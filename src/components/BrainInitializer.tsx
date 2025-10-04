@@ -36,60 +36,9 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   useEffect(() => {
     const initialize = async () => {
       try {
-        await persister.load();
-        const persistedState = store.getRow('brain_state', 'row1') as any as BrainState | undefined;
-        console.log('persistedState after load:', persistedState);
-
-        let newNtc: NTC;
-        let newEsn: ESN;
-
-        const ntcStateChangeCallback = async () => {
-          console.log('ntcStateChangeCallback called');
-          if (ntc && esn) {
-            const ntcState = ntc.getState();
-            console.log('NTC State:', ntcState);
-            // Log the state being passed to ESN
-            console.log('Passing state to ESN:', ntcState);
-            // Pass NTC state to ESN input function
-            esn.input(ntcState);
-            await updateTinybaseState();
-          }
-        };
-
-        const esnStateChangeCallback = () => {
-          console.log('esnStateChangeCallback called');
-          updateTinybaseState();
-        };
-
-        if (persistedState?.ntc && persistedState?.esn) {
-          newNtc = new NTC(100, 0.3, 0.8, ntcStateChangeCallback);
-          newNtc.state = persistedState.ntc.state;
-          newNtc.weights = persistedState.ntc.weights;
-          newNtc.inputWeights = persistedState.ntc.inputWeights;
-          newNtc.timeScales = persistedState.ntc.timeScales;
-
-          newEsn = new ESN(esnStateChangeCallback, 100, 100, 0.8, 0.3, 0.3, 0.8);
-          newEsn.reservoirState = persistedState.esn.reservoirState;
-          newEsn.reservoirWeights = persistedState.esn.reservoirWeights;
-          newEsn.inputWeights = persistedState.esn.inputWeights;
-        } else {
-          newNtc = new NTC(100, 0.3, 0.8, ntcStateChangeCallback);
-          newEsn = new ESN(esnStateChangeCallback, 100, 100, 0.8, 0.3, 0.3, 0.8);
-
-          store.setRow('brain_state', 'row1', {
-            'ntc.state': newNtc.state,
-            'ntc.weights': newNtc.weights,
-            'ntc.inputWeights': newNtc.inputWeights,
-            'ntc.timeScales': newNtc.timeScales,
-            'esn.reservoirState': newEsn.reservoirState,
-            'esn.reservoirWeights': newEsn.reservoirWeights,
-            'esn.inputWeights': newEsn.inputWeights,
-          });
-          await persister.save();
-        }
-
-        setNtc(newNtc);
-        setEsn(newEsn);
+        // Skip initialization of NTC and ESN for now
+        console.log('NTC and ESN initialization skipped for performance optimization');
+        return;
       } catch (error) {
         console.error('Error loading or saving state:', error);
       }
@@ -134,16 +83,14 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   }, [ntc, vectorInput]);
 
 
-  if (!ntc || !esn) {
-    return <div>Initializing...</div>;
-  }
-
+  // Skip NTC and ESN checks and initialization
   return (
-    <NTCProvider value={{ ntc }}>
-      <SimpleVectorize onVectorizedData={handleVectorizedData} />
+    // Pass null as NTC value since it's disabled
+    <NTCProvider value={{ ntc: null }}>
       {children}
     </NTCProvider>
   );
 };
 
 export default BrainInitializer;
+
