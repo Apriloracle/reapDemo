@@ -82,7 +82,7 @@ const DiscoveryPage: React.FC = () => {
 
   const handleProductClick = (product: Product) => {
     if (product && product.asin) {
-      trajectoryService.generateTrajectory(product);
+      //trajectoryService.generateTrajectory(product);
       navigate(`/similar/${product.asin}`);
     }
   };
