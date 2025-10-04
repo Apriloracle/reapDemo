@@ -7,7 +7,7 @@ import discoveryStyles from '../styles/DiscoveryPage.module.css';
 import { searchService } from '../services/SearchService';
 import { discoveryEngineService } from '../services/DiscoveryEngineService';
 import { graphSearchService } from '../services/GraphSearchService';
-import trajectoryService from '../services/TrajectoryService';
+//import trajectoryService from '../services/TrajectoryService';
 import { Product } from '../lib/types';
 import { discoverySearchStore } from '../stores/DiscoverySearchStore';
 import { categoryStore } from '../stores/CategoryStore';
@@ -32,7 +32,7 @@ const DiscoveryPage: React.FC = () => {
   };
 
   useEffect(() => {
-    trajectoryService.initialize();
+    //trajectoryService.initialize();
     discoveryEngineService.initialize();
     discoverySearchStore.initialize().then(() => {
       const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
