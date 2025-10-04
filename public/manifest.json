@@ -1,9 +1,9 @@
 {
   "name": "Reap",
   "short_name": "Reap",
-  "description": "Reap Telegram mini app",
+  "description": "Reap",
   "start_url": "/",
-  "scope": "https://www.reapmini.com/",
+  "scope": "https://www.reap.deals/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
