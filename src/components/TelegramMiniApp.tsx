@@ -17,7 +17,6 @@ import BalanceCard from './BalanceCard';
 import InitialDataFetcher from './InitialDataFetcher';
 import FriendsComponent from './FriendsComponent';
 import Cashout from './Cashout';
-import VectorData from './VectorData';
 import DealsComponent from './DealsComponent';
 import MerchantDealsComponent from './MerchantDealsComponent';
 import EarnComponent from './EarnComponent';
@@ -1327,11 +1326,12 @@ const TelegramMiniApp: React.FC = () => {
         </Routes>
 
         <Navigation />
-        <VectorData />
       </div>
   )
 }
 
 export default TelegramMiniApp
+
+
 
 
