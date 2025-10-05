@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { favoriteStore, FavoriteItem } from '../stores/FavoriteStore';
+import { favoriteStore } from '../stores/FavoriteStore';
 import styles from '../styles/ProductCard.module.css';
 
 const CartPage: React.FC = () => {
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const [favorites, setFavorites] = useState<any[]>([]);
 
   useEffect(() => {
     const items = favoriteStore.getFavorites();

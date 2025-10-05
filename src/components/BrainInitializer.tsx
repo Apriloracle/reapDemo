@@ -97,5 +97,3 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
 };
 
 export default BrainInitializer;
-
-
