@@ -12,6 +12,7 @@ interface BrainInitializerProps {
   children: React.ReactNode;
 }
 
+
 interface BrainState {
   ntc: {
     state: any; // Replace with a more specific type if possible
