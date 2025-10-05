@@ -199,10 +199,10 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
             {product.price && (
               <div style={{ 
                 color: '#f05e23',
-                fontSize: '1rem',
+                fontSize: '1.2rem',
                 fontWeight: 'bold'
               }}>
-                {product.price}
+                <span style={{ fontSize: '0.85em', marginRight: '0.3em' }}>$</span>{product.price}
               </div>
             )}
           </div>
@@ -213,4 +213,7 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
 };
 
 export default SimilarProductsComponent;
+
+
+
 
