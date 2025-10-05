@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from '../styles/ProductDetail.module.css';
-import { similarProductsStore } from '../stores/SimilarProductsStore';
+import { favoriteStore } from '../stores/FavoriteStore';
+import { appendReferralCode } from '../utils/amazonUtils';
 
 const Navigation: React.FC = () => {
   const location = useLocation();
@@ -41,13 +42,13 @@ const Navigation: React.FC = () => {
         <span style={{ marginTop: '2px' }}>Home</span>
       </button>
 
-      {/* Deals button */}
+      {/* Cart button */}
       <button
-        onClick={() => navigate('/deals')}
+        onClick={() => navigate('/cart')}
         style={{
           background: 'none',
           border: 'none',
-          color: location.pathname === '/deals' ? '#f05e23' : '#fff',
+          color: location.pathname === '/cart' ? '#f05e23' : '#fff',
           fontSize: '12px',
           cursor: 'pointer',
           display: 'flex',
@@ -56,33 +57,12 @@ const Navigation: React.FC = () => {
           paddingTop: '4px',
         }}
       >
-       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19 6H17C17 3.2 14.8 1 12 1C9.2 1 7 3.2 7 6H5C3.9 6 3 6.9 3 8V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6ZM12 3C13.7 3 15 4.3 15 6H9C9 4.3 10.3 3 12 3ZM19 20H5V8H19V20ZM12 12C10.3 12 9 10.7 9 9H7C7 11.8 9.2 14 12 14C14.8 14 17 11.8 17 9H15C15 10.7 13.7 12 12 12Z" fill="currentColor"/>
-</svg>
-
-        <span style={{ marginTop: '2px' }}>Deals</span>
-      </button>
-
-      {/* Social button */}
-      <button
-        onClick={() => navigate('/earn')}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: location.pathname === '/earn' ? '#f05e23' : '#fff',
-          fontSize: '12px',
-          cursor: 'pointer',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          paddingTop: '4px',
-        }}
-      >
-         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="2"/>
-          <path d="M17.0001 22H5.26606C4.98244 22.0001 4.70206 21.9398 4.44351 21.8232C4.18496 21.7066 3.95416 21.5364 3.76644 21.3238C3.57871 21.1112 3.43835 20.8611 3.35467 20.5901C3.27098 20.3191 3.24589 20.0334 3.28106 19.752L3.67106 16.628C3.76176 15.9022 4.11448 15.2346 4.66289 14.7506C5.21131 14.2667 5.91764 13.9997 6.64906 14H7.00006M19.0001 14V18M17.0001 16H21.0001" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <span style={{ marginTop: '2px' }}>Social</span>
+        <span style={{ marginTop: '2px' }}>Cart</span>
       </button>
 
       {/* Profile button */}
@@ -116,6 +96,42 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      setIsFavorite(!!favoriteStore.getFavorite(product.asin));
+    }
+  }, [product]);
+
+  const handleFavoriteClick = () => {
+    if (product) {
+      if (isFavorite) {
+        favoriteStore.removeFavorite(product.asin);
+        setIsFavorite(false);
+      } else {
+        favoriteStore.addFavorite({
+          asin: product.asin,
+          title: product.title,
+          price: product.price,
+          imageUrl: product.imgUrl,
+          addedAt: new Date().toISOString(),
+        });
+        setIsFavorite(true);
+      }
+    }
+  };
+
+  const handleShareClick = () => {
+    if (product) {
+      const shareUrl = `${window.location.origin}/products/${product.asin}`;
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        // Do nothing on success
+      }, (err) => {
+        console.error('Could not copy text: ', err);
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -128,13 +144,12 @@ const ProductDetailPage = () => {
       setError(null);
 
       try {
-        await similarProductsStore.initialize();
-        const productData = similarProductsStore.getProductByAsin(asin);
-        if (productData) {
-          setProduct(productData);
-        } else {
-          throw new Error(`Product with ASIN: ${asin} not found in local store.`);
+        const response = await fetch(`https://getproductdetails-50775725716.asia-southeast1.run.app/product/${asin}`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch product details for ASIN: ${asin}`);
         }
+        const productData = await response.json();
+        setProduct(productData);
       } catch (err) {
         console.error('Error fetching product details:', err);
         setError(err instanceof Error ? err.message : String(err));
@@ -167,12 +182,12 @@ const ProductDetailPage = () => {
           </svg>
         </button>
         <div className={styles.headerIcons}>
-          <button className={styles.iconButton}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <button className={styles.iconButton} onClick={handleFavoriteClick}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={isFavorite ? '#f05e23' : ''} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
           </button>
-          <button className={styles.iconButton}>
+          <button className={styles.iconButton} onClick={handleShareClick}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="18" cy="5" r="3"></circle>
               <circle cx="6" cy="12" r="3"></circle>
@@ -196,12 +211,13 @@ const ProductDetailPage = () => {
         <p className={styles.brand}>{product.brand}</p>
         {product.productURL && (
           <div className={styles.cartContainer}>
-            <a href={product.productURL} target="_blank" rel="noopener noreferrer" className={styles.cartLink}>
+            <a href={appendReferralCode(product.productURL)} target="_blank" rel="noopener noreferrer" className={styles.buyButton} onClick={handleFavoriteClick}>
               <svg className={styles.cartIcon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
+              <span style={{ marginLeft: '0.5rem' }}>Buy</span>
             </a>
           </div>
         )}
