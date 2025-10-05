@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 import useIPGeolocation from './IPGeolocation';
 import axios from 'axios';
 
@@ -78,6 +79,10 @@ const InitialDataFetcher: React.FC = () => {
 
       dealsStore.setTable('deals', dealsTable);
       dealsStore.setValue('lastFetchTime', Date.now());
+
+      // Add coordinate functionality and update coordinates for the new deals.
+      const updateCoordinates = addCoordinateToStore(dealsStore, 'deals');
+      await updateCoordinates();
 
       if (Object.keys(merchantDescriptionStore.getTable('merchants')).length === 0) {
         Object.entries(merchantDescriptions).forEach(([key, value]) => {
@@ -215,7 +220,7 @@ const InitialDataFetcher: React.FC = () => {
         console.log('Initialization timeout reached, forcing initialization');
         setIsInitialized(true);
       }
-    }, 10000); // 10 seconds timeout
+    }, 5000); // Reduced to 5 seconds timeout
 
     return () => clearTimeout(timer);
   }, [isInitialized]);

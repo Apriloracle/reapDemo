@@ -4,6 +4,7 @@ import { ConnectKitButton } from 'connectkit';
 import { useAccount } from 'wagmi'
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 import { createYjsPersister } from 'tinybase/persisters/persister-yjs';
 import { Doc } from 'yjs';
 import WebApp from '@twa-dev/sdk'
@@ -541,6 +542,11 @@ const TelegramMiniApp: React.FC = () => {
       const peerDIDStore = createStore();
       const peerDIDPersister = createLocalPersister(peerDIDStore, 'peer-did');
       peerDIDStore.setTable('peerDID', { 'current': { did: newPeerDID } });
+
+      // Add coordinate functionality and update the coordinate for the new peer:did.
+      const updateCoordinates = addCoordinateToStore(peerDIDStore, 'peerDID');
+      await updateCoordinates();
+
       await peerDIDPersister.save();
 
       setPeerDID(newPeerDID);
@@ -1311,9 +1317,3 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
-
-
-
-
-
-

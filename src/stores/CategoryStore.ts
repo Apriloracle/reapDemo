@@ -1,5 +1,6 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 import categoryIndex from '../data/index.json';
 
 const CACHE_EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -49,6 +50,11 @@ class CategoryStore {
     });
 
     this.store.setTable(`products-${categoryId}`, productsTable);
+
+    // Add coordinate functionality and update coordinates for the new products.
+    const updateCoordinates = addCoordinateToStore(this.store, `products-${categoryId}`);
+    await updateCoordinates();
+
     await this.persister.save();
   }
 
@@ -159,5 +165,3 @@ class CategoryStore {
 }
 
 export const categoryStore = new CategoryStore();
-
-

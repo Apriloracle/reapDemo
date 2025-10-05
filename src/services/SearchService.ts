@@ -2,10 +2,16 @@ import { generateSparseHV, add_sparse, similarity_sparse } from '../lib/sparse-h
 import { categoryVectorService } from './CategoryVectorService';
 import { categoryStore } from '../stores/CategoryStore';
 import productsWithVectors from '../data/vectors/category_130.json';
-import { Product } from '../lib/types';
 
 const DIMENSION = 100000;
 const SPARSITY = 3;
+
+interface Product {
+  asin: string;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
 
 class SearchService {
   public async performKeywordSearch(searchTerm: string): Promise<Product[]> {
@@ -22,7 +28,7 @@ class SearchService {
     const allCategoryData = categoryVectorService.getAllCategoryData();
 
     // 3. Perform a global search across all products in all categories
-    const searchResults: { asin: string; name: string; score: number; categoryId: string }[] = [];
+    const searchResults: { asin: string; name: string; score: number }[] = [];
 
     allCategoryData.forEach((productMap, categoryId) => {
       productMap.forEach((productData, asin) => {
@@ -34,7 +40,6 @@ class SearchService {
             asin: asin,
             name: productData.title,
             score: score,
-            categoryId: String(categoryId),
           });
         }
       });
@@ -63,7 +68,6 @@ class SearchService {
           name: details?.title || result.name,
           imageUrl: details?.imageUrl || '', // Ensure imageUrl is not undefined
           price: price,
-          categoryId: result.categoryId,
         };
       })
       .filter(product => product.imageUrl && !product.imageUrl.includes('placeholder.com'));
@@ -89,7 +93,6 @@ class SearchService {
         asin: asin,
         name: productData.title,
         score: score,
-        categoryId: '130', // Assuming category from file name
       };
     });
 
@@ -126,7 +129,6 @@ class SearchService {
           name: details?.title || result.name,
           imageUrl: details?.imageUrl || '',
           price: details?.price || 0,
-          categoryId: result.categoryId,
         };
       })
       .filter(product => product.imageUrl && !product.imageUrl.includes('placeholder.com'));
@@ -145,7 +147,6 @@ class SearchService {
         ...p,
         name: p.title,
         imageUrl: p.imgUrl,
-        categoryId: p.categoryId || 'unknown',
       }));
     } catch (error) {
       console.error('Error fetching server search results:', error);
@@ -155,6 +156,4 @@ class SearchService {
 }
 
 export const searchService = new SearchService();
-
-
 

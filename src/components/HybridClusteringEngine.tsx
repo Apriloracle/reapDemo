@@ -18,12 +18,15 @@ class HybridClusteringEngine {
     private clustersMap: Y.Map<any>;
     private debounceTimer: any = null;
     private pendingInteractions: any[] = [];
-    private DEBOUNCE_INTERVAL = 3000; // 1 second debounce interval
+    private DEBOUNCE_INTERVAL = 500; // 1 second debounce interval
+    private onClusterCreated: ((asins: string[]) => void) | null = null;
 
-    constructor(awareness: any, ydoc: Y.Doc) {
+    constructor(awareness: any, ydoc: Y.Doc, onClusterCreated?: (asins: string[]) => void) {
         if (!awareness) {
             throw new Error('Awareness instance is required');
         }
+
+        this.onClusterCreated = onClusterCreated || null;
 
         this.ydoc = ydoc;
         this.clustersMap = ydoc.getMap('clusters');
@@ -239,16 +242,26 @@ class HybridClusteringEngine {
             const clusters = await this.runDBSCAN();
             
             // Add ProductIDs array with ASINs to each cluster
-            const clustersWithProducts = clusters.map(cluster => ({
-                data: cluster,
-                ProductIDs: cluster.map((point: any) => ({
-                    ASIN: Array.from(this.rawInteractions.values())
+            const clustersWithProducts = clusters.map(cluster => {
+                const asins = cluster.map((point: any) => {
+                    const matchingInteraction = Array.from(this.rawInteractions.values())
                         .find(interaction => 
                             interaction.InteractionLevel === point[0] && 
                             interaction.price === point[2]
-                        )?.ASIN || ""
-                }))
-            }));
+                        );
+                    return matchingInteraction ? matchingInteraction.ASIN : null;
+                }).filter((asin): asin is string => asin !== null); // Filter out nulls and assert type
+
+                // If a callback is provided, invoke it with the ASINs of the new cluster
+                if (this.onClusterCreated && asins.length > 0) {
+                    this.onClusterCreated(asins);
+                }
+
+                return {
+                    data: cluster,
+                    ProductIDs: asins.map(asin => ({ ASIN: asin }))
+                };
+            });
             
             // Broadcast results through awareness protocol
             if (this.awareness) {
@@ -325,20 +338,8 @@ class HybridClusteringEngine {
         try {
             // Check if dataset size reached batch size
             if (this.dataset.length >= this.config.batchSize) {
-                const clusters = await this.runClustering();
+                await this.runClustering();
                 
-                // Use Y.js transaction to update clusters
-                this.ydoc.transact(() => {
-                    this.clustersMap.set(
-                        `cluster-${Date.now()}`,
-                        {
-                            type: 'cluster',
-                            data: clusters,
-                            timestamp: Date.now()
-                        }
-                    );
-                });
-
                 // Reset dataset after processing
                 this.dataset = [];
             }

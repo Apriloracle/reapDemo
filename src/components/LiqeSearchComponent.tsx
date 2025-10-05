@@ -66,4 +66,3 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
 export default LiqeSearchComponent;
 
 
-

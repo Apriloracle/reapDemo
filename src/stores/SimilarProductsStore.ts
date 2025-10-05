@@ -1,5 +1,6 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 
 
 class SimilarProductsStore {
@@ -26,6 +27,11 @@ class SimilarProductsStore {
     });
 
     this.store.setTable(`similar-${asin}`, productsTable);
+
+    // Add coordinate functionality and update coordinates for the new products.
+    const updateCoordinates = addCoordinateToStore(this.store, `similar-${asin}`);
+    await updateCoordinates();
+
     await this.persister.save();
   }
 
@@ -50,5 +56,3 @@ class SimilarProductsStore {
 }
 
 export const similarProductsStore = new SimilarProductsStore();
-
-

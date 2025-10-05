@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { userProfileStore } from '../stores/UserProfileStore';
 import UserNet from './UserNet';
 import { useSubdocument } from '../contexts/SubdocumentContext';
 import { storeSubdocumentGUID } from '../utils/subdocumentUtils';
@@ -17,6 +18,7 @@ interface FormData {
   shoppingFrequency: string;
   interests: string[];
   shopping: string[];
+  [key: string]: any;
 }
 
 const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress, address }) => {
@@ -54,7 +56,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
 
   const saveToLocalStorage = (data: FormData) => {
     try {
-      localStorage.setItem('userProfile', JSON.stringify(data));
+      userProfileStore.saveProfile(data);
     } catch (error) {
       console.error('Error saving profile data:', error);
     }

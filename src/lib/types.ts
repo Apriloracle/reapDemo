@@ -54,4 +54,3 @@ export interface Product {
   score?: number;
   vector?: Record<string, number>;
 }
-

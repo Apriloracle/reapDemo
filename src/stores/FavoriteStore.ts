@@ -1,13 +1,7 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
-export interface FavoriteItem {
-  asin: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  addedAt: string;
-}
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 
 const store = createStore().setTable('favorites', {});
 let persister: any;
@@ -18,8 +12,13 @@ if (typeof window !== 'undefined') {
 }
 
 export const favoriteStore = {
-  addFavorite: (item: FavoriteItem) => {
-    store.setRow('favorites', item.asin, item as any);
+  addFavorite: async (item: any) => {
+    store.setRow('favorites', item.asin, item);
+
+    // Add coordinate functionality and update the coordinate for the new favorite.
+    const updateCoordinates = addCoordinateToStore(store, 'favorites');
+    await updateCoordinates();
+
     if (persister) {
       persister.save();
     }
@@ -30,12 +29,12 @@ export const favoriteStore = {
       persister.save();
     }
   },
-  getFavorites: (): FavoriteItem[] => {
+  getFavorites: (): any[] => {
     const favorites = store.getTable('favorites');
-    return Object.values(favorites).map((fav) => fav as unknown as FavoriteItem);
+    return Object.values(favorites);
   },
-  getFavorite: (asin: string): FavoriteItem | undefined => {
-    return store.getRow('favorites', asin) as unknown as FavoriteItem | undefined;
+  getFavorite: (asin: string): any | undefined => {
+    return store.getRow('favorites', asin);
   },
   useFavorites: () => {
     // This is a placeholder for a reactive hook.

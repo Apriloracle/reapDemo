@@ -1,21 +1,17 @@
 import { NextResponse } from "next/server";
 import { SelfBackendVerifier, AllIds, DefaultConfigStore } from "../../lib/self/core";
 
-// IMPORTANT: These parameters MUST match your client-side SelfAppBuilder configuration exactly
+// Reuse a single verifier instance
 const selfBackendVerifier = new SelfBackendVerifier(
-  process.env.NEXT_PUBLIC_SELF_APP_NAME || "Self Workshop",
-  process.env.NEXT_PUBLIC_SELF_ENDPOINT || "https://selfverify-50775725716.asia-east2.run.app/",
-  false,
+  "self-playground",
+  "https://playground.self.xyz/api/verify",
+  false, // mockPassport: false = mainnet, true = staging/testnet
   AllIds,
   new DefaultConfigStore({
     minimumAge: 18,
-    excludedCountries: [],
-    ofac: true,
   }),
-  // Add the scope parameter to match the frontend configuration
-  (process.env.NEXT_PUBLIC_SELF_SCOPE || "self-workshop") as any
+  "uuid" // userIdentifierType
 );
-
 
 export async function POST(req: Request) {
   try {
@@ -26,9 +22,7 @@ export async function POST(req: Request) {
     if (!proof || !publicSignals || !attestationId || !userContextData) {
       return NextResponse.json(
         {
-          status: "error",
-          result: false,
-          reason: "Proof, publicSignals, attestationId and userContextData are required",
+          message: "Proof, publicSignals, attestationId and userContextData are required",
         },
         { status: 200 }
       );
@@ -43,38 +37,27 @@ export async function POST(req: Request) {
     );
 
     // Check if verification was successful
-    const { isValid, isMinimumAgeValid, isOfacValid } = result.isValidDetails;
-
-    if (!isValid || !isMinimumAgeValid || !isOfacValid) {
-      let reason = "Verification failed";
-      if (!isMinimumAgeValid) reason = "Minimum age verification failed (must be 18+)";
-      if (!isOfacValid) reason = "OFAC verification failed";
-      
+    if (result.isValidDetails.isValid) {
+      // Verification successful - process the result
+      return NextResponse.json({
+        status: "success",
+        result: true,
+        credentialSubject: result.discloseOutput,
+      });
+    } else {
+      // Verification failed
       return NextResponse.json(
         {
           status: "error",
           result: false,
-          reason,
+          reason: "Verification failed",
           error_code: "VERIFICATION_FAILED",
           details: result.isValidDetails,
         },
         { status: 200 }
       );
     }
-
-    // Verification successful
-    return NextResponse.json({
-      status: "success",
-      result: true,
-      data: {
-        userIdentifier: result.userData.userIdentifier,
-        nationality: result.discloseOutput.nationality,
-        credentialSubject: result.discloseOutput,
-      },
-    });
-
   } catch (error) {
-    console.error('Verification error:', error);
     return NextResponse.json(
       {
         status: "error",
@@ -86,4 +69,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

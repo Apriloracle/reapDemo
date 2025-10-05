@@ -1,5 +1,6 @@
 import { createStore } from 'tinybase';
 import { createSessionPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 
 class DiscoverySearchStore {
   public store;
@@ -26,6 +27,11 @@ class DiscoverySearchStore {
 
     this.store.setTable(`search-${searchTerm}`, productsTable);
     this.store.setValue(`timestamp-${searchTerm}`, Date.now());
+
+    // Add coordinate functionality and update coordinates for the new products.
+    const updateCoordinates = addCoordinateToStore(this.store, `search-${searchTerm}`);
+    await updateCoordinates();
+
     await this.persister.save();
   }
 

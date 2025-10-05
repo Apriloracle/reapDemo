@@ -5,6 +5,7 @@ import { createStore, Store } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { Persister } from 'tinybase/persisters';
 import { NTCProvider } from '../contexts/NTCContext';
+import { deviceDataStore } from '../stores/DeviceDataStore';
 import SimpleVectorize from './SimpleVectorize';
 
 interface BrainInitializerProps {
@@ -36,6 +37,9 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        // Fetch and store device data
+        await deviceDataStore.fetchAndStoreDeviceData();
+
         // Skip initialization of NTC and ESN for now
         console.log('NTC and ESN initialization skipped for performance optimization');
         return;
@@ -93,4 +97,5 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
 };
 
 export default BrainInitializer;
+
 

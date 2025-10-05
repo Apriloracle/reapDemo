@@ -1,5 +1,6 @@
 import { createStore, Store, Row } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 
 // Base interface for type safety when working with profiles
 interface BaseUserProfile {
@@ -83,6 +84,11 @@ class UserProfileStore {
       };
       console.log('Converted profile for storage:', storageProfile);
       this.store.setRow('profiles', 'current', storageProfile);
+
+      // Add coordinate functionality and update the coordinate for the profile.
+      const updateCoordinates = addCoordinateToStore(this.store, 'profiles');
+      await updateCoordinates();
+
       await this.persister.save();
       
       // Save to localStorage as well

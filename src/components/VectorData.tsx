@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
 import { createStore } from 'tinybase';
 import { createYjsPersister } from 'tinybase/persisters/persister-yjs';
 import { createPglitePersister } from 'tinybase/persisters/persister-pglite';
@@ -12,6 +13,7 @@ import { addDays, isAfter, isBefore } from 'date-fns';
 import { calculateDegreeCentrality, getTopKNodesByDegreeCentrality } from '../utils/graphUtils';
 import { calculateBetweennessCentrality, getTopKNodesByBetweennessCentrality } from '../utils/graphUtils';
 import { logInteraction, loadInteractions, getCurrentUserId, Interaction } from '../utils/interactionLogger';
+import { userTrajectoryGraph } from './UserTrajectoryGraph';
 
 // Define the Deal interface here
 interface Deal {
@@ -247,108 +249,93 @@ const VectorData: React.FC = () => {
 
   // Constants for Annoy
   const FOREST_SIZE = 10;
-  const VECTOR_LEN = 1000; // Match your vector size
+  const VECTOR_LEN = 100000; // Match your vector size
   const MAX_LEAF_SIZE = 50;
+
+  const getDeviceData = useCallback(() => {
+    const deviceData: any = {};
+
+    // Device information
+    deviceData.deviceType = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(navigator.userAgent) ? 'mobile' : 'desktop';
+    deviceData.os = navigator.platform;
+    deviceData.browser = navigator.userAgent;
+
+    // Time-based information
+    const now = new Date();
+    deviceData.timeOfDay = now.getHours();
+    deviceData.dayOfWeek = now.getDay();
+    deviceData.month = now.getMonth();
+
+    // Network information
+    if ('connection' in navigator) {
+      const connection = (navigator as any).connection;
+      deviceData.connectionType = connection.effectiveType;
+      deviceData.networkSpeed = connection.downlink;
+    }
+
+    // Screen properties
+    deviceData.screenWidth = window.screen.width;
+    deviceData.screenHeight = window.screen.height;
+    deviceData.colorDepth = window.screen.colorDepth;
+
+    // Language and locale
+    deviceData.language = navigator.language;
+    deviceData.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Battery status
+    if ('getBattery' in navigator) {
+      (navigator as any).getBattery().then((battery: any) => {
+        deviceData.batteryLevel = battery.level;
+        deviceData.isCharging = battery.charging;
+      });
+    }
+
+    return deviceData;
+  }, []);
 
   useEffect(() => {
     const initializeAnnoy = async () => {
+      // Add device context to the profile store
+      try {
+        const deviceData = getDeviceData();
+        await hypervectorProfileStore.addDeviceContext(deviceData);
+        console.log('Device context added to Hypervector Profile Store.');
+      } catch (error) {
+        console.error('Error adding device context to profile store:', error);
+      }
+
       console.log('Initializing Annoy index...');
       const annoy = new Annoy(FOREST_SIZE, VECTOR_LEN, MAX_LEAF_SIZE);
       setAnnoyIndex(annoy);
 
-      const dealsStore = createStore();
-      const dealsPersister = createLocalPersister(dealsStore, 'kindred-deals');
-      await dealsPersister.load();
-
-      const merchantDescriptionStore = createStore();
-      const merchantDescriptionPersister = createLocalPersister(merchantDescriptionStore, 'merchant-descriptions');
-      await merchantDescriptionPersister.load();
-
-      const merchantProductRangeStore = createStore();
-      const merchantProductRangePersister = createLocalPersister(merchantProductRangeStore, 'merchant-product-range');
-      await merchantProductRangePersister.load();
-
-      const surveyStore = createStore();
-      const surveyPersister = createLocalPersister(surveyStore, 'survey-responses');
-      await surveyPersister.load();
-
-      const geolocationStore = createStore();
-      const geolocationPersister = createLocalPersister(geolocationStore, 'user-geolocation');
-      await geolocationPersister.load();
-
-      const deals = dealsStore.getTable('deals');
-      const merchantDescriptions = merchantDescriptionStore.getTable('merchants');
-      const productRanges = merchantProductRangeStore.getTable('merchants');
-      const surveyResponses = surveyStore.getTable('answeredQuestions');
-
-      console.log(`Total deals to process: ${Object.keys(deals).length}`);
-      console.log(`Total merchant descriptions: ${Object.keys(merchantDescriptions).length}`);
-
-      const surveyVector = vectorizeSurveyResponses(surveyResponses);
-      const geolocationData = geolocationStore.getRow('geolocation', 'userGeo');
-      const geoVector = vectorizeGeolocation(geolocationData);
-
-      console.log('Survey Vector length:', surveyVector.length);
-      console.log('Geo Vector length:', geoVector.length);
-
-      let validDealsCount = 0;
-      let invalidDealsCount = 0;
-
-      for (const [dealId, deal] of Object.entries(deals)) {
-        const merchantName = deal.merchantName as string;
-        const description = merchantDescriptions[merchantName]?.name || '';
-        const productRange = productRanges[merchantName]?.productRange || '';
-        
-        const combinedData = `${deal.merchantName} ${deal.cashbackType} ${deal.cashback} ${description} ${productRange}`;
-        const dealVector = simpleVectorize(combinedData);
-        const combinedVector = combineVectors([dealVector, surveyVector, geoVector]);
-
-        if (combinedVector.length === VECTOR_LEN) {
-          try {
-            annoy.add({ v: combinedVector, d: { id: dealId, ...deal } });
-            addDealToGraph(deal, combinedVector, String(description), String(productRange));
-            validDealsCount++;
-          } catch (error) {
-            console.error(`Error adding deal ${dealId}:`, error);
-            invalidDealsCount++;
-          }
-        } else {
-          // Remove this console.error
-          // console.error(`No valid vector found for merchant: ${merchantName}`);
-          invalidDealsCount++;
-        }
+      // Load the user trajectory graph
+      const trajectoryGraph = userTrajectoryGraph.getGraph();
+      if (trajectoryGraph.order === 0) {
+        console.log('VectorData: User trajectory graph is empty. Annoy index will not be built yet.');
+        setIsAnnoyIndexBuilt(true); // Mark as "built" to prevent re-triggering
+        return;
       }
 
-      // Add survey data to graph
-      const userId = getCurrentUserId();
-      addUserToGraph(userId, {
-        type: 'user',
-        surveyResponses: surveyResponses,
-        surveyVector: surveyVector
+      console.log(`VectorData: Building Annoy index from ${trajectoryGraph.order} user profile snapshots...`);
+
+      trajectoryGraph.forEachNode((nodeId, attributes) => {
+        if (attributes.vector && attributes.vector.length === VECTOR_LEN) {
+          try {
+            annoy.add({ v: attributes.vector, d: { id: nodeId, timestamp: attributes.timestamp } });
+          } catch (error) {
+            console.error(`Error adding trajectory node ${nodeId} to Annoy index:`, error);
+          }
+        } else {
+          console.warn(`VectorData: Skipping node ${nodeId} due to invalid vector.`);
+        }
       });
 
-      // Add geolocation data to graph
-      addGeolocationToGraph(userId, geolocationData, geoVector);
-
-      console.log(`Total valid deals added to Annoy index and graph: ${validDealsCount}`);
-      console.log(`Total invalid deals skipped: ${invalidDealsCount}`);
-
-      // Connect similar deals
-      connectSimilarDeals(0.8); // Adjust threshold as needed
-
-      // Build interaction graph
-      const interactionGraphInstance = await buildInteractionGraph();
-      
-      // Connect users with common interactions
-      connectUsersWithCommonInteractions(interactionGraphInstance);
-
       setIsAnnoyIndexBuilt(true);
-      console.log('Annoy index and graph built with vectorized deal data');
-      console.log('Final graph stats:', getGraphStats());
+      console.log('VectorData: Annoy index built successfully from user trajectory data.');
     };
 
     initializeAnnoy();
-  }, []);
+  }, [getDeviceData]);
 
   // Update the simpleVectorize function to use a larger vector size
   const simpleVectorize = (text: string): number[] => {
@@ -411,47 +398,6 @@ const VectorData: React.FC = () => {
     const magnitude = Math.sqrt(resultVector.reduce((sum, val) => sum + val * val, 0));
     return resultVector.map(val => val / magnitude);
   };
-
-  const getDeviceData = useCallback(() => {
-    const deviceData: any = {};
-
-    // Device information
-    deviceData.deviceType = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(navigator.userAgent) ? 'mobile' : 'desktop';
-    deviceData.os = navigator.platform;
-    deviceData.browser = navigator.userAgent;
-
-    // Time-based information
-    const now = new Date();
-    deviceData.timeOfDay = now.getHours();
-    deviceData.dayOfWeek = now.getDay();
-    deviceData.month = now.getMonth();
-
-    // Network information
-    if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
-      deviceData.connectionType = connection.effectiveType;
-      deviceData.networkSpeed = connection.downlink;
-    }
-
-    // Screen properties
-    deviceData.screenWidth = window.screen.width;
-    deviceData.screenHeight = window.screen.height;
-    deviceData.colorDepth = window.screen.colorDepth;
-
-    // Language and locale
-    deviceData.language = navigator.language;
-    deviceData.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    // Battery status
-    if ('getBattery' in navigator) {
-      (navigator as any).getBattery().then((battery: any) => {
-        deviceData.batteryLevel = battery.level;
-        deviceData.isCharging = battery.charging;
-      });
-    }
-
-    return deviceData;
-  }, []);
 
   const vectorizeDeviceData = (deviceData: any): number[] => {
     const vector = new Array(1000).fill(0);

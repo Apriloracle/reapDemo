@@ -1,5 +1,6 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 
 const CACHE_EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -62,6 +63,11 @@ class MerchantProductsStore {
       });
 
       this.store.setTable(`products-${merchantName}`, productsTable);
+
+      // Add coordinate functionality and update coordinates for the new products.
+      const updateCoordinates = addCoordinateToStore(this.store, `products-${merchantName}`);
+      await updateCoordinates();
+
       await this.persister.save();
 
       return data.products;
@@ -74,4 +80,4 @@ class MerchantProductsStore {
   }
 }
 
-export const merchantProductsStore = new MerchantProductsStore(); 
+export const merchantProductsStore = new MerchantProductsStore();

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { addCoordinateToStore } from '../lib/storeCoordinates';
 
 interface GeolocationData {
   countryCode: string;
@@ -16,6 +17,17 @@ const useIPGeolocation = () => {
 
     const fetchGeolocation = async () => {
       try {
+        // First check localStorage to avoid unnecessary API calls
+        const cachedData = localStorage.getItem('geo_cache');
+        if (cachedData) {
+          const { data, timestamp } = JSON.parse(cachedData);
+          // Use cache if it's less than 24 hours old
+          if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+            setGeolocationData(data);
+            return;
+          }
+        }
+
         const response = await fetch('https://ipapi.co/json/');
         if (!response.ok) {
           throw new Error('Failed to fetch geolocation data');
@@ -26,6 +38,12 @@ const useIPGeolocation = () => {
           ip: data.ip,
         };
 
+        // Cache the data with timestamp
+        localStorage.setItem('geo_cache', JSON.stringify({
+          data: newGeolocationData,
+          timestamp: Date.now()
+        }));
+
         setGeolocationData(newGeolocationData);
 
         // Store the data in TinyBase
@@ -35,6 +53,10 @@ const useIPGeolocation = () => {
             ip: newGeolocationData.ip,
           },
         });
+
+        // Add coordinate functionality and update the coordinate for the new geolocation data.
+        const updateCoordinates = addCoordinateToStore(geolocationStore, 'geolocation');
+        await updateCoordinates();
 
         // Persist the data
         await geolocationPersister.save();
@@ -67,4 +89,3 @@ const useIPGeolocation = () => {
 };
 
 export default useIPGeolocation;
-
