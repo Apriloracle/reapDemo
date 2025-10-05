@@ -19,7 +19,7 @@ import FriendsComponent from './FriendsComponent';
 import Cashout from './Cashout';
 import DealsComponent from './DealsComponent';
 import MerchantDealsComponent from './MerchantDealsComponent';
-import EarnComponent from './EarnComponent';
+import CartPage from '../pages/CartPage';
 import WatchAdsComponent from './WatchAdsComponent';
 import SurveyList from './SurveyList';
 import ProfileComponent from './ProfileComponent';
@@ -1173,36 +1173,15 @@ const TelegramMiniApp: React.FC = () => {
           </svg>
           <span style={{ marginTop: '2px' }}>Home</span>
         </button>
-  
-        {/* Deals button */}
-        <button
-          onClick={() => navigate('/deals')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: location.pathname === '/deals' ? '#f05e23' : '#fff',
-            fontSize: '12px',
-            cursor: 'pointer',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            paddingTop: '4px',
-          }}
-        >
-         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19 6H17C17 3.2 14.8 1 12 1C9.2 1 7 3.2 7 6H5C3.9 6 3 6.9 3 8V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6ZM12 3C13.7 3 15 4.3 15 6H9C9 4.3 10.3 3 12 3ZM19 20H5V8H19V20ZM12 12C10.3 12 9 10.7 9 9H7C7 11.8 9.2 14 12 14C14.8 14 17 11.8 17 9H15C15 10.7 13.7 12 12 12Z" fill="currentColor"/>
-</svg>
 
-          <span style={{ marginTop: '2px' }}>Deals</span>
-        </button>
   
-        {/* Social button */}
+        {/* Cart button */}
         <button
-          onClick={() => navigate('/earn')}
+          onClick={() => navigate('/cart')}
           style={{
             background: 'none',
             border: 'none',
-            color: location.pathname === '/earn' ? '#f05e23' : '#fff',
+            color: location.pathname === '/cart' ? '#f05e23' : '#fff',
             fontSize: '12px',
             cursor: 'pointer',
             display: 'flex',
@@ -1211,11 +1190,12 @@ const TelegramMiniApp: React.FC = () => {
             paddingTop: '4px',
           }}
         >
-           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" strokeWidth="2"/>
-            <path d="M17.0001 22H5.26606C4.98244 22.0001 4.70206 21.9398 4.44351 21.8232C4.18496 21.7066 3.95416 21.5364 3.76644 21.3238C3.57871 21.1112 3.43835 20.8611 3.35467 20.5901C3.27098 20.3191 3.24589 20.0334 3.28106 19.752L3.67106 16.628C3.76176 15.9022 4.11448 15.2346 4.66289 14.7506C5.21131 14.2667 5.91764 13.9997 6.64906 14H7.00006M19.0001 14V18M17.0001 16H21.0001" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span style={{ marginTop: '2px' }}>Social</span>
+          <span style={{ marginTop: '2px' }}>Cart</span>
         </button>
   
         {/* Profile button */}
@@ -1316,7 +1296,7 @@ const TelegramMiniApp: React.FC = () => {
           } />
           <Route path="/deals" element={<DealsComponent />} />
           <Route path="/merchant-deals/:merchantName" element={<MerchantDealsComponent localWalletAddress={localWalletAddress} address={address} />} />
-          <Route path="/earn" element={<EarnComponent />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/watch-ads" element={<WatchAdsComponent />} />
           <Route path="/surveys" element={<SurveyList localWalletAddress={localWalletAddress} address={address} />} />
           <Route path="/profile" element={<ProfileComponent localWalletAddress={localWalletAddress} address={address} />} />
@@ -1331,6 +1311,8 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
+
 
 
 
