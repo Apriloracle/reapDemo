@@ -5,14 +5,14 @@ export async function generateMetadata(): Promise<Metadata> {
         other: {
         'fc:miniapp': JSON.stringify({
             version: 'next',
-            imageUrl: 'https://reap.deals/embed-image.png',
+            imageUrl: 'https://www.reap.deals/embed-image.png',
             button: {
                 title: `launch Reap`,
                 action: {
                     type: 'launch_miniapp',
                     name: 'Reap',
-                    url: 'https://reap.deals',
-                    splashImageUrl: 'https://reap.deals/200x200.png',
+                    url: 'https://www.reap.deals',
+                    splashImageUrl: 'https://www.reap.deals/200x200.png',
                     splashBackgroundColor: '#ffffff',
                 },
             },
