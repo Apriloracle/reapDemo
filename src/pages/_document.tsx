@@ -11,11 +11,13 @@ class MyDocument extends Document {
   "version":"next",
   "imageUrl":"https://www.reap.deals/embed-image.png",
   "button":{
-      "title":"launch Reap",
+      "title":"Open",
       "action":{
       "type":"launch_miniapp",
       "name":"Reap",
-      "url":"https://www.reap.deals"
+      "url":"https://www.reap.deals",
+      "splashImageUrl": "https://www.reap.deals/200x200.png",
+      "splashBackgroundColor": "#ffffff",
       }
   }
   }' />
