@@ -1,6 +1,4 @@
 {
-  "buttonTitle": "launch Reap",
-
   "accountAssociation": {
     "header": "eyJmaWQiOjU5Mzg5OSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweGY4QjJhRTdlMTNhQjVEMkNBODZDMUJmREU4ODYzYjM5MjE3NDlFQkYifQ",
     "payload": "eyJkb21haW4iOiJ3d3cucmVhcC5kZWFscyJ9",
@@ -32,6 +30,7 @@
     "ogTitle": "Reap",
     "ogDescription": "Save money on everyday purchases, instantly",
     "ogImageUrl": "https://ibb.co/Xfw9T33H",
+    "buttonTitle": "launch Reap",
     "noindex": false
   }
 }
