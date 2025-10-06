@@ -15,7 +15,7 @@
     "iconUrl": "https://www.reap.deals/1024x1024.png",
     "splashImageUrl": "https://wwww.reap.deals/200x200.png",
     "splashBackgroundColor": "#ffffff",
-    "webhookUrl": "",
+    "webhookUrl": "https://www.reap.deals/api/webhook",
     "subtitle": "Effortless Savings",
     "description": "Save money on everyday purchases, instantly",
     "screenshotUrls": [
