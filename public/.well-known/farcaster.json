@@ -13,6 +13,7 @@
     "name": "Reap",
     "homeUrl": "https://www.reap.deals",
     "iconUrl": "https://www.reap.deals/1024x1024.png",
+    "imageUrl": "https://www.reap.deals/512x512.png",
     "splashImageUrl": "https://www.reap.deals/200x200.png",
     "splashBackgroundColor": "#ffffff",
     "webhookUrl": "https://www.reap.deals/api/webhook",
