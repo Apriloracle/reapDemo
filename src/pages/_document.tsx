@@ -15,7 +15,9 @@ class MyDocument extends Document {
       "action":{
       "type":"launch_miniapp",
       "name":"Reap",
-      "url":"https://www.reap.deals"
+      "url":"https://www.reap.deals",
+       "splashImageUrl": "https://www.reap.deals/200x200.png",
+      "splashBackgroundColor": "#ffffff"     
       }
   }
   }' />
