@@ -7,6 +7,18 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <meta name="fc:miniapp" content='{
+  "version":"next",
+  "imageUrl":"https://www.reap.deals/embed-image.png",
+  "button":{
+      "title":"launch Reap",
+      "action":{
+      "type":"launch_miniapp",
+      "name":"Reap",
+      "url":"https://www.reap.deals"
+      }
+  }
+  }' />
           <script src="" defer />
           <link rel="manifest" href="/manifest.json" />
         </Head>
