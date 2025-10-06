@@ -132,7 +132,7 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
           <LiqeSearchComponent onSearch={handleSearch} />
         </div>
       </div>
-      <h2 style={{ color: '#f05e23', marginBottom: '1rem' }}>Similar Products</h2>
+      <h2 style={{ color: '#f05e23', marginBottom: '1rem' }}></h2>
 
       {isLoading && (
         <div style={{ textAlign: 'center', padding: '1rem' }}>
