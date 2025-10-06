@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from '../styles/ProductDetail.module.css';
 import { favoriteStore } from '../stores/FavoriteStore';
+import { similarProductsStore } from '../stores/SimilarProductsStore';
 import { appendReferralCode } from '../utils/amazonUtils';
 
 const Navigation: React.FC = () => {
@@ -144,6 +145,16 @@ const ProductDetailPage = () => {
       setError(null);
 
       try {
+        // First, try to get the product from the local store
+        await similarProductsStore.initialize();
+        const cachedProduct = similarProductsStore.getProductByAsin(asin);
+
+        if (cachedProduct) {
+          setProduct(cachedProduct);
+          setIsLoading(false);
+          return;
+        }
+        
         const response = await fetch(`https://getproductdetails-50775725716.asia-southeast1.run.app/product/${asin}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch product details for ASIN: ${asin}`);
@@ -233,4 +244,6 @@ const ProductDetailPage = () => {
 };
 
 export default ProductDetailPage;
+
+
 
