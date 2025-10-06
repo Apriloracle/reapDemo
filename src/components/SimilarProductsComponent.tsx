@@ -102,7 +102,7 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
     const interactionString = `Product ${product.asin} interacted: ${interactionType}`;
     console.log(interactionString);
     if (interactionType === 'click') {
-      navigate(`/products/${product.asin}`);
+      navigate(`/products/${product.asin}`, { state: { product } });
     }
   };
 
@@ -213,6 +213,8 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
 };
 
 export default SimilarProductsComponent;
+
+
 
 
 
