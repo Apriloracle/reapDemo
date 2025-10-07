@@ -113,18 +113,16 @@ const MainPage: React.FC<MainPageProps> = ({
     }
   }, [provider, ydoc]);
 
-  // Initialize the stores
+  // Initialize stores and fetch products
   useEffect(() => {
-    merchantProductsStore.initialize();
-    categoryStore.initialize();
-  }, []);
-
-  // Temporarily modified fetchProductsForMerchants for testing
-  useEffect(() => {
-    const fetchTestProducts = async () => {
+    const initializeAndFetch = async () => {
       setIsLoading(true);
       try {
-        // First, try to get random products from the store
+        // Initialize stores first
+        await merchantProductsStore.initialize();
+        await categoryStore.initialize();
+
+        // Then, try to get random products from the store
         const randomProducts = await categoryStore.getRandomProducts(54);
         if (randomProducts.length > 0) {
           const formattedProducts = randomProducts.filter((p: any) => p.price > 0).map((p: any) => ({
@@ -146,8 +144,7 @@ const MainPage: React.FC<MainPageProps> = ({
           setCategoryProducts(productsByCategory);
           setRecommendations(recommendations);
           setFilteredProducts(productsByCategory);
-          setIsLoading(false);
-          return;
+          return; // Exit after loading from cache
         }
 
         // If no random products, fall back to fetching test products
@@ -158,7 +155,7 @@ const MainPage: React.FC<MainPageProps> = ({
         if (!response.ok) {
           throw new Error(`Failed to fetch products for ${merchantName}`);
         }
-        const responseData = await response.json(); // Get the full response object
+        const responseData = await response.json();
 
         if (!responseData || !Array.isArray(responseData.data)) {
           console.error(`Expected an object with a 'data' array for ${merchantName}, but received:`, responseData);
@@ -168,32 +165,24 @@ const MainPage: React.FC<MainPageProps> = ({
         const formattedProducts = responseData.data.filter((p: any) => p.price > 0).map((p: any) => ({
           ...p,
           name: p.title,
-          imageUrl: p.imgUrl, // Use imgUrl from the provided data structure
+          imageUrl: p.imgUrl,
         }));
 
-        // Add products to the category store
         await categoryStore.addProducts(categoryId.toString(), formattedProducts);
-
-        // Retrieve products from the category store
         const newProductsFromStore = await categoryStore.getDisplayProducts(categoryId.toString());
 
-        setCategoryProducts(prev => ({
-          ...prev,
-          [categoryId.toString()]: newProductsFromStore
-        }));
-        setRecommendations([{ categoryId: categoryId.toString(), merchantName: "" }]); // Set a dummy recommendation to trigger display
-        setFilteredProducts(prev => ({
-          ...prev,
-          [categoryId.toString()]: newProductsFromStore
-        }));
+        setCategoryProducts({ [categoryId.toString()]: newProductsFromStore });
+        setRecommendations([{ categoryId: categoryId.toString(), merchantName: "" }]);
+        setFilteredProducts({ [categoryId.toString()]: newProductsFromStore });
+
       } catch (error) {
-        console.error('Error fetching test products:', error);
+        console.error('Error initializing stores or fetching products:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchTestProducts();
+    initializeAndFetch();
   }, []); // Empty dependency array to run once on mount
 
   // Add this new state for tracking image loading
@@ -1317,3 +1306,4 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
