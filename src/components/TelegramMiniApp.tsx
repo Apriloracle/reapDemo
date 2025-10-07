@@ -1106,12 +1106,12 @@ const TelegramMiniApp: React.FC = () => {
   const sendInlineKeyboardMessage = () => {
     if (WebApp && WebApp.sendData) {
       const botUsername = 'Reapmini_bot'; // Replace with your actual bot username
-      const startParameter = 'earn';
+      const startParameter = 'shop';
 
       const inlineKeyboard = JSON.stringify({
         inline_keyboard: [
           [
-            { text: "Earn", url: `https://t.me/${botUsername}?start=${startParameter}` },
+            { text: "Shop & Save", url: `https://t.me/${botUsername}?start=${startParameter}` },
             { text: "Join Channel", url: "https://t.me/apriloraclenews" }, // Replace with your actual channel URL
             { text: "Join Group", url: "https://t.me/apriloracle" } // Replace with your actual group URL
           ]
