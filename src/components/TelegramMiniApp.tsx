@@ -151,7 +151,7 @@ const MainPage: React.FC<MainPageProps> = ({
         const categoryId = 167; // Assuming 'Amazon' has categoryId 1 from index.json
         const merchantName = "Amazon"; // Hardcode merchant name for display
 
-        const response = await fetch(`https://productsandsimilarproductsendpoint-50775725716.asia-southeast1.run.app/products?categoryId=${categoryId}&page=1&limit=250`);
+        const response = await fetch(`https://productsandsimilarproductsendpoint-50775725716.asia-southeast1.run.app/products?categoryId=${categoryId}&page=1&limit=100`);
         if (!response.ok) {
           throw new Error(`Failed to fetch products for ${merchantName}`);
         }
