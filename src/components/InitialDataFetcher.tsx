@@ -2,6 +2,12 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { addCoordinateToStore } from '../lib/storeCoordinates';
+import { populateCoordinateIndex } from '../lib/populateCoordinateIndex';
+import { getCoordinateStore, initializeCoordinateIndexStore } from '../stores/CoordinateIndexStore';
+import { categoryStore } from '../stores/CategoryStore';
+import { similarProductsStore } from '../stores/SimilarProductsStore';
+import { favoriteStore } from '../stores/FavoriteStore';
+import { userProfileStore } from '../stores/UserProfileStore';
 import useIPGeolocation from './IPGeolocation';
 import axios from 'axios';
 
@@ -197,10 +203,36 @@ const InitialDataFetcher: React.FC = () => {
         setCountryCode(currentCountryCode);
         setIsGeolocationAvailable(!!geolocationData);
 
+        // Initialize all stores
+        await initializeCoordinateIndexStore();
+        await categoryStore.initialize();
+        await similarProductsStore.initialize();
+        await favoriteStore.initialize();
+        await userProfileStore.initialize();
+
         // Now that we have the country code, we can load or fetch deals
         await loadOrFetchDeals(currentCountryCode);
         await loadActivatedDeals();
         await loadMerchantDescriptions();
+
+        // --- POPULATE COORDINATE INDEX ---
+        populateCoordinateIndex(dealsStore, 'deals');
+        populateCoordinateIndex(activatedDealsStore, 'activatedDeals');
+        populateCoordinateIndex(merchantDescriptionStore, 'merchants');
+        populateCoordinateIndex(merchantProductRangeStore, 'merchants');
+        populateCoordinateIndex(surveyStore, 'surveyResponses');
+        populateCoordinateIndex(categoryStore.store, 'categories');
+        populateCoordinateIndex(similarProductsStore.store, 'similarProducts');
+        populateCoordinateIndex(favoriteStore.getStore(), 'favorites');
+        populateCoordinateIndex(userProfileStore.getStore(), 'userProfile');
+        // --- END POPULATE ---
+
+        // --- TEST CODE START ---
+        console.log('--- Coordinate Index Store Contents (from InitialDataFetcher) ---');
+        console.log(getCoordinateStore().getTable('coordinates'));
+        console.log('------------------------------------');
+        // --- TEST CODE END ---
+
         setIsInitialized(true);
         console.log('Data initialization complete');
       } catch (error) {
@@ -247,3 +279,4 @@ const InitialDataFetcher: React.FC = () => {
 };
 
 export default InitialDataFetcher;
+
