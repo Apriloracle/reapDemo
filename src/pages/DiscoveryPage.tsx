@@ -12,6 +12,7 @@ import { Product } from '../lib/types';
 import { discoverySearchStore } from '../stores/DiscoverySearchStore';
 import { categoryStore } from '../stores/CategoryStore';
 
+
 interface ProductWithCategory extends Product {
   categoryId?: string;
 }
@@ -43,7 +44,7 @@ const DiscoveryPage: React.FC = () => {
       searchInputRef.current.focus();
     }
   }, []);
-
+  
   const performSearch = async (searchTerm: string) => {
     setSearchTerm(searchTerm);
 
@@ -75,7 +76,9 @@ const DiscoveryPage: React.FC = () => {
     }
     productsByCategory[categoryId].push(product);
   }
-  };
+
+  await categoryStore.addProductsByCategory(productsByCategory);
+};
 
   const handleProductClick = (product: Product) => {
     if (product && product.asin) {
@@ -119,3 +122,4 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
