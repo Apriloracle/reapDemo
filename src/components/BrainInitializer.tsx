@@ -7,6 +7,7 @@ import { Persister } from 'tinybase/persisters';
 import { NTCProvider } from '../contexts/NTCContext';
 import { deviceDataStore } from '../stores/DeviceDataStore';
 import SimpleVectorize from './SimpleVectorize';
+import CoordinateCountDisplay from './CoordinateCountDisplay';
 
 interface BrainInitializerProps {
   children: React.ReactNode;
@@ -92,6 +93,7 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   return (
     // Pass null as NTC value since it's disabled
     <NTCProvider value={{ ntc: null }}>
+      <CoordinateCountDisplay />
       {children}
     </NTCProvider>
   );
