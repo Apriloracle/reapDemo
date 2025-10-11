@@ -1,5 +1,6 @@
 import { sdk } from '@farcaster/miniapp-sdk';
 import React, { useEffect, useState, useRef, useContext, useMemo } from 'react'
+import { useTable } from 'tinybase/ui-react';
 import { ConnectKitButton } from 'connectkit';
 import { useAccount } from 'wagmi'
 import { createStore } from 'tinybase';
@@ -48,6 +49,10 @@ import { SearchProvider } from '../contexts/SearchContext';
 import CategoryFilter from './CategoryFilter';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
 import { vectorCacheService } from '../services/VectorCacheService';
+import GravityScoreDisplay from './GravityScoreDisplay';
+import { getCoordinateStore, USER_ACTIONS_TABLE, COORDINATES_TABLE } from '../stores/CoordinateIndexStore';
+import { dataProbeService } from '../services/DataProbeService';
+import { similarProductsStore } from '../stores/SimilarProductsStore';
 
 
 // const DAILY_TAP_LIMIT = 9000;
@@ -91,6 +96,12 @@ const MainPage: React.FC<MainPageProps> = ({
   const [filteredProducts, setFilteredProducts] = useState<Record<string, any>>({});
   const { provider } = useWebSocket();
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [topAsin, setTopAsin] = useState<string | null>(localStorage.getItem("topAsin"));
+  const [topProductSimilarItems, setTopProductSimilarItems] = useState<any[]>([]);
+
+  const store = getCoordinateStore();
+  const userActions = useTable(USER_ACTIONS_TABLE, store);
+  const coordinates = useTable(COORDINATES_TABLE, store);
   
   const clusteringEngine = useRef<any>(null);
   const [wsProvider, setWsProvider] = useState<WebsocketProvider | null>(null);
@@ -113,92 +124,180 @@ const MainPage: React.FC<MainPageProps> = ({
     }
   }, [provider, ydoc]);
 
-  // Initialize stores and fetch products
+  const gravityScores = useMemo(() => {
+    if (!userActions) return {};
+    const counts: { [coordinate: number]: number } = {};
+    Object.values(userActions).forEach((row: any) => {
+      counts[row.coordinate] = (counts[row.coordinate] || 0) + 1;
+    });
+    return counts;
+  }, [userActions]);
+
+  // Effect for fetching initial random products
   useEffect(() => {
-    const initializeAndFetch = async () => {
+    const fetchInitialProducts = async () => {
       setIsLoading(true);
       try {
-        // Initialize stores first
         await merchantProductsStore.initialize();
         await categoryStore.initialize();
+        await similarProductsStore.initialize();
 
-        // Then, try to get random products from the store
-        const randomProducts = await categoryStore.getRandomProducts(54);
-        if (randomProducts.length > 0) {
-          const formattedProducts = randomProducts.filter((p: any) => p.price > 0).map((p: any) => ({
-            ...p,
-            name: p.name || p.title,
-            imageUrl: p.imageUrl || p.imgUrl,
+        if (topAsin) {
+          const similarProducts = await similarProductsStore.getSimilarProducts(topAsin);
+          if (similarProducts.length > 0) {
+            setTopProductSimilarItems(similarProducts);
+            // Don't return here, so default products can still load
+          }
+        }
+
+        let products = await categoryStore.getRandomProducts(20);
+
+        if (products.length === 0) {
+          // Fallback if no products are in the store
+          const categoryId = 167; // Default category
+          const merchantName = "Amazon";
+          const response = await fetch(`https://productsandsimilarproductsendpoint-50775725716.asia-southeast1.run.app/products?categoryId=${categoryId}&page=1&limit=100`);
+          if (!response.ok) throw new Error(`Failed to fetch products for ${merchantName}`);
+          
+          const responseData = await response.json();
+          if (!responseData || !Array.isArray(responseData.data)) {
+            console.error(`Expected a 'data' array for ${merchantName}, but received:`, responseData);
+            return;
+          }
+
+          const formattedProducts = responseData.data.filter((p: any) => p.price > 0).map((p: any) => ({
+            ...p, name: p.title, imageUrl: p.imgUrl,
           }));
 
-          const productsByCategory: { [key: string]: any[] } = {};
-          const recommendations: any[] = [];
-          for (const product of formattedProducts) {
-            const categoryId = product.categoryId || 'unknown';
-            if (!productsByCategory[categoryId]) {
-              productsByCategory[categoryId] = [];
-              recommendations.push({ categoryId, merchantName: product.category || 'Unknown' });
-            }
-            productsByCategory[categoryId].push(product);
-          }
-          setCategoryProducts(productsByCategory);
-          setRecommendations(recommendations);
-          setFilteredProducts(productsByCategory);
-          return; // Exit after loading from cache
+          await categoryStore.addProducts(categoryId.toString(), formattedProducts);
+          products = await categoryStore.getRandomProducts(20);
         }
 
-        // If no random products, fall back to fetching test products
-        const categoryId = 167; // Assuming 'Amazon' has categoryId 1 from index.json
-        const merchantName = "Amazon"; // Hardcode merchant name for display
-
-        const response = await fetch(`https://productsandsimilarproductsendpoint-50775725716.asia-southeast1.run.app/products?categoryId=${categoryId}&page=1&limit=100`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch products for ${merchantName}`);
+        if (products.length > 0) {
+            const randomCategoryId = 'random';
+            setCategoryProducts({ [randomCategoryId]: products });
+            setRecommendations([{ categoryId: randomCategoryId, merchantName: "Featured Products" }]);
+            setFilteredProducts({ [randomCategoryId]: products });
         }
-        const responseData = await response.json();
-
-        if (!responseData || !Array.isArray(responseData.data)) {
-          console.error(`Expected an object with a 'data' array for ${merchantName}, but received:`, responseData);
-          return;
-        }
-
-        const formattedProducts = responseData.data.filter((p: any) => p.price > 0).map((p: any) => ({
-          ...p,
-          name: p.title,
-          imageUrl: p.imgUrl,
-        }));
-
-        await categoryStore.addProducts(categoryId.toString(), formattedProducts);
-        const newProductsFromStore = await categoryStore.getDisplayProducts(categoryId.toString());
-
-        setCategoryProducts({ [categoryId.toString()]: newProductsFromStore });
-        setRecommendations([{ categoryId: categoryId.toString(), merchantName: "" }]);
-        setFilteredProducts({ [categoryId.toString()]: newProductsFromStore });
-
       } catch (error) {
-        console.error('Error initializing stores or fetching products:', error);
+        console.error('Error fetching initial products:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    initializeAndFetch();
-  }, []); // Empty dependency array to run once on mount
+    fetchInitialProducts();
+  }, []); // Run only once on mount
+
+  // ✅ Keep topAsin synced from GravityScoreDisplay via localStorage
+useEffect(() => {
+  const handleStorageChange = () => {
+    const newAsin = localStorage.getItem("topAsin");
+    if (newAsin && newAsin !== topAsin) {
+      setTopAsin(newAsin);
+    }
+  };
+
+  window.addEventListener("storage", handleStorageChange);
+  return () => window.removeEventListener("storage", handleStorageChange);
+}, [topAsin]);
+
+  // Effect for handling top product and similar products
+useEffect(() => {
+  const handleTopProduct = async () => {
+    let currentTopAsin: string | null = null;
+
+    // Step 1: Determine the top ASIN from userActions & coordinates
+    if (userActions && Object.keys(userActions).length > 0 && coordinates) {
+      const counts: { [coordinate: number]: number } = {};
+      Object.values(userActions).forEach((row: any) => {
+        counts[row.coordinate] = (counts[row.coordinate] || 0) + 1;
+      });
+
+      const topScore = Math.max(0, ...Object.values(counts));
+      const topCoordinate = Object.keys(counts).find(
+        key => counts[Number(key)] === topScore
+      );
+
+      if (topCoordinate) {
+        const foundAsin = Object.keys(coordinates).find(
+          asin => (coordinates[asin] as any).coordinate === Number(topCoordinate)
+        );
+        if (foundAsin) currentTopAsin = foundAsin;
+      }
+    }
+
+    if (!topAsin) return;
+
+    try {
+      // Step 3: Fetch similar ASINs using the ASIN from localStorage/state
+      const response = await fetch(
+        `https://similarproductsapi-50775725716.asia-southeast1.run.app/similar/${topAsin}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch similar products");
+
+      const similarProductsResponse = await response.json();
+      const similarAsins = Array.isArray(similarProductsResponse)
+        ? similarProductsResponse.map((p: any) => p.asin)
+        : similarProductsResponse.data?.map((p: any) => p.asin) || [];
+
+      if (similarAsins.length === 0) {
+        console.warn("⚠️ No similar ASINs found for", topAsin);
+        return;
+      }
+
+      // Step 4: Fetch detailed product data for each ASIN
+      const productDetailsPromises = similarAsins.map((asin: string) =>
+        fetch(
+          `https://getproductdetails-50775725716.asia-southeast1.run.app/product/${asin}`
+        ).then(res => res.json())
+      );
+
+      const productsDetails = await Promise.all(productDetailsPromises);
+      const validProducts = productsDetails
+        .filter((p: any) => p && p.price > 0 && p.imgUrl)
+        .map((p: any) => ({
+          ...p,
+          name: p.title || p.name || "Unknown Product",
+          imageUrl: p.imgUrl,
+        }));
+
+      setTopProductSimilarItems(validProducts);
+
+      console.log(
+        `✅ Loaded ${validProducts.length} detailed similar products for ${topAsin}`
+      );
+    } catch (error) {
+      console.error("Error fetching similar products:", error);
+    }
+  };
+
+  handleTopProduct();
+}, [userActions, coordinates]);
+
 
   // Add this new state for tracking image loading
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
   // Add this function to handle image loading
-  const handleImageLoad = (imageUrl: string) => {
+  const handleImageLoad = (imgUrl: string) => {
     setLoadedImages(prev => ({
       ...prev,
-      [imageUrl]: true
+      [imgUrl]: true
     }));
   };
 
   // Update handleProductInteraction
   const handleProductInteraction = async (product: any, merchantName: string, interactionType: 'click' | 'view') => {
     try {
+      // Log interaction with DataProbeService
+      const coordinateRow = coordinates[product.asin] as { coordinate: number } | undefined;
+      if (coordinateRow) {
+        dataProbeService.logInteraction(coordinateRow.coordinate, interactionType);
+      } else {
+        console.warn(`DataProbeService: No coordinate found for ASIN: ${product.asin}`);
+      }
+
       // Validate product has ASIN
       if (!product || !product.asin) {
         console.warn('Invalid product data:', product);
@@ -251,6 +350,11 @@ const MainPage: React.FC<MainPageProps> = ({
     hypervectorProfileStore.addInteraction('filter_select', filterKey);
   };
 
+  const handleProductClick = (product: any, merchantName: string) => {
+    handleProductInteraction(product, merchantName, 'click');
+    navigate(`/similar/${product.asin}`);
+  };
+
   return (
     <SearchProvider store={categoryStore.store}>
       <BalanceCard
@@ -273,6 +377,80 @@ const MainPage: React.FC<MainPageProps> = ({
         </div>
       </div>
       
+      <GravityScoreDisplay />
+
+      {/* Similar to Your Top Product Section */}
+      {topProductSimilarItems.length > 0 && (
+        <div style={{ marginTop: '1.5rem', marginBottom: '2rem' }}>
+          <h2 style={{ color: '#f05e23', marginBottom: '1rem', textAlign: 'center' }}></h2>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', 
+            gap: '0.5rem' 
+          }}>
+            {topProductSimilarItems.map((product: any, index: number) => (
+              <div 
+                key={index}
+                onClick={() => handleProductClick(product, "Similar Products")}
+                onMouseEnter={() => handleProductInteraction(product, "Similar Products", 'view')}
+                className={styles.productCard}
+                role="button"
+                tabIndex={0}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleProductClick(product, "Similar Products");
+                  }
+                }}
+              >
+                <div className={styles.imageContainer}>
+                  {product.imgUrl && (
+                    <>
+                      {!loadedImages[product.imgUrl] && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          color: '#666'
+                        }}>
+                          Loading...
+                        </div>
+                      )}
+                      <img
+                        src={product.imgUrl}
+                        alt={product.name}
+                        onLoad={() => handleImageLoad(product.imgUrl)}
+                        className={styles.productImage}
+                        style={{
+                          opacity: loadedImages[product.imgUrl] ? 1 : 0,
+                        }}
+                      />
+                    </>
+                  )}
+                </div>
+                <div className={styles.productTitle}>
+                  {product.name}
+                </div>
+                {product.price && (
+                  <div style={{ 
+                    color: '#f05e23',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold'
+                  }}>
+                    <span style={{ fontSize: '0.85em', marginRight: '0.3em' }}>$</span>{product.price}
+                  </div>
+                )}
+                {gravityScores?.[product.coordinate] && (
+                  <div style={{ fontSize: '0.8rem', color: '#999', marginTop: '0.25rem' }}>
+                    Score: {gravityScores[product.coordinate]}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {!localWalletAddress && !address && (
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
           <ConnectKitButton theme="retro" customTheme={{
@@ -304,21 +482,21 @@ const MainPage: React.FC<MainPageProps> = ({
                 {filteredProducts[deal.categoryId]?.map((product: any, index: number) => (
                   <div 
                     key={index}
-                    onClick={() => navigate(`/similar/${product.asin}`)} // Navigate to similar products page
+                    onClick={() => handleProductClick(product, deal.merchantName)}
                     onMouseEnter={() => handleProductInteraction(product, deal.merchantName, 'view')}
                     className={styles.productCard}
                     role="button"
                     tabIndex={0}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
-                        navigate(`/similar/${product.asin}`); // Navigate to similar products page
+                        handleProductClick(product, deal.merchantName);
                       }
                     }}
                   >
                     <div className={styles.imageContainer}>
-                      {product.imageUrl && (
+                      {product.imgUrl && (
                         <>
-                          {!loadedImages[product.imageUrl] && (
+                          {!loadedImages[product.imgUrl] && (
                             <div style={{
                               position: 'absolute',
                               top: '50%',
@@ -330,19 +508,19 @@ const MainPage: React.FC<MainPageProps> = ({
                             </div>
                           )}
                           <img
-                            src={product.imageUrl}
+                            src={product.imgUrl}
                             alt={product.name}
-                            onLoad={() => handleImageLoad(product.imageUrl)}
+                            onLoad={() => handleImageLoad(product.imgUrl)}
                             className={styles.productImage}
                             style={{
-                              opacity: loadedImages[product.imageUrl] ? 1 : 0,
+                              opacity: loadedImages[product.imgUrl] ? 1 : 0,
                             }}
                           />
                         </>
                       )}
                     </div>
                     <div className={styles.productTitle}>
-                      {product.name}
+                      {product.title}
                     </div>
                     {product.price && (
                       <div style={{ 
@@ -353,7 +531,6 @@ const MainPage: React.FC<MainPageProps> = ({
                         <span style={{ fontSize: '0.85em', marginRight: '0.3em' }}>$</span>{product.price}
                       </div>
                     )}
-                    
                   </div>
                 ))}
               </div>
@@ -1106,12 +1283,12 @@ const TelegramMiniApp: React.FC = () => {
   const sendInlineKeyboardMessage = () => {
     if (WebApp && WebApp.sendData) {
       const botUsername = 'Reapmini_bot'; // Replace with your actual bot username
-      const startParameter = 'shop';
+      const startParameter = 'earn';
 
       const inlineKeyboard = JSON.stringify({
         inline_keyboard: [
           [
-            { text: "Shop & Save", url: `https://t.me/${botUsername}?start=${startParameter}` },
+            { text: "Earn", url: `https://t.me/${botUsername}?start=${startParameter}` },
             { text: "Join Channel", url: "https://t.me/apriloraclenews" }, // Replace with your actual channel URL
             { text: "Join Group", url: "https://t.me/apriloracle" } // Replace with your actual group URL
           ]
@@ -1306,4 +1483,5 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
 
