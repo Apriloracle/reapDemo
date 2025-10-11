@@ -11,7 +11,23 @@ if (typeof window !== 'undefined') {
   persister.load();
 }
 
-export const favoriteStore = {
+interface FavoriteStore {
+  initialize: () => Promise<void>;
+  getStore: () => typeof store;
+  addFavorite: (item: any) => Promise<void>;
+  removeFavorite: (asin: string) => void;
+  getFavorites: () => any[];
+  getFavorite: (asin: string) => any | undefined;
+  useFavorites: () => any[];
+}
+
+export const favoriteStore: FavoriteStore = {
+  initialize: async () => {
+    if (persister) {
+      await persister.load();
+    }
+  },
+  getStore: () => store,
   addFavorite: async (item: any) => {
     store.setRow('favorites', item.asin, item);
 
