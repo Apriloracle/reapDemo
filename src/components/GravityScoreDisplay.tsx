@@ -45,7 +45,7 @@ if (foundAsin) {
   }
 
   return (
-    <div style={{ textAlign: 'center', padding: '0.5rem', color: '#999', fontSize: '0.9rem' }}>
+    <div style={{ textAlign: 'center', padding: '0.5rem', color: 'transparent', fontSize: '0.9rem' }}>
     </div>
   );
 };
