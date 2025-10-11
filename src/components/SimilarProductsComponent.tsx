@@ -4,6 +4,7 @@ import { similarProductsStore } from '../stores/SimilarProductsStore';
 import { categoryStore } from '../stores/CategoryStore';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
 import { graphSearchService } from '../services/GraphSearchService';
+import { dataProbeService } from '../services/DataProbeService';
 import styles from '../styles/ProductCard.module.css';
 import LiqeSearchComponent from './LiqeSearchComponent';
 
@@ -99,8 +100,9 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
   };
 
   const handleProductInteraction = (product: any, interactionType: 'click' | 'view') => {
-    const interactionString = `Product ${product.asin} interacted: ${interactionType}`;
-    console.log(interactionString);
+    if (product.coordinate) {
+      dataProbeService.logInteraction(product.coordinate, interactionType);
+    }
     if (interactionType === 'click') {
       navigate(`/products/${product.asin}`, { state: { product } });
     }
@@ -213,7 +215,6 @@ const SimilarProductsComponent: React.FC<SimilarProductsComponentProps> = () => 
 };
 
 export default SimilarProductsComponent;
-
 
 
 
