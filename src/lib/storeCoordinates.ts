@@ -1,5 +1,6 @@
 import { Store } from 'tinybase';
 import { getCoordinateForData } from './probeUtils';
+import { upsertCoordinate } from '@/stores/CoordinateIndexStore';
 
 /**
  * Enhances a TinyBase store by adding a 'coordinate' column to a specified table.
@@ -19,6 +20,8 @@ export function addCoordinateToStore(store: Store, tableName: string) {
       const rowData = rows[rowId];
       const coordinate = await getCoordinateForData(rowData);
       store.setCell(tableName, rowId, 'coordinate', coordinate);
+      // Also upsert the coordinate into our central index
+      upsertCoordinate({ id: rowId, type: tableName, coordinate });
     }
   };
 }
