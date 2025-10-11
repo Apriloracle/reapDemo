@@ -43,7 +43,10 @@ const CartPage: React.FC = () => {
                 ${item.price}
               </div>
               <button 
-                onClick={() => handleRemove(item.asin)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemove(item.asin);
+                }}
                 style={{
                   backgroundColor: '#f05e23',
                   color: 'white',
