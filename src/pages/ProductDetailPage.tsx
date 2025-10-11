@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from '../styles/ProductDetail.module.css';
 import { favoriteStore } from '../stores/FavoriteStore';
 import { similarProductsStore } from '../stores/SimilarProductsStore';
+import { dataProbeService } from '../services/DataProbeService';
 import { appendReferralCode } from '../utils/amazonUtils';
 
 const Navigation: React.FC = () => {
@@ -102,6 +103,9 @@ const ProductDetailPage = () => {
   useEffect(() => {
     if (product) {
       setIsFavorite(!!favoriteStore.getFavorite(product.asin));
+      if (product.coordinate) {
+        dataProbeService.logInteraction(product.coordinate, 'view');
+      }
     }
   }, [product]);
 
@@ -244,6 +248,5 @@ const ProductDetailPage = () => {
 };
 
 export default ProductDetailPage;
-
 
 
