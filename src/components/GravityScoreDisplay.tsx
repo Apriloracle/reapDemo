@@ -9,7 +9,7 @@ const GravityScoreDisplay: React.FC = () => {
   const coordinates = useTable(COORDINATES_TABLE, store);
 
   if (!userActions || Object.keys(userActions).length === 0) {
-    return <div>Top Gravity Score: 0</div>;
+    return <div></div>;
   }
 
   const counts: { [coordinate: number]: number } = {};
