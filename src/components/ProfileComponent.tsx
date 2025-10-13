@@ -7,6 +7,9 @@ import UserNet from './UserNet';
 import { useSubdocument } from '../contexts/SubdocumentContext';
 import { storeSubdocumentGUID } from '../utils/subdocumentUtils';
 
+// -----------------------------
+// Types
+// -----------------------------
 interface ProfileComponentProps {
   localWalletAddress: string | null;
   address: string | undefined;
@@ -18,12 +21,46 @@ interface FormData {
   shoppingFrequency: string;
   interests: string[];
   shopping: string[];
+  personality?: Record<string, number>; // Big Five scores (1–5)
   [key: string]: any;
 }
 
+// -----------------------------
+// Shopping Personality Quiz Questions
+// -----------------------------
+const shoppingPersonalityQuestions = [
+  {
+    trait: 'AGR',
+    text: 'When I shop, I care about supporting ethical or eco-friendly brands.',
+    scale: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
+  },
+  {
+    trait: 'CON',
+    text: 'Before buying something, I usually research reviews and compare options.',
+    scale: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'],
+  },
+  {
+    trait: 'EXT',
+    text: 'I enjoy discovering trending products or what others are buying.',
+    scale: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
+  },
+  {
+    trait: 'NEU',
+    text: 'I sometimes feel buyer’s remorse after a purchase.',
+    scale: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'],
+  },
+  {
+    trait: 'OPE',
+    text: 'I love trying new brands or experimental products.',
+    scale: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
+  },
+];
+
+// -----------------------------
+// Component
+// -----------------------------
 const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress, address }) => {
   const navigate = useNavigate();
-  const [userProfile, setUserProfile] = useState<any>(null);
   const [copySuccess, setCopySuccess] = useState<string>('');
   const [showBackupPopup, setShowBackupPopup] = useState<boolean>(false);
   const [backupData, setBackupData] = useState({
@@ -34,14 +71,19 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
   const { subdocumentGUID, setSubdocumentGUID } = useSubdocument();
   const [showBackupChoicePopup, setShowBackupChoicePopup] = useState<boolean>(false);
   const [showImportPopup, setShowImportPopup] = useState<boolean>(false);
+
   const [formData, setFormData] = useState<FormData>({
     sex: '',
     age: '',
     shoppingFrequency: '',
     interests: [],
-    shopping: []
+    shopping: [],
+    personality: {}
   });
 
+  // -----------------------------
+  // Load + Save
+  // -----------------------------
   useEffect(() => {
     const savedData = localStorage.getItem('userProfile');
     if (savedData) {
@@ -62,6 +104,9 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
     }
   };
 
+  // -----------------------------
+  // Handlers for existing sections
+  // -----------------------------
   const handleSexChange = (sex: string) => {
     const newData = { ...formData, sex };
     setFormData(newData);
@@ -98,89 +143,36 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
     saveToLocalStorage(newData);
   };
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      const surveyStore = createStore();
-      const surveyPersister = createLocalPersister(surveyStore, 'survey-responses');
-      await surveyPersister.load();
-
-      const surveyResponses = surveyStore.getTable('answeredQuestions') || {};
-
-      const interests = [];
-      if (surveyResponses['Are you interested in photography?']?.answer === 'Yes') {
-        interests.push('Photography');
-      }
-      if (surveyResponses['Are you interested in sports?']?.answer === 'Yes') {
-        interests.push('Sports');
-      }
-
-      const shoppingFrequency = surveyResponses['How often do you shop online?']?.answer || '';
-
-      setUserProfile({
-        interests,
-        shoppingFrequency,
-        surveyResponses,
-      });
+  const handlePersonalityResponse = (trait: string, value: number) => {
+    const newPersonality = {
+      ...(formData.personality || {}),
+      [trait]: value
     };
+    const newData = { ...formData, personality: newPersonality };
+    setFormData(newData);
+    saveToLocalStorage(newData);
+  };
 
-    fetchUserProfile();
-  }, []);
-
+  // -----------------------------
+  // Backup logic
+  // -----------------------------
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopySuccess('Copied!');
       setTimeout(() => setCopySuccess(''), 2000);
-    }, (err) => {
-      console.error('Failed to copy text: ', err);
     });
   };
 
-  const CopyButton = ({ text }: { text: string }) => (
-    <button 
-      onClick={() => copyToClipboard(text)}
-      style={{
-        backgroundColor: '#f05e23',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        padding: '4px 8px',
-        fontSize: '0.9rem',
-        cursor: 'pointer',
-        marginLeft: '0.5rem',
-      }}
-    >
-      Copy
-    </button>
-  );
-
-  const handleBackupSync = () => {
-    setShowBackupChoicePopup(true);
-  };
-
+  const handleBackupSync = () => setShowBackupChoicePopup(true);
   const handleBackupChoice = (hasBackup: boolean) => {
     setShowBackupChoicePopup(false);
-    if (hasBackup) {
-      setShowImportPopup(true);
-    } else {
-      setShowBackupPopup(true);
-    }
+    setShowBackupPopup(!hasBackup);
+    setShowImportPopup(hasBackup);
   };
 
   const handleBackupInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setBackupData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleImportSubmit = async () => {
-    const guid = await generateGUID(backupData);
-    console.log('Imported User Subdocument GUID:', guid);
-    setSubdocumentGUID(guid);
-    setShowImportPopup(false);
-    setBackupData({
-      cityOfBirth: '',
-      mothersFirstName: '',
-      email: ''
-    });
   };
 
   const generateGUID = async (data: typeof backupData) => {
@@ -192,148 +184,22 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   };
 
+  const handleImportSubmit = async () => {
+    const guid = await generateGUID(backupData);
+    setSubdocumentGUID(guid);
+    setShowImportPopup(false);
+  };
+
   const handleBackupSubmit = async () => {
     const guid = await generateGUID(backupData);
-    console.log('User Subdocument GUID:', guid);
     setSubdocumentGUID(guid);
     storeSubdocumentGUID(guid);
     setShowBackupPopup(false);
-    setBackupData({
-      cityOfBirth: '',
-      mothersFirstName: '',
-      email: ''
-    });
   };
 
-  const toggleArrayItem = (array: string[], item: string) => {
-    return array.includes(item) 
-      ? array.filter(i => i !== item)
-      : [...array, item];
-  };
-
-  const BackupChoicePopup = () => (
-    <div style={popupOverlayStyle}>
-      <div style={popupContentStyle}>
-        <h3 style={{ color: '#f05e23', marginBottom: '1rem' }}>Backup/Sync</h3>
-        <p style={{ marginBottom: '1rem' }}>Have you backed up previously?</p>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <button onClick={() => handleBackupChoice(true)} style={buttonStyle}>Yes</button>
-          <button onClick={() => handleBackupChoice(false)} style={buttonStyle}>No</button>
-        </div>
-      </div>
-    </div>
-  );
-
-  const ImportPopup = () => (
-    <div style={popupOverlayStyle}>
-      <div style={popupContentStyle}>
-        <h3 style={{ color: '#f05e23', marginBottom: '1rem' }}>Import Backup</h3>
-        <input
-          type="text"
-          name="cityOfBirth"
-          placeholder="City of Birth"
-          value={backupData.cityOfBirth}
-          onChange={handleBackupInputChange}
-          style={inputStyle}
-        />
-        <input
-          type="text"
-          name="mothersFirstName"
-          placeholder="Mother's first name"
-          value={backupData.mothersFirstName}
-          onChange={handleBackupInputChange}
-          style={inputStyle}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="E-mail address"
-          value={backupData.email}
-          onChange={handleBackupInputChange}
-          style={inputStyle}
-        />
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-          <button onClick={handleImportSubmit} style={{...buttonStyle, backgroundColor: '#f05e23', width: '100%'}}>Import</button>
-        </div>
-      </div>
-    </div>
-  );
-
-  const BackupPopup = () => (
-    <div style={popupOverlayStyle}>
-      <div style={popupContentStyle}>
-        <h3 style={{ color: '#f05e23', marginBottom: '1rem' }}>Create Backup</h3>
-        <input
-          type="text"
-          name="cityOfBirth"
-          placeholder="City of Birth"
-          value={backupData.cityOfBirth}
-          onChange={handleBackupInputChange}
-          style={inputStyle}
-        />
-        <input
-          type="text"
-          name="mothersFirstName"
-          placeholder="Mother's first name"
-          value={backupData.mothersFirstName}
-          onChange={handleBackupInputChange}
-          style={inputStyle}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="E-mail address"
-          value={backupData.email}
-          onChange={handleBackupInputChange}
-          style={inputStyle}
-        />
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-          <button onClick={handleBackupSubmit} style={{...buttonStyle, backgroundColor: '#f05e23', width: '100%'}}>Backup</button>
-        </div>
-      </div>
-    </div>
-  );
-
-  const popupOverlayStyle = {
-    position: 'fixed' as const,
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1000
-  };
-
-  const popupContentStyle = {
-    backgroundColor: '#1A202C',
-    padding: '2rem',
-    borderRadius: '8px',
-    width: '80%',
-    maxWidth: '400px'
-  };
-
-  const inputStyle = {
-    width: '100%',
-    padding: '0.5rem',
-    marginBottom: '1rem',
-    backgroundColor: '#2D3748',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '4px'
-  };
-
-  const buttonStyle = {
-    padding: '0.5rem 1rem',
-    backgroundColor: '#4A5568',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer'
-  };
-
+  // -----------------------------
+  // Styles
+  // -----------------------------
   const formButtonStyle = {
     padding: '0.5rem 1rem',
     backgroundColor: '#1A1A1A',
@@ -350,134 +216,151 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
     backgroundColor: '#f05e23'
   };
 
+  const buttonStyle = {
+    padding: '0.5rem 1rem',
+    backgroundColor: '#4A5568',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer'
+  };
+
+  // -----------------------------
+  // UI
+  // -----------------------------
   return (
-    <div style={{ padding: '1rem', backgroundColor: '#000000', minHeight: '100vh', color: '#FFFFFF' }}>
+    <div style={{ padding: '1rem', backgroundColor: '#000', minHeight: '100vh', color: '#fff' }}>
+      {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M19 12H5" stroke="#f05e23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M12 19L5 12L12 5" stroke="#f05e23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-        <h2 style={{ color: '#f05e23', margin: 0 }}>User Profile</h2>
+        <h2 style={{ color: '#f05e23', margin: 0 }}>Profile</h2>
       </div>
+      
 
+
+
+      {/* Sex */}
+      <Section title="Sex">
+        {['Male', 'Female'].map((sex) => (
+          <ChoiceButton key={sex} active={formData.sex === sex} onClick={() => handleSexChange(sex)}>
+            {sex}
+          </ChoiceButton>
+        ))}
+      </Section>
+
+      {/* Age */}
+      <Section title="Age">
+        {['14-18', '19-24', '25-30', '31-40', '41-50', '51-60'].map((age) => (
+          <ChoiceButton key={age} active={formData.age === age} onClick={() => handleAgeChange(age)}>
+            {age}
+          </ChoiceButton>
+        ))}
+      </Section>
+
+      {/* Shopping Frequency */}
+      <Section title="How Frequent do You Shop Online">
+        {['Never', 'Daily', 'Weekly', 'Monthly'].map((freq) => (
+          <ChoiceButton key={freq} active={formData.shoppingFrequency === freq} onClick={() => handleFrequencyChange(freq)}>
+            {freq}
+          </ChoiceButton>
+        ))}
+      </Section>
+
+      {/* Interests */}
+      <Section title="Interest">
+        {['Tech', 'Cars', 'Cooking', 'Fashion', 'Games', 'Art', 'Movies', 'Sports', 'Photography', 'Food'].map((interest) => (
+          <ChoiceButton
+            key={interest}
+            active={formData.interests.includes(interest)}
+            onClick={() => handleInterestChange(interest)}
+          >
+            {interest}
+          </ChoiceButton>
+        ))}
+      </Section>
+
+      {/* Shopping Categories */}
+      <Section title="Shopping">
+        {['Electronics', 'Gaming', 'Computing', 'Sporting Gear', 'Phones & Tablets', 'Appliance', 'Fashion'].map((category) => (
+          <ChoiceButton
+            key={category}
+            active={formData.shopping.includes(category)}
+            onClick={() => handleShoppingChange(category)}
+          >
+            {category}
+          </ChoiceButton>
+        ))}
+      </Section>
+
+      {/* ----------------- Personality Quiz ----------------- */}
+      <div style={{ marginTop: '2rem' }}>
+        <h3 style={{ color: '#f05e23' }}>🛍️ Shopping Personality</h3>
+        {shoppingPersonalityQuestions.map((q, index) => (
+          <div key={index} style={{ marginBottom: '1.5rem' }}>
+            <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>{q.text}</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {[1, 2, 3, 4, 5].map(num => (
+                <ChoiceButton
+                  key={num}
+                  active={formData.personality?.[q.trait] === num}
+                  onClick={() => handlePersonalityResponse(q.trait, num)}
+                >
+                  {q.scale[num - 1]}
+                </ChoiceButton>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Wallets + Backup */}
       {localWalletAddress && (
         <div style={{ marginBottom: '1rem', fontSize: '1rem', color: '#A0AEC0', wordBreak: 'break-all' }}>
           <strong>Local Wallet:</strong> {localWalletAddress}
-          <CopyButton text={localWalletAddress} />
         </div>
       )}
-
-      <button 
-        onClick={handleBackupSync}
-        style={{
-          backgroundColor: '#4A5568',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          padding: '8px 16px',
-          fontSize: '0.9rem',
-          cursor: 'pointer',
-          marginBottom: '1rem',
-          width: '100%',
-        }}
-      >
-        Backup/Sync
-      </button>
-
       {address && (
         <div style={{ marginBottom: '1rem', fontSize: '1rem', color: '#A0AEC0', wordBreak: 'break-all' }}>
           <strong>Connected Wallet:</strong> {address}
-          <CopyButton text={address} />
         </div>
       )}
-
-      {copySuccess && <div style={{ color: '#4CAF50', marginBottom: '1rem' }}>{copySuccess}</div>}
-
-      <div style={{ marginTop: '1rem' }}>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>Sex</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {['Male', 'Female'].map((sex) => (
-              <button
-                key={sex}
-                onClick={() => handleSexChange(sex)}
-                style={formData.sex === sex ? selectedFormButtonStyle : formButtonStyle}
-              >
-                {sex}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>Age</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {['14-18', '19-24', '24-30', '31-40', '41-50', '51-60'].map((age) => (
-              <button
-                key={age}
-                onClick={() => handleAgeChange(age)}
-                style={formData.age === age ? selectedFormButtonStyle : formButtonStyle}
-              >
-                {age}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>How Frequent do You Shop Online</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {['Never', 'Daily', 'Weekly', 'Monthly'].map((freq) => (
-              <button
-                key={freq}
-                onClick={() => handleFrequencyChange(freq)}
-                style={formData.shoppingFrequency === freq ? selectedFormButtonStyle : formButtonStyle}
-              >
-                {freq}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>Interest</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {['Tech', 'Cars', 'Cooking', 'Fashion', 'Games', 'Art', 'Movies', 'Sports', 'Photography', 'Food'].map((interest) => (
-              <button
-                key={interest}
-                onClick={() => handleInterestChange(interest)}
-                style={formData.interests.includes(interest) ? selectedFormButtonStyle : formButtonStyle}
-              >
-                {interest}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>Shopping</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {['Electronics', 'Gaming', 'Computing', 'Sporting Gear', 'Phones & Tablets', 'Appliance', 'Fashion'].map((category) => (
-              <button
-                key={category}
-                onClick={() => handleShoppingChange(category)}
-                style={formData.shopping.includes(category) ? selectedFormButtonStyle : formButtonStyle}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {showBackupChoicePopup && <BackupChoicePopup />}
-      {showImportPopup && <ImportPopup />}
-      {showBackupPopup && <BackupPopup />}
+      <button onClick={handleBackupSync} style={{ ...buttonStyle, width: '100%', marginBottom: '1rem' }}>Backup/Sync</button>
+      {/* UserNet + Popups */}
       {subdocumentGUID && <UserNet />}
     </div>
   );
 };
+
+// -----------------------------
+// Helper Components
+// -----------------------------
+const Section = ({ title, children }: any) => (
+  <div style={{ marginBottom: '1.5rem' }}>
+    <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>{title}</p>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>{children}</div>
+  </div>
+);
+
+const ChoiceButton = ({ active, children, onClick }: any) => (
+  <button
+    onClick={onClick}
+    style={{
+      padding: '0.5rem 1rem',
+      backgroundColor: active ? '#f05e23' : '#1A1A1A',
+      color: 'white',
+      border: 'none',
+      borderRadius: '999px',
+      cursor: 'pointer',
+      marginRight: '0.5rem',
+      marginBottom: '0.5rem'
+    }}
+  >
+    {children}
+  </button>
+);
 
 export default ProfileComponent;
