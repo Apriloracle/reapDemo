@@ -9,11 +9,12 @@ interface BaseUserProfile {
   shoppingFrequency: string;
   interests: string[];
   shopping: string[];
+  personality?: Record<string, number>; // <-- ✅ Added personality
 }
 
 // Extended interface with index signature for TinyBase compatibility
 export interface UserProfile extends BaseUserProfile {
-  [key: string]: string | string[];
+  [key: string]: string | string[] | Record<string, number> | undefined; // <-- ✅ personality-compatible
 }
 
 type ProfileChangeListener = (profile: UserProfile) => void;
@@ -54,7 +55,6 @@ class UserProfileStore {
   public async initialize() {
     console.log('Loading persisted profile data...');
     
-    // First try to load from localStorage
     const localStorageData = localStorage.getItem('userProfile');
     if (localStorageData) {
       try {
@@ -67,7 +67,6 @@ class UserProfileStore {
       }
     }
 
-    // Fallback to TinyBase persister
     await this.persister.load();
     const profile = this.store.getRow('profiles', 'current');
     console.log('Loaded profile from TinyBase:', profile);
@@ -76,27 +75,24 @@ class UserProfileStore {
   public async saveProfile(profile: UserProfile) {
     console.log('Saving profile:', profile);
     try {
-      // Convert arrays to strings for storage
+      // Convert arrays and nested objects to strings for storage
       const storageProfile: Row = {
         ...profile,
         interests: JSON.stringify(profile.interests),
-        shopping: JSON.stringify(profile.shopping)
+        shopping: JSON.stringify(profile.shopping),
+        personality: JSON.stringify(profile.personality || {}) // <-- ✅ New personality support
       };
       console.log('Converted profile for storage:', storageProfile);
+
       this.store.setRow('profiles', 'current', storageProfile);
 
-      // Add coordinate functionality and update the coordinate for the profile.
       const updateCoordinates = addCoordinateToStore(this.store, 'profiles');
       await updateCoordinates();
-
       await this.persister.save();
-      
-      // Save to localStorage as well
+
       localStorage.setItem('userProfile', JSON.stringify(profile));
-      
-      // Notify listeners of the change
       this.notifyListeners(profile);
-      
+
       console.log('Profile saved successfully');
     } catch (error) {
       console.error('Error saving profile:', error);
@@ -107,7 +103,6 @@ class UserProfileStore {
   public getProfile(): UserProfile | null {
     console.log('Getting profile...');
     
-    // First try localStorage
     const localStorageData = localStorage.getItem('userProfile');
     if (localStorageData) {
       try {
@@ -120,7 +115,6 @@ class UserProfileStore {
       }
     }
 
-    // Fallback to TinyBase store
     const profile = this.store.getRow('profiles', 'current');
     console.log('Raw profile from store:', profile);
     
@@ -130,13 +124,15 @@ class UserProfileStore {
     }
 
     try {
-      // Parse stored strings back to arrays, with fallbacks for missing data
       const userProfile = {
         sex: profile.sex as string || '',
         age: profile.age as string || '',
         shoppingFrequency: profile.shoppingFrequency as string || '',
         interests: profile.interests ? JSON.parse(profile.interests as string) : [],
-        shopping: profile.shopping ? JSON.parse(profile.shopping as string) : []
+        shopping: profile.shopping ? JSON.parse(profile.shopping as string) : [],
+        personality: profile.personality
+          ? JSON.parse(profile.personality as string)
+          : {} // <-- ✅ Parse stored personality object
       };
       console.log('Parsed profile:', userProfile);
       return userProfile;
@@ -154,7 +150,8 @@ class UserProfileStore {
       age: '',
       shoppingFrequency: '',
       interests: [],
-      shopping: []
+      shopping: [],
+      personality: {} // <-- ✅ Ensure default personality
     };
     
     console.log('UserProfileStore: Current profile before update:', currentProfile);
@@ -162,7 +159,7 @@ class UserProfileStore {
     const updatedProfile = {
       ...currentProfile,
       ...updates
-    } as UserProfile; // Type assertion to fix TypeScript error
+    } as UserProfile;
     
     console.log('UserProfileStore: Profile after merge:', updatedProfile);
     
