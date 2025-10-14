@@ -242,7 +242,26 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
       </div>
       
 
-
+      {/* ----------------- Personality Quiz ----------------- */}
+      <div style={{ marginTop: '2rem' }}>
+        <h3 style={{ color: '#f05e23' }}>🛍️ Shopping Personality</h3>
+        {shoppingPersonalityQuestions.map((q, index) => (
+          <div key={index} style={{ marginBottom: '1.5rem' }}>
+            <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>{q.text}</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {[1, 2, 3, 4, 5].map(num => (
+                <ChoiceButton
+                  key={num}
+                  active={formData.personality?.[q.trait] === num}
+                  onClick={() => handlePersonalityResponse(q.trait, num)}
+                >
+                  {q.scale[num - 1]}
+                </ChoiceButton>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Sex */}
       <Section title="Sex">
@@ -297,26 +316,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
         ))}
       </Section>
 
-      {/* ----------------- Personality Quiz ----------------- */}
-      <div style={{ marginTop: '2rem' }}>
-        <h3 style={{ color: '#f05e23' }}>🛍️ Shopping Personality</h3>
-        {shoppingPersonalityQuestions.map((q, index) => (
-          <div key={index} style={{ marginBottom: '1.5rem' }}>
-            <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem' }}>{q.text}</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-              {[1, 2, 3, 4, 5].map(num => (
-                <ChoiceButton
-                  key={num}
-                  active={formData.personality?.[q.trait] === num}
-                  onClick={() => handlePersonalityResponse(q.trait, num)}
-                >
-                  {q.scale[num - 1]}
-                </ChoiceButton>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+
       {/* Wallets + Backup */}
       {localWalletAddress && (
         <div style={{ marginBottom: '1rem', fontSize: '1rem', color: '#A0AEC0', wordBreak: 'break-all' }}>
