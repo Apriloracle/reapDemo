@@ -1,8 +1,8 @@
 import { SparseHypervector } from '../lib/sparse-hypervectors';
-import category104 from '../data/vectors/category_104.json';
-import category126 from '../data/vectors/category_126.json';
+//import category104 from '../data/vectors/category_104.json';
+//import category126 from '../data/vectors/category_126.json';
 import category130 from '../data/vectors/category_130.json';
-import category167 from '../data/vectors/category_167.json';
+//import category167 from '../data/vectors/category_167.json';
 
 type CategoryDataMap = Map<number, Map<string, { title: string; hv: Map<number, number> }>>;
 
@@ -12,10 +12,10 @@ class CategoryVectorService {
 
   private constructor() {
     console.log('CategoryVectorService: Initializing and loading vectors...');
-    this.loadCategoryData(104, category104);
-    this.loadCategoryData(126, category126);
+    //this.loadCategoryData(104, category104);
+    //this.loadCategoryData(126, category126);
     this.loadCategoryData(130, category130);
-    this.loadCategoryData(167, category167);
+    //this.loadCategoryData(167, category167);
     console.log('CategoryVectorService: Initialization complete.');
     console.log('Loaded category IDs:', Array.from(this.categoryData.keys()));
   }
