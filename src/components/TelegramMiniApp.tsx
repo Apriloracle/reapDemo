@@ -12,7 +12,6 @@ import { LocalWallet } from "@thirdweb-dev/wallets";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import * as didPeer from '@aviarytech/did-peer';
-import PeerSync from './PeerSync';
 import SurveyQuestion from './SurveyQuestion';
 import BalanceCard from './BalanceCard';
 import InitialDataFetcher from './InitialDataFetcher';
@@ -1255,10 +1254,7 @@ const TelegramMiniApp: React.FC = () => {
         />
 
         <InitialDataFetcher />
-        <PeerSync 
-  
-          onReady={handlePeerSyncReady}
-        />
+   
          <BrainInitializer>
         <> </> 
       </BrainInitializer>
@@ -1306,5 +1302,6 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
 
 
