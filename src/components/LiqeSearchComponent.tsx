@@ -1,29 +1,47 @@
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, forwardRef } from 'react';
+import { createStore } from 'tinybase';
+import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
 interface LiqeSearchComponentProps {
   onSearch?: (searchTerm: string) => void;
+  onSearchResults?: (results: any[]) => void;
 }
 
-const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onSearch }, ref) => {
+const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onSearch, onSearchResults }, ref) => {
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      if (query) {
-        handleSearch();
-      }
-    }, 300); // 300ms debounce
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [query]);
-
   const handleSearch = async () => {
     const searchTerm = query.trim();
-    if (onSearch && searchTerm) {
-      await onSearch(searchTerm);
+    if (searchTerm) {
+      if (onSearch) {
+        await onSearch(searchTerm);
+      }
+      try {
+        const geolocationStore = createStore();
+        const geolocationPersister = createLocalPersister(geolocationStore, 'user-geolocation');
+        await geolocationPersister.load();
+        const countryCode = geolocationStore.getCell('geolocation', 'userGeo', 'countryCode') as string || 'us';
+
+        const response = await fetch('https://shoppingapicaller-50775725716.asia-southeast1.run.app', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ q: searchTerm, gl: countryCode }),
+        });
+        if (response.ok) {
+          const results = await response.json();
+          console.log('Search results:', results);
+          if (onSearchResults) {
+            onSearchResults(results.shopping || []);
+          }
+        } else {
+          console.error('Search API call failed');
+        }
+      } catch (error) {
+        console.error('Error during search API call:', error);
+      }
     }
   };
 
@@ -40,7 +58,7 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ flexGrow: 1 }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexGrow: 1 }}>
       <input
         ref={ref}
         type="text"
@@ -52,17 +70,29 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
         placeholder="Search products..."
         style={{
           padding: '0.5rem',
-          borderRadius: '20px',
+          borderRadius: '20px 0 0 20px',
           border: `1px solid ${isFocused ? '#f05e23' : '#ccc'}`,
           width: '100%',
           outline: 'none', // Remove default focus outline
           boxSizing: 'border-box',
         }}
       />
+      <button type="submit" style={{
+        padding: '0.5rem 1rem',
+        border: '1px solid #f05e23',
+        backgroundColor: '#f05e23',
+        color: 'white',
+        borderRadius: '0 20px 20px 0',
+        cursor: 'pointer'
+      }}>
+        Search
+      </button>
     </form>
   );
 });
 
 export default LiqeSearchComponent;
+
+
 
 
