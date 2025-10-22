@@ -97,7 +97,7 @@
 }
 
 .dollarSign {
-  font-size: 1.08rem;
+  font-size: 0rem;
   vertical-align: super;
 }
 
@@ -121,9 +121,7 @@
 }
 
 .buyButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   background-color: #f05e23;
   color: white;
   border: none;
@@ -133,4 +131,23 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-decoration: none;
+  text-align: center;
+  margin: 0 auto 1rem;
 }
+
+.actionsContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.favoriteButton,
+.shareButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+}
+
