@@ -53,4 +53,9 @@ export interface Product {
   price?: number;
   score?: number;
   vector?: Record<string, number>;
+  source?: string;
+  link?: string;
+  attributes?: string[];
+  rating?: number;
+  ratingCount?: number;
 }
