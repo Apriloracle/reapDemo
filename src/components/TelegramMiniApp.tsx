@@ -40,13 +40,15 @@ import SwiperComponent from './SwiperComponent'; // Import the new component
 import ButtonSwipe from './ButtonSwipe'; 
 import SimilarProductsPage from '../pages/SimilarProductsPage'; // Import the new page
 import DiscoveryPage from '../pages/DiscoveryPage'; // Import the new page
-import ProductDetailPage from '../pages/ProductDetailPage'; // Import the new page
+import ProductDetailPage from './ProductDetailPage'; // Use the component version that only uses local store
+import ShoppingResultsPage from '../pages/ShoppingResultsPage'; // Import the new page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
 import CategoryFilter from './CategoryFilter';
 import { hypervectorProfileStore } from '../stores/HypervectorProfileStore';
 import { vectorCacheService } from '../services/VectorCacheService';
+import ScanButton from './ScanButton';
 
 
 // const DAILY_TAP_LIMIT = 9000;
@@ -84,6 +86,7 @@ const MainPage: React.FC<MainPageProps> = ({
 }) => {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [merchantProducts, setMerchantProducts] = useState<Record<string, any>>({});
   const [categoryProducts, setCategoryProducts] = useState<Record<string, any>>({});
@@ -263,14 +266,64 @@ const MainPage: React.FC<MainPageProps> = ({
         onClick={() => navigate('/discovery')}
       >
         <div style={{ pointerEvents: 'none' }}>
-          <CategoryFilter onFilterChange={() => {}} />
+          
         </div>
         <div style={{ pointerEvents: 'none' }}>
           <LiqeSearchComponent
             onSearch={() => {}}
+            onSearchResults={setSearchResults}
           />
         </div>
       </div>
+
+      {searchResults.length > 0 && (
+        <div style={{ marginTop: '1.5rem' }}>
+          <h3 style={{ color: '#f05e23', padding: '0 1rem' }}>Search Results</h3>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', 
+            gap: '0.5rem',
+            padding: '0 1rem'
+          }}>
+            {searchResults.map((product: any, index: number) => (
+              <div 
+                key={index}
+                onClick={() => navigate(`/similar/${product.asin}`)}
+                className={styles.productCard}
+                role="button"
+                tabIndex={0}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    navigate(`/similar/${product.asin}`);
+                  }
+                }}
+              >
+                <div className={styles.imageContainer}>
+                  {product.thumbnail && (
+                    <img
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className={styles.productImage}
+                    />
+                  )}
+                </div>
+                <div className={styles.productTitle}>
+                  {product.title}
+                </div>
+                {product.price && (
+                  <div style={{ 
+                    color: '#f05e23',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold'
+                  }}>
+                    {product.price.raw}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       
       {!localWalletAddress && !address && (
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
@@ -286,80 +339,7 @@ const MainPage: React.FC<MainPageProps> = ({
  
 
 
-{/* Products Display Section */}
-      <div style={{ marginTop: '1.5rem' }}>
-        {isLoading ? (
-          <div style={{ textAlign: 'center', padding: '1rem' }}>
-            Loading products...
-          </div>
-        ) : (
-          recommendations.map((deal) => (
-            <div key={deal.categoryId} style={{ marginBottom: '2rem' }}>
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', 
-                gap: '0.5rem' 
-              }}>
-                {filteredProducts[deal.categoryId]?.map((product: any, index: number) => (
-                  <div 
-                    key={index}
-                    onClick={() => navigate(`/similar/${product.asin}`)} // Navigate to similar products page
-                    onMouseEnter={() => handleProductInteraction(product, deal.merchantName, 'view')}
-                    className={styles.productCard}
-                    role="button"
-                    tabIndex={0}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        navigate(`/similar/${product.asin}`); // Navigate to similar products page
-                      }
-                    }}
-                  >
-                    <div className={styles.imageContainer}>
-                      {product.imageUrl && (
-                        <>
-                          {!loadedImages[product.imageUrl] && (
-                            <div style={{
-                              position: 'absolute',
-                              top: '50%',
-                              left: '50%',
-                              transform: 'translate(-50%, -50%)',
-                              color: '#666'
-                            }}>
-                              Loading...
-                            </div>
-                          )}
-                          <img
-                            src={product.imageUrl}
-                            alt={product.name}
-                            onLoad={() => handleImageLoad(product.imageUrl)}
-                            className={styles.productImage}
-                            style={{
-                              opacity: loadedImages[product.imageUrl] ? 1 : 0,
-                            }}
-                          />
-                        </>
-                      )}
-                    </div>
-                    <div className={styles.productTitle}>
-                      {product.name}
-                    </div>
-                    {product.price && (
-                      <div style={{ 
-                        color: '#f05e23',
-                        fontSize: '1.2rem',
-                        fontWeight: 'bold'
-                      }}>
-                        <span style={{ fontSize: '0.85em', marginRight: '0.3em' }}>$</span>{product.price}
-                      </div>
-                    )}
-                    
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+
 
       {showSurvey && (
         <SurveyQuestion
@@ -1239,22 +1219,24 @@ const TelegramMiniApp: React.FC = () => {
   return (
       <div ref={appRef} style={{ backgroundColor: '#000000', color: '#FFFFFF', padding: '1rem', maxWidth: '28rem', margin: '0 auto', fontFamily: 'sans-serif', position: 'relative', overflowY: 'auto' }}>
         {/* Connection status icon now uses websocket context */}
-        <div 
-          style={{
-            position: 'absolute',
-            top: '1rem',
-            left: '1rem',
-            width: '12px',
-            height: '12px',
-            borderRadius: '50%',
-            backgroundColor: provider ? '#0d0d0d' : '#000000',
-            transition: 'background-color 0.3s ease',
-          }}
-          title={provider ? 'Connected to sync server' : 'Disconnected from sync server'}
-        />
+        {provider && (
+          <div 
+            style={{
+              position: 'absolute',
+              top: '1rem',
+              left: '1rem',
+              width: '12px',
+              height: '12px',
+              borderRadius: '50%',
+              backgroundColor: '#0d0d0d',
+              transition: 'background-color 0.3s ease',
+            }}
+            title={'Connected to sync server'}
+          />
+        )}
 
         <InitialDataFetcher />
-   
+        
          <BrainInitializer>
         <> </> 
       </BrainInitializer>
@@ -1294,14 +1276,18 @@ const TelegramMiniApp: React.FC = () => {
           <Route path="/similar/:asin" element={<SimilarProductsPage />} /> {/* New route for similar products */}
           <Route path="/products/:asin" element={<ProductDetailPage />} /> {/* New route for product details */}
           <Route path="/discovery" element={<DiscoveryPage />} /> {/* New route for discovery page */}
+          <Route path="/shopping-results" element={<ShoppingResultsPage />} /> {/* New route for shopping results */}
         </Routes>
 
         <Navigation />
+        <ScanButton />
       </div>
   )
 }
 
 export default TelegramMiniApp
+
+
 
 
 
