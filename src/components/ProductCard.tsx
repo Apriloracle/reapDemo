@@ -57,7 +57,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
       </div>
       {product.price && (
         <div className={styles.productPrice}>
-          <span className={styles.priceSymbol}>$</span>{product.price}
+          {product.price}
+        </div>
+      )}
+      {product.rating && (
+        <div className={styles.productRating}>
+          <span>{product.rating}</span>
+          <span>({product.ratingCount})</span>
         </div>
       )}
     </div>
