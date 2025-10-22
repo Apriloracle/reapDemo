@@ -4,27 +4,14 @@ import LiqeSearchComponent from '../components/LiqeSearchComponent';
 import CategoryFilter from '../components/CategoryFilter';
 import ProductCard from '../components/ProductCard';
 import discoveryStyles from '../styles/DiscoveryPage.module.css';
-import { searchService } from '../services/SearchService';
-import { discoveryEngineService } from '../services/DiscoveryEngineService';
-import { graphSearchService } from '../services/GraphSearchService';
-//import trajectoryService from '../services/TrajectoryService';
 import { Product } from '../lib/types';
-import { discoverySearchStore } from '../stores/DiscoverySearchStore';
-import { categoryStore } from '../stores/CategoryStore';
-
-
-interface ProductWithCategory extends Product {
-  categoryId?: string;
-}
+import { discoveryEngineService } from '../services/DiscoveryEngineService';
+import { shoppingProductsStore } from '../stores/ShoppingProductsStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
-  const [keywordProducts, setKeywordProducts] = useState<Product[]>([]);
-  const [serverProducts, setServerProducts] = useState<Product[]>([]);
-  const [similarProducts, setSimilarProducts] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const shuffleAndLimit = (array: Product[], limit: number) => {
     const shuffled = [...array].sort(() => 0.5 - Math.random());
@@ -32,63 +19,39 @@ const DiscoveryPage: React.FC = () => {
   };
 
   useEffect(() => {
-    //trajectoryService.initialize();
     discoveryEngineService.initialize();
-    discoverySearchStore.initialize().then(() => {
-      const cachedProducts = discoverySearchStore.getAllProducts() as unknown as Product[];
+    shoppingProductsStore.initialize().then(() => {
+      const cachedProducts = shoppingProductsStore.getProducts() as unknown as Product[];
       if (cachedProducts.length > 0) {
-        setProducts(shuffleAndLimit(cachedProducts, 20));
+        setProducts(cachedProducts);
       }
     });
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, []);
-  
-  const performSearch = async (searchTerm: string) => {
-    setSearchTerm(searchTerm);
 
-    // Perform all three searches in parallel
-    const [semanticResults, keywordResults, serverResults] = await Promise.all([
-      searchService.performSemanticSearch(searchTerm),
-      searchService.performKeywordSearch(searchTerm),
-      searchService.performServerKeywordSearch(searchTerm)
-    ]);
-
-    // Update state with results
-    setProducts(semanticResults);
-    setKeywordProducts(keywordResults);
-    setServerProducts(serverResults);
-
-    // Cache all search results
-    const allResults = [...semanticResults, ...keywordResults, ...serverResults];
-    const uniqueResults = Array.from(new Map(allResults.map(p => [p.asin, p])).values());
-    await discoverySearchStore.addSearchResults(searchTerm, uniqueResults);
-
-    // Also cache in categoryStore
-  const productsByCategory: { [key: string]: ProductWithCategory[] } = {};
-
-  for (const product of uniqueResults as ProductWithCategory[]) {
-    const categoryId = product.categoryId || 'unknown';
-
-    if (!productsByCategory[categoryId]) {
-      productsByCategory[categoryId] = [];
-    }
-    productsByCategory[categoryId].push(product);
-  }
-
-  await categoryStore.addProductsByCategory(productsByCategory);
-};
+  const handleSearchResults = async (results: any[]) => {
+    const formattedProducts = results.map((p: any) => ({
+      ...p,
+      asin: p.productId,
+      imageUrl: p.imageUrl,
+      name: p.title,
+      source: p.source,
+      rating: p.rating,
+      ratingCount: p.ratingCount,
+    }));
+    setProducts(formattedProducts);
+    await shoppingProductsStore.addProducts(formattedProducts);
+  };
 
   const handleProductClick = (product: Product) => {
     if (product && product.asin) {
-      //trajectoryService.generateTrajectory(product);
-      navigate(`/similar/${product.asin}`);
+      navigate(`/products/${product.asin}`);
     }
   };
 
-  const uniqueProducts = Array.from(new Map([...products, ...keywordProducts, ...serverProducts].map(p => [p.asin, p])).values());
-  const displayedProducts = shuffleAndLimit(uniqueProducts, 20);
+  const displayedProducts = shuffleAndLimit(products, 40);
 
   return (
     <div className={discoveryStyles.page}>
@@ -98,10 +61,10 @@ const DiscoveryPage: React.FC = () => {
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
-        <CategoryFilter onFilterChange={() => {}} />
+        
         <LiqeSearchComponent 
           ref={searchInputRef} 
-          onSearch={performSearch} 
+          onSearchResults={handleSearchResults} 
         />
       </div>
 
@@ -122,4 +85,3 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
