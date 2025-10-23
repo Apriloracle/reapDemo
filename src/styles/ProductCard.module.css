@@ -82,3 +82,10 @@
   font-size: 0.85em;
   margin-right: 0.3em;
 }
+
+.productRating,
+.productSource {
+  font-size: 0.8rem;
+  color: #A0AEC0;
+  padding: 0 0.5rem;
+}
