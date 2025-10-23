@@ -58,4 +58,5 @@ export interface Product {
   attributes?: string[];
   rating?: number;
   ratingCount?: number;
+  position?: number;
 }
