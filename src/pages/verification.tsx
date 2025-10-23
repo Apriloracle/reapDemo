@@ -12,26 +12,26 @@ import { ethers } from "ethers";
 function VerificationPage() {
   const [selfApp, setSelfApp] = useState<SelfApp | null>(null);
   const [universalLink, setUniversalLink] = useState("");
-  const [userId] = useState('0x31AB637bD325b4BF5018b39DD155681D03348189');
+  const [userId] = useState('0x31ab637bd325b4bf5018b39dd155681d03348189');
 
   useEffect(() => {
     try {
-      const app = new SelfAppBuilder({
-        version: 2,
-        appName: process.env.NEXT_PUBLIC_SELF_APP_NAME || "Self Workshop",
-        scope: process.env.NEXT_PUBLIC_SELF_SCOPE || "self-workshop",
-        endpoint: "https://selfverify-50775725716.asia-east2.run.app/",
-        logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
-        userId: userId,
-        endpointType: "staging_https",
-        userIdType: "hex",
-        userDefinedData: "Hello World",
-        disclosures: {
-          minimumAge: 18,
-          excludedCountries: [],
-          ofac: true,
-        }
-      }).build();
+  const app = new SelfAppBuilder({
+  version: 2,
+  appName: process.env.NEXT_PUBLIC_SELF_APP_NAME || "Self Workshop",
+  scope: "self-playground",  // ✅ Use the standard scope from docs
+  endpoint: process.env.NEXT_PUBLIC_SELF_ENDPOINT || "https://selfverify-50775725716.asia-east2.run.app/",
+  logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
+  userId: userId,  // You're using: '0x31ab637bd325b4bf5018b39dd155681d03348189'
+  endpointType: "https",
+  userIdType: "hex",  // ✅ Correct since userId is hex address
+  userDefinedData: "Hello World",
+  disclosures: {
+    minimumAge: 18,
+    excludedCountries: [],
+    ofac: true,
+  }
+}).build();
 
       setSelfApp(app);
       setUniversalLink(getUniversalLink(app));
@@ -65,4 +65,6 @@ function VerificationPage() {
 }
 
 export default VerificationPage;
+
+
 
