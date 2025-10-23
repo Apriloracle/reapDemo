@@ -5,12 +5,12 @@ import { SelfBackendVerifier, AllIds, DefaultConfigStore } from "../../lib/self/
 const selfBackendVerifier = new SelfBackendVerifier(
   "self-playground",
   "https://playground.self.xyz/api/verify",
-  false, // mockPassport: false = mainnet, true = staging/testnet
+  false,
   AllIds,
   new DefaultConfigStore({
     minimumAge: 18,
   }),
-  "uuid" // userIdentifierType
+  "hex"  // ✅ Changed from "uuid" to "hex"
 );
 
 export async function POST(req: Request) {
@@ -69,3 +69,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
