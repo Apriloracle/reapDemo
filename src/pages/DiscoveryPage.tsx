@@ -13,11 +13,6 @@ const DiscoveryPage: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
 
-  const shuffleAndLimit = (array: Product[], limit: number) => {
-    const shuffled = [...array].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, limit);
-  };
-
   useEffect(() => {
     discoveryEngineService.initialize();
     shoppingProductsStore.initialize().then(() => {
@@ -40,6 +35,7 @@ const DiscoveryPage: React.FC = () => {
       source: p.source,
       rating: p.rating,
       ratingCount: p.ratingCount,
+      position: p.position,
     }));
     setProducts(formattedProducts);
     await shoppingProductsStore.addProducts(formattedProducts);
@@ -51,7 +47,9 @@ const DiscoveryPage: React.FC = () => {
     }
   };
 
-  const displayedProducts = shuffleAndLimit(products, 40);
+  const displayedProducts = [...products]
+    .sort((a, b) => (a.position || 0) - (b.position || 0))
+    .slice(0, 40);
 
   return (
     <div className={discoveryStyles.page}>
@@ -85,3 +83,5 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
+
