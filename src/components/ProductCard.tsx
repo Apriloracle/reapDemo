@@ -66,8 +66,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           <span>({product.ratingCount})</span>
         </div>
       )}
+      {product.source && (
+        <div className={styles.productSource}>
+          {product.source}
+        </div>
+      )}
     </div>
   );
 };
 
 export default ProductCard;
+
