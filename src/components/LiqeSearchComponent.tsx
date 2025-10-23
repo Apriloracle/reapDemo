@@ -67,7 +67,7 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
         onKeyDown={handleKeyDown}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        placeholder="Find product deals..."
+        placeholder="Find product deals.."
         style={{
           padding: '0.5rem',
           borderRadius: '20px 0 0 20px',
@@ -83,9 +83,24 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
         backgroundColor: '#f05e23',
         color: 'white',
         borderRadius: '0 20px 20px 0',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        Search
+        <svg 
+          width="20" 
+          height="20" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
       </button>
     </form>
   );
