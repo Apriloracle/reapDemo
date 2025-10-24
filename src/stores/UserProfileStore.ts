@@ -2,6 +2,13 @@ import { createStore, Store, Row } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { addCoordinateToStore } from '../lib/storeCoordinates';
 
+// Define a type for the onboarding choices for clarity
+export interface OnboardingChoices {
+  archetypes: string[];
+  categories: string[];
+  alertStyle: string | null;
+}
+
 // Base interface for type safety when working with profiles
 interface BaseUserProfile {
   sex: string;
@@ -10,11 +17,12 @@ interface BaseUserProfile {
   interests: string[];
   shopping: string[];
   personality?: Record<string, number>; // <-- ✅ Added personality
+  onboardingChoices?: OnboardingChoices; // <-- Add new property
 }
 
 // Extended interface with index signature for TinyBase compatibility
 export interface UserProfile extends BaseUserProfile {
-  [key: string]: string | string[] | Record<string, number> | undefined; // <-- ✅ personality-compatible
+  [key: string]: any; // Allow for flexible properties
 }
 
 type ProfileChangeListener = (profile: UserProfile) => void;
@@ -80,7 +88,8 @@ class UserProfileStore {
         ...profile,
         interests: JSON.stringify(profile.interests),
         shopping: JSON.stringify(profile.shopping),
-        personality: JSON.stringify(profile.personality || {}) // <-- ✅ New personality support
+        personality: JSON.stringify(profile.personality || {}), // <-- ✅ New personality support
+        onboardingChoices: JSON.stringify(profile.onboardingChoices || {})
       };
       console.log('Converted profile for storage:', storageProfile);
 
@@ -132,7 +141,10 @@ class UserProfileStore {
         shopping: profile.shopping ? JSON.parse(profile.shopping as string) : [],
         personality: profile.personality
           ? JSON.parse(profile.personality as string)
-          : {} // <-- ✅ Parse stored personality object
+          : {}, // <-- ✅ Parse stored personality object
+        onboardingChoices: profile.onboardingChoices
+            ? JSON.parse(profile.onboardingChoices as string)
+            : {}
       };
       console.log('Parsed profile:', userProfile);
       return userProfile;
@@ -151,7 +163,8 @@ class UserProfileStore {
       shoppingFrequency: '',
       interests: [],
       shopping: [],
-      personality: {} // <-- ✅ Ensure default personality
+      personality: {}, // <-- ✅ Ensure default personality
+      onboardingChoices: {}
     };
     
     console.log('UserProfileStore: Current profile before update:', currentProfile);
