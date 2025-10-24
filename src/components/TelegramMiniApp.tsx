@@ -100,6 +100,10 @@ const MainPage: React.FC<MainPageProps> = ({
    // State for current deal index - Now managed inside MainPage
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
 
+    const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(
+    localStorage.getItem('hasCompletedOnboarding') === 'true'
+  );
+
   // Create a memoized map for quick category ID lookup
   const categoryMap = useMemo(() => {
     return categoryIndex.reduce((acc, category) => {
@@ -189,6 +193,18 @@ const MainPage: React.FC<MainPageProps> = ({
 
   // Add this new state for tracking image loading
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+
+  // Listen for onboarding completion
+  useEffect(() => {
+    const checkOnboarding = () => {
+      setHasCompletedOnboarding(localStorage.getItem('hasCompletedOnboarding') === 'true');
+    };
+    
+    // Check periodically (every 500ms)
+    const interval = setInterval(checkOnboarding, 500);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   // Add this function to handle image loading
   const handleImageLoad = (imageUrl: string) => {
@@ -376,8 +392,8 @@ const MainPage: React.FC<MainPageProps> = ({
           onClose={() => setShowSurvey(false)}
         />
       )}
-        {/* Scan button - only appears on homepage */}
-      <ScanButton />
+  {/* Scan button - only appears on homepage after onboarding is complete */}
+      {hasCompletedOnboarding && <ScanButton />}
     </SearchProvider>
   );
 };
@@ -1272,7 +1288,7 @@ const TelegramMiniApp: React.FC = () => {
         <> </> 
       </BrainInitializer>
 
-        <Routes>
+   <Routes>
           <Route path="/" element={<MainPage {...mainPageProps} />} />
           <Route path="/tap" element={
             <TapComponent
@@ -1311,11 +1327,20 @@ const TelegramMiniApp: React.FC = () => {
         </Routes>
 
         <Navigation />
+      
+
       </div>
   )
 }
 
 export default TelegramMiniApp
+
+
+
+
+
+
+
 
 
 
