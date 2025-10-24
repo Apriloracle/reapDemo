@@ -8,6 +8,8 @@ import { NTCProvider } from '../contexts/NTCContext';
 import { deviceDataStore } from '../stores/DeviceDataStore';
 import SimpleVectorize from './SimpleVectorize';
 import CoordinateCountDisplay from './CoordinateCountDisplay';
+import OnboardingFlow from './OnboardingFlow'; // Import the OnboardingFlow component
+import userProfileStore, { OnboardingChoices } from '../stores/UserProfileStore';
 
 interface BrainInitializerProps {
   children: React.ReactNode;
@@ -32,6 +34,8 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   const [ntc, setNtc] = useState<NTC | null>(null);
   const [esn, setEsn] = useState<ESN | null>(null);
   const [vectorInput, setVectorInput] = useState<number[][] | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [isReady, setIsReady] = useState(false); // State to control rendering
 
   const store = createStore();
   const persister = createLocalPersister(store, 'brain_state');
@@ -39,19 +43,38 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        // First, check if the user needs to see the onboarding flow
+        const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+        if (!hasCompletedOnboarding) {
+          setShowOnboarding(true);
+        }
+
         // Fetch and store device data
         await deviceDataStore.fetchAndStoreDeviceData();
 
         // Skip initialization of NTC and ESN for now
         console.log('NTC and ESN initialization skipped for performance optimization');
+        
+        // All checks are done, the app is ready to be displayed
+        setIsReady(true);
         return;
       } catch (error) {
-        console.error('Error loading or saving state:', error);
+        console.error('Error during initialization:', error);
+        setIsReady(true); // Ensure app renders even if there's an error
       }
     };
 
     initialize();
   }, []);
+
+  const handleOnboardingComplete = async (choices: OnboardingChoices) => {
+    localStorage.setItem('hasCompletedOnboarding', 'true');
+    
+    // Use the existing store method to save the choices
+    await userProfileStore.updateProfile({ onboardingChoices: choices });
+
+    setShowOnboarding(false);
+  };
 
   const updateTinybaseState = async () => {
     if (ntc && esn) {
@@ -89,9 +112,16 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   }, [ntc, vectorInput]);
 
 
-  // Skip NTC and ESN checks and initialization
+  if (!isReady) {
+    return null; // Don't render anything until initialization checks are complete
+  }
+
+  if (showOnboarding) {
+    return <OnboardingFlow onComplete={handleOnboardingComplete} />;
+  }
+
+  // If onboarding is complete, render the main app
   return (
-    // Pass null as NTC value since it's disabled
     <NTCProvider value={{ ntc: null }}>
       <CoordinateCountDisplay />
       {children}
