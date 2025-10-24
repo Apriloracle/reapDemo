@@ -376,6 +376,8 @@ const MainPage: React.FC<MainPageProps> = ({
           onClose={() => setShowSurvey(false)}
         />
       )}
+        {/* Scan button - only appears on homepage */}
+      <ScanButton />
     </SearchProvider>
   );
 };
@@ -1309,7 +1311,6 @@ const TelegramMiniApp: React.FC = () => {
         </Routes>
 
         <Navigation />
-        <ScanButton />
       </div>
   )
 }
