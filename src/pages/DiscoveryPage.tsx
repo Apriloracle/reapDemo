@@ -7,11 +7,17 @@ import discoveryStyles from '../styles/DiscoveryPage.module.css';
 import { Product } from '../lib/types';
 import { discoveryEngineService } from '../services/DiscoveryEngineService';
 import { shoppingProductsStore } from '../stores/ShoppingProductsStore';
+import {
+  getResultsSortedByPrice,
+  getResultsSortedByRating,
+  getResultsSortedByPosition,
+} from '../stores/SearchIndexStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [sortOrder, setSortOrder] = useState('position');
 
   useEffect(() => {
     discoveryEngineService.initialize();
@@ -47,9 +53,24 @@ const DiscoveryPage: React.FC = () => {
     }
   };
 
-  const displayedProducts = [...products]
-    .sort((a, b) => (a.position || 0) - (b.position || 0))
-    .slice(0, 40);
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSortOrder = e.target.value;
+    setSortOrder(newSortOrder);
+
+    let sortedProducts: Product[] = [];
+    if (newSortOrder === 'price-asc') {
+      sortedProducts = getResultsSortedByPrice(true) as unknown as Product[];
+    } else if (newSortOrder === 'price-desc') {
+      sortedProducts = getResultsSortedByPrice(false) as unknown as Product[];
+    } else if (newSortOrder === 'rating') {
+      sortedProducts = getResultsSortedByRating(false) as unknown as Product[];
+    } else {
+      sortedProducts = getResultsSortedByPosition() as unknown as Product[];
+    }
+    setProducts(sortedProducts);
+  };
+
+  const displayedProducts = products.slice(0, 40);
 
   return (
     <div className={discoveryStyles.page}>
@@ -66,6 +87,15 @@ const DiscoveryPage: React.FC = () => {
         />
       </div>
 
+      <div className={discoveryStyles.sortContainer}>
+        <select value={sortOrder} onChange={handleSortChange} className={discoveryStyles.sortDropdown}>
+          <option value="position">Sort by Position</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Sort by Rating</option>
+        </select>
+      </div>
+
       <div style={{ marginTop: '1.5rem' }}>
         <div className={discoveryStyles.productGrid}>
           {displayedProducts.map((product) => (
@@ -76,7 +106,6 @@ const DiscoveryPage: React.FC = () => {
             />
           ))}
         </div>
-
       </div>
     </div>
   );
