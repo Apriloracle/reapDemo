@@ -53,9 +53,14 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
             searchIndexStore.setRow('searchResults', resultId, {
               id: resultId,
               query: searchTerm,
-              resultData: JSON.stringify(result),
+              name: result.title,
+              source: result.source,
+              price: result.price,
+              rating: result.rating,
+              ratingCount: result.ratingCount,
+              position: result.position,
               timestamp,
-              relevance: index + 1, // Lower is more relevant
+              resultData: JSON.stringify(result),
             });
           });
         } else {
