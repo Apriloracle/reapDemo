@@ -21,6 +21,12 @@
   gap: 1rem;
 }
 
+@media (max-width: 600px) {
+  .productGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .sortContainer {
   margin-top: 1rem;
   display: flex;
