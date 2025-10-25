@@ -44,6 +44,7 @@ const DiscoveryPage: React.FC = () => {
         name: p.title,
         source: p.source,
         price: price,
+        priceDisplay: priceString,
         rating: p.rating,
         ratingCount: p.ratingCount,
         position: p.position,
