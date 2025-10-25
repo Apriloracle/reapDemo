@@ -1,6 +1,7 @@
 import React, { useState, forwardRef } from 'react';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
+import { userProfileStore } from '../stores/UserProfileStore';
 
 interface LiqeSearchComponentProps {
   onSearch?: (searchTerm: string) => void;
@@ -12,8 +13,13 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
   const [isFocused, setIsFocused] = useState(false);
 
   const handleSearch = async () => {
-    const searchTerm = query.trim();
+    let searchTerm = query.trim();
     if (searchTerm) {
+      const profile = userProfileStore.getProfile();
+      if (profile?.onboardingChoices?.archetypes?.includes('dealhunter')) {
+        searchTerm += ' sale';
+      }
+
       if (onSearch) {
         await onSearch(searchTerm);
       }
