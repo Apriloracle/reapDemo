@@ -2,6 +2,8 @@ import React, { useState, forwardRef } from 'react';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { userProfileStore } from '../stores/UserProfileStore';
+import { searchIndexStore } from '../stores/SearchIndexStore';
+import { v4 as uuidv4 } from 'uuid';
 
 interface LiqeSearchComponentProps {
   onSearch?: (searchTerm: string) => void;
@@ -42,6 +44,20 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
           if (onSearchResults) {
             onSearchResults(results.shopping || []);
           }
+
+          // Add results to the SearchIndexStore
+          const searchResults = results.shopping || [];
+          const timestamp = Date.now();
+          searchResults.forEach((result: any, index: number) => {
+            const resultId = uuidv4();
+            searchIndexStore.setRow('searchResults', resultId, {
+              id: resultId,
+              query: searchTerm,
+              resultData: JSON.stringify(result),
+              timestamp,
+              relevance: index + 1, // Lower is more relevant
+            });
+          });
         } else {
           console.error('Search API call failed');
         }
@@ -113,8 +129,6 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
 });
 
 export default LiqeSearchComponent;
-
-
 
 
 
