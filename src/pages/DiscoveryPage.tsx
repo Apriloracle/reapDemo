@@ -33,16 +33,22 @@ const DiscoveryPage: React.FC = () => {
   }, []);
 
   const handleSearchResults = async (results: any[]) => {
-    const formattedProducts = results.map((p: any) => ({
-      ...p,
-      asin: p.productId,
-      imageUrl: p.imageUrl,
-      name: p.title,
-      source: p.source,
-      rating: p.rating,
-      ratingCount: p.ratingCount,
-      position: p.position,
-    }));
+    const formattedProducts = results.map((p: any) => {
+      const priceString = p.price || '';
+      const price = parseFloat(priceString.replace(/[^0-9.-]+/g,""));
+      
+      return {
+        ...p,
+        asin: p.productId,
+        imageUrl: p.imageUrl,
+        name: p.title,
+        source: p.source,
+        price: price,
+        rating: p.rating,
+        ratingCount: p.ratingCount,
+        position: p.position,
+      }
+    });
     
     setProducts(formattedProducts);
     applySort(sortOrder, formattedProducts);
@@ -58,6 +64,8 @@ const DiscoveryPage: React.FC = () => {
       sortedProducts = [...productsToSort].sort((a, b) => (b.price || 0) - (a.price || 0));
     } else if (sortOrder === 'rating') {
       sortedProducts = [...productsToSort].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (sortOrder === 'source') {
+      sortedProducts = [...productsToSort].sort((a, b) => (a.source || '').localeCompare(b.source || ''));
     } else {
       sortedProducts = [...productsToSort].sort((a, b) => (a.position || 0) - (b.position || 0));
     }
@@ -99,6 +107,7 @@ const DiscoveryPage: React.FC = () => {
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
           <option value="rating">Sort by Rating</option>
+          <option value="source">Sort by Source</option>
         </select>
       </div>
 
@@ -118,5 +127,4 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
 
