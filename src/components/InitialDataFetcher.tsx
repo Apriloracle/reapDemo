@@ -135,42 +135,9 @@ const InitialDataFetcher: React.FC = () => {
     
     if (merchantsNeedingFetch.length > 0) {
       console.log('Some merchants need product descriptions, queueing...');
-      fetchProductDescriptions(merchantsNeedingFetch);
+      // fetchProductDescriptions(merchantsNeedingFetch);
     } else {
       console.log('All merchant descriptions are complete');
-    }
-  };
-
-  const fetchProductDescriptions = async (merchantNames: string[]) => {
-    for (const merchantName of merchantNames) {
-      // Check if the product range is already stored
-      const storedProductRange = merchantProductRangeStore.getCell('merchants', merchantName, 'productRange');
-      
-      if (storedProductRange) {
-        // Remove this console.log
-        // console.log(`Product range for ${merchantName} already stored, skipping fetch.`);
-        continue; // Skip to the next merchant
-      }
-
-      try {
-        const response = await axios.post('https://us-central1-fourth-buffer-421320.cloudfunctions.net/chatPplx70b', {
-          merchantName,
-          temperature: 0.2,
-          model: "llama-3.1-sonar-small-128k-chat"
-        });
-
-        const productRange = response.data.productRange;
-
-        if (!productRange) {
-          throw new Error('Product range not found in response');
-        }
-
-        merchantProductRangeStore.setCell('merchants', merchantName, 'productRange', productRange);
-        await merchantProductRangePersister.save();
-        console.log(`Stored and saved product range for: ${merchantName}`);
-      } catch (error) {
-        console.error(`Error fetching product range for ${merchantName}:`, error);
-      }
     }
   };
 
@@ -279,4 +246,5 @@ const InitialDataFetcher: React.FC = () => {
 };
 
 export default InitialDataFetcher;
+
 
