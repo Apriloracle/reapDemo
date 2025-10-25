@@ -1,4 +1,5 @@
 import { createStore, createIndexes } from 'tinybase';
+import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
 /**
  * SearchIndexStore
@@ -26,6 +27,10 @@ const indexes = createIndexes(store);
 indexes.setIndexDefinition('byQuery', 'searchResults', 'query');
 indexes.setIndexDefinition('byTimestamp', 'searchResults', 'timestamp');
 indexes.setIndexDefinition('byRelevance', 'searchResults', 'relevance');
+
+// Persist the store to local storage
+const persister = createLocalPersister(store, 'searchIndex');
+persister.load();
 
 export const searchIndexStore = store;
 export const searchIndexIndexes = indexes;
