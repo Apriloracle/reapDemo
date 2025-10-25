@@ -16,7 +16,7 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
     let searchTerm = query.trim();
     if (searchTerm) {
       const profile = userProfileStore.getProfile();
-      if (profile?.onboardingChoices?.archetypes?.includes('dealhunter')) {
+      if (profile?.onboardingChoices?.archetypes?.includes('deal-hunter')) {
         searchTerm += ' sale';
       }
 
@@ -113,6 +113,7 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
 });
 
 export default LiqeSearchComponent;
+
 
 
 
