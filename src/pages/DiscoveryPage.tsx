@@ -43,9 +43,26 @@ const DiscoveryPage: React.FC = () => {
       ratingCount: p.ratingCount,
       position: p.position,
     }));
+    
     setProducts(formattedProducts);
+    applySort(sortOrder, formattedProducts);
+
     await shoppingProductsStore.addProducts(formattedProducts);
   };
+  
+  const applySort = (sortOrder: string, productsToSort: Product[]) => {
+    let sortedProducts: Product[] = [];
+    if (sortOrder === 'price-asc') {
+      sortedProducts = [...productsToSort].sort((a, b) => (a.price || 0) - (b.price || 0));
+    } else if (sortOrder === 'price-desc') {
+      sortedProducts = [...productsToSort].sort((a, b) => (b.price || 0) - (a.price || 0));
+    } else if (sortOrder === 'rating') {
+      sortedProducts = [...productsToSort].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else {
+      sortedProducts = [...productsToSort].sort((a, b) => (a.position || 0) - (b.position || 0));
+    }
+    setProducts(sortedProducts);
+  }
 
   const handleProductClick = (product: Product) => {
     if (product && product.asin) {
@@ -56,18 +73,7 @@ const DiscoveryPage: React.FC = () => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSortOrder = e.target.value;
     setSortOrder(newSortOrder);
-
-    let sortedProducts: Product[] = [];
-    if (newSortOrder === 'price-asc') {
-      sortedProducts = getResultsSortedByPrice(true) as unknown as Product[];
-    } else if (newSortOrder === 'price-desc') {
-      sortedProducts = getResultsSortedByPrice(false) as unknown as Product[];
-    } else if (newSortOrder === 'rating') {
-      sortedProducts = getResultsSortedByRating(false) as unknown as Product[];
-    } else {
-      sortedProducts = getResultsSortedByPosition() as unknown as Product[];
-    }
-    setProducts(sortedProducts);
+    applySort(newSortOrder, products);
   };
 
   const displayedProducts = products.slice(0, 40);
