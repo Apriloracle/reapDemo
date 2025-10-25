@@ -51,6 +51,7 @@ export interface Product {
   name: string;
   imageUrl?: string;
   price?: number;
+  priceDisplay?: string;
   score?: number;
   vector?: Record<string, number>;
   source?: string;
