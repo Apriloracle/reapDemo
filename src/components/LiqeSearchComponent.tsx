@@ -94,7 +94,7 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
         onKeyDown={handleKeyDown}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        placeholder="Find product deals.."
+        placeholder="Find deals across all retailers..."
         style={{
           padding: '0.5rem',
           borderRadius: '20px 0 0 20px',
@@ -134,6 +134,5 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
 });
 
 export default LiqeSearchComponent;
-
 
 
