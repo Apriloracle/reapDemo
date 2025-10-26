@@ -12,12 +12,14 @@ import {
   getResultsSortedByRating,
   getResultsSortedByPosition,
 } from '../stores/SearchIndexStore';
+import { calculateValueScores } from '../utils/valueScoreCalculator';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState('position');
+  const [valueScores, setValueScores] = useState<Map<string, number>>(new Map());
 
   useEffect(() => {
     discoveryEngineService.initialize();
@@ -39,6 +41,7 @@ const DiscoveryPage: React.FC = () => {
       
       return {
         ...p,
+        id: p.productId,
         asin: p.productId,
         imageUrl: p.imageUrl,
         name: p.title,
@@ -51,6 +54,10 @@ const DiscoveryPage: React.FC = () => {
       }
     });
     
+    console.log('Formatted Products:', formattedProducts);
+    const scores = calculateValueScores(formattedProducts);
+    setValueScores(scores);
+
     setProducts(formattedProducts);
     applySort(sortOrder, formattedProducts);
 
@@ -104,7 +111,7 @@ const DiscoveryPage: React.FC = () => {
 
       <div className={discoveryStyles.sortContainer}>
         <select value={sortOrder} onChange={handleSortChange} className={discoveryStyles.sortDropdown}>
-          <option value="position">Sort by Position</option>
+          <option value="position">Sort by Rank</option>
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
           <option value="rating">Sort by Rating</option>
@@ -119,6 +126,7 @@ const DiscoveryPage: React.FC = () => {
               key={product.asin}
               product={product}
               onClick={() => handleProductClick(product)}
+              valueScore={valueScores.get(product.asin) || 0}
             />
           ))}
         </div>
@@ -128,4 +136,5 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
