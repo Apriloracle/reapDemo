@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
       )}
       {product.rating && (
         <div className={styles.productRating}>
-          <span>{product.rating}</span>
+          <span>{product.rating}★</span>
           <span>({product.ratingCount})</span>
         </div>
       )}
@@ -76,5 +76,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 };
 
 export default ProductCard;
-
 
