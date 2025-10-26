@@ -150,7 +150,7 @@ const ProductDetailPage: React.FC = () => {
       </div>
 
       <div className={styles.detailsContainer}>
-        <p className={styles.price}>{product.price}</p>
+        <p className={styles.price}>{product.priceDisplay}</p>
         <h1 className={styles.title}>{product.name}</h1>
         <p className={styles.source}>{product.source}</p>
 
@@ -187,7 +187,6 @@ const ProductDetailPage: React.FC = () => {
 };
 
 export default ProductDetailPage;
-
 
 
 
