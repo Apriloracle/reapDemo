@@ -285,7 +285,7 @@ const MainPage: React.FC<MainPageProps> = ({
         <div style={{ pointerEvents: 'none' }}>
           
         </div>
-        <div style={{ pointerEvents: 'none' }}>
+        <div style={{ pointerEvents: 'none', width: '75%' }}>
           <LiqeSearchComponent
             onSearch={() => {}}
             onSearchResults={setSearchResults}
@@ -1352,7 +1352,6 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
-
 
 
 
