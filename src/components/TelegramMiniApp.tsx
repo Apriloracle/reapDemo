@@ -99,6 +99,7 @@ const MainPage: React.FC<MainPageProps> = ({
 
    // State for current deal index - Now managed inside MainPage
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
+  const [showIntroMessage, setShowIntroMessage] = useState(true);
 
     const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(
     localStorage.getItem('hasCompletedOnboarding') === 'true'
@@ -353,35 +354,52 @@ const MainPage: React.FC<MainPageProps> = ({
 
  {/* New Icon Placeholders Section */}
     {/* NEW: Information message pointing to scan button */}
-      <div style={{ 
-        position: 'fixed', 
-        bottom: '150px', 
-        right: '20px', 
-        zIndex: 999,
-        maxWidth: '200px'
-      }}>
-        <div style={{
-          backgroundColor: '#f05e23',
-          color: 'white',
-          padding: '10px',
-          borderRadius: '8px',
-          fontSize: '14px',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-          position: 'relative',
+      {showIntroMessage && (
+        <div style={{ 
+          position: 'fixed', 
+          bottom: '150px', 
+          right: '20px', 
+          zIndex: 999,
+          maxWidth: '200px'
         }}>
-          Scan products in-store to find better deals instantly!
           <div style={{
-            position: 'absolute',
-            bottom: '-10px',
-            right: '50px',
-            width: '0',
-            height: '0',
-            borderLeft: '10px solid transparent',
-            borderRight: '10px solid transparent',
-            borderTop: '10px solid #f05e23',
-          }} />
+            backgroundColor: '#f05e23',
+            color: 'white',
+            padding: '10px',
+            borderRadius: '8px',
+            fontSize: '14px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+            position: 'relative',
+          }}>
+            <button 
+              onClick={() => setShowIntroMessage(false)}
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+                background: 'none',
+                border: 'none',
+                color: 'white',
+                fontSize: '16px',
+                cursor: 'pointer'
+              }}
+            >
+              &times;
+            </button>
+            Scan products in-store to find better deals instantly!
+            <div style={{
+              position: 'absolute',
+              bottom: '-10px',
+              right: '50px',
+              width: '0',
+              height: '0',
+              borderLeft: '10px solid transparent',
+              borderRight: '10px solid transparent',
+              borderTop: '10px solid #f05e23',
+            }} />
+          </div>
         </div>
-      </div>
+      )}
 
 
 
@@ -1334,7 +1352,6 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
-
 
 
 
