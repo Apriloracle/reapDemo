@@ -36,6 +36,17 @@
 .sortDropdown {
   padding: 0.5rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #f05e23;
+  background-color: #000000;
+  color: #f05e23;
+}
+
+.sortDropdown:focus {
+  outline-color: #f05e23;
+}
+
+.sortDropdown option:hover {
+  background-color: #f05e23;
+  color: #ffffff;
 }
 
