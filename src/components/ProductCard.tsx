@@ -6,12 +6,16 @@ import styles from '../styles/ProductCard.module.css';
 interface ProductCardProps {
   product: Product;
   onClick: (asin: string) => void;
+  valueScore?: number;
 }
 
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick, valueScore = 0 }) => {
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const navigate = useNavigate();
+  const isGreatValue = valueScore > 0.6;
+
+  console.log(product.name, valueScore);
 
   const handleImageLoad = (imageUrl: string) => {
     setLoadedImages(prev => ({
@@ -55,6 +59,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
       <div className={styles.productTitle}>
         {product.name}
       </div>
+      {isGreatValue && (
+        <div className={styles.greatValueBadge}>
+          🏆 GREAT VALUE
+          <div className={styles.greatValueSubtext}>✓ Top tier price & rating</div>
+        </div>
+      )}
       {product.priceDisplay && (
         <div className={styles.productPrice}>
           {product.priceDisplay}
@@ -76,4 +86,5 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 };
 
 export default ProductCard;
+
 
