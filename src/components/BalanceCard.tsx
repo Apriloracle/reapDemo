@@ -58,7 +58,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ totalBalance, availableApril,
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
         <div>
-          <div style={{ fontSize: '14px', fontWeight: '' }}>Total Balance</div>
+          <div style={{ fontSize: '14px', fontWeight: '' }}>Your Rewards</div>
           <div style={{ fontSize: '38px', fontWeight: '' }}>{formatUsdBalance(totalBalance)}</div>
         </div>
         <div style={{ 
