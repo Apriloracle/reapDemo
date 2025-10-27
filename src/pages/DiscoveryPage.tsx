@@ -19,7 +19,18 @@ const DiscoveryPage: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState('position');
-  const [valueScores, setValueScores] = useState<Map<string, number>>(new Map());
+
+  useEffect(() => {
+    // Check if products exist and if they already have scores
+    if (products.length > 0 && typeof products[0].valueScore === 'undefined') {
+      const scores = calculateValueScores(products);
+      const productsWithScores = products.map(p => ({
+        ...p,
+        valueScore: scores.get(p.asin) || 0,
+      }));
+      setProducts(productsWithScores);
+    }
+  }, [products]);
 
   useEffect(() => {
     discoveryEngineService.initialize();
@@ -54,14 +65,17 @@ const DiscoveryPage: React.FC = () => {
       }
     });
     
-    console.log('Formatted Products:', formattedProducts);
     const scores = calculateValueScores(formattedProducts);
-    setValueScores(scores);
+    
+    const productsWithScores = formattedProducts.map(p => ({
+      ...p,
+      valueScore: scores.get(p.asin) || 0,
+    }));
 
-    setProducts(formattedProducts);
+    setProducts(productsWithScores);
     applySort(sortOrder, formattedProducts);
 
-    await shoppingProductsStore.addProducts(formattedProducts);
+    await shoppingProductsStore.addProducts(productsWithScores);
   };
   
   const applySort = (sortOrder: string, productsToSort: Product[]) => {
@@ -126,7 +140,6 @@ const DiscoveryPage: React.FC = () => {
               key={product.asin}
               product={product}
               onClick={() => handleProductClick(product)}
-              valueScore={valueScores.get(product.asin) || 0}
             />
           ))}
         </div>
@@ -136,5 +149,4 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
 
