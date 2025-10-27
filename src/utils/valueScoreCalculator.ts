@@ -45,8 +45,12 @@ export const calculateValueScores = (products: Product[]): Map<string, number> =
     return new Map();
   }
 
-  // Filter out products that don't have a price or rating, as they cannot be scored.
-  const scorableProducts = products.filter(p => typeof p.price === 'number' && typeof p.rating === 'number');
+  // Filter out products that don't have a price, rating, or enough ratings to be considered reliable.
+  const scorableProducts = products.filter(p => 
+    typeof p.price === 'number' && 
+    typeof p.rating === 'number' &&
+    (p.ratingCount || 0) >= 20
+  );
 
   if (scorableProducts.length === 0) {
     return new Map();
@@ -74,4 +78,3 @@ export const calculateValueScores = (products: Product[]): Map<string, number> =
 
   return scores;
 };
-
