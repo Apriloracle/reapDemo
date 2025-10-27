@@ -21,6 +21,7 @@ store.setTablesSchema({
     position: { type: 'number' },
     timestamp: { type: 'number' },
     resultData: { type: 'string' },
+    valueScore: { type: 'number', default: 0 },
   },
 });
 
@@ -33,7 +34,6 @@ indexes.setIndexDefinition('byTimestamp', 'searchResults', 'timestamp');
 indexes.setIndexDefinition('byPrice', 'searchResults', 'price');
 indexes.setIndexDefinition('byRating', 'searchResults', 'rating');
 indexes.setIndexDefinition('byPosition', 'searchResults', 'position');
-
 
 export const getResultsSortedByPrice = (ascending = true) => {
   const sortedRowIds = indexes.getSliceRowIds('byPrice', 'byPrice');
@@ -56,3 +56,4 @@ export const getResultsSortedByPosition = () => {
 
 export const searchIndexStore = store;
 export const searchIndexIndexes = indexes;
+
