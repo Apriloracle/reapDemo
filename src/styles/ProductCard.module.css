@@ -106,3 +106,14 @@
   font-weight: normal;
   opacity: 0.9;
 }
+
+.dealBadge {
+  background-color: #38A169;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin: 0 0.5rem;
+  text-align: center;
+}
