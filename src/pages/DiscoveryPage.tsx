@@ -52,7 +52,6 @@ const DiscoveryPage: React.FC = () => {
       
       return {
         ...p,
-        id: p.productId,
         asin: p.productId,
         imageUrl: p.imageUrl,
         name: p.title,
@@ -73,7 +72,7 @@ const DiscoveryPage: React.FC = () => {
     }));
 
     setProducts(productsWithScores);
-    applySort(sortOrder, formattedProducts);
+    applySort(sortOrder, productsWithScores);
 
     await shoppingProductsStore.addProducts(productsWithScores);
   };
@@ -152,5 +151,6 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
 
