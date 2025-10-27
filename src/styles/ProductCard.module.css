@@ -89,3 +89,20 @@
   color: #A0AEC0;
   padding: 0 0.5rem;
 }
+
+.greatValueBadge {
+  background-color: #f05e23;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin: 0 0.5rem;
+  text-align: center;
+}
+
+.greatValueSubtext {
+  font-size: 0.7rem;
+  font-weight: normal;
+  opacity: 0.9;
+}
