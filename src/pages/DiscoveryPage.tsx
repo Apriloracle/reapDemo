@@ -13,6 +13,7 @@ import {
   getResultsSortedByPosition,
 } from '../stores/SearchIndexStore';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
+import { matchDealsToProducts } from '../services/DealMatchingService';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -66,10 +67,12 @@ const DiscoveryPage: React.FC = () => {
     
     const scores = calculateValueScores(formattedProducts);
     
-    const productsWithScores = formattedProducts.map(p => ({
+    let productsWithScores = formattedProducts.map(p => ({
       ...p,
       valueScore: scores.get(p.asin) || 0,
     }));
+
+    productsWithScores = matchDealsToProducts(productsWithScores);
 
     setProducts(productsWithScores);
     applySort(sortOrder, productsWithScores);
@@ -151,6 +154,7 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
 
 
