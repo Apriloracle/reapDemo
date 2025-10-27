@@ -14,6 +14,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
   const navigate = useNavigate();
   const isGreatValue = (product.valueScore || 0) > 0.7;
 
+  if (product.deal) {
+    console.log('Deal found for product:', product.name, product.deal);
+  }
 
   const handleImageLoad = (imageUrl: string) => {
     setLoadedImages(prev => ({
@@ -61,6 +64,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
         <div className={styles.greatValueBadge}>
           🏆 GREAT VALUE
           <div className={styles.greatValueSubtext}>✓ Top tier price & rating</div>
+        </div>
+      )}
+      {product.deal && (
+        <div className={styles.dealBadge}>
+          🏷️ DEAL: {product.deal.summary}
         </div>
       )}
       {product.priceDisplay && (
