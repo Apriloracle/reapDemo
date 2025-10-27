@@ -88,6 +88,8 @@ const DiscoveryPage: React.FC = () => {
       sortedProducts = [...productsToSort].sort((a, b) => (b.rating || 0) - (a.rating || 0));
     } else if (sortOrder === 'source') {
       sortedProducts = [...productsToSort].sort((a, b) => (a.source || '').localeCompare(b.source || ''));
+    } else if (sortOrder === 'best-value') {
+      sortedProducts = [...productsToSort].sort((a, b) => (b.valueScore || 0) - (a.valueScore || 0));
     } else {
       sortedProducts = [...productsToSort].sort((a, b) => (a.position || 0) - (b.position || 0));
     }
@@ -130,6 +132,7 @@ const DiscoveryPage: React.FC = () => {
           <option value="price-desc">Price: High to Low</option>
           <option value="rating">Sort by Rating</option>
           <option value="source">Sort by Source</option>
+          <option value="best-value">Sort by Best Value</option>
         </select>
       </div>
 
@@ -149,4 +152,5 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
