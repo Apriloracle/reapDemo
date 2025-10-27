@@ -10,31 +10,13 @@ import { favoriteStore } from '../stores/FavoriteStore';
 import { userProfileStore } from '../stores/UserProfileStore';
 import useIPGeolocation from './IPGeolocation';
 import axios from 'axios';
-
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-
-interface Deal {
-  id: string;
-  dealId: string;
-  merchantName: string;
-  logo: string;
-  logoAbsoluteUrl: string;
-  cashbackType: string;
-  cashback: number;
-  currency: string;
-  domains: string[];
-  countries: string[];
-  codes: any[]; // You might want to define a more specific type for codes
-  startDate: string;
-  endDate: string;
-}
+import { loadOrFetchDeals, getDealsStore } from '../stores/KindredDealsStore';
+import { initializeDealMatchingService } from '../services/DealMatchingService';
 
 const InitialDataFetcher: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [countryCode, setCountryCode] = useState<string | null>(null);
   const geolocationData = useIPGeolocation();
-  const dealsStore = React.useMemo(() => createStore(), []);
-  const dealsPersister = React.useMemo(() => createLocalPersister(dealsStore, 'kindred-deals'), [dealsStore]);
   
   // New stores and persisters
   const activatedDealsStore = React.useMemo(() => createStore(), []);
@@ -48,74 +30,6 @@ const InitialDataFetcher: React.FC = () => {
 
   const [isGeolocationAvailable, setIsGeolocationAvailable] = useState(false);
   const [fetchedMerchants, setFetchedMerchants] = useState<Set<string>>(new Set());
-
-  const fetchAndStoreDeals = useCallback(async (countryCode: string) => {
-    console.log('Fetching deals with country code:', countryCode);
-    try {
-      const response = await fetch(`https://asia-southeast1-fourth-buffer-421320.cloudfunctions.net/kindredMerchant?countryCode=${countryCode}`);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch deals: ${response.status} ${response.statusText}. ${errorText}`);
-      }
-
-      const data: Deal[] = await response.json();
-      
-      const dealsTable: Record<string, Record<string, string | number | boolean>> = {};
-      const merchantDescriptions: Record<string, string> = {};
-
-      data.forEach(deal => {
-        dealsTable[deal.id] = {
-          dealId: deal.dealId,
-          merchantName: deal.merchantName,
-          logo: deal.logo,
-          logoAbsoluteUrl: deal.logoAbsoluteUrl,
-          cashbackType: deal.cashbackType,
-          cashback: deal.cashback,
-          currency: deal.currency,
-          domains: JSON.stringify(deal.domains),
-          countries: JSON.stringify(deal.countries),
-          codes: JSON.stringify(deal.codes),
-          startDate: deal.startDate,
-          endDate: deal.endDate
-        };
-
-        merchantDescriptions[deal.merchantName] = deal.merchantName;
-      });
-
-      dealsStore.setTable('deals', dealsTable);
-      dealsStore.setValue('lastFetchTime', Date.now());
-
-      // Add coordinate functionality and update coordinates for the new deals.
-      const updateCoordinates = addCoordinateToStore(dealsStore, 'deals');
-      await updateCoordinates();
-
-      if (Object.keys(merchantDescriptionStore.getTable('merchants')).length === 0) {
-        Object.entries(merchantDescriptions).forEach(([key, value]) => {
-          merchantDescriptionStore.setCell('merchants', key, 'name', value);
-        });
-        await merchantDescriptionPersister.save();
-      }
-
-      await dealsPersister.save();
-    } catch (err) {
-      console.error('Error fetching deals:', err);
-      // You might want to set an error state here to display to the user
-    }
-  }, [dealsStore, dealsPersister, merchantDescriptionStore, merchantDescriptionPersister]);
-
-  const loadOrFetchDeals = useCallback(async (countryCode: string) => {
-    await dealsPersister.load();
-    const lastFetchTime = dealsStore.getValue('lastFetchTime') as number | undefined;
-    const currentTime = Date.now();
-
-    if (!lastFetchTime || currentTime - lastFetchTime > CACHE_DURATION) {
-      console.log('Fetching new deals data');
-      await fetchAndStoreDeals(countryCode);
-    } else {
-      console.log('Using cached deals data');
-    }
-  }, [dealsPersister, dealsStore, fetchAndStoreDeals]);
 
   const loadActivatedDeals = async () => {
     await activatedDealsPersister.load();
@@ -179,11 +93,12 @@ const InitialDataFetcher: React.FC = () => {
 
         // Now that we have the country code, we can load or fetch deals
         await loadOrFetchDeals(currentCountryCode);
+        initializeDealMatchingService();
         await loadActivatedDeals();
         await loadMerchantDescriptions();
 
         // --- POPULATE COORDINATE INDEX ---
-        populateCoordinateIndex(dealsStore, 'deals');
+        populateCoordinateIndex(getDealsStore(), 'deals');
         populateCoordinateIndex(activatedDealsStore, 'activatedDeals');
         populateCoordinateIndex(merchantDescriptionStore, 'merchants');
         populateCoordinateIndex(merchantProductRangeStore, 'merchants');
@@ -210,7 +125,7 @@ const InitialDataFetcher: React.FC = () => {
     if (!isInitialized) {
       initializeData();
     }
-  }, [geolocationData, isInitialized, loadOrFetchDeals, loadActivatedDeals, loadMerchantDescriptions]);
+  }, [geolocationData, isInitialized, loadActivatedDeals, loadMerchantDescriptions]);
 
   useEffect(() => {
     // This effect will run once when the component mounts
@@ -229,8 +144,6 @@ const InitialDataFetcher: React.FC = () => {
     if (countryCode) {
       console.log('Using country code:', countryCode);
       // You can now use the countryCode in your data fetching logic
-      // For example, you might want to pass it to the fetchAndStoreDeals function
-      // fetchAndStoreDeals(countryCode);
     }
   }, [countryCode]);
 
@@ -246,5 +159,6 @@ const InitialDataFetcher: React.FC = () => {
 };
 
 export default InitialDataFetcher;
+
 
 
