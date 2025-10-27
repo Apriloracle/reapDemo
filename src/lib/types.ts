@@ -53,6 +53,7 @@ export interface Product {
   price?: number;
   priceDisplay?: string;
   score?: number;
+  valueScore?: number;
   vector?: Record<string, number>;
   source?: string;
   link?: string;
