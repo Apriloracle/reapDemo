@@ -1,9 +1,4 @@
-interface Product {
-  asin: string;
-  price: number;
-  rating: number;
-  [key: string]: any;
-}
+import { Product } from '../lib/types';
 
 /**
  * Calculates the percentile rank of a value in an array, handling ties correctly.
@@ -50,19 +45,26 @@ export const calculateValueScores = (products: Product[]): Map<string, number> =
     return new Map();
   }
 
-  const prices = products.map(p => p.price);
-  const ratings = products.map(p => p.rating);
+  // Filter out products that don't have a price or rating, as they cannot be scored.
+  const scorableProducts = products.filter(p => typeof p.price === 'number' && typeof p.rating === 'number');
+
+  if (scorableProducts.length === 0) {
+    return new Map();
+  }
+
+  const prices = scorableProducts.map(p => p.price as number);
+  const ratings = scorableProducts.map(p => p.rating as number);
 
   const scores = new Map<string, number>();
 
-  products.forEach(product => {
+  scorableProducts.forEach(product => {
     // For price, a lower value is better, so we want the percentile of being CHEAPER than others.
     // The rank formula naturally handles this: a low price will have a low percentile.
     // To make a higher score better, we subtract from 1.
-    const pricePercentile = 1 - calculatePercentileRank(prices, product.price);
+    const pricePercentile = 1 - calculatePercentileRank(prices, product.price as number);
     
     // Higher percentile is better for rating (higher rating = higher rank)
-    const ratingPercentile = calculatePercentileRank(ratings, product.rating);
+    const ratingPercentile = calculatePercentileRank(ratings, product.rating as number);
 
     // Calculate geometric mean
     const valueScore = Math.sqrt(pricePercentile * ratingPercentile);
@@ -72,3 +74,4 @@ export const calculateValueScores = (products: Product[]): Map<string, number> =
 
   return scores;
 };
+
