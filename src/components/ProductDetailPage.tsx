@@ -123,7 +123,15 @@ const ProductDetailPage: React.FC = () => {
     }
   }, [asin]);
 
-  if (!product) return <div className={styles.container}>Product not found.</div>;
+    if (!product) return <div className={styles.container}>Product not found.</div>;
+  
+    const isProduct = (p: any): p is Product => {
+      return p && typeof p.asin === 'string' && typeof p.name === 'string';
+    }
+  
+    if (!isProduct(product)) {
+      return <div className={styles.container}>Invalid product data.</div>;
+    }
 
   return (
     <div className={styles.container}>
@@ -142,9 +150,23 @@ const ProductDetailPage: React.FC = () => {
       </div>
 
       <div className={styles.detailsContainer}>
-        <p className={styles.price}>{product.priceDisplay}</p>
+        <p className={styles.priceDisplay}>{product.priceDisplay}</p>
         <h1 className={styles.title}>{product.name}</h1>
         <p className={styles.brand}>{product.source}</p>
+
+        {product.rating && (
+          <div className={styles.productRating}>
+            <span>{product.rating}★</span>
+            <span>({product.ratingCount})</span>
+          </div>
+        )}
+
+        {(product.valueScore || 0) > 0.7 && (
+          <div className={styles.greatValueBadge}>
+            🏆 GREAT VALUE
+            <div className={styles.greatValueSubtext}>✓ Top tier price & rating</div>
+          </div>
+        )}
 
         <div className={styles.actionsContainer}>
           <button onClick={handleFavorite} className={styles.favoriteButton}>
