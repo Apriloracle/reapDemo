@@ -11,7 +11,7 @@ import { userProfileStore } from '../stores/UserProfileStore';
 import useIPGeolocation from './IPGeolocation';
 import axios from 'axios';
 import { loadOrFetchDeals, getDealsStore } from '../stores/KindredDealsStore';
-import { initializeDealMatchingService } from '../services/DealMatchingService';
+import { initializeDealsIndexStore } from '../stores/DealsIndexStore';
 
 const InitialDataFetcher: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -93,7 +93,7 @@ const InitialDataFetcher: React.FC = () => {
 
         // Now that we have the country code, we can load or fetch deals
         await loadOrFetchDeals(currentCountryCode);
-        initializeDealMatchingService();
+        await initializeDealsIndexStore();
         await loadActivatedDeals();
         await loadMerchantDescriptions();
 
