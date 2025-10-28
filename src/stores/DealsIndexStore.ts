@@ -5,6 +5,9 @@ import { getDealsStore as getKindredDealsStore } from './KindredDealsStore';
 
 const store = createStore();
 const indexes = createIndexes(store);
+const persister = typeof window !== 'undefined'
+  ? createLocalPersister(store, 'deals-index')
+  : null;
 
 store.setTablesSchema({
   deals: {
@@ -39,8 +42,14 @@ export const getDealsIndexStore = (): Store => store;
 export const getDealsIndexes = (): Indexes => indexes;
 
 export const initializeDealsIndexStore = async () => {
+  if (persister) {
+    await persister.load();
+  }
   const dealsStore = getKindredDealsStore();
   const deals = dealsStore.getTable('deals');
   store.setTable('deals', deals);
   console.log('DealsIndexStore initialized. First 5 deals:', Object.values(deals).slice(0, 5));
+  if (persister) {
+    await persister.save();
+  }
 };
