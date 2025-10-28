@@ -41,7 +41,7 @@ export const matchDealsToProducts = (products: Product[]): Product[] => {
           if (code.summary) {
             const summaryWords = new Set(code.summary.toLowerCase().split(' '));
             const productWords = new Set(p.name.toLowerCase().split(' '));
-            const intersection = new Set([...summaryWords].filter(x => productWords.has(x)));
+            const intersection = new Set([...summaryWords].filter((x: string) => productWords.has(x)));
             if (intersection.size > 1) { // Require at least 2 matching words
               bestDeal = code;
               break;
