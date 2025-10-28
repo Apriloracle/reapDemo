@@ -14,8 +14,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
   const navigate = useNavigate();
   const isGreatValue = (product.valueScore || 0) > 0.7;
 
+let deal = null;
   if (product.deal) {
-    console.log('Deal found for product:', product.name, product.deal);
+    console.log('Deal in ProductCard:', product.deal);
+    try {
+      deal = typeof product.deal === 'string' ? JSON.parse(product.deal) : product.deal;
+      console.log('Parsed deal:', deal);
+    } catch (e) {
+      console.error('Error parsing deal:', e);
+    }
   }
 
   const handleImageLoad = (imageUrl: string) => {
@@ -66,9 +73,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           <div className={styles.greatValueSubtext}>✓ Top tier price & rating</div>
         </div>
       )}
-      {product.deal && (
+      {deal && (
         <div className={styles.dealBadge}>
-          🏷️ DEAL: {product.deal.summary}
+          🏷️ DEAL
+          <div className={styles.dealSummary}>{deal.summary}</div>
         </div>
       )}
       {product.priceDisplay && (
