@@ -21,7 +21,9 @@ interface Deal {
 }
 
 const store = createStore();
-const persister = createLocalPersister(store, 'kindred-deals');
+const persister = typeof window !== 'undefined'
+  ? createLocalPersister(store, 'kindred-deals')
+  : null;
 
 export const fetchAndStoreDeals = async (countryCode: string) => {
   console.log('Fetching deals with country code:', countryCode);
@@ -60,14 +62,18 @@ export const fetchAndStoreDeals = async (countryCode: string) => {
     const updateCoordinates = addCoordinateToStore(store, 'deals');
     await updateCoordinates();
 
-    await persister.save();
+    if (persister) {
+      await persister.save();
+    }
   } catch (err) {
     console.error('Error fetching deals:', err);
   }
 };
 
 export const loadOrFetchDeals = async (countryCode: string) => {
-  await persister.load();
+  if (persister) {
+    await persister.load();
+  }
   const lastFetchTime = store.getValue('lastFetchTime') as number | undefined;
   const currentTime = Date.now();
 
