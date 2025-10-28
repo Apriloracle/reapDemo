@@ -13,7 +13,7 @@ import {
   getResultsSortedByPosition,
 } from '../stores/SearchIndexStore';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
-import { matchDealsToProducts } from '../services/DealMatchingService';
+import { getDealsIndexes, getDealsIndexStore } from '../stores/DealsIndexStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -67,15 +67,46 @@ const DiscoveryPage: React.FC = () => {
     
     const scores = calculateValueScores(formattedProducts);
     
-    let productsWithScores = formattedProducts.map(p => ({
-      ...p,
-      valueScore: scores.get(p.asin) || 0,
-    }));
+    const dealsIndexes = getDealsIndexes();
+    const dealsStore = getDealsIndexStore();
+    let productsWithScores = formattedProducts.map(p => {
+      const brand = p.name.split(' ')[0];
+      const dealIds = dealsIndexes.getSliceRowIds('byMerchant', brand);
+      let bestDeal = null;
+      if (dealIds && dealIds.length > 0) {
+        const deal = dealsStore.getRow('deals', dealIds[0]);
+        if (deal && deal.codes) {
+          try {
+            bestDeal = JSON.parse(deal.codes as string)[0];
+          } catch (e) {
+            console.error("Failed to parse deal codes:", e);
+          }
+        }
+      }
 
-    productsWithScores = matchDealsToProducts(productsWithScores);
+      return {
+        ...p,
+        valueScore: scores.get(p.asin) || 0,
+        deal: bestDeal ? JSON.stringify(bestDeal) : '',
+      };
+    });
+
+    // Now, save the enriched products to the DealsIndexStore
+    productsWithScores.forEach(p => {
+      dealsStore.setRow('searchResults', p.asin, {
+        name: p.name,
+        source: p.source,
+        price: p.price,
+        rating: p.rating,
+        ratingCount: p.ratingCount,
+        deal: p.deal ? JSON.stringify(p.deal) : '',
+      });
+    });
 
     setProducts(productsWithScores);
     applySort(sortOrder, productsWithScores);
+
+    console.log('DealsIndexStore searchResults:', dealsStore.getTable('searchResults'));
 
     await shoppingProductsStore.addProducts(productsWithScores);
   };
@@ -154,6 +185,7 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
 
 
