@@ -117,3 +117,9 @@
   margin: 0 0.5rem;
   text-align: center;
 }
+
+.dealSummary {
+  font-size: 0.7rem;
+  font-weight: normal;
+  opacity: 0.9;
+}
