@@ -173,6 +173,9 @@
   border-radius: 8px;
   margin-bottom: 1rem;
   text-align: center;
+  width: 50%;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .greatValueSubtext {
