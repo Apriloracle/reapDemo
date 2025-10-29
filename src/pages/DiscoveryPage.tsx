@@ -14,6 +14,7 @@ import {
 } from '../stores/SearchIndexStore';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
 import { getDealsIndexes, getDealsIndexStore } from '../stores/DealsIndexStore';
+import { parseDeal } from '../lib/dealParser';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -74,10 +75,11 @@ const DiscoveryPage: React.FC = () => {
       const dealIds = dealsIndexes.getSliceRowIds('byMerchant', brand);
       let bestDeal = null;
       if (dealIds && dealIds.length > 0) {
-        const deal = dealsStore.getRow('deals', dealIds[0]);
+        const deal = getDealsIndexStore().getRow('deals', dealIds[0]);
         if (deal && deal.codes) {
           try {
-            bestDeal = JSON.parse(deal.codes as string)[0];
+            const rawDeal = JSON.parse(deal.codes as string)[0];
+            bestDeal = parseDeal(rawDeal);
           } catch (e) {
             console.error("Failed to parse deal codes:", e);
           }
@@ -87,7 +89,7 @@ const DiscoveryPage: React.FC = () => {
       return {
         ...p,
         valueScore: scores.get(p.asin) || 0,
-        deal: bestDeal ? JSON.stringify(bestDeal) : '',
+        deal: bestDeal,
       };
     });
 
@@ -185,6 +187,7 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
 
 
