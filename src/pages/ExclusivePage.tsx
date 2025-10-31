@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import PremiumContentButton from '../components/PremiumContentButton';
 import { useCell } from 'tinybase/ui-react';
@@ -33,11 +33,27 @@ const LightbulbIcon = () => (
 );
 
 const ExclusivePage: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
+    setIsMounted(true);
     membershipStore.initialize();
   }, []);
 
   const isMember = useCell('membership', 'member', 'isMember', membershipStore.store);
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!isMounted) {
+    return (
+      <div className={styles.pageContainer}>
+        <div className={styles.contentWrapper}>
+          <div style={{textAlign: 'center'}}>
+            <h1 style={{ fontSize: '1.8rem', fontWeight: 700 }}>Loading...</h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.pageContainer}>
@@ -136,8 +152,8 @@ const ExclusivePage: React.FC = () => {
           </>
         ) : (
           <div style={{textAlign: 'center'}}>
-            <h1 style={{ fontSize: '1.8rem', fontWeight: 700, color: 'white' }}>Deals+ Membership</h1>
-            <p style={{ maxWidth: '320px', opacity: 0.85, color: 'white', margin: '1rem auto' }}>
+            <h1 style={{ fontSize: '1.8rem', fontWeight: 700 }}>Deals+ Membership</h1>
+            <p style={{ maxWidth: '320px', opacity: 0.85, margin: '1rem auto' }}>
               Join the Deals+ program to access members-only offers and premium merchant rewards — powered by x402
               payments on Solana.
             </p>
@@ -170,7 +186,7 @@ const ExclusivePage: React.FC = () => {
               </div>
             </div>
 
-            <p style={{ fontSize: '0.75rem', opacity: 0.6, marginTop: '15px', color: 'white' }}>
+            <p style={{ fontSize: '0.75rem', opacity: 0.6, marginTop: '15px' }}>
               Secure payments handled via your connected Solana wallet.
             </p>
           </div>
