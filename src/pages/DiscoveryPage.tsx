@@ -14,7 +14,6 @@ import {
 } from '../stores/SearchIndexStore';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
 import { getDealsIndexes, getDealsIndexStore } from '../stores/DealsIndexStore';
-import { parseDeal } from '../utils/dealParser';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -75,11 +74,10 @@ const DiscoveryPage: React.FC = () => {
       const dealIds = dealsIndexes.getSliceRowIds('byMerchant', brand);
       let bestDeal = null;
       if (dealIds && dealIds.length > 0) {
-        const deal = getDealsIndexStore().getRow('deals', dealIds[0]);
+        const deal = dealsStore.getRow('deals', dealIds[0]);
         if (deal && deal.codes) {
           try {
-            const rawDeal = JSON.parse(deal.codes as string)[0];
-            bestDeal = parseDeal(rawDeal);
+            bestDeal = JSON.parse(deal.codes as string)[0];
           } catch (e) {
             console.error("Failed to parse deal codes:", e);
           }
@@ -89,7 +87,7 @@ const DiscoveryPage: React.FC = () => {
       return {
         ...p,
         valueScore: scores.get(p.asin) || 0,
-        deal: bestDeal,
+        deal: bestDeal ? JSON.stringify(bestDeal) : '',
       };
     });
 
@@ -149,7 +147,7 @@ const DiscoveryPage: React.FC = () => {
     <div className={discoveryStyles.page}>
       <div className={discoveryStyles.searchHeader}>
         <button onClick={() => navigate('/')} className={discoveryStyles.backButton}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
@@ -187,6 +185,7 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
+
 
 
 
