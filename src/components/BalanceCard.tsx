@@ -50,10 +50,8 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ totalBalance, availableApril,
 
   return (
     <div style={{
-      backgroundColor: '#000000',
       borderRadius: '10px',
       padding: '16px',
-      color: 'white',
       marginBottom: '0px',
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
@@ -67,7 +65,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ totalBalance, availableApril,
           padding: '8px',
           minWidth: '12px'
         }}>
-          <div style={{ fontSize: '14px', fontWeight: '' }}>
+          <div style={{ fontSize: '14px', fontWeight: '', color: 'white' }}>
             {formatAprilBalance(availableApril.value)} <span style={{ fontSize: '12px', color: '#f05e23' }}>APRIL</span>
           </div>
         </div>
@@ -77,3 +75,4 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ totalBalance, availableApril,
 };
 
 export default BalanceCard;
+
