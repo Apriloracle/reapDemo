@@ -1306,23 +1306,9 @@ const TelegramMiniApp: React.FC = () => {
   };
 
   return (
-      <div ref={appRef} style={{ backgroundColor: '#000000', color: '#FFFFFF', padding: '1rem', maxWidth: '28rem', margin: '0 auto', fontFamily: 'sans-serif', position: 'relative', overflowY: 'auto' }}>
+      <div ref={appRef} style={{ padding: '1rem', maxWidth: '28rem', margin: '0 auto', fontFamily: 'sans-serif', position: 'relative', overflowY: 'auto' }}>
         {/* Connection status icon now uses websocket context */}
-        {provider && (
-          <div 
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              left: '1rem',
-              width: '12px',
-              height: '12px',
-              borderRadius: '50%',
-              backgroundColor: '#0d0d0d',
-              transition: 'background-color 0.3s ease',
-            }}
-            title={'Connected to sync server'}
-          />
-        )}
+        
 
         <InitialDataFetcher />
         
