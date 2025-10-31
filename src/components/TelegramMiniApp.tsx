@@ -42,6 +42,7 @@ import SimilarProductsPage from '../pages/SimilarProductsPage'; // Import the ne
 import DiscoveryPage from '../pages/DiscoveryPage'; // Import the new page
 import ProductDetailPage from './ProductDetailPage'; // Use the component version that only uses local store
 import ShoppingResultsPage from '../pages/ShoppingResultsPage'; // Import the new page
+import ExclusivePage from '../pages/ExclusivePage'; // Import the new page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
@@ -965,7 +966,7 @@ const TelegramMiniApp: React.FC = () => {
       clearInterval(intervalId3);
       aprilPricePersister.destroy();
     };
-  }, [localWalletAddress, address]);
+  }, []);
 
   // Update loadPersistedData function
   const loadPersistedData = async () => {
@@ -1258,6 +1259,29 @@ const TelegramMiniApp: React.FC = () => {
           </svg>
           <span style={{ marginTop: '2px' }}>Profile</span>
         </button>
+
+        {/* Exclusive button */}
+        <button
+          onClick={() => navigate('/exclusive')}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: location.pathname === '/exclusive' ? '#f05e23' : '#fff',
+            fontSize: '12px',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingTop: '4px',
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span style={{ marginTop: '2px' }}>Exclusive</span>
+        </button>
       </div>
     );
   };
@@ -1342,6 +1366,7 @@ const TelegramMiniApp: React.FC = () => {
           <Route path="/products/:asin" element={<ProductDetailPage />} /> {/* New route for product details */}
           <Route path="/discovery" element={<DiscoveryPage />} /> {/* New route for discovery page */}
           <Route path="/shopping-results" element={<ShoppingResultsPage />} /> {/* New route for shopping results */}
+          <Route path="/exclusive" element={<ExclusivePage />} /> {/* New route for exclusive page */}
         </Routes>
 
         <Navigation />
@@ -1352,11 +1377,6 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
-
-
-
-
-
 
 
 
