@@ -1,0 +1,154 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  color: white;
+}
+
+.contentWrapper {
+  max-width: 28rem;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #9ca3af;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.iconBackground {
+  background-color: #ffedd5;
+  border-radius: 9999px;
+  padding: 1rem;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  color: #f97316;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.cardSubtitle {
+  color: #4b5563;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.benefitIconWrapper {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  background-color: #ffedd5;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefitIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #f97316;
+}
+
+.benefitTextWrapper {
+  padding-top: 0.5rem;
+}
+
+.benefitTitle {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.benefitDescription {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.footer {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.statusWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.statusDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #22c55e;
+  border-radius: 9999px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.statusText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.poweredBy {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
