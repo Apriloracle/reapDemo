@@ -1,16 +1,41 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
-const store = createStore().setTable('membership', {
-  member: { isMember: false },
-});
+class MembershipStore {
+  store = createStore();
+  persister: any = null;
+  isInitialized = false;
 
-const persister = createLocalPersister(store, 'membership');
+  initialize() {
+    // Only initialize on client side
+    if (typeof window === 'undefined' || this.isInitialized) {
+      return;
+    }
 
-export const membershipStore = {
-  store,
-  persister,
-  initialize: async () => {
-    await persister.load();
-  },
-};
+    // Create persister only in browser
+    this.persister = createLocalPersister(this.store, 'membershipStore');
+    
+    // Set default value if needed
+    if (!this.store.getCell('membership', 'member', 'isMember')) {
+      this.store.setCell('membership', 'member', 'isMember', false);
+    }
+
+    // Load persisted data
+    this.persister.load().then(() => {
+      this.isInitialized = true;
+    });
+  }
+
+  async saveMembership(isMember: boolean) {
+    this.store.setCell('membership', 'member', 'isMember', isMember);
+    if (this.persister) {
+      await this.persister.save();
+    }
+  }
+
+  getMembership(): boolean {
+    return this.store.getCell('membership', 'member', 'isMember') as boolean || false;
+  }
+}
+
+export const membershipStore = new MembershipStore();
