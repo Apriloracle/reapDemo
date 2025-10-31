@@ -1,29 +1,38 @@
 import { createStore } from 'tinybase';
-import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
 class MembershipStore {
   store = createStore();
   persister: any = null;
   isInitialized = false;
 
-  initialize() {
+  async initialize() {
     // Only initialize on client side
     if (typeof window === 'undefined' || this.isInitialized) {
       return;
     }
 
-    // Create persister only in browser
-    this.persister = createLocalPersister(this.store, 'membershipStore');
-    
-    // Set default value if needed
-    if (!this.store.getCell('membership', 'member', 'isMember')) {
-      this.store.setCell('membership', 'member', 'isMember', false);
-    }
+    try {
+      // Dynamically import persister only on client side
+      const { createLocalPersister } = await import('tinybase/persisters/persister-browser');
+      
+      // Create persister only in browser
+      this.persister = createLocalPersister(this.store, 'membershipStore');
+      
+      // Set default value if needed
+      if (!this.store.getCell('membership', 'member', 'isMember')) {
+        this.store.setCell('membership', 'member', 'isMember', false);
+      }
 
-    // Load persisted data
-    this.persister.load().then(() => {
+      // Load persisted data
+      await this.persister.load();
       this.isInitialized = true;
-    });
+    } catch (error) {
+      console.error('Failed to initialize membership store:', error);
+      // Set default value even if persister fails
+      if (!this.store.getCell('membership', 'member', 'isMember')) {
+        this.store.setCell('membership', 'member', 'isMember', false);
+      }
+    }
   }
 
   async saveMembership(isMember: boolean) {
