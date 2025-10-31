@@ -229,7 +229,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
   // UI
   // -----------------------------
   return (
-    <div style={{ padding: '1rem', backgroundColor: '#000', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ padding: '1rem', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>
@@ -364,3 +364,4 @@ const ChoiceButton = ({ active, children, onClick }: any) => (
 );
 
 export default ProfileComponent;
+
