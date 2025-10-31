@@ -14,7 +14,7 @@ import {
 } from '../stores/SearchIndexStore';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
 import { getDealsIndexes, getDealsIndexStore } from '../stores/DealsIndexStore';
-import { parseDeal } from '../lib/dealParser';
+import { parseDeal } from '../utils/dealParser';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
