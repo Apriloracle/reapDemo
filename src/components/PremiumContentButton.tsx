@@ -70,10 +70,10 @@ function PremiumContentButton() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {paymentStatus === 'idle' || paymentStatus === 'error' ? (
+      {(paymentStatus === 'idle' || paymentStatus === 'error') && (
         <button
           onClick={handlePayment}
-          disabled={!publicKey || paymentStatus === 'pending'}
+          disabled={!publicKey}
           style={{
             backgroundColor: '#f05e23',
             color: 'white',
@@ -87,7 +87,9 @@ function PremiumContentButton() {
         >
           Join for 0.0001&nbsp;USDC via x402
         </button>
-      ) : paymentStatus === 'pending' ? (
+      )}
+      
+      {paymentStatus === 'pending' && (
         <button
           disabled
           style={{
@@ -101,7 +103,7 @@ function PremiumContentButton() {
         >
           Processing Payment...
         </button>
-      ) : null}
+      )}
 
       {paymentStatus === 'success' && (
         <div
