@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BrowserProvider, Contract, toUtf8Bytes } from 'ethers';
+import { ethers } from 'ethers';
 import { v4 as uuidv4 } from 'uuid';
 import { getUniversalLink } from "../lib/self/core";
 import { SelfAppBuilder, type SelfApp, SelfQRcodeWrapper } from "../lib/self/qrcode";
 import { initWebSocket } from '../lib/self/qrcode/utils/websocket';
-
+import ProofOfHuman from '../../contracts/ProofOfHuman.json';
 
 const contractAddress = "0xE1fBF82d1F898183E0B6130AECfdD2Dcbe347518";
 
@@ -119,3 +119,4 @@ function VerificationButton() {
 }
 
 export default VerificationButton;
+
