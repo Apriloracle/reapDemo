@@ -53,7 +53,7 @@
     "graphology-metrics": "^2.3.1",
     "graphology-operators": "^1.6.0",
     "graphology-traversal": "^0.3.1",
-    "ethers": "^6.0.0",
+    "ethers": "^5.0.0",
     "isodb": "^0.1.13",
     "jinaga": "^6.7.9",
     "jinaga-react": "^5.2.0",
