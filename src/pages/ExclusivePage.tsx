@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import PremiumContentButton from '../components/PremiumContentButton';
-import { useCell } from 'tinybase/ui-react';
+import VerificationButton from '../components/VerificationButton';
 import { membershipStore } from '../stores/MembershipStore';
 import styles from '../styles/ExclusivePage.module.css';
 
@@ -34,13 +34,14 @@ const LightbulbIcon = () => (
 
 const ExclusivePage: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isMember, setIsMember] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    membershipStore.initialize();
+    membershipStore.initialize().then(() => {
+      setIsMember(membershipStore.getMembership());
+    });
   }, []);
-
-  const isMember = useCell('membership', 'member', 'isMember', membershipStore.store);
 
   // Prevent hydration mismatch by not rendering until mounted
   if (!isMounted) {
@@ -152,10 +153,12 @@ const ExclusivePage: React.FC = () => {
           </>
         ) : (
           <div style={{textAlign: 'center'}}>
-            <h1 style={{ fontSize: '1.8rem', fontWeight: 700 }}>Deals+ Membership</h1>
+            <h1 style={{ fontSize: '1.8rem', fontWeight: 700 }}>Earn Reap Rewards</h1>
+            <VerificationButton />
+            <h1 style={{ fontSize: '1.8rem', fontWeight: 700, marginTop: '2rem' }}>Deals+ Membership</h1>
             <p style={{ maxWidth: '320px', opacity: 0.85, margin: '1rem auto' }}>
-              Join the Deals+ program to access members-only offers and premium merchant rewards — powered by x402
-              payments on Solana.
+              Join the Deals+ program to access members-only offers and premium merchant rewards – powered by x402
+              payments.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
@@ -187,13 +190,13 @@ const ExclusivePage: React.FC = () => {
             </div>
 
             <p style={{ fontSize: '0.75rem', opacity: 0.6, marginTop: '15px' }}>
-              Secure payments handled via your connected Solana wallet.
+              Secure payments handled via your connected wallet.
             </p>
           </div>
         )}
         <div className={styles.poweredBy}>
           <p>
-            Powered by x402 payments on Solana
+            Powered by x402 payments
           </p>
         </div>
       </div>
@@ -202,3 +205,4 @@ const ExclusivePage: React.FC = () => {
 };
 
 export default ExclusivePage;
+
