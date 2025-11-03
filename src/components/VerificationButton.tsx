@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
 import { v4 as uuidv4 } from 'uuid';
 import { getUniversalLink } from "../lib/self/core";
 import { SelfAppBuilder, type SelfApp, SelfQRcodeWrapper } from "../lib/self/qrcode";
