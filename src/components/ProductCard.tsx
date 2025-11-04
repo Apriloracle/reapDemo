@@ -14,12 +14,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
   const navigate = useNavigate();
   const isGreatValue = (product.valueScore || 0) > 0.7;
 
-  console.log('ProductCard received deal:', product.deal);
-  let deal = null;
-  try {
-    deal = product.deal ? (typeof product.deal === 'string' ? JSON.parse(product.deal) : product.deal) : null;
-  } catch (e) {
-    console.error("Failed to parse deal in ProductCard:", e);
+let deal = null;
+  if (product.deal) {
+    console.log('Deal in ProductCard:', product.deal);
+    try {
+      deal = typeof product.deal === 'string' ? JSON.parse(product.deal) : product.deal;
+      console.log('Parsed deal:', deal);
+    } catch (e) {
+      console.error('Error parsing deal:', e);
+    }
   }
 
   const handleImageLoad = (imageUrl: string) => {
@@ -71,12 +74,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
         </div>
       )}
       {deal && (
-        <div className={styles.dealBadge} style={{ backgroundColor: deal.isExpiringSoon ? '#E53E3E' : '#38A169' }}>
-          🏷️ {deal.discount || 'DEAL'}
-          <div className={styles.dealSummary}>{deal.summary}</div>
-          {deal.daysRemaining && (
-            <div className={styles.dealSummary}>Expires in {deal.daysRemaining} days</div>
-          )}
+        <div className={styles.dealBadge}>
+          🏷️ DEAL: {deal.summary}
+          <div className={styles.dealCode}>Code: {deal.code}</div>
+          <div className={styles.dealDescription}>{deal.description}</div>
         </div>
       )}
       {product.priceDisplay && (
@@ -100,4 +101,5 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 };
 
 export default ProductCard;
+
 
