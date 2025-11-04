@@ -61,7 +61,7 @@ function VerificationButton() {
       )}
       {selfApp && (
         <div style={{ marginTop: '1rem' }}>
-          <SelfQRcode selfApp={selfApp} size={150} onSuccess={() => {}} onError={() => {}} />
+          <SelfQRcode selfApp={selfApp} size={185} onSuccess={() => {}} onError={() => {}} />
         </div>
       )}
     </div>
