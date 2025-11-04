@@ -43,7 +43,7 @@ function VerificationButton() {
   const handleVerificationSuccess = async (data: any) => {
     if (window.ethereum) {
       try {
-        const provider = new BrowserProvider(window.ethereum);
+        
         await provider.send("eth_requestAccounts", []);
         const signer = await provider.getSigner();
         const proofOfHumanContract = new Contract(
