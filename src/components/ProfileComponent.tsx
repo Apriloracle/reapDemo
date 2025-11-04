@@ -6,6 +6,7 @@ import { userProfileStore } from '../stores/UserProfileStore';
 import UserNet from './UserNet';
 import { useSubdocument } from '../contexts/SubdocumentContext';
 import { storeSubdocumentGUID } from '../utils/subdocumentUtils';
+import BackButton from './BackButton';
 
 // -----------------------------
 // Types
@@ -232,12 +233,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ localWalletAddress,
     <div style={{ padding: '1rem', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M19 12H5" stroke="#f05e23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 19L5 12L12 5" stroke="#f05e23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        <BackButton />
         <h2 style={{ color: '#f05e23', margin: 0 }}>Profile</h2>
       </div>
       
@@ -364,4 +360,3 @@ const ChoiceButton = ({ active, children, onClick }: any) => (
 );
 
 export default ProfileComponent;
-
