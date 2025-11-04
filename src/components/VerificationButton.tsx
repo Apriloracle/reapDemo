@@ -61,7 +61,7 @@ function VerificationButton() {
       )}
       {selfApp && (
         <div style={{ marginTop: '1rem' }}>
-          <SelfQRcode selfApp={selfApp} />
+          <SelfQRcode selfApp={selfApp} size={150} onSuccess={() => {}} onError={() => {}} />
         </div>
       )}
     </div>
@@ -69,4 +69,3 @@ function VerificationButton() {
 }
 
 export default VerificationButton;
-
