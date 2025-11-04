@@ -120,7 +120,19 @@ if (cachedGeo) {
       alignItems: 'center',
       zIndex: 2000,
     }}>
-      <div ref={scannerRef} style={{ width: '100%', height: '100%' }}></div>
+      <div ref={scannerRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '80%',
+          height: '60%',
+          border: '2px solid white',
+          borderRadius: '10px',
+          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
+        }}></div>
+      </div>
       <button onClick={onClose} style={{
         position: 'absolute',
         top: '20px',
