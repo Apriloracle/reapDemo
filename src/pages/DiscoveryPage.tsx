@@ -12,6 +12,7 @@ import {
   getResultsSortedByRating,
   getResultsSortedByPosition,
 } from '../stores/SearchIndexStore';
+import BackButton from '../components/BackButton';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
 import { getDealsIndexes, getDealsIndexStore } from '../stores/DealsIndexStore';
 
@@ -146,11 +147,7 @@ const DiscoveryPage: React.FC = () => {
   return (
     <div className={discoveryStyles.page}>
       <div className={discoveryStyles.searchHeader}>
-        <button onClick={() => navigate('/')} className={discoveryStyles.backButton}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
+        <BackButton />
         
         <LiqeSearchComponent 
           ref={searchInputRef} 
@@ -185,9 +182,6 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
-
-
 
 
 
