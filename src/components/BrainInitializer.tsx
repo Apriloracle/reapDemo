@@ -49,8 +49,10 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
           setShowOnboarding(true);
         }
 
-        // Fetch and store device data
-        await deviceDataStore.fetchAndStoreDeviceData();
+        // Defer device data collection to prevent blocking the initial render
+        setTimeout(() => {
+          deviceDataStore.fetchAndStoreDeviceData();
+        }, 100);
 
         // Skip initialization of NTC and ESN for now
         console.log('NTC and ESN initialization skipped for performance optimization');
