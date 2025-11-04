@@ -4,6 +4,7 @@ import PremiumContentButton from '../components/PremiumContentButton';
 import VerificationButton from '../components/VerificationButton';
 import { membershipStore } from '../stores/MembershipStore';
 import styles from '../styles/ExclusivePage.module.css';
+import BackButton from '../components/BackButton';
 
 const GiftIcon = () => (
   <svg className={styles.benefitIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -59,6 +60,7 @@ const ExclusivePage: React.FC = () => {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.contentWrapper}>
+        <BackButton />
         {isMember ? (
           <>
             <div className={styles.header}>
@@ -205,4 +207,3 @@ const ExclusivePage: React.FC = () => {
 };
 
 export default ExclusivePage;
-
