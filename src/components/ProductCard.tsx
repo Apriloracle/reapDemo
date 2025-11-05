@@ -75,9 +75,9 @@ let deal = null;
       )}
       {deal && (
         <div className={styles.dealBadge}>
-          🏷️ DEAL: {deal.summary.length > 70 ? `${deal.summary.substring(0, 70)}...` : deal.summary}
+          🏷️ DEAL: {deal.summary.length > 60 ? `${deal.summary.substring(0, 60)}...` : deal.summary}
           <div className={styles.dealCode}>Code: {deal.code}</div>
-          {deal.expiration && <div className={styles.dealExpiration}>Expires: {deal.expiration}</div>}
+          {deal.endDate && <div className={styles.dealExpiration}>Expires: {deal.endDate}</div>}
           <div className={styles.dealDescription}>{deal.description}</div>
         </div>
       )}
@@ -86,15 +86,19 @@ let deal = null;
           {product.priceDisplay}
         </div>
       )}
-      {product.rating && (
-        <div className={styles.productRating}>
-          <span>{product.rating}★</span>
-          <span>({product.ratingCount})</span>
-        </div>
-      )}
-      {product.source && (
-        <div className={styles.productSource}>
-          {product.source}
+      {(product.rating || product.source) && (
+        <div className={styles.ratingSourceContainer}>
+          {product.rating && (
+            <div className={styles.productRating}>
+              <span>{product.rating}★</span>
+              <span>({product.ratingCount})</span>
+            </div>
+          )}
+          {product.source && (
+            <div className={styles.productSource}>
+              {product.source}
+            </div>
+          )}
         </div>
       )}
     </div>
