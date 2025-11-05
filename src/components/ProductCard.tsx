@@ -75,8 +75,9 @@ let deal = null;
       )}
       {deal && (
         <div className={styles.dealBadge}>
-          🏷️ DEAL: {deal.summary}
+          🏷️ DEAL: {deal.summary.length > 70 ? `${deal.summary.substring(0, 70)}...` : deal.summary}
           <div className={styles.dealCode}>Code: {deal.code}</div>
+          {deal.expiration && <div className={styles.dealExpiration}>Expires: {deal.expiration}</div>}
           <div className={styles.dealDescription}>{deal.description}</div>
         </div>
       )}
@@ -101,5 +102,4 @@ let deal = null;
 };
 
 export default ProductCard;
-
 
