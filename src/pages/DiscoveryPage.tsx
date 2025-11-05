@@ -14,13 +14,14 @@ import {
 } from '../stores/SearchIndexStore';
 import BackButton from '../components/BackButton';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
-import { getDealsIndexes, getDealsIndexStore } from '../stores/DealsIndexStore';
+import { getDealsIndexes, getDealsIndexStore, getDealsRelationships } from '../stores/DealsIndexStore';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState('position');
+  const [isDealFilterActive, setIsDealFilterActive] = useState(false);
 
   useEffect(() => {
     // Check if products exist and if they already have scores
@@ -142,7 +143,16 @@ const DiscoveryPage: React.FC = () => {
     applySort(newSortOrder, products);
   };
 
-  const displayedProducts = products.slice(0, 40);
+  const handleDealFilterToggle = () => {
+    setIsDealFilterActive(!isDealFilterActive);
+  };
+
+  const displayedProducts = React.useMemo(() => {
+    if (isDealFilterActive) {
+      return products.filter(p => p.deal && p.deal !== '');
+    }
+    return products;
+  }, [products, isDealFilterActive]).slice(0, 40);
 
   return (
     <div className={discoveryStyles.page}>
@@ -156,6 +166,18 @@ const DiscoveryPage: React.FC = () => {
       </div>
 
       <div className={discoveryStyles.sortContainer}>
+        <div className={discoveryStyles.filterContainer}>
+          <label htmlFor="deal-filter" style={{ marginRight: '0.5rem' }}>Show Deals Only</label>
+          <label className={discoveryStyles.switch}>
+            <input
+              type="checkbox"
+              id="deal-filter"
+              checked={isDealFilterActive}
+              onChange={handleDealFilterToggle}
+            />
+            <span className={discoveryStyles.slider}></span>
+          </label>
+        </div>
         <select value={sortOrder} onChange={handleSortChange} className={discoveryStyles.sortDropdown}>
           <option value="position">Sort by Rank</option>
           <option value="price-asc">Price: Low to High</option>
