@@ -1,10 +1,12 @@
 import { createStore, Store } from 'tinybase';
 import { createIndexes, Indexes } from 'tinybase/indexes';
+import { createRelationships, Relationships } from 'tinybase/relationships';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { getDealsStore as getKindredDealsStore } from './KindredDealsStore';
 
 const store = createStore();
 const indexes = createIndexes(store);
+const relationships = createRelationships(store);
 const persister = typeof window !== 'undefined'
   ? createLocalPersister(store, 'deals-index')
   : null;
@@ -38,8 +40,16 @@ indexes.setIndexDefinition(
   'brand' // We will add this field to the search results
 );
 
+relationships.setRelationshipDefinition(
+  'productDeal',
+  'searchResults',
+  'deals',
+  'brand'
+);
+
 export const getDealsIndexStore = (): Store => store;
 export const getDealsIndexes = (): Indexes => indexes;
+export const getDealsRelationships = (): Relationships => relationships;
 
 export const initializeDealsIndexStore = async () => {
   if (persister) {
