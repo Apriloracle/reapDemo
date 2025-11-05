@@ -83,21 +83,11 @@
   margin-right: 0.3em;
 }
 
-.ratingSourceContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0.5rem;
-}
-
 .productRating,
 .productSource {
   font-size: 0.8rem;
   color: #A0AEC0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 50%; /* Adjust as needed */
+  padding: 0 0.5rem;
 }
 
 .greatValueBadge {
@@ -132,12 +122,5 @@
   font-size: 0.7rem;
   font-weight: normal;
   opacity: 0.9;
-}
-
-@media (max-width: 600px) {
-  .productRating,
-  .productSource {
-    max-width: 45%; /* Allow more flexible width on smaller screens */
-  }
 }
 
