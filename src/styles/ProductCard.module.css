@@ -133,3 +133,11 @@
   font-weight: normal;
   opacity: 0.9;
 }
+
+@media (max-width: 600px) {
+  .productRating,
+  .productSource {
+    max-width: 45%; /* Allow more flexible width on smaller screens */
+  }
+}
+
