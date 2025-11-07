@@ -15,6 +15,7 @@ import {
 import BackButton from '../components/BackButton';
 import { calculateValueScores } from '../utils/valueScoreCalculator';
 import { getDealsIndexes, getDealsIndexStore, getDealsRelationships } from '../stores/DealsIndexStore';
+import { getCoordinateForData } from '../lib/probeUtils';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -93,8 +94,8 @@ const DiscoveryPage: React.FC = () => {
       };
     });
 
-    // Now, save the enriched products to the DealsIndexStore
-    productsWithScores.forEach(p => {
+    // Now, save the enriched products and their coordinates to the DealsIndexStore
+    for (const p of productsWithScores) {
       dealsStore.setRow('searchResults', p.asin, {
         name: p.name,
         source: p.source,
@@ -103,12 +104,25 @@ const DiscoveryPage: React.FC = () => {
         ratingCount: p.ratingCount,
         deal: p.deal ? JSON.stringify(p.deal) : '',
       });
-    });
+
+      if (p.tags && Array.isArray(p.tags)) {
+        for (const tag of p.tags) {
+          const coordinate = await getCoordinateForData(tag);
+          dealsStore.addRow('productCoordinates', {
+            productId: p.asin,
+            coordinate: coordinate,
+          });
+        }
+      }
+    }
 
     setProducts(productsWithScores);
     applySort(sortOrder, productsWithScores);
 
     console.log('DealsIndexStore searchResults:', dealsStore.getTable('searchResults'));
+    
+    const top5Tags = Object.values(dealsStore.getTable('productCoordinates')).slice(0, 5);
+    console.log('Top 5 product tags:', top5Tags);
 
     await shoppingProductsStore.addProducts(productsWithScores);
   };
@@ -204,7 +218,6 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
 
 
 
