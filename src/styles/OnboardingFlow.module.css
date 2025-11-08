@@ -64,6 +64,28 @@
   color: #000000;
 }
 
+.choiceContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.choiceCard {
+  border: 1px solid #f05e23;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.choiceCard.selected {
+  border-color: #f05e23;
+  background-color: #f05e23;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
 .categoryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -149,3 +171,4 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
