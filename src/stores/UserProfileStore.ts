@@ -7,6 +7,8 @@ export interface OnboardingChoices {
   archetypes: string[];
   categories: string[];
   alertStyle: string | null;
+  isMom: boolean | null;
+  momJourney: string | null;
 }
 
 // Base interface for type safety when working with profiles
@@ -193,3 +195,4 @@ class UserProfileStore {
 
 export const userProfileStore = UserProfileStore.getInstance();
 export default userProfileStore;
+
