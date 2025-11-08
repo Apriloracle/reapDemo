@@ -24,17 +24,20 @@ const categories = [
     { id: 'books', icon: '📚', label: 'Books' },
 ];
 
-const alertOptions = [
-    { id: 'cant-miss', icon: '🚨', label: 'Only for *can’t-miss* deals (1–2/week)' },
-    { id: 'daily', icon: '🔔', label: 'Best deals daily' },
-    { id: 'big-savings', icon: '💰', label: 'Only if I save 20%+' },
+const momJourneyOptions = [
+    { id: 'expecting', icon: '🤰', label: 'Expecting' },
+    { id: 'new-mom', icon: '👶', label: 'New mom (0-12 months)' },
+    { id: 'toddler-mom', icon: '🧸', label: 'Toddler mom (1-3 years)' },
+    { id: 'school-age-mom', icon: '🎒', label: 'School-age mom (4+ years)' },
+    { id: 'multiple-kids', icon: '👨‍👩‍👧‍👦', label: 'Multiple kids' },
 ];
 
 const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const [step, setStep] = useState(1);
+  const [isMom, setIsMom] = useState<boolean | null>(null);
+  const [momJourney, setMomJourney] = useState<string | null>(null);
   const [selectedArchetypes, setSelectedArchetypes] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedAlertStyle, setSelectedAlertStyle] = useState<string | null>(null);
 
   const handleArchetypeSelect = (archetypeId: string) => {
     setSelectedArchetypes(prev =>
@@ -52,13 +55,57 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
     );
   };
 
-  const handleAlertSelect = (alertId: string) => {
-    setSelectedAlertStyle(alertId);
+  const handleMomSelect = (status: boolean) => {
+    setIsMom(status);
+    setStep(step + 1);
+  };
+
+  const handleMomJourneySelect = (journeyId: string) => {
+    setMomJourney(journeyId);
   };
 
   const renderStep = () => {
     switch (step) {
       case 1:
+        return (
+          <div className={styles.stepContainer}>
+            <h2 className={styles.title}>Welcome! Are you a mom? 👋</h2>
+            <div className={styles.choiceContainer}>
+              <div
+                className={`${styles.choiceCard} ${isMom === true ? styles.selected : ''}`}
+                onClick={() => handleMomSelect(true)}
+              >
+                Yes, I'm a mom
+              </div>
+              <div
+                className={`${styles.choiceCard} ${isMom === false ? styles.selected : ''}`}
+                onClick={() => handleMomSelect(false)}
+              >
+                Not a mom
+              </div>
+            </div>
+          </div>
+        );
+      case 2:
+        if (isMom) {
+          return (
+            <div className={styles.stepContainer}>
+              <h2 className={styles.title}>Where are you in your journey?</h2>
+              <div className={styles.archetypeGrid}>
+                {momJourneyOptions.map(option => (
+                  <div
+                    key={option.id}
+                    className={`${styles.archetypeCard} ${momJourney === option.id ? styles.selected : ''}`}
+                    onClick={() => handleMomJourneySelect(option.id)}
+                  >
+                    <div className={styles.archetypeIcon}>{option.icon}</div>
+                    <div className={styles.archetypeDescription}>{option.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }
         return (
           <div className={styles.stepContainer}>
             <h2 className={styles.title}>What kind of shopper are you?</h2>
@@ -78,7 +125,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             </div>
           </div>
         );
-      case 2:
+      case 3:
         return (
             <div className={styles.stepContainer}>
               <h2 className={styles.title}>Pick your top 3 categories</h2>
@@ -97,25 +144,6 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               </div>
             </div>
         );
-      case 3:
-        return (
-            <div className={styles.stepContainer}>
-                <h2 className={styles.title}>Set your deal alert style</h2>
-                <p>How should we notify you?</p>
-                <div className={styles.alertOptionsContainer}>
-                    {alertOptions.map(option => (
-                        <div
-                            key={option.id}
-                            className={`${styles.alertOption} ${selectedAlertStyle === option.id ? styles.selected : ''}`}
-                            onClick={() => handleAlertSelect(option.id)}
-                        >
-                            <span className={styles.alertIcon}>{option.icon}</span>
-                            <span className={styles.alertLabel}>{option.label}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
       default:
         return null;
     }
@@ -126,11 +154,12 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
       {renderStep()}
       <div className={styles.navigationButtons}>
         {step > 1 && <button onClick={() => setStep(step - 1)}>Back</button>}
-        {step < 3 && <button onClick={() => setStep(step + 1)} disabled={(step === 1 && selectedArchetypes.length === 0) || (step === 2 && selectedCategories.length < 3)}>Next</button>}
-        {step === 3 && <button onClick={() => onComplete({ archetypes: selectedArchetypes, categories: selectedCategories, alertStyle: selectedAlertStyle })} disabled={!selectedAlertStyle}>Finish</button>}
+        {step === 2 && <button onClick={() => setStep(step + 1)} disabled={(isMom && !momJourney) || (!isMom && selectedArchetypes.length === 0)}>Next</button>}
+        {step === 3 && <button onClick={() => onComplete({ archetypes: selectedArchetypes, categories: selectedCategories, isMom, momJourney, alertStyle: null })} disabled={selectedCategories.length < 3}>Finish</button>}
       </div>
     </div>
   );
 };
 
 export default OnboardingFlow;
+
