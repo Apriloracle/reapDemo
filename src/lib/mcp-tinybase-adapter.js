@@ -2,7 +2,7 @@ import { registerTool } from './mcp-engine';
 import { getStore } from '../stores'; // This will be our centralized store registry
 
 export function registerTinybaseTools(storeName) {
-  const store = getStore(storeName);
+  const store = getStore(storeName).getStore();
 
   registerTool(`getRows_${storeName}`, () => {
     const tableIds = store.getTableIds();
