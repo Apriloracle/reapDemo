@@ -17,3 +17,9 @@ Object.keys(stores).forEach(storeName => {
     await merchantProductsStore.initialize();
   }
 })();
+
+// Expose the invoke function globally for agents
+import { invoke } from './mcp-engine';
+if (typeof window !== 'undefined') {
+  window.mcp = { invoke };
+}
