@@ -14,14 +14,21 @@ const MCPDemo: React.FC = () => {
     setOutput(JSON.stringify(rewards, null, 2));
   };
 
+  const handleGetUserProfile = async () => {
+    const profile = await invoke('getRow_userProfileStore', { tableId: 'profiles', rowId: 'current' });
+    setOutput(JSON.stringify(profile, null, 2));
+  };
+
   return (
     <div>
       <h1>⚙️ Pure JS In-Browser MCP Server</h1>
       <button onClick={handleAddReward}>Add Reward</button>
       <button onClick={handleGetRewards}>Get Rewards</button>
+      <button onClick={handleGetUserProfile}>Get User Profile</button>
       <pre>{output}</pre>
     </div>
   );
 };
 
 export default MCPDemo;
+
