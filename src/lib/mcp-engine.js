@@ -1,5 +1,5 @@
 // === MCP "server" ===
-const tools = {
+export const tools = {
   getLocalRewards: () => {
     return JSON.parse(localStorage.getItem("rewards") || "[]");
   },
@@ -11,8 +11,13 @@ const tools = {
   },
 };
 
+export function registerTool(name, func) {
+  tools[name] = func;
+}
+
 // === MCP "client" ===
 export async function invoke(tool, params) {
   if (!tools[tool]) throw new Error("Unknown tool: " + tool);
   return tools[tool](params);
 }
+
