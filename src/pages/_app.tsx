@@ -1,5 +1,6 @@
 'use client';
 
+import '../lib/mcp-initializer';
 import '@/styles/globals.css'
 import '@/styles/Wallet.css'
 import type { AppProps } from 'next/app'
