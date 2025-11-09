@@ -1,29 +1,29 @@
 import { userProfileStore } from './UserProfileStore';
-import { dealsIndexStore } from './DealsIndexStore';
+import { getDealsIndexStore } from './DealsIndexStore';
 import { categoryStore } from './CategoryStore';
-import { coordinateIndexStore } from './CoordinateIndexStore';
+import { getCoordinateStore } from './CoordinateIndexStore';
 import { deviceDataStore } from './DeviceDataStore';
 import { discoverySearchStore } from './DiscoverySearchStore';
 import { favoriteStore } from './FavoriteStore';
 import { hypervectorProfileStore } from './HypervectorProfileStore';
-import { kindredDealsStore } from './KindredDealsStore';
+import { getDealsStore as getKindredDealsStore } from './KindredDealsStore';
 import { membershipStore } from './MembershipStore';
 import { merchantProductsStore } from './MerchantProductsStore';
 import { searchIndexStore } from './SearchIndexStore';
 import { shoppingProductsStore } from './ShoppingProductsStore';
 import { similarProductsStore } from './SimilarProductsStore';
-import { trajectoryStore } from './TrajectoryStore';
+import trajectoryStore from './TrajectoryStore';
 
 const stores = {
   userProfileStore,
-  dealsIndexStore,
+  dealsIndexStore: getDealsIndexStore(),
   categoryStore,
-  coordinateIndexStore,
+  coordinateIndexStore: getCoordinateStore(),
   deviceDataStore,
   discoverySearchStore,
   favoriteStore,
   hypervectorProfileStore,
-  kindredDealsStore,
+  kindredDealsStore: getKindredDealsStore(),
   membershipStore,
   merchantProductsStore,
   searchIndexStore,
@@ -38,14 +38,11 @@ export function getStore(storeName: keyof typeof stores) {
 
 export {
   userProfileStore,
-  dealsIndexStore,
   categoryStore,
-  coordinateIndexStore,
   deviceDataStore,
   discoverySearchStore,
   favoriteStore,
   hypervectorProfileStore,
-  kindredDealsStore,
   membershipStore,
   merchantProductsStore,
   searchIndexStore,
