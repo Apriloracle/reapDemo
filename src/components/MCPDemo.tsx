@@ -19,12 +19,18 @@ const MCPDemo: React.FC = () => {
     setOutput(JSON.stringify(profile, null, 2));
   };
 
+  const handleListTools = async () => {
+    const tools = await invoke('listTools');
+    setOutput(JSON.stringify(tools, null, 2));
+  };
+
   return (
     <div>
       <h1>⚙️ Pure JS In-Browser MCP Server</h1>
       <button onClick={handleAddReward}>Add Reward</button>
       <button onClick={handleGetRewards}>Get Rewards</button>
       <button onClick={handleGetUserProfile}>Get User Profile</button>
+      <button onClick={handleListTools}>List Tools</button>
       <pre>{output}</pre>
     </div>
   );
