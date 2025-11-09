@@ -12,9 +12,10 @@ const store = createStore().setSchema({
   },
 });
 
-export const persister = createLocalPersister(store, 'trajectory');
-
-persister.startAutoLoad();
-persister.startAutoSave();
+if (typeof window !== 'undefined') {
+  const persister = createLocalPersister(store, 'trajectory');
+  persister.startAutoLoad();
+  persister.startAutoSave();
+}
 
 export default store;
