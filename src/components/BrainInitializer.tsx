@@ -10,6 +10,8 @@ import SimpleVectorize from './SimpleVectorize';
 import CoordinateCountDisplay from './CoordinateCountDisplay';
 import OnboardingFlow from './OnboardingFlow'; // Import the OnboardingFlow component
 import userProfileStore, { OnboardingChoices } from '../stores/UserProfileStore';
+import { registerTinybaseTools } from '../lib/mcp-tinybase-adapter';
+import * as stores from '../stores';
 
 interface BrainInitializerProps {
   children: React.ReactNode;
@@ -43,6 +45,13 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        // Register all TinyBase stores with the MCP engine
+        Object.keys(stores).forEach(storeName => {
+          if (storeName !== 'getStore') {
+            registerTinybaseTools(storeName);
+          }
+        });
+
         // First, check if the user needs to see the onboarding flow
         const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
         if (!hasCompletedOnboarding) {
