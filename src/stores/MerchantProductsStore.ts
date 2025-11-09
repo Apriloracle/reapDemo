@@ -6,10 +6,18 @@ const CACHE_EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 class MerchantProductsStore {
   private store = createStore();
-  private persister = createLocalPersister(this.store, 'merchant-products');
+  private persister: any;
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      this.persister = createLocalPersister(this.store, 'merchant-products');
+    }
+  }
 
   async initialize() {
-    await this.persister.load();
+    if (this.persister) {
+      await this.persister.load();
+    }
   }
 
   private isCacheValid(merchantName: string): boolean {
@@ -68,7 +76,9 @@ class MerchantProductsStore {
       const updateCoordinates = addCoordinateToStore(this.store, `products-${merchantName}`);
       await updateCoordinates();
 
-      await this.persister.save();
+      if (this.persister) {
+        await this.persister.save();
+      }
 
       return data.products;
     } catch (error) {
@@ -81,3 +91,4 @@ class MerchantProductsStore {
 }
 
 export const merchantProductsStore = new MerchantProductsStore();
+
