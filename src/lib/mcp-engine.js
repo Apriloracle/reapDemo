@@ -9,6 +9,9 @@ export const tools = {
     localStorage.setItem("rewards", JSON.stringify(rewards));
     return { ok: true };
   },
+  listTools: () => {
+    return Object.keys(tools);
+  },
 };
 
 export function registerTool(name, func) {
@@ -20,4 +23,3 @@ export async function invoke(tool, params) {
   if (!tools[tool]) throw new Error("Unknown tool: " + tool);
   return tools[tool](params);
 }
-
