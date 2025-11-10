@@ -8,7 +8,7 @@ export async function GET() {
       {
         "scheme": "exact",
         "network": "base",
-        "maxAmountRequired": "0.001",
+        "maxAmountRequired": "10000000",
         "resource": "https://reap.deals/x402",
         "asset": "USDC",
         "description": "Product search across 60M+ products",
