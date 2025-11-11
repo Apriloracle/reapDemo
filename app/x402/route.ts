@@ -11,7 +11,7 @@ export async function GET() {
       {
         "scheme": "exact",
         "network": "base",
-        "maxAmountRequired": "1000000",
+        "maxAmountRequired": "2500000",
         "resource": "https://reap.deals/x402",
         "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
         "description": "General e-commerce service information",
@@ -22,7 +22,7 @@ export async function GET() {
       {
         "scheme": "exact",
         "network": "base",
-        "maxAmountRequired": "1000000",
+        "maxAmountRequired": "2500000",
         "resource": "https://reap.deals/api/search",
         "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
         "description": "Product search across 60M+ products",
@@ -47,11 +47,12 @@ export async function GET() {
       {
         "scheme": "exact",
         "network": "solana",
-        "maxAmountRequired": "1000000",
+        "maxAmountRequired": "2500000",
         "resource": "https://reap.deals/api/search",
         "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", 
         "description": "Product search across 60M+ products (Solana)",
         "payTo": "FPeUBp4FBEweSdfUuRPBfa6kuRTd6DjvkLXZS3MKp27h", 
+        "facilitator": "https://reap.deals/verify",
         "mimeType": "application/json",
         "maxTimeoutSeconds": 60,
         "outputSchema": {
