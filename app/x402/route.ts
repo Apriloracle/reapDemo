@@ -4,6 +4,9 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   const x402spec = {
     "x402Version": 1,
+    "type": "http",
+    "resource": "https://reap.deals/x402",
+    "lastUpdated": new Date().toISOString(),
     "accepts": [
       {
         "scheme": "exact",
@@ -11,7 +14,7 @@ export async function GET() {
         "maxAmountRequired": "1000000",
         "resource": "https://reap.deals/x402",
         "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-        "description": "General service information",
+        "description": "General e-commerce service information",
         "payTo": "0x31ab637bd325b4bf5018b39dd155681d03348189",
         "mimeType": "application/json",
         "maxTimeoutSeconds": 60
@@ -67,7 +70,7 @@ export async function GET() {
         }
       }
     ],
-    "meta": {
+    "metadata": {
       "name": "Product Search - 60M Products",
       "description": "Real-time shopping search with deal aggregation for AI agents.",
       "keywords": ["shopping", "deals", "price-comparison"],
