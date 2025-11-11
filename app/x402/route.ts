@@ -8,8 +8,19 @@ export async function GET() {
       {
         "scheme": "exact",
         "network": "base",
-        "maxAmountRequired": "1000000",
+        "maxAmountRequired": "0.001",
         "resource": "https://reap.deals/x402",
+        "asset": "USDC",
+        "description": "General service information",
+        "payTo": "0x31ab637bd325b4bf5018b39dd155681d03348189",
+        "mimeType": "application/json",
+        "maxTimeoutSeconds": 60
+      },
+      {
+        "scheme": "exact",
+        "network": "base",
+        "maxAmountRequired": "0.001",
+        "resource": "https://reap.deals/api/search",
         "asset": "USDC",
         "description": "Product search across 60M+ products",
         "payTo": "0x31ab637bd325b4bf5018b39dd155681d03348189",
