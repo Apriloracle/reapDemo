@@ -4,7 +4,7 @@ import { getAssociatedTokenAddress, createTransferInstruction } from '@solana/sp
 import React, { useState } from 'react';
 import { membershipStore } from '../stores/MembershipStore';
 
-const SERVER_URL = 'http://34.87.20.230:3111'; // replace with your backend IP
+const SERVER_URL = 'https://x402verifyproxy-50775725716.asia-east2.run.app'; // replace with your backend IP
 
 function PremiumContentButton() {
   const { connection } = useConnection();
