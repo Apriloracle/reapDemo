@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     // Forward to your live server (replace with your actual server IP)
-    const serverRes = await fetch('http://34.142.151.200:3111/premium/verify', {
+    const serverRes = await fetch('https://x402verifyproxy-50775725716.asia-east2.run.app/premium/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
