@@ -8,7 +8,7 @@ export async function GET() {
       {
         "scheme": "exact",
         "network": "base",
-        "maxAmountRequired": "0.001",
+        "maxAmountRequired": "1000000",
         "resource": "https://reap.deals/x402",
         "asset": "USDC",
         "description": "General service information",
@@ -75,16 +75,11 @@ export async function GET() {
     }
   };
 
-  return new NextResponse(
-    JSON.stringify(x402spec),
-    {
-      status: 402,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Payment-Required': 'true',
-        // Add more custom headers if needed
-      },
-    }
-  );
+  return NextResponse.json(x402spec, {
+    status: 402,
+    headers: {
+      'X-Payment-Required': 'true',
+      // Add more custom headers if needed
+    },
+  });
 }
-
