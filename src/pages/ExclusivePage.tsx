@@ -150,6 +150,9 @@ const ExclusivePage: React.FC = () => {
                     Membership Active
                   </span>
                 </div>
+                <a href="https://claim.reap.deals" target="_blank" rel="noopener noreferrer" className={styles.claimButton}>
+                  Claim Rewards
+                </a>
               </div>
             </div>
           </>
@@ -207,3 +210,4 @@ const ExclusivePage: React.FC = () => {
 };
 
 export default ExclusivePage;
+
