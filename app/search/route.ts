@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    // === 1. Fetch from your Cloud Run product search microservice ===
+    // === 1. Fetch from Cloud Run service ===
     const response = await fetch(
       'https://shoppingapicaller-50775725716.asia-southeast1.run.app',
       {
@@ -36,12 +36,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // === 2. Convert price to USDC smallest units ===
+    // === 2. Convert price to USDC base units ===
     const priceString = firstProduct.price || '';
     const price = parseFloat(priceString.replace(/[^0-9.-]+/g, ''));
-    const maxAmountRequired = Math.ceil(price * 1_000_000).toString(); // 1 USDC = 1,000,000 "wei"-like units
+    const maxAmountRequired = Math.ceil(price * 1_000_000).toString();
 
-    // === 3. Build x402 dynamic manifest payload ===
+    // === 3. Build x402 manifest ===
     const x402spec = {
       x402Version: 1,
       accepts: [
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
       },
     };
 
-    // === 4. Return with 402 payment required header ===
+    // === 4. Return with payment required ===
     return new NextResponse(JSON.stringify(x402spec), {
       status: 402,
       headers: {
@@ -112,7 +112,7 @@ export async function POST(request: Request) {
 }
 
 // ==========================
-// GET Handler – Manifest Discovery for Browsers & x402scan
+// GET Handler – Manifest Discovery (Payment Required)
 // ==========================
 export async function GET() {
   const manifest = {
@@ -166,14 +166,14 @@ export async function GET() {
     },
   };
 
-    return NextResponse.json(x402spec, {
+  // Return a 402 Payment Required with correct headers for x402scan discovery
+  return new NextResponse(JSON.stringify(manifest), {
     status: 402,
     headers: {
+      'Content-Type': 'application/json',
       'X-Payment-Required': 'true',
-      // Add more custom headers if needed
     },
   });
-
 }
 
 
