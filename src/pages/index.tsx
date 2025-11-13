@@ -19,6 +19,10 @@ export default function Home() {
       <Head>
         <title>Reap</title>
         <meta name="description" content="Real-time shopping and product search with deal aggregation for AI agents." />
+
+        {/* === THE FIX IS HERE === */}
+        {/* Add the standard HTML keywords meta tag. The content should be a comma-separated string. */}
+        <meta name="keywords" content="AI, Search, Utility" />
         
         {/* Open Graph Tags for Social Sharing */}
         <meta property="og:title" content="Reap" />
