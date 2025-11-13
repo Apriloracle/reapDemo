@@ -34,7 +34,7 @@ function PremiumContentButton() {
       console.log("Finding user's USDC account...");
       const payerTokenAccount = await getAssociatedTokenAddress(usdcMint, publicKey);
       const payerAccountInfo = await connection.getAccountInfo(payerTokenAccount);
-      if (!payerAccountInfo) throw new Error('USDC account not found. Please ensure you have USDC on Devnet.');
+      if (!payerAccountInfo) throw new Error('USDC account not found. Please ensure you have USDC.');
 
       console.log('Building transaction...');
       const { blockhash } = await connection.getLatestBlockhash('confirmed');
@@ -120,6 +120,26 @@ function PremiumContentButton() {
           <h3 style={{ margin: '0 0 10px 0', fontWeight: 700 }}>✅ Access Granted</h3>
           <p style={{ margin: 0 }}>{premiumContent || 'You are now a Deals+ member!'}</p>
 
+          <a 
+            href="https://claim.reap.deals" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{
+              display: 'block',
+              width: '100%',
+              marginTop: '1.5rem',
+              padding: '0.75rem',
+              backgroundColor: '#f97316',
+              color: 'white',
+              textAlign: 'center',
+              fontWeight: 600,
+              borderRadius: '0.5rem',
+              textDecoration: 'none',
+              transition: 'background-color 0.2s',
+            }}
+          >
+            Claim Rewards
+          </a>
           <div style={{ marginTop: '15px', paddingLeft: '10px' }}>
             <ul style={{ margin: 0, paddingLeft: '15px' }}>
               <li>🛍️ 10% off local eco-shops</li>
