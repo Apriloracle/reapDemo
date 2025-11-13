@@ -17,7 +17,7 @@ export default function Home() {
     <>
       {/* 3. Add the Head component with all your metadata */}
       <Head>
-        <title>Reap Deals</title>
+        <title>Reap</title>
         <meta name="description" content="Real-time shopping search with deal aggregation for AI agents." />
         
         {/* Open Graph Tags for Social Sharing */}
