@@ -166,7 +166,14 @@ export async function GET() {
     },
   };
 
-  return NextResponse.json(manifest, { status: 200 });
+    return NextResponse.json(x402spec, {
+    status: 402,
+    headers: {
+      'X-Payment-Required': 'true',
+      // Add more custom headers if needed
+    },
+  });
+
 }
 
 
