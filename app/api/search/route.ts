@@ -11,17 +11,17 @@ export async function POST(request: Request) {
   }
 
   try {
-    const response = await fetch('https://shoppingapicaller-50775725716.asia-southeast1.run.app', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ q: query, gl: 'us' }),
-    });
+    // === 1. Call the external shopping API ===
+    const response = await fetch(
+      'https://shoppingapicaller-50775725716.asia-southeast1.run.app',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q: query, gl: 'us' }),
+      }
+    );
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch search results');
-    }
+    if (!response.ok) throw new Error('Failed to fetch search results');
 
     const results = await response.json();
     const firstProduct = results.shopping?.[0];
@@ -33,44 +33,71 @@ export async function POST(request: Request) {
       );
     }
 
+    // === 2. Compute required amount ===
     const priceString = firstProduct.price || '';
-    const price = parseFloat(priceString.replace(/[^0-9.-]+/g,""));
-    const maxAmountRequired = Math.ceil(price * 1000000).toString(); // Convert to USDC wei
+    const price = parseFloat(priceString.replace(/[^0-9.-]+/g, ''));
+    const maxAmountRequired = Math.ceil(price * 1_000_000).toString(); // Convert to USDC "wei"
 
+    // === 3. Construct full x402 schema ===
     const x402spec = {
-      "x402Version": 1,
-      "accepts": [
+      x402Version: 1,
+      accepts: [
         {
-          "scheme": "exact",
-          "network": "base",
-          "maxAmountRequired": maxAmountRequired,
-          "resource": `https://reap.deals/api/search?q=${encodeURIComponent(query)}`,
-          "asset": "USDC",
-          "description": `Search for "${query}"`,
-          "payTo": "0x31ab637bd325b4bf5018b39dd155681d03348189",
-          "mimeType": "application/json",
-          "maxTimeoutSeconds": 60
-        }
+          scheme: 'exact',
+          network: 'base',
+          asset: 'USDC',
+          maxAmountRequired,
+          resource: `https://reap.deals/api/search?q=${encodeURIComponent(query)}`,
+          description: `Search live product prices for "${query}"`,
+          mimeType: 'application/json',
+          payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189',
+          maxTimeoutSeconds: 60,
+          outputSchema: {
+            input: {
+              type: 'http',
+              method: 'POST',
+              bodyType: 'json',
+              bodyFields: {
+                query: {
+                  type: 'string',
+                  required: true,
+                  description: 'Product name or keyword to search for.',
+                },
+              },
+            },
+            output: {
+              product: 'string',
+              price: 'string',
+              image: 'string',
+              vendor: 'string',
+              link: 'string',
+              message: 'string',
+            },
+          },
+          extra: {
+            provider: 'REAP',
+            category: 'shopping',
+            version: '1.0.1',
+            source: 'shoppingapicaller',
+          },
+        },
       ],
-      "meta": {
-        "name": "Product Search",
-        "description": "Real-time shopping search with deal aggregation for AI agents.",
-        "keywords": ["shopping", "deals", "price-comparison"],
-        "version": "1.0.0"
-      }
+      meta: {
+        name: 'Product Search',
+        description: 'Real-time product and price lookup for agents and wallets.',
+        keywords: ['shopping', 'deals', 'price', 'search'],
+        version: '1.0.1',
+      },
     };
 
-    return new NextResponse(
-      JSON.stringify(x402spec),
-      {
-        status: 402,
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Payment-Required': 'true',
-        },
-      }
-    );
-
+    // === 4. Return x402 manifest with payment requirement ===
+    return new NextResponse(JSON.stringify(x402spec), {
+      status: 402,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Payment-Required': 'true',
+      },
+    });
   } catch (error) {
     console.error('Error in x402 search proxy:', error);
     return new NextResponse(
@@ -79,3 +106,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
