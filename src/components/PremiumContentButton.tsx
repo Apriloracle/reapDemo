@@ -4,7 +4,7 @@ import { getAssociatedTokenAddress, createTransferInstruction } from '@solana/sp
 import React, { useState } from 'react';
 import { membershipStore } from '../stores/MembershipStore';
 
-const SERVER_URL = 'https://x402verifyproxy-50775725716.asia-east2.run.app'; // replace with your backend IP
+const SERVER_URL = 'https://x402verifyproxy-50775725716.asia-east2.run.app'; // The quote server
 
 function PremiumContentButton() {
   const { connection } = useConnection();
@@ -44,10 +44,9 @@ function PremiumContentButton() {
       console.log('Sending transaction...');
       const signature = await sendTransaction(tx, connection);
       console.log(`Transaction sent: ${signature}`);
-      await connection.confirmTransaction(signature, 'confirmed');
 
       console.log('Verifying payment with server...');
-      const verificationResponse = await fetch(`${SERVER_URL}/premium/verify`, {
+      const verificationResponse = await fetch(`/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ signature }),
