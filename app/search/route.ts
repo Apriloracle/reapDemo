@@ -14,7 +14,7 @@ const MANIFEST = {
     {
       scheme: 'exact',
       network: 'base',
-      asset: 'USDC',
+      asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
       maxAmountRequired: '10000', // Fixed price of $0.01
       resource: 'https://reap.deals/search',
       description: 'Search for real-time product prices',
