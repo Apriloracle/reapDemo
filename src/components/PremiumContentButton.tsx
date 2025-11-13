@@ -84,7 +84,7 @@ function PremiumContentButton() {
             fontSize: '0.9rem',
           }}
         >
-          Join for 0.0001&nbsp;USDC via x402
+          Join for 0.01&nbsp;USDC via x402
         </button>
       )}
       
