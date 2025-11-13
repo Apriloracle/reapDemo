@@ -122,7 +122,7 @@ export async function GET() {
         scheme: 'exact',
         network: 'base',
         asset: 'USDC',
-        maxAmountRequired: '1000000',
+        maxAmountRequired: '10000',
         resource: 'https://reap.deals/search',
         description: 'Search for real-time product prices',
         mimeType: 'application/json',
