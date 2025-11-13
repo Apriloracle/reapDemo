@@ -21,8 +21,8 @@ export default function Home() {
         <meta name="description" content="Real-time shopping search with deal aggregation for AI agents." />
         
         {/* Open Graph Tags for Social Sharing */}
-        <meta property="og:title" content="Reap Deals" />
-        <meta property="og:description" content="Real-time shopping search with deal aggregation for AI agents." />
+        <meta property="og:title" content="Reap" />
+        <meta property="og:description" content="Real-time shopping and product search with deal aggregation for AI agents." />
         <meta property="og:image" content="https://www.reap.deals/og.png" />
         <meta property="og:url" content="https://www.reap.deals" />
         
