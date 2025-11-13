@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+// ==========================
+// POST Handler – Executes Product Search
+// ==========================
 export async function POST(request: Request) {
   const { query } = await request.json();
 
@@ -11,7 +14,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    // === 1. Call the external shopping API ===
+    // === 1. Fetch from your Cloud Run product search microservice ===
     const response = await fetch(
       'https://shoppingapicaller-50775725716.asia-southeast1.run.app',
       {
@@ -33,12 +36,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // === 2. Compute required amount ===
+    // === 2. Convert price to USDC smallest units ===
     const priceString = firstProduct.price || '';
     const price = parseFloat(priceString.replace(/[^0-9.-]+/g, ''));
-    const maxAmountRequired = Math.ceil(price * 1_000_000).toString(); // Convert to USDC "wei"
+    const maxAmountRequired = Math.ceil(price * 1_000_000).toString(); // 1 USDC = 1,000,000 "wei"-like units
 
-    // === 3. Construct full x402 schema ===
+    // === 3. Build x402 dynamic manifest payload ===
     const x402spec = {
       x402Version: 1,
       accepts: [
@@ -47,7 +50,7 @@ export async function POST(request: Request) {
           network: 'base',
           asset: 'USDC',
           maxAmountRequired,
-          resource: `https://reap.deals/api/search?q=${encodeURIComponent(query)}`,
+          resource: `https://reap.deals/search?q=${encodeURIComponent(query)}`,
           description: `Search live product prices for "${query}"`,
           mimeType: 'application/json',
           payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189',
@@ -79,18 +82,19 @@ export async function POST(request: Request) {
             category: 'shopping',
             version: '1.0.1',
             source: 'shoppingapicaller',
+            note: 'Dynamic pricing and product search via REAP verified endpoint.',
           },
         },
       ],
       meta: {
         name: 'Product Search',
-        description: 'Real-time product and price lookup for agents and wallets.',
+        description: 'Real-time product and price lookup for AI agents and wallets.',
         keywords: ['shopping', 'deals', 'price', 'search'],
         version: '1.0.1',
       },
     };
 
-    // === 4. Return x402 manifest with payment requirement ===
+    // === 4. Return with 402 payment required header ===
     return new NextResponse(JSON.stringify(x402spec), {
       status: 402,
       headers: {
@@ -106,4 +110,63 @@ export async function POST(request: Request) {
     );
   }
 }
+
+// ==========================
+// GET Handler – Manifest Discovery for Browsers & x402scan
+// ==========================
+export async function GET() {
+  const manifest = {
+    x402Version: 1,
+    accepts: [
+      {
+        scheme: 'exact',
+        network: 'base',
+        asset: 'USDC',
+        maxAmountRequired: '100000',
+        resource: 'https://reap.deals/search',
+        description: 'Search for real-time product pricing and availability.',
+        mimeType: 'application/json',
+        payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189',
+        maxTimeoutSeconds: 60,
+        outputSchema: {
+          input: {
+            type: 'http',
+            method: 'POST',
+            bodyType: 'json',
+            bodyFields: {
+              query: {
+                type: 'string',
+                required: true,
+                description: 'Product name or keyword to search for.',
+              },
+            },
+          },
+          output: {
+            product: 'string',
+            price: 'string',
+            image: 'string',
+            vendor: 'string',
+            link: 'string',
+            message: 'string',
+          },
+        },
+        extra: {
+          provider: 'REAP',
+          category: 'shopping',
+          version: '1.0.1',
+          source: 'shoppingapicaller',
+        },
+      },
+    ],
+    meta: {
+      name: 'Product Search',
+      description: 'Real-time product and price lookup for AI agents and wallets.',
+      keywords: ['shopping', 'deals', 'price', 'search'],
+      version: '1.0.1',
+    },
+  };
+
+  return NextResponse.json(manifest, { status: 200 });
+}
+
 
