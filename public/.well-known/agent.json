@@ -1,0 +1,44 @@
+{
+  "schema_version": "a2a-v1",
+  "name_for_human": "Reap",
+  "name_for_model": "reap_deals",
+  "description_for_human": "Real-time shopping search and product price lookup. Paid via ACP and x402.",
+  "description_for_model": "A paid tool for real-time shopping search. Use the Agentic Commerce Protocol (ACP) endpoints to create a checkout session and the x402 protocol for payment. The primary product ID is 'api-search-v1'.",
+  "contact_email": "info@apriloracle.com",
+  "logo_url": "https://www.reap.deals/logo.png",
+  
+  "tools": [
+    {
+      "tool_name": "commerce_protocol",
+      "description": "Standard agentic commerce protocol for managing transactions. Use this to get the price and initiate a purchase.",
+      "endpoints": [
+        {
+          "path": "/checkout_sessions",
+          "method": "POST",
+          "purpose": "Creates a checkout session to determine the price and get a session ID for a product or service. The primary item ID is 'api-search-v1'."
+        },
+        {
+          "path": "/checkout_sessions/{id}/complete",
+          "method": "POST",
+          "purpose": "Completes a checkout session using a proof-of-payment token (e.g., from x402)."
+        }
+      ]
+    },
+    {
+      "tool_name": "product_search",
+      "description": "The paid resource. Executes a product search after a successful payment has been made via the commerce_protocol.",
+      "endpoints": [
+        {
+          "path": "/search",
+          "method": "POST",
+          "purpose": "Executes the paid search. Requires a valid L402 authorization token obtained through the ACP checkout flow."
+        }
+      ]
+    }
+  ],
+
+  "auth": {
+    "type": "x402",
+    "notes": "Payment is handled using x402 on EVM & Solana networks. Use the 'commerce_protocol' tool to get the final price and session details before initiating payment."
+  }
+}
