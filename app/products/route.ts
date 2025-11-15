@@ -16,7 +16,7 @@ const MANIFEST = {
       network: 'base',
       asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Using the same asset as /search for consistency
       maxAmountRequired: '10000', // Fixed price of $0.01 for now
-      resource: 'https://reap.deals/tools/products',
+      resource: 'https://reap.deals/products',
       description: 'Get personalized product search results from the discovery engine.',
       mimeType: 'application/json',
       payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189', // Using the same payment address
@@ -99,11 +99,28 @@ export async function GET() {
 
 
 // ==========================
-// POST Handler – Invoke
+// POST Handler – Handles both Price Discovery and Paid Execution
 // ==========================
 export async function POST(request: Request) {
-  // For now, we will not validate the payment token, but this is where it would go.
+  const authHeader = request.headers.get('Authorization');
 
+  // --- SCENARIO 1: No Authorization Header (Probe for Price) ---
+  if (!authHeader) {
+    // Return the same manifest as the GET request
+    return new NextResponse(JSON.stringify(MANIFEST), {
+      status: 402,
+      headers: {
+        ...CORS_HEADERS,
+        'Content-Type': 'application/json',
+        'X-Payment-Required': 'true',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      },
+    });
+  }
+
+  // --- SCENARIO 2: Authorization Header IS Present (Paid Request) ---
+  // SECURITY: You must validate the `authHeader` token here to confirm payment.
+  
   let query: string | undefined;
   try {
     const body = await request.json();
