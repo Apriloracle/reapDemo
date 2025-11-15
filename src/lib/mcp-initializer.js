@@ -18,6 +18,14 @@ Object.keys(stores).forEach(storeName => {
   }
 })();
 
+import { registerTool } from './mcp-engine';
+import { shoppingProductsStore } from '../stores/ShoppingProductsStore';
+
+// Register a custom tool for the shoppingProductsStore
+registerTool('getShoppingProducts', () => {
+  return shoppingProductsStore.getProducts();
+});
+
 // Expose the invoke function globally for agents
 import { invoke } from './mcp-engine';
 if (typeof window !== 'undefined') {
