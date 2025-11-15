@@ -14,13 +14,13 @@ const MANIFEST = {
     {
       scheme: 'exact',
       network: 'base',
-      asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Using the same asset as /search for consistency
+      asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
       maxAmountRequired: '10000', // Fixed price of $0.01 for now
       resource: 'https://reap.deals/products',
       description: 'Get personalized product search results from the discovery engine.',
       mimeType: 'application/json',
-      payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189', // Using the same payment address
-      maxTimeoutSeconds: 180, // Increased timeout for agent processing
+      payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189',
+      maxTimeoutSeconds: 180,
       outputSchema: {
         input: {
           type: 'http',
@@ -99,27 +99,11 @@ export async function GET() {
 
 
 // ==========================
-// POST Handler – Handles both Price Discovery and Paid Execution
+// POST Handler – TESTING MODE: Always returns results (no payment check)
 // ==========================
 export async function POST(request: Request) {
-  const authHeader = request.headers.get('Authorization');
-
-  // --- SCENARIO 1: No Authorization Header (Probe for Price) ---
-  if (!authHeader) {
-    // Return the same manifest as the GET request
-    return new NextResponse(JSON.stringify(MANIFEST), {
-      status: 402,
-      headers: {
-        ...CORS_HEADERS,
-        'Content-Type': 'application/json',
-        'X-Payment-Required': 'true',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-      },
-    });
-  }
-
-  // --- SCENARIO 2: Authorization Header IS Present (Paid Request) ---
-  // SECURITY: You must validate the `authHeader` token here to confirm payment.
+  // TESTING MODE: Skip authorization check
+  console.log('⚠️ TESTING MODE: Payment check disabled');
   
   let query: string | undefined;
   try {
@@ -143,12 +127,14 @@ export async function POST(request: Request) {
   try {
     const agentEndpoint = 'https://productserver1.reap.deals';
     
+    console.log(`🔍 Fetching products for query: "${query}"`);
+    
     const response = await fetch(agentEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query, dataType: 'products' }), // Pass the new dataType parameter
+      body: JSON.stringify({ query, dataType: 'products' }),
     });
 
     if (!response.ok) {
@@ -161,6 +147,8 @@ export async function POST(request: Request) {
     }
 
     const results = await response.json();
+    console.log(`✅ Returning ${results?.length || 0} products`);
+    
     return new NextResponse(JSON.stringify(results), {
       status: 200,
       headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
