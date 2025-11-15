@@ -23,3 +23,8 @@ export async function invoke(tool, params) {
   if (!tools[tool]) throw new Error("Unknown tool: " + tool);
   return tools[tool](params);
 }
+
+// Expose the invoke function to the global window object for the agent
+if (typeof window !== 'undefined') {
+  window.invoke = invoke;
+}
