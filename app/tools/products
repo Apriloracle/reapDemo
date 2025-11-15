@@ -17,7 +17,7 @@ const MANIFEST = {
       asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Using the same asset as /search for consistency
       maxAmountRequired: '10000', // Fixed price of $0.01 for now
       resource: 'https://reap.deals/tools/products',
-      description: 'Get personalized product search results.',
+      description: 'Get personalized product search results from the discovery engine.',
       mimeType: 'application/json',
       payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189', // Using the same payment address
       maxTimeoutSeconds: 180, // Increased timeout for agent processing
@@ -35,7 +35,23 @@ const MANIFEST = {
           },
         },
         output: {
-            // Define the expected output structure from the discovery engine
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              asin: { type: 'string' },
+              name: { type: 'string' },
+              price: { type: 'number' },
+              priceDisplay: { type: 'string' },
+              rating: { type: 'number' },
+              ratingCount: { type: 'number' },
+              source: { type: 'string' },
+              imageUrl: { type: 'string' },
+              link: { type: 'string' },
+              valueScore: { type: 'number' },
+              deal: { type: 'string' },
+            },
+          },
         },
       },
       extra: {
@@ -48,7 +64,7 @@ const MANIFEST = {
   ],
   meta: {
     name: 'Personalized Discovery Search',
-    description: 'Real-time, personalized product search.',
+    description: 'Real-time, personalized product search',
     keywords: ['shopping', 'deals', 'price', 'search', 'personalized', 'discovery'],
     version: '1.0.0',
   },
@@ -140,3 +156,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
