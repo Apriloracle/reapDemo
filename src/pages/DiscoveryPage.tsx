@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import LiqeSearchComponent from '../components/LiqeSearchComponent';
 import CategoryFilter from '../components/CategoryFilter';
 import ProductCard from '../components/ProductCard';
@@ -19,6 +19,8 @@ import { getCoordinateForData } from '../lib/probeUtils';
 
 const DiscoveryPage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') || '';
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState('position');
@@ -175,7 +177,8 @@ const DiscoveryPage: React.FC = () => {
         
         <LiqeSearchComponent 
           ref={searchInputRef} 
-          onSearchResults={handleSearchResults} 
+          onSearchResults={handleSearchResults}
+          initialQuery={initialQuery}
         />
       </div>
 
@@ -218,6 +221,4 @@ const DiscoveryPage: React.FC = () => {
 };
 
 export default DiscoveryPage;
-
-
 
