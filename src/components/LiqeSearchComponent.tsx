@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { userProfileStore } from '../stores/UserProfileStore';
@@ -8,10 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 interface LiqeSearchComponentProps {
   onSearch?: (searchTerm: string) => void;
   onSearchResults?: (results: any[]) => void;
+  initialQuery?: string;
 }
 
-const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onSearch, onSearchResults }, ref) => {
-  const [query, setQuery] = useState('');
+const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProps>(({ onSearch, onSearchResults, initialQuery }, ref) => {
+  const [query, setQuery] = useState(initialQuery || '');
   const [isFocused, setIsFocused] = useState(false);
 
   const handleSearch = async () => {
@@ -71,6 +72,12 @@ const LiqeSearchComponent = forwardRef<HTMLInputElement, LiqeSearchComponentProp
       }
     }
   };
+
+  useEffect(() => {
+    if (initialQuery) {
+      handleSearch();
+    }
+  }, [initialQuery]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
