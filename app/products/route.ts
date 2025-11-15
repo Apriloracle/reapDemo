@@ -141,7 +141,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const agentEndpoint = 'https://claim.reap.deals';
+    const agentEndpoint = 'https://productserver1.reap.deals';
     
     const response = await fetch(agentEndpoint, {
       method: 'POST',
