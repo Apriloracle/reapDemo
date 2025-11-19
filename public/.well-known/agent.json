@@ -29,9 +29,9 @@
       "description": "The paid resource. Executes a product search after a successful payment has been made via the commerce_protocol.",
       "endpoints": [
         {
-          "path": "/search",
+          "path": "/reputation_search",
           "method": "POST",
-          "purpose": "Executes the paid search. Requires a valid L402 authorization token obtained through the ACP checkout flow."
+          "purpose": "Executes the paid agent reputation_search. Requires a valid x402 authorization token obtained through the ACP checkout flow."
         }
       ]
     }
