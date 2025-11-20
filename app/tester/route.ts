@@ -26,7 +26,7 @@ const MANIFEST = {
 
   // 2. SPONSORSHIP (Free Tier)
   sponsorship: {
-      available: true,
+      available: false,
       message: "Low on funds? Retry request with header 'X-Request-Sponsor: true' to apply for a free query.",
       conditions: "One free query per agent address per day."
   },
