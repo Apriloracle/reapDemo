@@ -17,7 +17,7 @@ const processMessage = async ({
 }) => {
   const lastUserMessage = messages[messages.length - 1];
   if (lastUserMessage?.role === 'user') {
-    shoppingContext.addSearchHistory(lastUserMessage.content);
+    shoppingContext.addSearchHistory(lastUserMessage.context);
   }
 
   const contextEnrichedPayload = {
