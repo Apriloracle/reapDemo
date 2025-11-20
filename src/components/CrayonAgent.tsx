@@ -98,7 +98,7 @@ export default function CrayonAgent() {
 
       <CrayonChat 
         processMessage={processMessageWithContext}
-        initialMessages={[
+        messages={[
           {
             role: "assistant",
             content: "Welcome! I'm your Web3 shopping assistant. How can I help you today?"
@@ -108,3 +108,4 @@ export default function CrayonAgent() {
     </div>
   );
 }
+
