@@ -1,4 +1,4 @@
-import { useStore, useTable } from 'tinybase/ui-react';
+import { useCell, useTable } from 'tinybase/ui-react';
 import { favoriteStore } from '../stores/FavoriteStore';
 import { searchIndexStore } from '../stores/SearchIndexStore';
 import { userProfileStore } from '../stores/UserProfileStore';
@@ -7,7 +7,7 @@ export const useCrayonShoppingStore = () => {
   const cart = useTable('cart', favoriteStore.getStore());
   const wishlist = useTable('wishlist', favoriteStore.getStore());
   const searchHistory = useTable('searches', searchIndexStore);
-  const walletAddress = useStore(userProfileStore.getStore())?.getValue('walletAddress');
+  const walletAddress = useCell('profiles', 'current', 'walletAddress', userProfileStore.getStore());
 
   const addToCart = (item: any) => {
     favoriteStore.addFavorite({ ...item, isWishlistItem: false });
