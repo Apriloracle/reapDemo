@@ -89,8 +89,8 @@ export default function CrayonAgent() {
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            {shoppingStore.walletAddress 
-              ? `${shoppingStore.walletAddress.slice(0, 6)}...${shoppingStore.walletAddress.slice(-4)}` 
+            {typeof shoppingStore.walletAddress === 'string'
+              ? `${shoppingStore.walletAddress.slice(0, 6)}...${shoppingStore.walletAddress.slice(-4)}`
               : 'Connect Wallet'}
           </button>
         </div>
