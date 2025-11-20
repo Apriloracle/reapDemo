@@ -20,6 +20,7 @@ const processMessage = async ({
     shoppingContext.addSearchHistory(lastUserMessage.context);
   }
 
+  
   const contextEnrichedPayload = {
     threadId,
     messages,
