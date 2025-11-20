@@ -20,7 +20,6 @@ const processMessage = async ({
     shoppingContext.addSearchHistory(lastUserMessage.context);
   }
 
-  
   const contextEnrichedPayload = {
     threadId,
     messages,
@@ -99,14 +98,7 @@ export default function CrayonAgent() {
 
       <CrayonChat 
         processMessage={processMessageWithContext}
-        messages={[
-          {
-            role: "assistant",
-            content: "Welcome! I'm your Web3 shopping assistant. How can I help you today?"
-          }
-        ]}
       />
     </div>
   );
 }
-
