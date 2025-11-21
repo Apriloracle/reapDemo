@@ -39,7 +39,7 @@ const MANIFEST = {
       chainId: 8453,
       asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Base USDC
       maxAmountRequired: PRICE_USDC_SMALL,
-      resource: 'reap-ai-v1', // The SKU
+      resource: 'https://reap.deals/onchain', // The SKU
       description: 'Get personalized product search results (Base Settlement).',
       payTo: UNIVERSAL_ADDRESS,
       mimeType: 'application/json',
@@ -51,7 +51,7 @@ const MANIFEST = {
       chainId: 42220,
       asset: '0xcebA9300f2b948710d2653dD7B07f33A8B32118C', // Celo USDC
       maxAmountRequired: PRICE_USDC_SMALL,
-      resource: 'reap-ai-v1',
+      resource: 'https://reap.deals/onchain',
       description: 'Get personalized product search results (Celo Settlement).',
       payTo: UNIVERSAL_ADDRESS,
       mimeType: 'application/json',
