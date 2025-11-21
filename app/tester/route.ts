@@ -1,3 +1,12 @@
+import { NextResponse } from 'next/server';
+
+// Define CORS headers to be reused in all responses
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*', // Allows any origin. For production, you might want to restrict this.
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
 const MANIFEST = {
   x402Version: 1,
 
