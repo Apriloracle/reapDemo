@@ -1186,11 +1186,11 @@ const TelegramMiniApp: React.FC = () => {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#000000',
+        backgroundColor: '#ffffff',
         display: 'flex',
         justifyContent: 'space-around',
         padding: '0.5rem 0',
-        borderTop: '1px solid #333333'
+        borderTop: '1px solid #e0e0e0'
       }}>
         {/* Home button */}
         <button
@@ -1198,7 +1198,7 @@ const TelegramMiniApp: React.FC = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: location.pathname === '/' ? '#f05e23' : '#fff',
+            color: location.pathname === '/' ? '#f05e23' : '#000',
             fontSize: '12px',
             cursor: 'pointer',
             display: 'flex',
@@ -1221,7 +1221,7 @@ const TelegramMiniApp: React.FC = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: location.pathname === '/cart' ? '#f05e23' : '#fff',
+            color: location.pathname === '/cart' ? '#f05e23' : '#000',
             fontSize: '12px',
             cursor: 'pointer',
             display: 'flex',
@@ -1244,7 +1244,7 @@ const TelegramMiniApp: React.FC = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: location.pathname === '/profile' ? '#f05e23' : '#fff',
+            color: location.pathname === '/profile' ? '#f05e23' : '#000',
             fontSize: '12px',
             cursor: 'pointer',
             display: 'flex',
@@ -1266,7 +1266,7 @@ const TelegramMiniApp: React.FC = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: location.pathname === '/exclusive' ? '#f05e23' : '#fff',
+            color: location.pathname === '/exclusive' ? '#f05e23' : '#000',
             fontSize: '12px',
             cursor: 'pointer',
             display: 'flex',
