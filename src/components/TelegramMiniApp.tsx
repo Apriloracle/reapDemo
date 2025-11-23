@@ -43,6 +43,7 @@ import DiscoveryPage from '../pages/DiscoveryPage'; // Import the new page
 import ProductDetailPage from './ProductDetailPage'; // Use the component version that only uses local store
 import ShoppingResultsPage from '../pages/ShoppingResultsPage'; // Import the new page
 import ExclusivePage from '../pages/ExclusivePage'; // Import the new page
+import AgentPage from '../../app/agent/page'; // Import the new agent page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
@@ -1282,6 +1283,29 @@ const TelegramMiniApp: React.FC = () => {
           </svg>
           <span style={{ marginTop: '2px' }}>Exclusive</span>
         </button>
+
+        {/* Agent button (hidden for now) */}
+        {/*
+        <button
+          onClick={() => navigate('/agent')}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: location.pathname === '/agent' ? '#f05e23' : '#000',
+            fontSize: '12px',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingTop: '4px',
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span style={{ marginTop: '2px' }}>Agent</span>
+        </button>
+        */}
       </div>
     );
   };
@@ -1353,6 +1377,7 @@ const TelegramMiniApp: React.FC = () => {
           <Route path="/discovery" element={<DiscoveryPage />} /> {/* New route for discovery page */}
           <Route path="/shopping-results" element={<ShoppingResultsPage />} /> {/* New route for shopping results */}
           <Route path="/exclusive" element={<ExclusivePage />} /> {/* New route for exclusive page */}
+          <Route path="/agent" element={<AgentPage />} /> {/* New route for the agent page */}
         </Routes>
 
         <Navigation />
