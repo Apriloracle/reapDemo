@@ -43,7 +43,7 @@ import DiscoveryPage from '../pages/DiscoveryPage'; // Import the new page
 import ProductDetailPage from './ProductDetailPage'; // Use the component version that only uses local store
 import ShoppingResultsPage from '../pages/ShoppingResultsPage'; // Import the new page
 import ExclusivePage from '../pages/ExclusivePage'; // Import the new page
-import AgentPage from '../../app/agent/page'; // Import the new agent page
+import AgentPage from '../pages/agent'; // Import the new agent page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
@@ -1388,6 +1388,7 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
 
 
 
