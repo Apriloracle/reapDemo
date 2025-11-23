@@ -64,7 +64,7 @@ export default function CrayonAgent() {
   };
 
   return (
-    <div className="h-screen">
+    <div style={{ height: 'calc(100vh - 60px)', paddingBottom: '60px' }}>
       <div className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h1 className="text-lg font-semibold">Web3 Shopping Agent</h1>
