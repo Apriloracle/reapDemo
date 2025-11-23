@@ -64,41 +64,43 @@ export default function CrayonAgent() {
   };
 
   return (
-    <div style={{ height: 'calc(100vh - 60px)', paddingBottom: '60px' }}>
-      <div className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <h1 className="text-lg font-semibold">Web3 Shopping Agent</h1>
-        </div>
-        
-        <div className="flex items-center gap-4 text-sm">
-          <div className="text-gray-600">
-            Cart: <strong>{Object.keys(shoppingStore.cart).length}</strong>
+    <div style={{ position: 'relative', height: '100vh' }}>
+      <div style={{ paddingBottom: '60px', height: '100%', overflowY: 'auto' }}>
+        <div className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <h1 className="text-lg font-semibold">Web3 Shopping Agent</h1>
           </div>
-          <div className="text-gray-600">
-            Wishlist: <strong>{Object.keys(shoppingStore.wishlist).length}</strong>
+          
+          <div className="flex items-center gap-4 text-sm">
+            <div className="text-gray-600">
+              Cart: <strong>{Object.keys(shoppingStore.cart).length}</strong>
+            </div>
+            <div className="text-gray-600">
+              Wishlist: <strong>{Object.keys(shoppingStore.wishlist).length}</strong>
+            </div>
+            <button
+              onClick={() => {
+                if (!shoppingStore.walletAddress) {
+                  shoppingStore.connectWallet('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
+                }
+              }}
+              className={`px-3 py-1 rounded text-xs font-medium ${
+                shoppingStore.walletAddress 
+                  ? 'bg-green-100 text-green-700' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {typeof shoppingStore.walletAddress === 'string'
+                ? `${shoppingStore.walletAddress.slice(0, 6)}...${shoppingStore.walletAddress.slice(-4)}`
+                : 'Connect Wallet'}
+            </button>
           </div>
-          <button
-            onClick={() => {
-              if (!shoppingStore.walletAddress) {
-                shoppingStore.connectWallet('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
-              }
-            }}
-            className={`px-3 py-1 rounded text-xs font-medium ${
-              shoppingStore.walletAddress 
-                ? 'bg-green-100 text-green-700' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {typeof shoppingStore.walletAddress === 'string'
-              ? `${shoppingStore.walletAddress.slice(0, 6)}...${shoppingStore.walletAddress.slice(-4)}`
-              : 'Connect Wallet'}
-          </button>
         </div>
-      </div>
 
-      <CrayonChat 
-        processMessage={processMessageWithContext}
-      />
+        <CrayonChat 
+          processMessage={processMessageWithContext}
+        />
+      </div>
     </div>
   );
 }
