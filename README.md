@@ -1,6 +1,6 @@
 ![Reap Protocol](./public/android-chrome-192x192.png)
 
-REAP is an AI-driven, blockchain-based platform that revolutionizes the personalized deals marketplace. It connects users with hyper-personalized, high-value deals while enabling businesses to reach their ideal customers with unprecedented precision.
+REAP is an AI-driven, blockchain-based platform that revolutionizes the personalized deals marketplace. It connects agents and their users with hyper-personalized, high-value deals while enabling businesses to reach their ideal customers with unprecedented precision.
 
 
 ## Getting Started
@@ -18,3 +18,6 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
+## License
+
+MIT
