@@ -77,6 +77,21 @@ export default function CrayonAgent() {
     return 'Connect Wallet';
   };
 
+  // Get recent search as string
+  const getRecentSearch = (): string => {
+    const history = shoppingStore.searchHistory;
+    if (Array.isArray(history) && history.length > 0) {
+      const recent = history[0];
+      // Handle if it's an object with a query property
+      if (typeof recent === 'object' && recent !== null && 'query' in recent) {
+        return String(recent.query);
+      }
+      // Handle if it's already a string
+      return String(recent);
+    }
+    return 'None';
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gradient-to-br from-purple-50 to-blue-50">
       {/* Header */}
@@ -126,7 +141,7 @@ export default function CrayonAgent() {
         <div className="flex items-center gap-2">
           <Search className="w-4 h-4 text-purple-600" />
           <span className="text-gray-600">
-            Recent: {shoppingStore.searchHistory[0] || 'None'}
+            Recent: {getRecentSearch()}
           </span>
         </div>
         <div className="flex items-center gap-2">
