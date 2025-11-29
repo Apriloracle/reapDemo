@@ -69,6 +69,14 @@ export default function CrayonAgent() {
     });
   };
 
+  // Format wallet address safely
+  const formatWalletAddress = (address: string | number | boolean | null | undefined): string => {
+    if (typeof address === 'string' && address.length > 10) {
+      return `${address.slice(0, 6)}...${address.slice(-4)}`;
+    }
+    return 'Connect Wallet';
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gradient-to-br from-purple-50 to-blue-50">
       {/* Header */}
@@ -95,9 +103,7 @@ export default function CrayonAgent() {
             }`}
           >
             <Wallet className="w-4 h-4" />
-            {shoppingStore.walletAddress
-              ? `${shoppingStore.walletAddress.slice(0, 6)}...${shoppingStore.walletAddress.slice(-4)}`
-              : 'Connect Wallet'}
+            {formatWalletAddress(shoppingStore.walletAddress)}
           </button>
           
           <div className="flex items-center gap-2 text-sm text-gray-600">
