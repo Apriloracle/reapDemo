@@ -4,6 +4,7 @@ import { CrayonChat } from "@crayonai/react-ui";
 import "@crayonai/react-ui/styles/index.css";
 import { useCrayonShoppingStore } from '../hooks/useCrayonShoppingStore';
 import { ShoppingCart, Wallet, Package, TrendingDown, Search } from 'lucide-react';
+import styles from '../styles/agentStyle.module.css'; // Import the CSS module
 
 const processMessage = async ({
   threadId,
@@ -18,7 +19,6 @@ const processMessage = async ({
 }) => {
   const lastUserMessage = messages[messages.length - 1];
   if (lastUserMessage?.role === 'user') {
-    // Crayon uses 'context' property, not 'content'
     const messageContext = (lastUserMessage as any).context;
     if (messageContext && typeof messageContext === 'string') {
       shoppingContext.addSearchHistory(messageContext);
@@ -69,7 +69,6 @@ export default function CrayonAgent() {
     });
   };
 
-  // Format wallet address safely
   const formatWalletAddress = (address: string | number | boolean | null | undefined): string => {
     if (typeof address === 'string' && address.length > 10) {
       return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -77,53 +76,46 @@ export default function CrayonAgent() {
     return 'Connect Wallet';
   };
 
-  // Get recent search as string
   const getRecentSearch = (): string => {
     const history = shoppingStore.searchHistory;
     if (Array.isArray(history) && history.length > 0) {
       const recent = history[0];
-      // Handle if it's an object with a query property
       if (typeof recent === 'object' && recent !== null && 'query' in recent) {
         return String(recent.query);
       }
-      // Handle if it's already a string
       return String(recent);
     }
     return 'None';
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-purple-50 to-blue-50">
+    <div className={styles.container}>
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <ShoppingCart className="w-6 h-6 text-purple-600" />
-          <h1 className="text-xl font-bold text-gray-900">Web3 Shopping Agent</h1>
-          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
-            Powered by Firefly
-          </span>
+      <div className={styles.header}>
+        <div className={styles.headerLeft}>
+          <ShoppingCart className={styles.icon} />
+          <h1 className={styles.title}>Web3 Shopping Agent</h1>
+          <span className={styles.badge}>Powered by Firefly</span>
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className={styles.headerRight}>
           <button
             onClick={() => {
               if (!shoppingStore.walletAddress) {
                 shoppingStore.connectWallet('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
               }
             }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
-              shoppingStore.walletAddress 
-                ? 'bg-green-100 text-green-700' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            className={`${styles.walletButton} ${
+              shoppingStore.walletAddress ? styles.connected : styles.disconnected
             }`}
           >
-            <Wallet className="w-4 h-4" />
+            <Wallet className={styles.walletIcon} />
             {formatWalletAddress(shoppingStore.walletAddress)}
           </button>
           
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <ShoppingCart className="w-4 h-4" />
-            <span className="font-medium">
+          <div className={styles.cartInfo}>
+            <ShoppingCart className={styles.cartIcon} />
+            <span className={styles.cartCount}>
               {Object.keys(shoppingStore.cart).length} items
             </span>
           </div>
@@ -131,27 +123,29 @@ export default function CrayonAgent() {
       </div>
 
       {/* Quick Stats */}
-      <div className="bg-white border-b border-gray-200 px-6 py-3 flex gap-6 text-sm">
-        <div className="flex items-center gap-2">
-          <Package className="w-4 h-4 text-blue-600" />
-          <span className="text-gray-600">
-            Wishlist: <strong>{Object.keys(shoppingStore.wishlist).length}</strong>
+      <div className={styles.stats}>
+        <div className={styles.statItem}>
+          <Package className={`${styles.statIcon} ${styles.blue}`} />
+          <span className={styles.statText}>
+            Wishlist: <strong className={styles.statValue}>{Object.keys(shoppingStore.wishlist).length}</strong>
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <Search className="w-4 h-4 text-purple-600" />
-          <span className="text-gray-600">
+        <div className={styles.statItem}>
+          <Search className={`${styles.statIcon} ${styles.purple}`} />
+          <span className={styles.statText}>
             Recent: {getRecentSearch()}
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <TrendingDown className="w-4 h-4 text-green-600" />
-          <span className="text-gray-600">Gas: <strong>12 Gwei</strong></span>
+        <div className={styles.statItem}>
+          <TrendingDown className={`${styles.statIcon} ${styles.green}`} />
+          <span className={styles.statText}>
+            Gas: <strong className={styles.statValue}>12 Gwei</strong>
+          </span>
         </div>
       </div>
 
       {/* Crayon Chat Component */}
-      <div className="flex-1 overflow-hidden">
+      <div className={styles.chatContainer}>
         <CrayonChat processMessage={processMessageWithContext} />
       </div>
     </div>
