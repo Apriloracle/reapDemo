@@ -94,8 +94,8 @@ export default function CrayonAgent() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <ShoppingCart className={styles.icon} />
-          <h1 className={styles.title}>Web3 Shopping Agent</h1>
-          <span className={styles.badge}>Powered by Firefly</span>
+          <h1 className={styles.title}>Your Shopping Agent</h1>
+          <span className={styles.badge}>P</span>
         </div>
         
         <div className={styles.headerRight}>
@@ -139,7 +139,7 @@ export default function CrayonAgent() {
         <div className={styles.statItem}>
           <TrendingDown className={`${styles.statIcon} ${styles.green}`} />
           <span className={styles.statText}>
-            Gas: <strong className={styles.statValue}>12 Gwei</strong>
+            Gas: <strong className={styles.statValue}></strong>
           </span>
         </div>
       </div>
