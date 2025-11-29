@@ -105,10 +105,7 @@ return (
       {/* Quick Stats */}
       <div className={styles.stats}>
         <div className={styles.statItem}>
-          <Search className={`${styles.statIcon} ${styles.purple}`} />
-          <span className={styles.statText}>
-            Recent: {getRecentSearch()}
-          </span>
+        
         </div>
         <div className={styles.statItem}>
         </div>
