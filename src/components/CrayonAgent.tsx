@@ -96,19 +96,6 @@ return (
         </div>
         
         <div className={styles.headerRight}>
-          <button
-            onClick={() => {
-              if (!shoppingStore.walletAddress) {
-                shoppingStore.connectWallet('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
-              }
-            }}
-            className={`${styles.walletButton} ${
-              shoppingStore.walletAddress ? styles.connected : styles.disconnected
-            }`}
-          >
-            <Wallet className={styles.walletIcon} />
-            {formatWalletAddress(shoppingStore.walletAddress)}
-          </button>
           
           <div className={styles.cartInfo}>
           </div>
@@ -117,9 +104,6 @@ return (
 
       {/* Quick Stats */}
       <div className={styles.stats}>
-        <div className={styles.statItem}>
-          <Package className={`${styles.statIcon} ${styles.blue}`} />
-        </div>
         <div className={styles.statItem}>
           <Search className={`${styles.statIcon} ${styles.purple}`} />
           <span className={styles.statText}>
