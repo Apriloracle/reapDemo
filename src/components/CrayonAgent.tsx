@@ -148,7 +148,6 @@ export default function CrayonAgent() {
       <div className={styles.chatContainer}>
         <CrayonChat 
           processMessage={processMessageWithContext}
-          placeholder="Ask me to find NFTs, compare prices, or check your cart..."
         />
       </div>
     </div>
