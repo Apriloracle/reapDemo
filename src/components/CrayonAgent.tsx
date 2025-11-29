@@ -18,15 +18,10 @@ const processMessage = async ({
 }) => {
   const lastUserMessage = messages[messages.length - 1];
   if (lastUserMessage?.role === 'user') {
-    // Extract text content from Crayon message format
-    const messageText = typeof lastUserMessage.content === 'string' 
-      ? lastUserMessage.content 
-      : Array.isArray(lastUserMessage.content) 
-        ? lastUserMessage.content.map((c: any) => c.text || '').join(' ')
-        : '';
-    
-    if (messageText) {
-      shoppingContext.addSearchHistory(messageText);
+    // Crayon uses 'context' property, not 'content'
+    const messageContext = (lastUserMessage as any).context;
+    if (messageContext && typeof messageContext === 'string') {
+      shoppingContext.addSearchHistory(messageContext);
     }
   }
 
