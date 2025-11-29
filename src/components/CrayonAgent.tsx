@@ -18,7 +18,16 @@ const processMessage = async ({
 }) => {
   const lastUserMessage = messages[messages.length - 1];
   if (lastUserMessage?.role === 'user') {
-    shoppingContext.addSearchHistory(lastUserMessage.content);
+    // Extract text content from Crayon message format
+    const messageText = typeof lastUserMessage.content === 'string' 
+      ? lastUserMessage.content 
+      : Array.isArray(lastUserMessage.content) 
+        ? lastUserMessage.content.map((c: any) => c.text || '').join(' ')
+        : '';
+    
+    if (messageText) {
+      shoppingContext.addSearchHistory(messageText);
+    }
   }
 
   const contextEnrichedPayload = {
