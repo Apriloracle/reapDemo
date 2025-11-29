@@ -136,12 +136,6 @@ export default function CrayonAgent() {
             Recent: {getRecentSearch()}
           </span>
         </div>
-        <div className={styles.statItem}>
-          <TrendingDown className={`${styles.statIcon} ${styles.green}`} />
-          <span className={styles.statText}>
-            Gas: <strong className={styles.statValue}></strong>
-          </span>
-        </div>
       </div>
 
       {/* Crayon Chat Component */}
