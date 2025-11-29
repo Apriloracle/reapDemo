@@ -90,58 +90,6 @@ export default function CrayonAgent() {
 
   return (
     <div className={styles.container}>
-      {/* Header */}
-      <div className={styles.header}>
-        <div className={styles.headerLeft}>
-          <ShoppingCart className={styles.icon} />
-          <h1 className={styles.title}>Web3 Shopping Agent</h1>
-          <span className={styles.badge}>Powered by Firefly</span>
-        </div>
-        
-        <div className={styles.headerRight}>
-          <button
-            onClick={() => {
-              if (!shoppingStore.walletAddress) {
-                shoppingStore.connectWallet('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
-              }
-            }}
-            className={`${styles.walletButton} ${
-              shoppingStore.walletAddress ? styles.connected : styles.disconnected
-            }`}
-          >
-            <Wallet className={styles.walletIcon} />
-            {formatWalletAddress(shoppingStore.walletAddress)}
-          </button>
-          
-          <div className={styles.cartInfo}>
-            <ShoppingCart className={styles.cartIcon} />
-            <span className={styles.cartCount}>
-              {Object.keys(shoppingStore.cart).length} items
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Stats */}
-      <div className={styles.stats}>
-        <div className={styles.statItem}>
-          <Package className={`${styles.statIcon} ${styles.blue}`} />
-          <span className={styles.statText}>
-            Wishlist: <strong className={styles.statValue}>{Object.keys(shoppingStore.wishlist).length}</strong>
-          </span>
-        </div>
-        <div className={styles.statItem}>
-          <Search className={`${styles.statIcon} ${styles.purple}`} />
-          <span className={styles.statText}>
-            Recent: {getRecentSearch()}
-          </span>
-        </div>
-        <div className={styles.statItem}>
-          <TrendingDown className={`${styles.statIcon} ${styles.green}`} />
-          <span className={styles.statText}>
-            Gas: <strong className={styles.statValue}>12 Gwei</strong>
-          </span>
-        </div>
       </div>
 
       {/* Crayon Chat Component - Ensure it fills remaining space */}
