@@ -4,7 +4,7 @@ import { CrayonChat } from "@crayonai/react-ui";
 import "@crayonai/react-ui/styles/index.css";
 import { useCrayonShoppingStore } from '../hooks/useCrayonShoppingStore';
 import { ShoppingCart, Wallet, Package, TrendingDown, Search } from 'lucide-react';
-import styles from '../styles/agentStyle.module.css'; // Import the CSS module
+import styles from '../styles/agentStyle.module.css';
 
 const processMessage = async ({
   threadId,
@@ -94,8 +94,8 @@ export default function CrayonAgent() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <ShoppingCart className={styles.icon} />
-          <h1 className={styles.title}>Your Shopping Agent</h1>
-          <span className={styles.badge}>P</span>
+          <h1 className={styles.title}>Web3 Shopping Agent</h1>
+          <span className={styles.badge}>Powered by Firefly</span>
         </div>
         
         <div className={styles.headerRight}>
@@ -136,11 +136,20 @@ export default function CrayonAgent() {
             Recent: {getRecentSearch()}
           </span>
         </div>
+        <div className={styles.statItem}>
+          <TrendingDown className={`${styles.statIcon} ${styles.green}`} />
+          <span className={styles.statText}>
+            Gas: <strong className={styles.statValue}>12 Gwei</strong>
+          </span>
+        </div>
       </div>
 
-      {/* Crayon Chat Component */}
+      {/* Crayon Chat Component - Ensure it fills remaining space */}
       <div className={styles.chatContainer}>
-        <CrayonChat processMessage={processMessageWithContext} />
+        <CrayonChat 
+          processMessage={processMessageWithContext}
+          placeholder="Ask me to find NFTs, compare prices, or check your cart..."
+        />
       </div>
     </div>
   );
