@@ -152,15 +152,7 @@ export default function CrayonAgent() {
 
       {/* Crayon Chat Component */}
       <div className="flex-1 overflow-hidden">
-        <CrayonChat 
-          processMessage={processMessageWithContext}
-          initialMessages={[
-            {
-              role: "assistant",
-              content: "👋 Welcome to your Web3 Shopping Agent! I can help you find NFTs, tokens, and products across multiple blockchains. What are you looking for today?"
-            }
-          ]}
-        />
+        <CrayonChat processMessage={processMessageWithContext} />
       </div>
     </div>
   );
