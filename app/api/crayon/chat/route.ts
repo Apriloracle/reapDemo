@@ -1,90 +1,147 @@
-// app/api/chat/route.ts
-import { NextRequest } from 'next/server';
+// app/api/crayon/chat/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+
+// Type definitions
+interface Message {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
+interface ShoppingContext {
+  cart: Record<string, any>;
+  wishlist: Record<string, any>;
+  recentSearches: string[];
+  walletAddress?: string;
+}
+
+interface OrchestrationConfig {
+  chains: string[];
+  enableWeb3: boolean;
+  walletRequired: boolean;
+  features: {
+    priceComparison: boolean;
+    multiChainSearch: boolean;
+    gasEstimation?: boolean;
+  };
+}
+
+interface RequestBody {
+  threadId: string;
+  messages: Message[];
+  context: ShoppingContext;
+  orchestrationConfig: OrchestrationConfig;
+}
 
 export async function POST(req: NextRequest) {
-  const { threadId, messages, context } = await req.json();
+  try {
+    const body: RequestBody = await req.json();
+    const { threadId, messages, context, orchestrationConfig } = body;
 
-  // Convert to DeepSeek format
-  const deepseekMessages = messages.map(msg => ({
-    role: msg.role,
-    content: msg.content
-  }));
+    // Convert to DeepSeek format
+    const deepseekMessages = messages.map((msg: Message) => ({
+      role: msg.role,
+      content: msg.content
+    }));
 
-  // Add system prompt with shopping context
-  const systemMessage = {
-    role: "system",
-    content: `You are a Web3 shopping assistant. 
-    
-Current user context:
-- Cart: ${context?.cart?.length || 0} items
-- Wishlist: ${context?.wishlist?.length || 0} items
-- Recent searches: ${context?.recentSearches?.join(', ') || 'none'}
-- Wallet: ${context?.walletAddress || 'not connected'}
+    // System prompt with shopping context
+    const systemMessage: Message = {
+      role: "system",
+      content: `You are a Web3 shopping assistant helping users find NFTs, tokens, and deals across multiple blockchains.
 
-Help users find products, compare prices across chains, and manage their shopping experience.`
-  };
+Current Shopping Context:
+- Cart items: ${Object.keys(context.cart).length}
+- Wishlist items: ${Object.keys(context.wishlist).length}
+- Recent searches: ${context.recentSearches.join(', ') || 'none'}
+- Wallet: ${context.walletAddress ? 'connected' : 'not connected'}
 
-  // Call DeepSeek API
-  const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'deepseek-chat', // or 'deepseek-reasoner' for R1
-      messages: [systemMessage, ...deepseekMessages],
-      stream: true,
-      temperature: 0.7,
-      max_tokens: 2000
-    })
-  });
+You can help with:
+- Searching NFTs across ${orchestrationConfig.chains.join(', ')}
+- Comparing prices across marketplaces
+- Checking availability
+- Estimating gas costs
+- Managing cart and wishlist
 
-  // Stream response to Crayon UI
-  const encoder = new TextEncoder();
-  const stream = new ReadableStream({
-    async start(controller) {
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
+Be helpful, concise, and focus on finding the best deals for users.`
+    };
 
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+    // Call DeepSeek API
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [systemMessage, ...deepseekMessages],
+        stream: true,
+        temperature: 0.7,
+        max_tokens: 2000
+      })
+    });
 
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n').filter(line => line.trim() !== '');
+    if (!response.ok) {
+      throw new Error(`DeepSeek API error: ${response.statusText}`);
+    }
 
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              const data = line.slice(6);
-              if (data === '[DONE]') continue;
+    // Stream response back to client
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        const reader = response.body?.getReader();
+        if (!reader) {
+          controller.close();
+          return;
+        }
 
-              try {
-                const parsed = JSON.parse(data);
-                const content = parsed.choices[0]?.delta?.content || '';
-                if (content) {
-                  controller.enqueue(encoder.encode(content));
+        const decoder = new TextDecoder();
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n').filter(line => line.trim() !== '');
+
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                const data = line.slice(6);
+                if (data === '[DONE]') continue;
+
+                try {
+                  const parsed = JSON.parse(data);
+                  const content = parsed.choices[0]?.delta?.content || '';
+                  if (content) {
+                    controller.enqueue(encoder.encode(content));
+                  }
+                } catch (e) {
+                  console.error('Parse error:', e);
                 }
-              } catch (e) {
-                console.error('Parse error:', e);
               }
             }
           }
+        } catch (error) {
+          console.error('Stream error:', error);
+        } finally {
+          controller.close();
         }
-      } catch (error) {
-        console.error('Stream error:', error);
-      } finally {
-        controller.close();
       }
-    }
-  });
+    });
 
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-    },
-  });
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
+
+  } catch (error) {
+    console.error('API route error:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Internal server error' },
+      { status: 500 }
+    );
+  }
 }
