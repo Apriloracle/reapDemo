@@ -144,7 +144,26 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  min-height: 0; /* Important for flexbox overflow */
+  min-height: 0;
+  position: relative;
+}
+
+/* CRITICAL: Hide Crayon's sidebar completely */
+.chatContainer :global([class*="sidebar"]),
+.chatContainer :global([class*="Sidebar"]),
+.chatContainer :global([class*="nav"]),
+.chatContainer :global([class*="Nav"]),
+.chatContainer :global(aside),
+.chatContainer :global([role="navigation"]) {
+  display: none !important;
+}
+
+/* Hide the New Chat button and menu */
+.chatContainer :global(button):has(:global([class*="new"])),
+.chatContainer :global(button):has(:global([class*="New"])),
+.chatContainer :global([class*="new-chat"]),
+.chatContainer :global([class*="NewChat"]) {
+  display: none !important;
 }
 
 /* Hide Crayon's built-in header elements */
@@ -164,26 +183,47 @@
   display: none !important;
 }
 
+/* Make the main chat area take full width */
+.chatContainer :global(main),
+.chatContainer :global([role="main"]),
+.chatContainer :global([class*="main"]),
+.chatContainer :global([class*="Main"]) {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
 /* Ensure Crayon chat takes full height */
 .chatContainer :global(.crayon-chat) {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 /* Message list should scroll */
-.chatContainer :global(.crayon-message-list) {
+.chatContainer :global(.crayon-message-list),
+.chatContainer :global([class*="message-list"]),
+.chatContainer :global([class*="MessageList"]) {
   flex: 1;
   overflow-y: auto;
   padding: 1rem 1.5rem;
+  width: 100%;
 }
 
 /* Input container should be visible at bottom */
-.chatContainer :global(.crayon-input-container) {
+.chatContainer :global(.crayon-input-container),
+.chatContainer :global([class*="input-container"]),
+.chatContainer :global([class*="InputContainer"]),
+.chatContainer :global([class*="composer"]),
+.chatContainer :global([class*="Composer"]) {
   flex-shrink: 0;
   border-top: 1px solid #e5e7eb;
   background: white;
   padding: 1rem 1.5rem;
+  width: 100%;
+  display: flex !important;
+  visibility: visible !important;
 }
 
 /* Make sure input is visible */
@@ -192,6 +232,7 @@
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
+  width: 100%;
 }
 
 /* Ensure send button is visible */
@@ -202,3 +243,9 @@
   visibility: visible !important;
   opacity: 1 !important;
 }
+
+/* Remove any layout containers that might be adding sidebars */
+.chatContainer :global([class*="layout"]),
+.chatContainer :global([class*="Layout"]) {
+  display: contents !important;
+}}
