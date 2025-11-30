@@ -248,4 +248,4 @@
 .chatContainer :global([class*="layout"]),
 .chatContainer :global([class*="Layout"]) {
   display: contents !important;
-}}
+}
