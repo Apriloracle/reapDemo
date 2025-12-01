@@ -44,6 +44,7 @@ import ProductDetailPage from './ProductDetailPage'; // Use the component versio
 import ShoppingResultsPage from '../pages/ShoppingResultsPage'; // Import the new page
 import ExclusivePage from '../pages/ExclusivePage'; // Import the new page
 import AgentPage from '../pages/Agent'; // Import the new agent page
+import AgentExplorerPage from '../pages/agentexplorer'; // Import the new agent explorer page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
@@ -1378,6 +1379,7 @@ const TelegramMiniApp: React.FC = () => {
           <Route path="/shopping-results" element={<ShoppingResultsPage />} /> {/* New route for shopping results */}
           <Route path="/exclusive" element={<ExclusivePage />} /> {/* New route for exclusive page */}
           <Route path="/agent" element={<AgentPage />} /> {/* New route for the agent page */}
+          <Route path="/agentexplorer" element={<AgentExplorerPage />} /> {/* New route for the agent explorer page */}
         </Routes>
 
         <Navigation />
@@ -1388,6 +1390,7 @@ const TelegramMiniApp: React.FC = () => {
 }
 
 export default TelegramMiniApp
+
 
 
 
