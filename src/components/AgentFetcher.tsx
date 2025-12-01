@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Agent, FireflyBlockchainEvent } from '../types/firefly';
 
-// ⚠️ CONFIGURATION
-// If Firefly is local, you might need a proxy in package.json to avoid CORS
-// or point this to your backend that proxies Firefly.
-const FIREFLY_API_URL = "http://35.224.41.251/api/v1/namespaces/default/apis/base8004indexV2";
+// Use our local proxy to avoid mixed content issues
+const FIREFLY_API_URL = "/api/firefly";
 const LISTENER_ID = "3e002303-9289-4ef7-8701-f0f7cea11435"; // From your snippet
 
 export const AgentFetcher: React.FC = () => {
@@ -31,7 +29,7 @@ export const AgentFetcher: React.FC = () => {
             sort: 'timestamp', // Ensure consistent ordering
           });
 
-          const response = await fetch(`${FIREFLY_API_URL}/blockchainEvents?${params}`);
+          const response = await fetch(`${FIREFLY_API_URL}?${params}`);
 
           if (!response.ok) {
             throw new Error(`Firefly Error: ${response.statusText}`);
