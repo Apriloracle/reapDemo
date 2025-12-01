@@ -44,7 +44,7 @@ import ProductDetailPage from './ProductDetailPage'; // Use the component versio
 import ShoppingResultsPage from '../pages/ShoppingResultsPage'; // Import the new page
 import ExclusivePage from '../pages/ExclusivePage'; // Import the new page
 import AgentPage from '../pages/Agent'; // Import the new agent page
-import AgentExplorerPage from '../pages/agentexplorer'; // Import the new agent explorer page
+import AgentExplorerPage from '../pages/AgentExplorerPage'; // Import the new agent explorer page
 import categoryIndex from '../data/index.json'; // Assumes index.json is in src/data
 import LiqeSearchComponent from './LiqeSearchComponent';
 import { SearchProvider } from '../contexts/SearchContext';
