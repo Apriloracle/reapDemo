@@ -7,16 +7,11 @@ const DYNAMIC_SERVER_NAME = 'firefly-agents';
 class McpToolManager {
   constructor() {
     // Listen for changes to the agents table
-    agentStore.store.addTableListener('agents', (store, tableId, getCellChange) => {
-      // We only care about new rows being added
-      const changes = getCellChange?.();
-      if (changes?.adds) {
-        changes.adds.forEach((rowId) => {
-          const agent = agentStore.getAgent(rowId) as unknown as Agent;
-          if (agent) {
-            this.processAgent(agent);
-          }
-        });
+    agentStore.store.addRowListener('agents', null, (store, tableId, rowId) => {
+      // This listener will be called for every new row added
+      const agent = agentStore.getAgent(rowId) as unknown as Agent;
+      if (agent) {
+        this.processAgent(agent);
       }
     });
   }
@@ -77,3 +72,4 @@ class McpToolManager {
 }
 
 export const mcpToolManager = new McpToolManager();
+
