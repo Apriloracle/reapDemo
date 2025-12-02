@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Agent, FireflyBlockchainEvent } from '../types/firefly';
+import { agentStore } from '../stores/AgentStore';
 
 // Use our local proxy to avoid mixed content issues
 const FIREFLY_API_URL = "/api/firefly";
@@ -67,6 +68,7 @@ export const AgentFetcher: React.FC = () => {
 
         console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
         setAgents(allRecords);
+        agentStore.addAgents(allRecords); // Add agents to the store
       } catch (err: any) {
         console.error("Fetch failed", err);
         setError(err.message);
