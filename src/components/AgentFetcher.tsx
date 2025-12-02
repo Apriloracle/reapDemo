@@ -3,8 +3,7 @@ import { Agent, FireflyBlockchainEvent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
 
 // Use our local proxy to avoid mixed content issues
-const FIREFLY_API_URL = "/api/firefly";
-const LISTENER_ID = "3e002303-9289-4ef7-8701-f0f7cea11435"; // From your snippet
+const FIREFLY_API_URL = "http://35.224.41.251:9001/api/v1/namespaces/default/events";
 
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -24,10 +23,10 @@ export const AgentFetcher: React.FC = () => {
         while (hasMore) {
           // 1. Build URL
           const params = new URLSearchParams({
-            listener: LISTENER_ID,
+            type: 'blockchain_event_received',
+            fetchreferences: 'true',
             limit: limit.toString(),
             skip: skip.toString(),
-            sort: 'timestamp', // Ensure consistent ordering
           });
 
           const response = await fetch(`${FIREFLY_API_URL}?${params}`);
