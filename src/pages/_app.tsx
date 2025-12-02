@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   require('@solana/wallet-adapter-react-ui/styles.css');
   
   const network = WalletAdapterNetwork.Mainnet;
-  const endpoint = process.env.NEXT_PUBLIC_HELIUS_RPC_URL!;
+
 
   const wallets = useMemo(
       () => [
