@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     const params = new URLSearchParams({
       type: 'blockchain_event_received',
       fetchreferences: 'true',
-      limit: limit || '50',
+      limit: limit || '500',
       skip: skip || '0',
     });
 
