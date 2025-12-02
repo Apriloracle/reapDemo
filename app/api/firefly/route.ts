@@ -6,14 +6,17 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get('limit');
-    const skip = searchParams.get('skip');
+    const after = searchParams.get('after');
 
     const params = new URLSearchParams({
       type: 'blockchain_event_received',
       fetchreferences: 'true',
-      limit: limit || '500',
-      skip: skip || '0',
+      limit: limit || '50',
     });
+
+    if (after) {
+      params.append('after', after);
+    }
 
     const response = await fetch(`${FIREFLY_API_URL}?${params}`);
 
