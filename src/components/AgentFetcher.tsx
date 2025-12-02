@@ -15,20 +15,21 @@ export const AgentFetcher: React.FC = () => {
   useEffect(() => {
     const fetchAllAgents = async () => {
       const allRecords: Agent[] = [];
+      let lastEventId: string | null = null;
       try {
         setLoading(true);
-        let skip = 0;
         const limit = 50;
         let hasMore = true;
 
         while (hasMore) {
           // 1. Build URL
           const params = new URLSearchParams({
-            listener: LISTENER_ID,
             limit: limit.toString(),
-            skip: skip.toString(),
-            sort: 'timestamp', // Ensure consistent ordering
           });
+
+          if (lastEventId) {
+            params.append('after', lastEventId);
+          }
 
           const response = await fetch(`${FIREFLY_API_URL}?${params}`);
 
@@ -61,7 +62,7 @@ export const AgentFetcher: React.FC = () => {
           setProgress(allRecords.length);
           
           // Prepare next page
-          skip += limit;
+          lastEventId = data[data.length - 1].id;
         }
 
         console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
