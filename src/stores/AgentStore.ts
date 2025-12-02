@@ -1,8 +1,10 @@
 import { createStore } from 'tinybase';
+import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { Agent } from '../types/firefly';
 
 class AgentStore {
   public store;
+  private persister;
 
   constructor() {
     this.store = createStore();
@@ -14,15 +16,23 @@ class AgentStore {
         timestamp: { type: 'string' },
       },
     });
+
+    if (typeof window !== 'undefined') {
+      this.persister = createLocalPersister(this.store, 'agentStore');
+      this.persister.load();
+    }
   }
 
-  addAgent(agent: Agent) {
+  async addAgent(agent: Agent) {
     this.store.setRow('agents', agent.fireflyId, {
       agentId: agent.agentId,
       wallet: agent.wallet,
       metadataUri: agent.metadataUri,
       timestamp: agent.timestamp,
     });
+    if (this.persister) {
+      await this.persister.save();
+    }
   }
 
   addAgents(agents: Agent[]) {
@@ -39,3 +49,4 @@ class AgentStore {
 }
 
 export const agentStore = new AgentStore();
+
