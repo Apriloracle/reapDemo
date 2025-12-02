@@ -12,6 +12,7 @@ export async function GET(request: Request) {
       type: 'blockchain_event_received',
       fetchreferences: 'true',
       limit: limit || '50',
+      sort: 'sequence',
     });
 
     if (after) {
@@ -34,3 +35,4 @@ export async function GET(request: Request) {
     );
   }
 }
+
