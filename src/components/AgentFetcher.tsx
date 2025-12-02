@@ -18,7 +18,7 @@ export const AgentFetcher: React.FC = () => {
         setLoading(true);
         const allRecords: Agent[] = [];
         let skip = 0;
-        const limit = 50;
+        const limit = 500;
         let hasMore = true;
 
         while (hasMore) {
