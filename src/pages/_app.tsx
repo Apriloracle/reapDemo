@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   require('@solana/wallet-adapter-react-ui/styles.css');
   
   const network = WalletAdapterNetwork.Mainnet;
-
+  const endpoint = "https://solrpc-50775725716.asia-southeast1.run.app";
 
   const wallets = useMemo(
       () => [
