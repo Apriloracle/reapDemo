@@ -4,7 +4,7 @@ import { Agent } from '../types/firefly';
 
 class AgentStore {
   public store;
-  private persister;
+  private persister: any;
 
   constructor() {
     this.store = createStore();
@@ -23,7 +23,7 @@ class AgentStore {
     }
   }
 
-  async addAgent(agent: Agent) {
+  async addAgent(agent: Agent): Promise<void> {
     this.store.setRow('agents', agent.fireflyId, {
       agentId: agent.agentId,
       wallet: agent.wallet,
@@ -35,8 +35,24 @@ class AgentStore {
     }
   }
 
-  addAgents(agents: Agent[]) {
+  addAgents(agents: Agent[]): void {
     agents.forEach(agent => this.addAgent(agent));
+  }
+
+  async setAgents(agents: Agent[]): Promise<void> {
+    const agentTable = agents.reduce((acc, agent) => {
+      acc[agent.fireflyId] = {
+        agentId: agent.agentId,
+        wallet: agent.wallet,
+        metadataUri: agent.metadataUri,
+        timestamp: agent.timestamp,
+      };
+      return acc;
+    }, {} as { [key: string]: any });
+    this.store.setTable('agents', agentTable);
+    if (this.persister) {
+      await this.persister.save();
+    }
   }
 
   getAgent(fireflyId: string) {
@@ -49,4 +65,3 @@ class AgentStore {
 }
 
 export const agentStore = new AgentStore();
-
