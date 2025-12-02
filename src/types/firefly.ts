@@ -9,11 +9,13 @@ export interface FireflyEventOutput {
 
 export interface FireflyBlockchainEvent {
   id: string;
-  output: FireflyEventOutput;
-  info: {
-    transactionHash: string;
-    blockNumber: string;
-    timestamp: string;
+  blockchainEvent: {
+    output: FireflyEventOutput;
+    info: {
+      transactionHash: string;
+      blockNumber: string;
+      timestamp: string;
+    };
   };
 }
 
