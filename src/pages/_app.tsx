@@ -1,6 +1,8 @@
 'use client';
 
 import '../lib/mcp-initializer';
+import '../lib/dynamic-mcp-initializer'; // Initialize the dynamic MCP server
+import { mcpToolManager } from '../lib/McpToolManager'; // Initialize the tool manager
 import '@/styles/globals.css'
 import '@/styles/Wallet.css'
 import type { AppProps } from 'next/app'
@@ -21,8 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   require('@solana/wallet-adapter-react-ui/styles.css');
   
   const network = WalletAdapterNetwork.Mainnet;
-  const endpoint = "https://solrpc-50775725716.asia-southeast1.run.app";
-
+  const endpoint = process.env.NEXT_PUBLIC_HELIUS_RPC_URL!;
 
   const wallets = useMemo(
       () => [
