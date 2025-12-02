@@ -45,15 +45,13 @@ export const AgentFetcher: React.FC = () => {
 
           // 2. Map and Clean Data
           const cleanedBatch = data.map((event) => {
-            const output = event.output;
+            const output = event.blockchainEvent.output;
             return {
               fireflyId: event.id,
               agentId: output.agentId || '0',
-              // Handle various field names for wallet
-              wallet: output.owner || output.agentWallet || output.to || 'Unknown',
-              // Handle various field names for metadata
-              metadataUri: output.tokenURI || output.metadata || '',
-              timestamp: event.info.timestamp,
+              wallet: output.owner || 'Unknown',
+              metadataUri: output.tokenURI || '',
+              timestamp: event.blockchainEvent.info.timestamp,
             };
           });
 
@@ -114,3 +112,4 @@ export const AgentFetcher: React.FC = () => {
     </div>
   );
 };
+
