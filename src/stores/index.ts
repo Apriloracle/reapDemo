@@ -13,8 +13,12 @@ import { searchIndexStore } from './SearchIndexStore';
 import { shoppingProductsStore } from './ShoppingProductsStore';
 import { similarProductsStore } from './SimilarProductsStore';
 import trajectoryStore from './TrajectoryStore';
+import { agentStore } from './AgentStore';
+import { dynamicToolStore } from './DynamicToolStore';
 
 const stores = {
+  agentStore,
+  dynamicToolStore,
   userProfileStore,
   dealsIndexStore: getDealsIndexStore(),
   categoryStore,
