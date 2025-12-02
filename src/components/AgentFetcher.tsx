@@ -14,11 +14,11 @@ export const AgentFetcher: React.FC = () => {
 
   useEffect(() => {
     const fetchAllAgents = async () => {
+      const allRecords: Agent[] = [];
       try {
         setLoading(true);
-        const allRecords: Agent[] = [];
         let skip = 0;
-        const limit = 500;
+        const limit = 50;
         let hasMore = true;
 
         while (hasMore) {
@@ -65,12 +65,12 @@ export const AgentFetcher: React.FC = () => {
         }
 
         console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
-        setAgents(allRecords);
-        agentStore.addAgents(allRecords); // Add agents to the store
       } catch (err: any) {
         console.error("Fetch failed", err);
         setError(err.message);
       } finally {
+        setAgents(allRecords);
+        agentStore.setAgents(allRecords);
         setLoading(false);
       }
     };
