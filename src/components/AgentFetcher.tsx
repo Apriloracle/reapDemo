@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Agent, FireflyBlockchainEvent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
 
-// Use our local proxy to avoid mixed content issues
 const FIREFLY_API_URL = "/api/firefly";
-const LISTENER_ID = "3e002303-9289-4ef7-8701-f0f7cea11435"; // From your snippet
 
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -15,20 +13,20 @@ export const AgentFetcher: React.FC = () => {
   useEffect(() => {
     const fetchAllAgents = async () => {
       const allRecords: Agent[] = [];
-      let lastEventId: string | null = null;
+      let lastSequence: number | null = null;  // Changed from lastEventId
+      
       try {
         setLoading(true);
         const limit = 50;
         let hasMore = true;
 
         while (hasMore) {
-          // 1. Build URL
           const params = new URLSearchParams({
             limit: limit.toString(),
           });
 
-          if (lastEventId) {
-            params.append('after', lastEventId);
+          if (lastSequence !== null) {
+            params.append('after', lastSequence.toString());  // Use sequence number
           }
 
           const response = await fetch(`${FIREFLY_API_URL}?${params}`);
@@ -44,7 +42,7 @@ export const AgentFetcher: React.FC = () => {
             break;
           }
 
-          // 2. Map and Clean Data
+          // Map and Clean Data
           const cleanedBatch = data.map((event) => {
             const output = event.blockchainEvent.output;
             return {
@@ -57,12 +55,12 @@ export const AgentFetcher: React.FC = () => {
           });
 
           allRecords.push(...cleanedBatch);
-          
-          // Update progress for UI
           setProgress(allRecords.length);
           
-          // Prepare next page
-          lastEventId = data[data.length - 1].id;
+          // Use sequence for pagination
+          lastSequence = data[data.length - 1].sequence;
+          
+          console.log(`Fetched batch ending at sequence ${lastSequence}, total: ${allRecords.length}`);
         }
 
         console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
@@ -71,7 +69,7 @@ export const AgentFetcher: React.FC = () => {
         setError(err.message);
       } finally {
         setAgents(allRecords);
-        agentStore.setAgents(allRecords);
+        await agentStore.setAgents(allRecords);
         setLoading(false);
       }
     };
