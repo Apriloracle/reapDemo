@@ -9,6 +9,12 @@ export interface FireflyEventOutput {
 
 export interface FireflyBlockchainEvent {
   id: string;
+  sequence: number;  // Add this for pagination
+  type?: string;
+  namespace?: string;
+  reference?: string;
+  topic?: string;
+  created?: string;
   blockchainEvent: {
     output: FireflyEventOutput;
     info: {
