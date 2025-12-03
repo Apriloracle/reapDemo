@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get('limit');
-    const after = searchParams.get('after');
+    const skip = searchParams.get('skip');  // Changed from 'after' to 'skip'
 
     const params = new URLSearchParams({
       type: 'blockchain_event_received',
@@ -15,8 +15,8 @@ export async function GET(request: Request) {
       sort: 'sequence',
     });
 
-    if (after) {
-      params.append('after', after);
+    if (skip) {
+      params.append('skip', skip);  // Use skip instead of after
     }
 
     const response = await fetch(`${FIREFLY_API_URL}?${params}`);
@@ -35,4 +35,3 @@ export async function GET(request: Request) {
     );
   }
 }
-
