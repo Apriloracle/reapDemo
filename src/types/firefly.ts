@@ -32,4 +32,5 @@ export interface Agent {
   wallet: string;
   metadataUri: string;
   timestamp: string;
+  metadata?: string;
 }
