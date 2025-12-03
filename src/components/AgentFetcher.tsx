@@ -3,6 +3,26 @@ import { Agent, FireflyBlockchainEvent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
 
 const FIREFLY_API_URL = "/api/firefly";
+const METADATA_PROXY_URL = "/api/metadata";
+
+async function fetchWithRetry(url: string, retries = 3, delay = 1000): Promise<any> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Attempt ${i + 1} failed for ${url}. Retrying in ${delay}ms...`, error);
+      if (i < retries - 1) {
+        await new Promise(res => setTimeout(res, delay));
+      } else {
+        throw error;
+      }
+    }
+  }
+}
 
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -13,7 +33,7 @@ export const AgentFetcher: React.FC = () => {
   useEffect(() => {
     const fetchAllAgents = async () => {
       const allRecords: Agent[] = [];
-      let skip = 0;  // Start at 0
+      let skip = 0;
       
       try {
         setLoading(true);
@@ -23,50 +43,32 @@ export const AgentFetcher: React.FC = () => {
         while (hasMore) {
           const params = new URLSearchParams({
             limit: limit.toString(),
-            skip: skip.toString(),  // Use skip for pagination
+            skip: skip.toString(),
           });
 
-          console.log(`Fetching with skip=${skip}, limit=${limit}`);
-
           const response = await fetch(`${FIREFLY_API_URL}?${params}`);
-
           if (!response.ok) {
             throw new Error(`Firefly Error: ${response.statusText}`);
           }
-
           const data: FireflyBlockchainEvent[] = await response.json();
-
           if (data.length === 0) {
             hasMore = false;
             break;
           }
-
-          // Map and Clean Data
-          const cleanedBatch = data.map((event) => {
-            const output = event.blockchainEvent.output;
-            return {
-              fireflyId: event.id,
-              agentId: output.agentId || '0',
-              wallet: output.owner || 'Unknown',
-              metadataUri: output.tokenURI || '',
-              timestamp: event.blockchainEvent.info.timestamp,
-            };
-          });
-
+          const cleanedBatch = data.map((event) => ({
+            fireflyId: event.id,
+            agentId: event.blockchainEvent.output.agentId || '0',
+            wallet: event.blockchainEvent.output.owner || 'Unknown',
+            metadataUri: event.blockchainEvent.output.tokenURI || '',
+            timestamp: event.blockchainEvent.info.timestamp,
+          }));
           allRecords.push(...cleanedBatch);
           setProgress(allRecords.length);
-          
-          // Increment skip by the number of records we got
           skip += data.length;
-          
-          console.log(`Fetched ${data.length} records, total: ${allRecords.length}`);
-          
-          // If we got fewer than limit, we've reached the end
           if (data.length < limit) {
             hasMore = false;
           }
         }
-
         console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
       } catch (err: any) {
         console.error("Fetch failed", err);
@@ -88,11 +90,16 @@ export const AgentFetcher: React.FC = () => {
         try {
           let metadata;
           if (agent.metadataUri.startsWith('data:application/json;base64,')) {
-            const base64String = agent.metadataUri.split(',')[1];
-            metadata = JSON.parse(atob(base64String));
+            try {
+              const base64String = agent.metadataUri.split(',')[1];
+              metadata = JSON.parse(atob(base64String));
+            } catch (error) {
+              console.error(`Failed to decode base64 metadata for agent ${agent.agentId}:`, error);
+              continue;
+            }
           } else if (agent.metadataUri.startsWith('http')) {
-            const response = await fetch(agent.metadataUri);
-            metadata = await response.json();
+            const proxyUrl = `${METADATA_PROXY_URL}?url=${encodeURIComponent(agent.metadataUri)}`;
+            metadata = await fetchWithRetry(proxyUrl);
           }
           if (metadata) {
             agentStore.addAgent({ ...agent, metadata: JSON.stringify(metadata) });
