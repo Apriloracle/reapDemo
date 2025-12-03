@@ -16,8 +16,8 @@ const ToonDebugPage = () => {
     console.clear();
 
     try {
-      console.log('Fetching from /tester2...');
-      const toonRes = await fetch('/tester2', {
+      console.log('Fetching from /api/tester2...');
+      const toonRes = await fetch('/api/tester2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
@@ -36,7 +36,11 @@ const ToonDebugPage = () => {
 
       console.log('Attempting to decode...');
       try {
-        const decoded = decode(toonUint8Array as any); // Cast to any to bypass compile error
+        // The library expects a string of bytes, not a Uint8Array.
+        // We convert the array of byte values into a string.
+        const toonString = String.fromCharCode.apply(null, toonUint8Array as unknown as number[]);
+        console.log('Converted to string:', toonString.substring(0, 100) + '...');
+        const decoded = decode(toonString);
         console.log('Decoding successful:', decoded);
         setDecodedData(decoded);
       } catch (e: any) {
