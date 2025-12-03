@@ -13,7 +13,7 @@ export const AgentFetcher: React.FC = () => {
   useEffect(() => {
     const fetchAllAgents = async () => {
       const allRecords: Agent[] = [];
-      let lastSequence: number | null = null;  // Changed from lastEventId
+      let skip = 0;  // Start at 0
       
       try {
         setLoading(true);
@@ -23,11 +23,10 @@ export const AgentFetcher: React.FC = () => {
         while (hasMore) {
           const params = new URLSearchParams({
             limit: limit.toString(),
+            skip: skip.toString(),  // Use skip for pagination
           });
 
-          if (lastSequence !== null) {
-            params.append('after', lastSequence.toString());  // Use sequence number
-          }
+          console.log(`Fetching with skip=${skip}, limit=${limit}`);
 
           const response = await fetch(`${FIREFLY_API_URL}?${params}`);
 
@@ -57,10 +56,15 @@ export const AgentFetcher: React.FC = () => {
           allRecords.push(...cleanedBatch);
           setProgress(allRecords.length);
           
-          // Use sequence for pagination
-          lastSequence = data[data.length - 1].sequence;
+          // Increment skip by the number of records we got
+          skip += data.length;
           
-          console.log(`Fetched batch ending at sequence ${lastSequence}, total: ${allRecords.length}`);
+          console.log(`Fetched ${data.length} records, total: ${allRecords.length}`);
+          
+          // If we got fewer than limit, we've reached the end
+          if (data.length < limit) {
+            hasMore = false;
+          }
         }
 
         console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
@@ -111,4 +115,3 @@ export const AgentFetcher: React.FC = () => {
     </div>
   );
 };
-
