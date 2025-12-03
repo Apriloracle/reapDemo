@@ -94,7 +94,7 @@
     "tailwindcss-animate": "^1.0.7",
     "thirdweb": "^5",
     "tiny-tfidf": "^0.9.1",
-    "tinybase": "^5.3.0",
+    "tinybase": "^6.7.0",
     "hyperswarm": "^4.16.0",
     "viem": "^2.0.0",
     "wagmi": "^2.0.0",
