@@ -81,6 +81,33 @@ export const AgentFetcher: React.FC = () => {
     fetchAllAgents();
   }, []);
 
+  useEffect(() => {
+    const fetchAgentMetadata = async () => {
+      const agentsToUpdate = agents.filter(agent => agent.metadataUri && !agent.metadata);
+      for (const agent of agentsToUpdate) {
+        try {
+          let metadata;
+          if (agent.metadataUri.startsWith('data:application/json;base64,')) {
+            const base64String = agent.metadataUri.split(',')[1];
+            metadata = JSON.parse(atob(base64String));
+          } else if (agent.metadataUri.startsWith('http')) {
+            const response = await fetch(agent.metadataUri);
+            metadata = await response.json();
+          }
+          if (metadata) {
+            agentStore.addAgent({ ...agent, metadata: JSON.stringify(metadata) });
+          }
+        } catch (error) {
+          console.error(`Failed to fetch metadata for agent ${agent.agentId}:`, error);
+        }
+      }
+    };
+
+    if (agents.length > 0) {
+      fetchAgentMetadata();
+    }
+  }, [agents]);
+
   if (loading) {
     return (
       <div className="p-4">
@@ -106,6 +133,11 @@ export const AgentFetcher: React.FC = () => {
             <div className="text-xs text-gray-500 truncate" title={agent.metadataUri}>
               URI: {agent.metadataUri}
             </div>
+            {agent.metadata && (
+              <div className="text-xs text-gray-600 mt-2">
+                <pre>{JSON.stringify(JSON.parse(agent.metadata), null, 2)}</pre>
+              </div>
+            )}
             <div className="text-xs text-gray-400 mt-2">
               Registered: {new Date(agent.timestamp).toLocaleString()}
             </div>
