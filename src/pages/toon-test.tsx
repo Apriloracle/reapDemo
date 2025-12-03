@@ -34,7 +34,7 @@ const ToonTestPage = () => {
       setToonResponse(new Uint8Array(toonData));
       
       // Decode the TOON data
-      const decodedData = decode(new Uint8Array(toonData));
+      const decodedData = decode(new Uint8Array(toonData) as any);
       setDecodedToon(decodedData);
 
     } catch (error) {
