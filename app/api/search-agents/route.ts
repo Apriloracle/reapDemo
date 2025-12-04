@@ -3,13 +3,17 @@ import registryClient from '../../../src/services/RegistryService';
 
 export async function POST(request: NextRequest) {
   try {
-    const { limit = 20 } = await request.json();
+    const body = await request.json();
+    const { query = 'customer support', limit = 10, registry = 'pulsemcp' } = body;
     
-    // Just get all agents with empty query
+    // Search with both query and registry
     const searchResults = await registryClient.search({
-      q: '',
+      q: query,
       limit,
+      registry, // Add registry parameter
     });
+    
+    console.log('Search results:', searchResults);
     
     return NextResponse.json(searchResults);
   } catch (error: any) {
