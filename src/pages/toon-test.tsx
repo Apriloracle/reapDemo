@@ -16,7 +16,7 @@ const ToonTestPage = () => {
 
     try {
       // Fetch from the original JSON endpoint
-      const jsonRes = await fetch('/tester', {
+      const jsonRes = await fetch('/api/tester', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
@@ -25,16 +25,16 @@ const ToonTestPage = () => {
       setJsonResponse(jsonData);
 
       // Fetch from the new TOON endpoint
-      const toonRes = await fetch('/tester2', {
+      const toonRes = await fetch('/api/tester2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
       });
-      const toonData = await toonRes.arrayBuffer();
-      setToonResponse(new Uint8Array(toonData));
+      const toonText = await toonRes.text();
+      setToonResponse(toonText);
       
       // Decode the TOON data
-      const decodedData = decode(new Uint8Array(toonData) as any);
+      const decodedData = decode(toonText);
       setDecodedToon(decodedData);
 
     } catch (error) {
@@ -75,9 +75,9 @@ const ToonTestPage = () => {
         </div>
       </div>
        <div>
-          <h2>Raw TOON Response (ArrayBuffer)</h2>
-          <pre style={{ background: '#f4f4f4', padding: '10px', height: '150px', overflow: 'auto' }}>
-            {toonResponse ? `Uint8Array(${toonResponse.length}) [${toonResponse.slice(0, 100).toString()}...]` : 'null'}
+          <h2>Raw TOON Response (Text)</h2>
+          <pre style={{ background: '#f4f4f4', padding: '10px', height: '150px', overflow: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+            {toonResponse || 'null'}
           </pre>
         </div>
     </div>
@@ -85,3 +85,4 @@ const ToonTestPage = () => {
 };
 
 export default ToonTestPage;
+
