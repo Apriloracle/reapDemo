@@ -3,7 +3,7 @@ import { decode } from '@toon-format/toon';
 
 const ToonDebugPage = () => {
   const [query, setQuery] = useState('organic supplements');
-  const [rawData, setRawData] = useState<Uint8Array | null>(null);
+  const [rawData, setRawData] = useState<string | null>(null);
   const [decodedData, setDecodedData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -27,20 +27,13 @@ const ToonDebugPage = () => {
         throw new Error(`Network response was not ok: ${toonRes.statusText}`);
       }
 
-      const toonArrayBuffer = await toonRes.arrayBuffer();
-      console.log('Received ArrayBuffer:', toonArrayBuffer);
+      const toonText = await toonRes.text();
+      console.log('Received text response:', toonText);
+      setRawData(toonText as any); // Storing the raw text for debugging
 
-      const toonUint8Array = new Uint8Array(toonArrayBuffer);
-      console.log('Created Uint8Array:', toonUint8Array);
-      setRawData(toonUint8Array);
-
-      console.log('Attempting to decode...');
+      console.log('Attempting to decode from text...');
       try {
-        // The library expects a string of bytes, not a Uint8Array.
-        // We convert the array of byte values into a string.
-        const toonString = String.fromCharCode.apply(null, toonUint8Array as unknown as number[]);
-        console.log('Converted to string:', toonString.substring(0, 100) + '...');
-        const decoded = decode(toonString);
+        const decoded = decode(toonText);
         console.log('Decoding successful:', decoded);
         setDecodedData(decoded);
       } catch (e: any) {
@@ -75,9 +68,9 @@ const ToonDebugPage = () => {
       {error && <div style={{ color: 'red', marginBottom: '20px' }}><strong>Error:</strong> {error}</div>}
 
       <div>
-        <h2>Raw TOON Response (Uint8Array)</h2>
+        <h2>Raw TOON Response (Text)</h2>
         <pre style={{ background: '#f4f4f4', padding: '10px', height: '150px', overflow: 'auto', wordBreak: 'break-all' }}>
-          {rawData ? `Uint8Array(${rawData.length}) [${rawData.toString()}]` : 'null'}
+          {rawData || 'null'}
         </pre>
       </div>
 
@@ -92,3 +85,4 @@ const ToonDebugPage = () => {
 };
 
 export default ToonDebugPage;
+
