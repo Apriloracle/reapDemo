@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Agent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
-import registryClient from '../services/RegistryService';
 
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -14,29 +13,36 @@ export const AgentFetcher: React.FC = () => {
     setError(null);
     setAgents([]);
 
-    
     try {
       console.log(`Searching for agents with query: "${query}"`);
-      const searchResults = await registryClient.search({
-        q: query,
-        limit: 10,
-        verified: true,
+      
+      // Call our API route instead of direct SDK call
+      const response = await fetch('/api/search-agents', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query, limit: 10 }),
       });
 
+      if (!response.ok) {
+        throw new Error('Search failed');
+      }
+
+      const searchResults = await response.json();
       console.log('Search results:', searchResults);
 
       if (searchResults.hits.length === 0) {
         console.log('No agents found.');
         setAgents([]);
       } else {
-        const formattedAgents: Agent[] = searchResults.hits.map(hit => ({
-          // Mapping the SDK's response to our internal Agent type
-          fireflyId: hit.uaid, // Using UAID as a unique identifier
+        const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => ({
+          fireflyId: hit.uaid,
           agentId: hit.uaid,
           wallet: hit.profile.owner || 'Unknown',
           metadataUri: hit.profile.service_endpoint || '',
-          timestamp: Date.now(), // Placeholder, SDK does not provide a timestamp
-          metadata: JSON.stringify(hit.profile), // Storing the whole profile in metadata
+          timestamp: Date.now(),
+          metadata: JSON.stringify(hit.profile),
         }));
         setAgents(formattedAgents);
         await agentStore.setAgents(formattedAgents);
@@ -98,4 +104,3 @@ export const AgentFetcher: React.FC = () => {
     </div>
   );
 };
-
