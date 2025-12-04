@@ -2,81 +2,65 @@ import React, { useState } from 'react';
 import { Agent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
 
-function mapHitToAgent(hit: any): Agent {
-  const agentType = hit.adapter || hit.protocol || 'unknown';
-  const baseAgent = {
-    fireflyId: hit.uaid,
-    agentId: hit.uaid,
-    wallet: 'Unknown',
-    metadataUri: hit.endpoints?.primary || '',
-    timestamp: hit.createdAt || Date.now().toString(),
-    metadata: JSON.stringify(hit), // Store the whole hit for now
-    agentType: agentType,
-  };
-
-  switch (agentType) {
-    case 'mcp-adapter':
-      // MCP agents have a richer profile structure
-      baseAgent.wallet = hit.profile?.mcpServer?.owner || hit.profile?.owner || 'Unknown';
-      // You can add more specific MCP mapping here if needed
-      break;
-    
-    // TODO: Add cases for 'x402' and 'erc-8004' once we have sample data
-    
-    default:
-      console.warn(`Unhandled agent type "${agentType}". Using default mapping.`);
-      // Default mapping for unknown types
-      baseAgent.wallet = hit.profile?.owner || 'Unknown';
-      break;
-  }
-
-  return baseAgent;
-}
-
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('customer support');
 
-const [registry, setRegistry] = useState<string>('pulsemcp');
+  const [registry, setRegistry] = useState<string>('pulsemcp');
 
-const handleSearch = async () => {
-  setLoading(true);
-  setError(null);
-  setAgents([]);
+  const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
+    setAgents([]);
 
-  try {
-    console.log(`Searching for agents with query: "${query}" in registry: "${registry}"`);
-    
-    const response = await fetch('/api/search-agents', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        query, 
-        limit: 10,
-        registry // Add registry to the request
-      }),
-    });
+    try {
+      console.log(`Searching for agents with query: "${query}" in registry: "${registry}"`);
+      
+      const response = await fetch('/api/search-agents', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          query, 
+          limit: 10,
+          registry // Add registry to the request
+        }),
+      });
 
+      const searchResults = await response.json();
+      console.log('API Response:', searchResults);
 
-    const searchResults = await response.json();
-    console.log('API Response:', searchResults);
+      if (!response.ok) {
+        throw new Error(searchResults.error || 'Search failed');
+      }
 
-    if (!response.ok) {
-      throw new Error(searchResults.error || 'Search failed');
-    }
-
-    if (searchResults.hits.length === 0) {
-      console.log('No agents found.');
-      setAgents([]);
-    } else {
-      const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => mapHitToAgent(hit));
-      setAgents(formattedAgents);
-      await agentStore.setAgents(formattedAgents);
-    }
+      if (searchResults.hits.length === 0) {
+        console.log('No agents found.');
+        setAgents([]);
+      } else {
+        const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => ({
+          fireflyId: hit.uaid,
+          agentId: hit.id, // Use 'id' instead of 'uaid' for agentId
+          wallet: hit.profile?.display_name || hit.name || 'Unknown', // Use display name or name
+          metadataUri: hit.endpoints?.primary || hit.endpoints?.repository || '',
+          timestamp: new Date(hit.createdAt || Date.now()).toISOString(),
+          metadata: JSON.stringify({
+            name: hit.name,
+            description: hit.description,
+            registry: hit.registry,
+            capabilities: hit.capabilities,
+            endpoints: hit.endpoints,
+            profile: hit.profile,
+            availabilityStatus: hit.availabilityStatus,
+          }),
+          agentType: hit.adapter || hit.protocol || 'unknown',
+        }));
+        setAgents(formattedAgents);
+        await agentStore.setAgents(formattedAgents);
+      }
   } catch (err: any) {
     console.error("Search failed", err);
     setError(err.message);
@@ -134,3 +118,4 @@ const handleSearch = async () => {
     </div>
   );
 };
+
