@@ -1,128 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { Agent, FireflyBlockchainEvent } from '../types/firefly';
+import React, { useState } from 'react';
+import { Agent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
-
-const FIREFLY_API_URL = "/api/firefly";
-const METADATA_PROXY_URL = "/api/metadata";
-
-async function fetchWithRetry(url: string, retries = 3, delay = 1000): Promise<any> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.error(`Attempt ${i + 1} failed for ${url}. Retrying in ${delay}ms...`, error);
-      if (i < retries - 1) {
-        await new Promise(res => setTimeout(res, delay));
-      } else {
-        throw error;
-      }
-    }
-  }
-}
+import registryClient from '../services/RegistryService';
 
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [progress, setProgress] = useState<number>(0);
+  const [query, setQuery] = useState<string>('customer support');
 
-  useEffect(() => {
-    const fetchAllAgents = async () => {
-      const allRecords: Agent[] = [];
-      let skip = 0;
-      
-      try {
-        setLoading(true);
-        const limit = 50;
-        let hasMore = true;
+  const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
+    setAgents([]);
 
-        while (hasMore) {
-          const params = new URLSearchParams({
-            limit: limit.toString(),
-            skip: skip.toString(),
-          });
+    try {
+      console.log(`Searching for agents with query: "${query}"`);
+      const searchResults = await registryClient.search({
+        q: query,
+        limit: 10,
+        verified: true,
+      });
 
-          const response = await fetch(`${FIREFLY_API_URL}?${params}`);
-          if (!response.ok) {
-            throw new Error(`Firefly Error: ${response.statusText}`);
-          }
-          const data: FireflyBlockchainEvent[] = await response.json();
-          if (data.length === 0) {
-            hasMore = false;
-            break;
-          }
-          const cleanedBatch = data.map((event) => ({
-            fireflyId: event.id,
-            agentId: event.blockchainEvent.output.agentId || '0',
-            wallet: event.blockchainEvent.output.owner || 'Unknown',
-            metadataUri: event.blockchainEvent.output.tokenURI || '',
-            timestamp: event.blockchainEvent.info.timestamp,
-          }));
-          allRecords.push(...cleanedBatch);
-          setProgress(allRecords.length);
-          skip += data.length;
-          if (data.length < limit) {
-            hasMore = false;
-          }
-        }
-        console.log(`✅ Finished. Total Agents: ${allRecords.length}`);
-      } catch (err: any) {
-        console.error("Fetch failed", err);
-        setError(err.message);
-      } finally {
-        setAgents(allRecords);
-        await agentStore.setAgents(allRecords);
-        setLoading(false);
+      console.log('Search results:', searchResults);
+
+      if (searchResults.hits.length === 0) {
+        console.log('No agents found.');
+        setAgents([]);
+      } else {
+        const formattedAgents: Agent[] = searchResults.hits.map(hit => ({
+          // Mapping the SDK's response to our internal Agent type
+          fireflyId: hit.uaid, // Using UAID as a unique identifier
+          agentId: hit.uaid,
+          wallet: hit.profile.owner || 'Unknown',
+          metadataUri: hit.profile.service_endpoint || '',
+          timestamp: Date.now(), // Placeholder, SDK does not provide a timestamp
+          metadata: JSON.stringify(hit.profile), // Storing the whole profile in metadata
+        }));
+        setAgents(formattedAgents);
+        await agentStore.setAgents(formattedAgents);
       }
-    };
-
-    fetchAllAgents();
-  }, []);
-
-  useEffect(() => {
-    const fetchAgentMetadata = async () => {
-      const agentsToUpdate = agents.filter(agent => agent.metadataUri && !agent.metadata);
-      for (const agent of agentsToUpdate) {
-        try {
-          let metadata;
-          if (agent.metadataUri.startsWith('data:application/json;base64,')) {
-            try {
-              const base64String = agent.metadataUri.split(',')[1];
-              metadata = JSON.parse(atob(base64String));
-            } catch (error) {
-              console.error(`Failed to decode base64 metadata for agent ${agent.agentId}:`, error);
-              continue;
-            }
-          } else if (agent.metadataUri.startsWith('http')) {
-            const proxyUrl = `${METADATA_PROXY_URL}?url=${encodeURIComponent(agent.metadataUri)}`;
-            metadata = await fetchWithRetry(proxyUrl);
-          }
-          if (metadata) {
-            agentStore.addAgent({ ...agent, metadata: JSON.stringify(metadata) });
-          }
-        } catch (error) {
-          console.error(`Failed to fetch metadata for agent ${agent.agentId}:`, error);
-        }
-      }
-    };
-
-    if (agents.length > 0) {
-      fetchAgentMetadata();
+    } catch (err: any) {
+      console.error("Search failed", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  }, [agents]);
-
-  if (loading) {
-    return (
-      <div className="p-4">
-        <p>📡 Syncing Agents from Firefly...</p>
-        <p>Fetched: {progress} agents...</p>
-      </div>
-    );
-  }
+  };
 
   if (error) {
     return <div className="text-red-500">Error: {error}</div>;
@@ -130,8 +54,27 @@ export const AgentFetcher: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Registry: {agents.length} Agents</h2>
+      <h2 className="text-xl font-bold mb-4">Agent Explorer</h2>
       
+      <div className="flex items-center space-x-2 mb-6">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for agents (e.g., 'customer support')"
+          className="p-2 border rounded w-full"
+        />
+        <button
+          onClick={handleSearch}
+          disabled={loading}
+          className="p-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400"
+        >
+          {loading ? 'Searching...' : 'Search'}
+        </button>
+      </div>
+
+      {loading && <p>Searching for agents...</p>}
+
       <div className="grid gap-4">
         {agents.map((agent) => (
           <div key={agent.fireflyId} className="border p-4 rounded shadow-sm bg-gray-50">
@@ -154,3 +97,4 @@ export const AgentFetcher: React.FC = () => {
     </div>
   );
 };
+
