@@ -10,11 +10,26 @@ const nextConfig = {
     esmExternals: 'loose',
   },
 
-  webpack: (config) => {
-    // Your existing ws fallback
+  webpack: (config, { isServer }) => {
+    // Fixes for hashgraph SDK and other packages using node: imports
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'node:path': 'path-browserify',
+      'node:crypto': 'crypto-browserify',
+      'node:stream': 'stream-browserify',
+      'node:buffer': 'buffer',
+    };
+
     config.resolve.fallback = {
       ...config.resolve.fallback,
       ws: false,
+      fs: false,
+      net: false,
+      tls: false,
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      path: require.resolve('path-browserify'),
+      buffer: require.resolve('buffer/'),
     };
 
     return config;
