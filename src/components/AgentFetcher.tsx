@@ -14,6 +14,7 @@ export const AgentFetcher: React.FC = () => {
     setError(null);
     setAgents([]);
 
+    
     try {
       console.log(`Searching for agents with query: "${query}"`);
       const searchResults = await registryClient.search({
