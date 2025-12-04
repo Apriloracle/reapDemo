@@ -8,13 +8,15 @@ export const AgentFetcher: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('customer support');
 
+const [registry, setRegistry] = useState<string>('pulsemcp');
+
 const handleSearch = async () => {
   setLoading(true);
   setError(null);
   setAgents([]);
 
   try {
-    console.log('Fetching agents from registry');
+    console.log(`Searching for agents with query: "${query}" in registry: "${registry}"`);
     
     const response = await fetch('/api/search-agents', {
       method: 'POST',
@@ -22,10 +24,12 @@ const handleSearch = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        registry: 'hashgraph-online', // or 'erc-8004'
-        limit: 10 
+        query, 
+        limit: 10,
+        registry // Add registry to the request
       }),
     });
+
 
     const searchResults = await response.json();
     console.log('API Response:', searchResults);
