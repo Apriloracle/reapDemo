@@ -22,7 +22,7 @@ export const AgentFetcher: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query, limit: 10 }),
+        body: JSON.stringify({ query, limit: 3 }),
       });
 
       if (!response.ok) {
