@@ -2,6 +2,37 @@ import React, { useState } from 'react';
 import { Agent } from '../types/firefly';
 import { agentStore } from '../stores/AgentStore';
 
+function mapHitToAgent(hit: any): Agent {
+  const agentType = hit.adapter || hit.protocol || 'unknown';
+  const baseAgent = {
+    fireflyId: hit.uaid,
+    agentId: hit.uaid,
+    wallet: 'Unknown',
+    metadataUri: hit.endpoints?.primary || '',
+    timestamp: hit.createdAt || Date.now().toString(),
+    metadata: JSON.stringify(hit), // Store the whole hit for now
+    agentType: agentType,
+  };
+
+  switch (agentType) {
+    case 'mcp-adapter':
+      // MCP agents have a richer profile structure
+      baseAgent.wallet = hit.profile?.mcpServer?.owner || hit.profile?.owner || 'Unknown';
+      // You can add more specific MCP mapping here if needed
+      break;
+    
+    // TODO: Add cases for 'x402' and 'erc-8004' once we have sample data
+    
+    default:
+      console.warn(`Unhandled agent type "${agentType}". Using default mapping.`);
+      // Default mapping for unknown types
+      baseAgent.wallet = hit.profile?.owner || 'Unknown';
+      break;
+  }
+
+  return baseAgent;
+}
+
 export const AgentFetcher: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -42,14 +73,7 @@ const handleSearch = async () => {
       console.log('No agents found.');
       setAgents([]);
     } else {
-      const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => ({
-        fireflyId: hit.uaid,
-        agentId: hit.uaid,
-        wallet: hit.profile.owner || 'Unknown',
-        metadataUri: hit.profile.service_endpoint || '',
-        timestamp: Date.now(),
-        metadata: JSON.stringify(hit.profile),
-      }));
+      const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => mapHitToAgent(hit));
       setAgents(formattedAgents);
       await agentStore.setAgents(formattedAgents);
     }
