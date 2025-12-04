@@ -3,19 +3,13 @@ import registryClient from '../../../src/services/RegistryService';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { registry = 'coinbase-x402-bazaar', limit = 10 } = body;
+    const { limit = 20 } = await request.json();
     
-    // Use registry filter since search is broken
+    // Just get all agents with empty query
     const searchResults = await registryClient.search({
-      q: '', // Empty query since keyword search doesn't work
+      q: '',
       limit,
-      filter: {
-        registries: [coinbase-x402-bazaar] // Filter by registry instead
-      }
     });
-    
-    console.log('Search results:', searchResults);
     
     return NextResponse.json(searchResults);
   } catch (error: any) {
