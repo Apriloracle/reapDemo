@@ -51,6 +51,7 @@
     "@reap-protocol/sdk": "^0.1.1",
     "@toon-format/toon":"^2.0.1",
     "@shopify/storefront-api-client": "^1.0.9",
+    "@hashgraphonline/standards-sdk": "^0.1.141",
     "@webbuf/blake3": "^3.0.28",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
