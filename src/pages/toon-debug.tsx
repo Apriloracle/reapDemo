@@ -16,8 +16,8 @@ const ToonDebugPage = () => {
     console.clear();
 
     try {
-      console.log('Fetching from /api/tester2...');
-      const toonRes = await fetch('/api/tester2', {
+      console.log('Fetching from /tester2...');
+      const toonRes = await fetch('/tester2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
