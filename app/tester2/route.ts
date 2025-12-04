@@ -150,7 +150,7 @@ export async function POST(request: Request) {
     const results = await response.json();
     console.log(`✅ Encoding ${results?.length || 0} products to TOON format`);
     
-    const toonData = encode(results);
+    const toonData = encode({ products: results });
 
     return new NextResponse(toonData, {
       status: 200,
@@ -165,3 +165,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
