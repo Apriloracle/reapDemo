@@ -8,52 +8,54 @@ export const AgentFetcher: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('customer support');
 
-  const handleSearch = async () => {
-    setLoading(true);
-    setError(null);
-    setAgents([]);
+const handleSearch = async () => {
+  setLoading(true);
+  setError(null);
+  setAgents([]);
 
-    try {
-      console.log(`Searching for agents with query: "${query}"`);
-      
-      // Call our API route instead of direct SDK call
-      const response = await fetch('/api/search-agents', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query, limit: 3 }),
-      });
+  try {
+    console.log('Fetching agents from registry');
+    
+    const response = await fetch('/api/search-agents', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        registry: 'hashgraph-online', // or 'erc-8004'
+        limit: 10 
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error('Search failed');
-      }
+    const searchResults = await response.json();
+    console.log('API Response:', searchResults);
 
-      const searchResults = await response.json();
-      console.log('Search results:', searchResults);
-
-      if (searchResults.hits.length === 0) {
-        console.log('No agents found.');
-        setAgents([]);
-      } else {
-        const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => ({
-          fireflyId: hit.uaid,
-          agentId: hit.uaid,
-          wallet: hit.profile.owner || 'Unknown',
-          metadataUri: hit.profile.service_endpoint || '',
-          timestamp: Date.now(),
-          metadata: JSON.stringify(hit.profile),
-        }));
-        setAgents(formattedAgents);
-        await agentStore.setAgents(formattedAgents);
-      }
-    } catch (err: any) {
-      console.error("Search failed", err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error(searchResults.error || 'Search failed');
     }
-  };
+
+    if (searchResults.hits.length === 0) {
+      console.log('No agents found.');
+      setAgents([]);
+    } else {
+      const formattedAgents: Agent[] = searchResults.hits.map((hit: any) => ({
+        fireflyId: hit.uaid,
+        agentId: hit.uaid,
+        wallet: hit.profile.owner || 'Unknown',
+        metadataUri: hit.profile.service_endpoint || '',
+        timestamp: Date.now(),
+        metadata: JSON.stringify(hit.profile),
+      }));
+      setAgents(formattedAgents);
+      await agentStore.setAgents(formattedAgents);
+    }
+  } catch (err: any) {
+    console.error("Search failed", err);
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (error) {
     return <div className="text-red-500">Error: {error}</div>;
