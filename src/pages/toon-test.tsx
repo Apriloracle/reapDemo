@@ -16,7 +16,7 @@ const ToonTestPage = () => {
 
     try {
       // Fetch from the original JSON endpoint
-      const jsonRes = await fetch('/api/tester', {
+      const jsonRes = await fetch('/tester', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
@@ -25,7 +25,7 @@ const ToonTestPage = () => {
       setJsonResponse(jsonData);
 
       // Fetch from the new TOON endpoint
-      const toonRes = await fetch('/api/tester2', {
+      const toonRes = await fetch('/tester2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
