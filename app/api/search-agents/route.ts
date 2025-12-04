@@ -3,7 +3,7 @@ import registryClient from '../../../src/services/RegistryService';
 
 export async function POST(request: NextRequest) {
   try {
-    const { query, limit = 10 } = await request.json();
+    const { query, limit = 3 } = await request.json();
     
     const searchResults = await registryClient.search({
       q: query,
