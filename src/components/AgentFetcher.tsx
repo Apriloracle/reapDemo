@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { agentDataStore } from '../stores/AgentDataStore';
+import { AgentDataStore } from '../stores/AgentDataStore';
 
 export const AgentFetcher: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
