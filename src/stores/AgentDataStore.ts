@@ -15,7 +15,9 @@ export const agentDataStore = createStore().setSchema({
   },
 });
 
-// Optional: Create and auto-save persister
-const persister = createLocalPersister(agentDataStore, 'agentData');
-persister.startAutoLoad();
-persister.startAutoSave();
+// Only create persister on client side
+if (typeof window !== 'undefined') {
+  const persister = createLocalPersister(agentDataStore, 'agentData');
+  persister.startAutoLoad();
+  persister.startAutoSave();
+}
