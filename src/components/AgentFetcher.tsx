@@ -5,7 +5,7 @@ export const AgentFetcher: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('customer support');
-  const [registry, setRegistry] = useState<string>('pulsemcp');
+  const [registry, setRegistry] = useState<string>('erc-8004');
 
   const handleSearch = async () => {
     setLoading(true);
