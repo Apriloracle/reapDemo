@@ -1,7 +1,7 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/local';
 
-const store = createStore().setSchema({
+export const agentDataStore = createStore().setSchema({
   agents: {
     uaid: { type: 'string' },
     registry: { type: 'string' },
