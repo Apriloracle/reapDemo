@@ -47,15 +47,7 @@ export const AgentFetcher: React.FC = () => {
           wallet: hit.profile?.display_name || hit.name || 'Unknown', // Use display name or name
           metadataUri: hit.endpoints?.primary || hit.endpoints?.repository || '',
           timestamp: new Date(hit.createdAt || Date.now()).toISOString(),
-          metadata: JSON.stringify({
-            name: hit.name,
-            description: hit.description,
-            registry: hit.registry,
-            capabilities: hit.capabilities,
-            endpoints: hit.endpoints,
-            profile: hit.profile,
-            availabilityStatus: hit.availabilityStatus,
-          }),
+          metadata: JSON.stringify(hit),
           agentType: hit.adapter || hit.protocol || 'unknown',
         }));
         setAgents(formattedAgents);
