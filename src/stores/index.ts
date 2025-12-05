@@ -15,9 +15,11 @@ import { similarProductsStore } from './SimilarProductsStore';
 import trajectoryStore from './TrajectoryStore';
 import { agentStore } from './AgentStore';
 import { dynamicToolStore } from './DynamicToolStore';
+import { agentDataStore } from './AgentDataStore';
 
 const stores = {
   agentStore,
+  agentDataStore,
   dynamicToolStore,
   userProfileStore,
   dealsIndexStore: getDealsIndexStore(),
