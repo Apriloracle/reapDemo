@@ -21,7 +21,7 @@ export const AgentFetcher: React.FC = () => {
         },
         body: JSON.stringify({ 
           query, 
-          limit: 10,
+          limit: 40,
           registry
         }),
       });
