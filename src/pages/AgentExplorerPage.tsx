@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTable } from 'tinybase/react';
+import { useTable } from 'tinybase/ui-react'; // Changed from 'tinybase/react'
 import { agentDataStore } from '../stores/AgentDataStore';
 import { AgentFetcher } from '../components/AgentFetcher';
 
