@@ -4,7 +4,7 @@ import registryClient from '../../../src/services/RegistryService';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { query = 'customer support', limit = 40, registry = 'pulsemcp' } = body;
+    const { query = 'customer support', limit = 40, registry = 'erc-8004' } = body;
     
     // Search with both query and registry
     const searchResults = await registryClient.search({
