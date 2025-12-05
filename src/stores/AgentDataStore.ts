@@ -1,5 +1,5 @@
 import { createStore } from 'tinybase';
-import { createLocalPersister } from 'tinybase/persisters/local';
+import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
 export const agentDataStore = createStore().setSchema({
   agents: {
@@ -14,3 +14,8 @@ export const agentDataStore = createStore().setSchema({
     updatedAt: { type: 'string' },
   },
 });
+
+// Optional: Create and auto-save persister
+const persister = createLocalPersister(agentDataStore, 'agentData');
+persister.startAutoLoad();
+persister.startAutoSave();
