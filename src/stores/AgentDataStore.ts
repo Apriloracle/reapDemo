@@ -26,17 +26,33 @@ if (typeof window !== 'undefined') {
 
 export async function addHolocronCoordinatesToAgent(agent: Agent): Promise<Agent> {
   const newAgent = { ...agent };
-  const capabilities = newAgent.metadata ? JSON.parse(newAgent.metadata).capabilities || [] : [];
+  if (!newAgent.metadata) {
+    return newAgent;
+  }
+
+  const metadata = JSON.parse(newAgent.metadata);
+  const profile = newAgent.profile ? JSON.parse(newAgent.profile) : null;
+  let capabilities: any[] = [];
+
+  if (metadata.protocol === 'mcp' && profile && profile.mcpServer && profile.mcpServer.capabilities) {
+    capabilities = profile.mcpServer.capabilities.map((c: string) => ({ name: c, description: c }));
+  } else if (metadata.protocol === 'x402' && profile && profile.aiAgent && profile.aiAgent.capabilities) {
+    capabilities = profile.aiAgent.capabilities.map((c: number) => ({ name: c.toString(), description: c.toString() }));
+  } else if (metadata.protocol === 'a2a' && profile && profile.aiAgent && profile.aiAgent.capabilities) {
+    capabilities = profile.aiAgent.capabilities.map((c: number) => ({ name: c.toString(), description: c.toString() }));
+  } else if (metadata.capabilities) {
+    capabilities = metadata.capabilities;
+  }
+
   for (const capability of capabilities) {
     capability.coordinate = await getCoordinateForData({
       name: capability.name,
       description: capability.description,
     });
   }
-  if (newAgent.metadata) {
-    const metadata = JSON.parse(newAgent.metadata);
-    metadata.capabilities = capabilities;
-    newAgent.metadata = JSON.stringify(metadata);
-  }
+
+  metadata.capabilities = capabilities;
+  newAgent.metadata = JSON.stringify(metadata);
+
   return newAgent;
 }
