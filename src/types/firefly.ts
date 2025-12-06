@@ -33,6 +33,8 @@ export interface Agent {
   metadataUri: string;
   timestamp: string;
   metadata?: string;
+  profile?: string;
   agentType?: string; // e.g., 'mcp', 'x402', 'erc-8004'
 }
+
 
