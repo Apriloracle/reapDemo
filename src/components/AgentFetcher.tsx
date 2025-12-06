@@ -5,7 +5,7 @@ export const AgentFetcher: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('customer support');
-  const [registry, setRegistry] = useState<string>('erc-8004');
+  const [registry, setRegistry] = useState<string>('pulsemcp');
 
   const handleSearch = async () => {
     setLoading(true);
@@ -65,23 +65,6 @@ export const AgentFetcher: React.FC = () => {
 
   return (
     <div className="p-6">
-      {/* Add Registry Selector */}
-      <div className="mb-4">
-        <label className="block mb-2 font-medium">Registry:</label>
-        <select 
-          value={registry} 
-          onChange={(e) => setRegistry(e.target.value)}
-          className="p-2 border rounded"
-        >
-          <option value="pulsemcp">PulseMCP</option>
-          <option value="erc-8004">ERC-8004</option>
-          <option value="coinbase-x402-bazaar">Coinbase x402 Bazaar</option>
-          <option value="agentverse">AgentVerse</option>
-          <option value="a2a-registry">A2A Registry</option>
-          <option value="openrouter">Open Router</option>
-        </select>
-      </div>
-
       <div className="flex items-center space-x-2 mb-6">
         <input
           type="text"
@@ -103,5 +86,4 @@ export const AgentFetcher: React.FC = () => {
     </div>
   );
 };
-
 
