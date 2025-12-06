@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { agentDataStore } from '../stores/AgentDataStore';
+import { agentDataStore, addHolocronCoordinatesToAgent } from '../stores/AgentDataStore';
+import { Agent } from '../types/firefly';
 
 export const AgentFetcher: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,24 +34,39 @@ export const AgentFetcher: React.FC = () => {
         throw new Error(searchResults.error || 'Search failed');
       }
 
-      agentDataStore.transaction(() => {
-        agentDataStore.delTable('agents');
-        if (searchResults.hits.length > 0) {
-          searchResults.hits.forEach((hit: any) => {
-            agentDataStore.setRow('agents', hit.id, {
-              uaid: hit.uaid,
+      if (searchResults.hits.length > 0) {
+        const agents: Agent[] = searchResults.hits.map((hit: any) => ({
+          fireflyId: hit.id,
+          agentId: hit.uaid,
+          wallet: '', // Not available in hit
+          metadataUri: '', // Not available in hit
+          timestamp: hit.createdAt,
+          metadata: JSON.stringify(hit.metadata),
+          profile: JSON.stringify(hit.profile),
+        }));
+
+        const agentsWithCoords = await Promise.all(agents.map(addHolocronCoordinatesToAgent));
+
+        agentDataStore.transaction(() => {
+          agentDataStore.delTable('agents');
+          agentsWithCoords.forEach((agent, index) => {
+            const hit = searchResults.hits[index];
+            agentDataStore.setRow('agents', agent.fireflyId, {
+              uaid: agent.agentId,
               registry: hit.registry,
               name: hit.name,
               description: hit.description,
               endpoints: JSON.stringify(hit.endpoints),
-              metadata: JSON.stringify(hit.metadata),
-              profile: JSON.stringify(hit.profile),
-              createdAt: hit.createdAt,
+              metadata: agent.metadata || '',
+              profile: agent.profile || '',
+              createdAt: agent.timestamp,
               updatedAt: hit.updatedAt,
             });
           });
-        }
-      });
+        });
+      } else {
+        agentDataStore.delTable('agents');
+      }
     } catch (err: any) {
       console.error("Search failed", err);
       setError(err.message);
@@ -101,3 +117,4 @@ export const AgentFetcher: React.FC = () => {
     </div>
   );
 };
+
