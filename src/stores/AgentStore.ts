@@ -14,6 +14,7 @@ class AgentStore {
         wallet: { type: 'string' },
         metadataUri: { type: 'string' },
         timestamp: { type: 'string' },
+        metadata: { type: 'string', default: '' },
       },
     });
 
@@ -29,6 +30,7 @@ class AgentStore {
       wallet: agent.wallet,
       metadataUri: agent.metadataUri,
       timestamp: agent.timestamp,
+      metadata: agent.metadata || '',
     });
     if (this.persister) {
       await this.persister.save();
@@ -46,6 +48,7 @@ class AgentStore {
         wallet: agent.wallet,
         metadataUri: agent.metadataUri,
         timestamp: agent.timestamp,
+        metadata: agent.metadata || '',
       };
       return acc;
     }, {} as { [key: string]: any });
@@ -65,3 +68,4 @@ class AgentStore {
 }
 
 export const agentStore = new AgentStore();
+
