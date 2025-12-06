@@ -1,6 +1,7 @@
 import { createStore } from 'tinybase';
 import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 import { Agent } from '../types/firefly';
+import { getCoordinateForData } from '../lib/probeUtils';
 
 class AgentStore {
   public store;
@@ -15,6 +16,7 @@ class AgentStore {
         metadataUri: { type: 'string' },
         timestamp: { type: 'string' },
         metadata: { type: 'string', default: '' },
+        capabilities: { type: 'string', default: '' },
       },
     });
 
@@ -25,12 +27,21 @@ class AgentStore {
   }
 
   async addAgent(agent: Agent): Promise<void> {
+    const capabilities = agent.metadata ? JSON.parse(agent.metadata).capabilities || [] : [];
+    for (const capability of capabilities) {
+      capability.coordinate = await getCoordinateForData({
+        name: capability.name,
+        description: capability.description,
+      });
+    }
+
     this.store.setRow('agents', agent.fireflyId, {
       agentId: agent.agentId,
       wallet: agent.wallet,
       metadataUri: agent.metadataUri,
       timestamp: agent.timestamp,
       metadata: agent.metadata || '',
+      capabilities: JSON.stringify(capabilities),
     });
     if (this.persister) {
       await this.persister.save();
@@ -42,16 +53,24 @@ class AgentStore {
   }
 
   async setAgents(agents: Agent[]): Promise<void> {
-    const agentTable = agents.reduce((acc, agent) => {
-      acc[agent.fireflyId] = {
+    const agentTable: { [key: string]: any } = {};
+    for (const agent of agents) {
+      const capabilities = agent.metadata ? JSON.parse(agent.metadata).capabilities || [] : [];
+      for (const capability of capabilities) {
+        capability.coordinate = await getCoordinateForData({
+          name: capability.name,
+          description: capability.description,
+        });
+      }
+      agentTable[agent.fireflyId] = {
         agentId: agent.agentId,
         wallet: agent.wallet,
         metadataUri: agent.metadataUri,
         timestamp: agent.timestamp,
         metadata: agent.metadata || '',
+        capabilities: JSON.stringify(capabilities),
       };
-      return acc;
-    }, {} as { [key: string]: any });
+    }
     this.store.setTable('agents', agentTable);
     if (this.persister) {
       await this.persister.save();
