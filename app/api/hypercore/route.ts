@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // Hardcoded server address - change this to your server IP
 const HYPERCORE_SERVER = 'http://34.126.134.226:3001';
 
