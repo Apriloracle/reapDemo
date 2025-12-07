@@ -5,7 +5,7 @@ export const runtime = 'nodejs';
 // Hardcoded server address
 const HYPERCORE_SERVER_WS = 'ws://34.126.134.226:3001';
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   const encoder = new TextEncoder();
   
   const stream = new ReadableStream({
