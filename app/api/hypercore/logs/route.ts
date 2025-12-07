@@ -1,4 +1,6 @@
-import { NextRequest } from 'next/server';
+// Force dynamic rendering (don't try to statically generate this route)
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 // Hardcoded server address
 const HYPERCORE_SERVER_WS = 'ws://34.126.134.226:3001';
