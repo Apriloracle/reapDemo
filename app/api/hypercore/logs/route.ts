@@ -1,38 +1,58 @@
 import { NextRequest } from 'next/server';
 
-let hypercoreService: any = null;
-
-async function getHypercoreService() {
-  if (!hypercoreService) {
-    const module = await import('@/services/HypercoreService');
-    hypercoreService = module.hypercoreService;
-  }
-  return hypercoreService;
-}
+// Hardcoded server address
+const HYPERCORE_SERVER_WS = 'ws://34.126.134.226:3001';
 
 export async function GET(request: NextRequest) {
   const encoder = new TextEncoder();
   
   const stream = new ReadableStream({
     async start(controller) {
-      const service = await getHypercoreService();
+      let ws: WebSocket | null = null;
       
-      const logHandler = (log: string) => {
-        const data = `data: ${JSON.stringify({ log })}\n\n`;
+      try {
+        // Connect to Hypercore server WebSocket
+        ws = new WebSocket(HYPERCORE_SERVER_WS);
+        
+        ws.onopen = () => {
+          const data = `data: ${JSON.stringify({ type: 'log', message: '>> Connected to Hypercore server' })}\n\n`;
+          controller.enqueue(encoder.encode(data));
+        };
+        
+        ws.onmessage = (event) => {
+          try {
+            const message = JSON.parse(event.data);
+            const data = `data: ${JSON.stringify(message)}\n\n`;
+            controller.enqueue(encoder.encode(data));
+          } catch (e) {
+            // Ignore parse errors
+          }
+        };
+        
+        ws.onerror = (error) => {
+          const data = `data: ${JSON.stringify({ type: 'log', message: '>> WebSocket error' })}\n\n`;
+          controller.enqueue(encoder.encode(data));
+        };
+        
+        ws.onclose = () => {
+          const data = `data: ${JSON.stringify({ type: 'log', message: '>> Disconnected from server' })}\n\n`;
+          controller.enqueue(encoder.encode(data));
+          controller.close();
+        };
+        
+        // Cleanup on connection close
+        request.signal.addEventListener('abort', () => {
+          if (ws) {
+            ws.close();
+          }
+          controller.close();
+        });
+        
+      } catch (error) {
+        const data = `data: ${JSON.stringify({ type: 'log', message: '>> Failed to connect to Hypercore server' })}\n\n`;
         controller.enqueue(encoder.encode(data));
-      };
-
-      // Listen to log events
-      service.on('log', logHandler);
-
-      // Send initial connection message
-      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ log: '>> Connected to log stream' })}\n\n`));
-
-      // Cleanup on connection close
-      request.signal.addEventListener('abort', () => {
-        service.off('log', logHandler);
         controller.close();
-      });
+      }
     },
   });
 
