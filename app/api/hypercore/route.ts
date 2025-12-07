@@ -1,25 +1,41 @@
 import { NextResponse } from 'next/server';
-import { hypercoreService } from '@/services/HypercoreService';
+
+// Hardcoded server address - change this to your server IP
+const HYPERCORE_SERVER = 'http://34.126.134.226:3001';
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const { type, coordinate, privateKey, targetMetadata } = body;
-
-  if (type === 'agent') {
-    if (!coordinate) {
-      return NextResponse.json({ error: 'Missing coordinate' }, { status: 400 });
-    }
-    hypercoreService.startAgent(coordinate);
-    return NextResponse.json({ message: 'Agent started' });
+  try {
+    const body = await request.json();
+    
+    // Forward request to Hypercore server
+    const response = await fetch(`${HYPERCORE_SERVER}/api/agents/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    
+    const data = await response.json();
+    return NextResponse.json(data);
+    
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || 'Failed to connect to Hypercore server' },
+      { status: 500 }
+    );
   }
+}
 
-  if (type === 'manager') {
-    if (!coordinate || !privateKey || !targetMetadata) {
-      return NextResponse.json({ error: 'Missing coordinate, privateKey, or targetMetadata' }, { status: 400 });
-    }
-    hypercoreService.startManager(coordinate, privateKey, targetMetadata);
-    return NextResponse.json({ message: 'Manager started' });
+export async function GET(request: Request) {
+  try {
+    // Forward status request
+    const response = await fetch(`${HYPERCORE_SERVER}/api/status`);
+    const data = await response.json();
+    return NextResponse.json(data);
+    
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: 'Hypercore server unavailable', active: false },
+      { status: 503 }
+    );
   }
-
-  return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
 }
