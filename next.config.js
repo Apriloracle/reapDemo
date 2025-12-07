@@ -1,3 +1,5 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -18,6 +20,9 @@ const nextConfig = {
       'node:crypto': 'crypto-browserify',
       'node:stream': 'stream-browserify',
       'node:buffer': 'buffer',
+      // Add path alias for src directory
+      '@': path.resolve(__dirname, 'src'),
+      '@/services': path.resolve(__dirname, 'src/services'),
     };
 
     config.resolve.fallback = {
