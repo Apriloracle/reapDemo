@@ -26,24 +26,26 @@ registerTool('getShoppingProducts', () => {
   return shoppingProductsStore.getProducts();
 });
 
-// Only import and register Hypercore tools on the server side
-if (typeof window === 'undefined') {
-  // Dynamic import for server-side only
-  import('../services/HypercoreService').then(({ hypercoreService }) => {
-    // Register Hypercore tools
-    registerTool('startHypercoreAgent', (args) => {
-      const { coordinate } = args;
-      return hypercoreService.startAgent(coordinate);
-    });
-
-    registerTool('startHypercoreManager', (args) => {
-      const { coordinate, privateKey, targetMetadata } = args;
-      return hypercoreService.startManager(coordinate, privateKey, targetMetadata);
-    });
-  }).catch(err => {
-    console.warn('Failed to load HypercoreService (expected in browser):', err.message);
+// Register Hypercore tools that call API routes instead of direct service
+registerTool('startHypercoreAgent', async (args) => {
+  const { coordinate } = args;
+  const response = await fetch('/api/hypercore', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'agent', coordinate })
   });
-}
+  return response.json();
+});
+
+registerTool('startHypercoreManager', async (args) => {
+  const { coordinate, privateKey, targetMetadata } = args;
+  const response = await fetch('/api/hypercore', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'manager', coordinate, privateKey, targetMetadata })
+  });
+  return response.json();
+});
 
 // Expose the invoke function globally for agents
 import { invoke } from './mcp-engine';
