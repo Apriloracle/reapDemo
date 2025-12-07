@@ -20,10 +20,22 @@ Object.keys(stores).forEach(storeName => {
 
 import { registerTool } from './mcp-engine';
 import { shoppingProductsStore } from '../stores/ShoppingProductsStore';
+import { hypercoreService } from '../services/HypercoreService';
 
 // Register a custom tool for the shoppingProductsStore
 registerTool('getShoppingProducts', () => {
   return shoppingProductsStore.getProducts();
+});
+
+// Register Hypercore tools
+registerTool('startHypercoreAgent', (args) => {
+  const { coordinate } = args;
+  return hypercoreService.startAgent(coordinate);
+});
+
+registerTool('startHypercoreManager', (args) => {
+  const { coordinate, privateKey, targetMetadata } = args;
+  return hypercoreService.startManager(coordinate, privateKey, targetMetadata);
 });
 
 // Expose the invoke function globally for agents
