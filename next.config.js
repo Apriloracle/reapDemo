@@ -13,7 +13,7 @@ const nextConfig = {
   },
 
   webpack: (config, { isServer }) => {
-    // Fixes for hashgraph SDK and other packages using node: imports
+    
     config.resolve.alias = {
       ...config.resolve.alias,
       'node:path': 'path-browserify',
