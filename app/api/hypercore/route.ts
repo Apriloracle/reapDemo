@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { hypercoreService } from '../../../services/HypercoreService';
+import { hypercoreService } from '../../../../src/services/HypercoreService';
 
 export async function POST(request: Request) {
   const body = await request.json();
