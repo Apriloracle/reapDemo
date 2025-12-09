@@ -12,6 +12,9 @@ const MerchantAgentPage: React.FC = () => {
             <th>Name</th>
             <th>Description</th>
             <th>Image</th>
+            <th>Capabilities</th>
+            <th>Attributes</th>
+            <th>Supported Trust</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +26,29 @@ const MerchantAgentPage: React.FC = () => {
               <td>
                 <img src={merchant.metadata.image} alt={merchant.metadata.name} width="50" />
               </td>
+              <td>
+                <ul>
+                  {merchant.metadata.capabilities.map((capability) => (
+                    <li key={capability}>{capability}</li>
+                  ))}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {merchant.metadata.attributes.map((attribute) => (
+                    <li key={attribute.trait_type}>
+                      {attribute.trait_type}: {attribute.value}
+                    </li>
+                  ))}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {merchant.metadata.supportedTrust.map((trust) => (
+                    <li key={trust}>{trust}</li>
+                  ))}
+                </ul>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -32,3 +58,4 @@ const MerchantAgentPage: React.FC = () => {
 };
 
 export default MerchantAgentPage;
+
