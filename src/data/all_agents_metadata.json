@@ -1,0 +1,3152 @@
+[
+  {
+    "id": 1,
+    "owner": "0x26fD9787F6aB8064D634d385ac5d9B48D4bbA754",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJNZXJjaGFudCBQcm94eSBBZ2VudDogV2FsbWFydCIsImRlc2NyaXB0aW9uIjoiVW5vZmZpY2lhbCBtZXJjaGFudCBwcm94eSBhZ2VudCBmb3IgV2FsbWFydC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vd2FsbWFydC5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50IFByb3h5In0seyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IkNsYWltYWJsZSIsInZhbHVlIjoiWWVzIn1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Merchant Proxy Agent: Walmart",
+      "description": "Unofficial merchant proxy agent for Walmart.",
+      "image": "https://logo.clearbit.com/walmart.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Role",
+          "value": "Merchant Proxy"
+        },
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Claimable",
+          "value": "Yes"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "owner": "0xCa366eEaF2d5374E32e31DC8188E476502D71e68",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCZXN0IEJ1eSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vYmVzdGJ1eS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Best Buy",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/bestbuy.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "owner": "0x5048c70c136c64c1b130bF2aE2c8243Df610A974",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJNaWNybyBDZW50ZXIiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL21pY3JvY2VudGVyLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Micro Center",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/microcenter.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "owner": "0xa3A88EA1BAe645ca5BEe236CF9599a8361d3a00A",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCSidzIFdob2xlc2FsZSBDbHViIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9iaidzd2hvbGVzYWxlY2x1Yi5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "BJ's Wholesale Club",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/bj'swholesaleclub.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "owner": "0xe1b286db3E56D5344F26acfa1Fb452929b52F420",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gVFBWIFRFQ0giLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3dhbG1hcnQtdHB2dGVjaC5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - TPV TECH",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-tpvtech.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "owner": "0xD356683dC9e8860F12345d9D3a824F910BBFb94c",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJSYXplci5jb20iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3JhemVyLmNvbS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Razer.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/razer.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "owner": "0x7cCc380E00C4B55C1Ae006Db8544CA97988363D2",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCJkggUGhvdG8tVmlkZW8tQXVkaW8iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2JocGhvdG92aWRlby5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "B&H Photo-Video-Audio",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/bhphotovideo.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "owner": "0x5265590400fA3502304808F9c3Aa41269C843131",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gS1VVIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS93YWxtYXJ0LWt1dS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - KUU",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-kuu.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "owner": "0x010c7025BB49f33Cb14E04C05840Ec6C02F4bC5A",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJIeXBlclgiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2h5cGVyeC5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "HyperX",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/hyperx.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "owner": "0x97B644a94873c75CE926246F9e4a670d67565470",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gU2VsbGVyIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS93YWxtYXJ0LXNlbGxlci5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Seller",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-seller.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "owner": "0xB1e17878E7e4247425132ECF8735392974Ac62b3",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJBY2VyIFN0b3JlIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9hY2Vyc3RvcmUuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Acer Store",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/acerstore.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "owner": "0xd7FE5C5cE396Fc6EfAe4CFB7fe9f8aF4bFE8ba89",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJEZWxsIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9kZWxsLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Dell",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/dell.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "owner": "0xEE8D7E1deAd11A06cC11Aad84b5a0fE7Ac8EefB3",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJMZW5vdm8iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2xlbm92by5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Lenovo",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/lenovo.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "owner": "0x599F0132e52c7a0538f3A0b3E43acc63735bAB9e",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJMRyBFbGVjdHJvbmljcyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vbGdlbGVjdHJvbmljcy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "LG Electronics",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/lgelectronics.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "owner": "0x391B3Fb7098163Db73F2625FCd3dDa8e76cBD9EC",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJJR04gU3RvcmUiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2lnbnN0b3JlLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "IGN Store",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/ignstore.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "owner": "0x468BeF6B091918f7706261eFeBF9741A8cB3cCCD",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJUYXJnZXQiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3RhcmdldC5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Target",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/target.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "owner": "0x5352093E86ee52bEc7006AA321BeeD5CE5920C0c",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCJkggVXNlZCBTdG9yZSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vYmhwaG90b3ZpZGVvLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "B&H Used Store",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/bhphotovideo.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "owner": "0xaD54b8a7592a8FF7C74e7b786959F6781FFC5A44",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJwYW5vdmlzaW9uLmNvLmlsIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9wYW5vdmlzaW9uLmNvLmlsLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "panovision.co.il",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/panovision.co.il.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 19,
+    "owner": "0x53C481205072e927D9C2df86ec9512a4945eb710",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJMZW5zcmVudGFscyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vbGVuc3JlbnRhbHMuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Lensrentals",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/lensrentals.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "owner": "0x9544b1488d3E3073538de6c4419AE3A8A56E15Cd",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gU3VldmVyeSBUZWNoIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS93YWxtYXJ0LXN1ZXZlcnl0ZWNoLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Suevery Tech",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-sueverytech.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "owner": "0x9b5BD16029CBAb8C93450AC72d4b5795120c9Be2",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJNYWN5J3MiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL21hY3kncy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Macy's",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/macy's.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 22,
+    "owner": "0x3BB7ABbE09d04525B38aDA6D6845bed98B7c8f68",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gQ1JVQSBUZWNobm9sb2d5IiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS93YWxtYXJ0LWNydWF0ZWNobm9sb2d5LmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - CRUA Technology",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-cruatechnology.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 23,
+    "owner": "0x7BA1166Fc9f32Aafc97eD0917Abd358216e80413",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTYW1zdW5nIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9zYW1zdW5nLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Samsung",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/samsung.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 24,
+    "owner": "0x54F0b29B0043aD8D8b4062271fE3D49D817dA409",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gR2F3Zm9sayIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vd2FsbWFydC1nYXdmb2xrLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Gawfolk",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-gawfolk.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 25,
+    "owner": "0x024ecd36c548cd2cB7ebF91DDBa5f2Dc7Ed04428",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTdGFwbGVzIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9zdGFwbGVzLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Staples",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/staples.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 26,
+    "owner": "0x36EE9989A5FF90F67315A331A161E04CF02162b6",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJOZXdlZ2cgQnVzaW5lc3MiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL25ld2VnZ2J1c2luZXNzLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Newegg Business",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/neweggbusiness.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 27,
+    "owner": "0x89E2AC981D2E5CD5Ab7325d217c38B3957dA7A86",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gR2VuZXNpcyBPZmZpY2lhbCBTdG9yZSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vd2FsbWFydC1nZW5lc2lzb2ZmaWNpYWxzdG9yZS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Genesis Official Store",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-genesisofficialstore.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 28,
+    "owner": "0x5B6F4F38F4240a0818A95Fd096C39187BA02AfF1",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJQcm92YW50YWdlIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9wcm92YW50YWdlLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Provantage",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/provantage.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 29,
+    "owner": "0x9E4e61d02D022879f10b33cfE7215d754252179C",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJSZWRyYWdvbiIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vcmVkcmFnb24uY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Redragon",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/redragon.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 30,
+    "owner": "0x27f1D45F1a604897887EdAFda4F19BB48AbfF4eC",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gR2VydW5saW4gU3RvcmUiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3dhbG1hcnQtZ2VydW5saW5zdG9yZS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Gerunlin Store",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-gerunlinstore.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 31,
+    "owner": "0xAeAC601c2F618ef0e7BaE295827D4014c363fc76",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJLZXljaHJvbi5jb20iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2tleWNocm9uLmNvbS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Keychron.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/keychron.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 32,
+    "owner": "0xce89Cc6376D27D8A0FF79321FaCdbD34d5524E9d",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJSSyBSb3lhbCBLbHVkZ2UiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3Jrcm95YWxrbHVkZ2UuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "RK Royal Kludge",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/rkroyalkludge.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 33,
+    "owner": "0x0a5A2b524593E88CFC704f4aE144FDeA4D2c1436",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gS00gV2FncGFrIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS93YWxtYXJ0LWttd2FncGFrLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - KM Wagpak",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-kmwagpak.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 34,
+    "owner": "0x8Dc8f41D8d79e4971804DC3c6af13D6Db514C026",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJHbG9yaW91cyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vZ2xvcmlvdXMuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Glorious",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/glorious.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 35,
+    "owner": "0x1795B6FC3455aF3ECb393Fe894f8F52c5E0dFc0d",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJIUCIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vaHAuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "HP",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/hp.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 36,
+    "owner": "0x5f51CA357C98CCB3B9862A1167Ae6Bd8CC17E305",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJtYXhnYW1pbmcgc3RvcmUiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL21heGdhbWluZ3N0b3JlLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "maxgaming store",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/maxgamingstore.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 37,
+    "owner": "0xfC015E30E33077FFDaFD5F817AA40d4049d72835",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJsb2dpdGVjaC5jb20iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2xvZ2l0ZWNoLmNvbS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "logitech.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/logitech.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 38,
+    "owner": "0x4A9e40627E6c51F4e48668519f4C245C561159fb",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJBbmtlciBVUyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vYW5rZXJ1cy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Anker US",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/ankerus.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 39,
+    "owner": "0x6375CFB331961ae5856714A20219a762b223da71",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTYXRlY2hpIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9zYXRlY2hpLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Satechi",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/satechi.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 40,
+    "owner": "0x89F57d2d50Aac1B3A348033Afe0aBF71d5EcF624",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCZWxraW4iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2JlbGtpbi5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Belkin",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/belkin.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 41,
+    "owner": "0x8AE4184518907A22E1A67358778E850CAdecf76a",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJ1cy51Z3JlZW4uY29tIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS91cy51Z3JlZW4uY29tLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "us.ugreen.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/us.ugreen.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 42,
+    "owner": "0xF66290b16E5E708fd9467F9495e36684A4792853",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJqNWNyZWF0ZSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vajVjcmVhdGUuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "j5create",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/j5create.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 43,
+    "owner": "0xBd15527B31e0152D01e759a4Ae1Ac29412Bb363B",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJIeXBlclNob3AuY29tIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9oeXBlcnNob3AuY29tLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "HyperShop.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/hypershop.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 44,
+    "owner": "0x97fd711825dCAF4eA396176474c7565372b13ca2",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCYXNldXMiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2Jhc2V1cy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Baseus",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/baseus.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 45,
+    "owner": "0x1B046B24c35BbEBC8a56696D06e4A2D63632EeD4",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gTW9mZWkiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3dhbG1hcnQtbW9mZWkuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Mofei",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-mofei.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 46,
+    "owner": "0x4B4f2555061A51F45D8d028F1c04E07DcD8724d6",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJNaW5pc29wdXJ1IiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9taW5pc29wdXJ1LmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Minisopuru",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/minisopuru.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 47,
+    "owner": "0x8f762b8412DA5f1Cb5eC7c1336652b3BF5A81D30",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJIb21lIERlcG90IiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9ob21lZGVwb3QuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Home Depot",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/homedepot.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 48,
+    "owner": "0x72bb1755e5A8DCB81fB51f49B00454720D7DbcE5",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJBbnRocm9wb2xvZ2llIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9hbnRocm9wb2xvZ2llLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Anthropologie",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/anthropologie.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 49,
+    "owner": "0x8441f4bf64d6C7Ee7abCb92024Ce1E957Dd1FD80",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJIaWdyb3VuZCIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vaGlncm91bmQuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Higround",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/higround.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 50,
+    "owner": "0xcE307EC6f8A29966146b51795c89233D16E20441",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJPZmZpY2UgRGVwb3QiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL29mZmljZWRlcG90LmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Office Depot",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/officedepot.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 51,
+    "owner": "0xc4e0A9B932B06e47B5b9931BC1e0078396cBa4D0",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJCYXJuZXMgJiBOb2JsZSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vYmFybmVzJm5vYmxlLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Barnes & Noble",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/barnes&noble.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 52,
+    "owner": "0x2315560B69280d5Fc84a247299703fD52588093d",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gU2hlbnpoZW5zaGkgY2hlbmdtZW5naGUga2VqaXlvdXhpYW5nb25nc2kiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3dhbG1hcnQtc2hlbnpoZW5zaGljaGVuZ21lbmdoZWtlaml5b3V4aWFuZ29uZ3NpLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - Shenzhenshi chengmenghe kejiyouxiangongsi",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-shenzhenshichengmenghekejiyouxiangongsi.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 53,
+    "owner": "0xec01d2Be57C87F4eAD0413250dbcA6B38E3a9746",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJNYXRyaXggS2V5Ym9hcmRzIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9tYXRyaXhrZXlib2FyZHMuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Matrix Keyboards",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/matrixkeyboards.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 54,
+    "owner": "0xAd794b91bc590926642bAdE7cC23465C3d3ace46",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJSYWRpb1NoYWNrIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9yYWRpb3NoYWNrLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "RadioShack",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/radioshack.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 55,
+    "owner": "0x650e7E4B972C20A98e24f977022Fc0B91a8Cbb1f",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJFdXJla2EgRXJnb25vbWljIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9ldXJla2Flcmdvbm9taWMuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Eureka Ergonomic",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/eurekaergonomic.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 56,
+    "owner": "0x57E216330120Ec7E3F1c405D6b05edaE5959b044",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gemhpIHhpYW4gamlhbyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vd2FsbWFydC16aGl4aWFuamlhby5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - zhi xian jiao",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-zhixianjiao.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 57,
+    "owner": "0x85028b640d4Cf0E9401E3C3f257e709E4D3F13bD",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJMZWF0aGVyb2xvZ3kiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2xlYXRoZXJvbG9neS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Leatherology",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/leatherology.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 58,
+    "owner": "0xd2cD5dfc0A98F417bE922C8f57719c78dB82C43b",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0geWFuZ3lvbmcxIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS93YWxtYXJ0LXlhbmd5b25nMS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - yangyong1",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-yangyong1.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 59,
+    "owner": "0x49429efBb55C07d0842a0E4E566D95c9F8a7785D",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTYW15J3MgQ2FtZXJhIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9zYW15J3NjYW1lcmEuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Samy's Camera",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/samy'scamera.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 60,
+    "owner": "0x60DA1Fa38447FD134707dE3fC4fd8f56c376Ef7a",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJMb3dlJ3MiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2xvd2Uncy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Lowe's",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/lowe's.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 61,
+    "owner": "0xBa2b3f24FaF04Ac2729Cc5092d0B0Df8f8d925cA",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJLbHV2ZXIncyBvZiBDbGludG9uIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9rbHV2ZXInc29mY2xpbnRvbi5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Kluver's of Clinton",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/kluver'sofclinton.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 62,
+    "owner": "0x15EF41aa74BF62628AbBF48999AAC58B6EDB5691",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJBQkMgV2FyZWhvdXNlIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9hYmN3YXJlaG91c2UuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "ABC Warehouse",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/abcwarehouse.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 63,
+    "owner": "0xbF72d7Cc7a4969ab3a8C010fdb0a674Cde3a83ad",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTYW0ncyBDbHViIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9zYW0nc2NsdWIuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Sam's Club",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/sam'sclub.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 64,
+    "owner": "0xfFF024347A8853C18BBFDE536BFd709AA73a286e",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJFbGVjdHJvbmljIEV4cHJlc3MiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2VsZWN0cm9uaWNleHByZXNzLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Electronic Express",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/electronicexpress.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 65,
+    "owner": "0x9d78Ea1487C9F7D9bb1aE4f3bbF1A2D492dC0c37",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJkaWFscnRvLmNvbSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vZGlhbHJ0by5jb20uY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "dialrto.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/dialrto.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 66,
+    "owner": "0x028a963d7777cC61178C03cC1156DF355a599928",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXYWxtYXJ0IC0gY2l4aXNoaWhvbmd4aW5kaWFuemlzaGFuZ3d1eW91eGlhbmdvbmdzaSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vd2FsbWFydC1jaXhpc2hpaG9uZ3hpbmRpYW56aXNoYW5nd3V5b3V4aWFuZ29uZ3NpLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Walmart - cixishihongxindianzishangwuyouxiangongsi",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/walmart-cixishihongxindianzishangwuyouxiangongsi.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 67,
+    "owner": "0xB7dF73b6f7F9D0975DaE10DC74f024813e5F4407",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTb3V0aGVhc3QgU3RlZWwiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3NvdXRoZWFzdHN0ZWVsLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Southeast Steel",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/southeaststeel.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 68,
+    "owner": "0x3d9c969d9cf2F1f49A3ae528F9EAC9C5F233ce32",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJKdWRkICYgQmxhY2siLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2p1ZGQmYmxhY2suY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Judd & Black",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/judd&black.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 69,
+    "owner": "0x55d91C266E8fF5318C3E607F3E5ec7CE36F38736",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJMYXBwIEdhcyBBcHBsaWFuY2UiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2xhcHBnYXNhcHBsaWFuY2UuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Lapp Gas Appliance",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/lappgasappliance.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 70,
+    "owner": "0x6FFe2680c456dDD5D18076391c4667594750C11a",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJDb29rbGlzdCIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vY29va2xpc3QuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Cooklist",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/cooklist.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 71,
+    "owner": "0x0f62dCaa7dD71A712F8b09AB706D78625f8B86D3",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJOYXR1cmUncyBQYXRoIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9uYXR1cmUnc3BhdGguY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Nature's Path",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/nature'spath.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 72,
+    "owner": "0xa44E8a58e1F9d528Bfb1B0Fc3D015B0fE541955D",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJWaXRhY29zdC5jb20iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3ZpdGFjb3N0LmNvbS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Vitacost.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/vitacost.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 73,
+    "owner": "0xE76628C66B2E3ADa0AD15b3D19AcCc3f1B6E0053",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXZWJzdGF1cmFudFN0b3JlLmNvbSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vd2Vic3RhdXJhbnRzdG9yZS5jb20uY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "WebstaurantStore.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/webstaurantstore.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 74,
+    "owner": "0xea591c31C51bdf5f18D05097E215c6A93894CbD5",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJHbHV0YWx5IFNob3AgU2VuemEgR2x1dGluZSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vZ2x1dGFseXNob3BzZW56YWdsdXRpbmUuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Glutaly Shop Senza Glutine",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/glutalyshopsenzaglutine.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 75,
+    "owner": "0x7aCbB288b67A0B44aE5974FF51E06096F42d80CA",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJHcmFuQ2FmZmVMQXF1aWxhIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9ncmFuY2FmZmVsYXF1aWxhLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "GranCaffeLAquila",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/grancaffelaquila.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 76,
+    "owner": "0x3ac4CC4e92CD34d46aF6322356D0346704b79006",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJsaWZlc3R5bGVzaW4zNjAuY29tIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9saWZlc3R5bGVzaW4zNjAuY29tLmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "lifestylesin360.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/lifestylesin360.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 77,
+    "owner": "0x93A6f82435c427626E3F51fcEA170D51Ce0f9a6A",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTaWxrcnV0ZSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vc2lsa3J1dGUuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Silkrute",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/silkrute.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 78,
+    "owner": "0xCb26F132b1F2D436981d8D61D275fF73fCbd38d6",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJBbGxidWxrZm9vZHMiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2FsbGJ1bGtmb29kcy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Allbulkfoods",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/allbulkfoods.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 79,
+    "owner": "0xd52037f0A12b46Ef268dA0f47A8902b4219EfbBC",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJGb29kU2VydmljZURpcmVjdC5jb20iLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL2Zvb2RzZXJ2aWNlZGlyZWN0LmNvbS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "FoodServiceDirect.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/foodservicedirect.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 80,
+    "owner": "0x3C492b9C0F520B86688D77CadF1F143709A2060b",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJXaWxseSBTdHJlZXQgQ28tb3AiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL3dpbGx5c3RyZWV0Y28tb3AuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Willy Street Co-op",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/willystreetco-op.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 81,
+    "owner": "0xFc0A243b4Af214Ee5c1732f5dA4ab866D9dA9c58",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJNaWFtaSBLb3NoZXIgTWFya2V0IiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9taWFtaWtvc2hlcm1hcmtldC5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Miami Kosher Market",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/miamikoshermarket.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 82,
+    "owner": "0x80C44553590bA3527168Bb30f945CD17509B6715",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJFcGljZXJpZUNvcm5lciIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vZXBpY2VyaWVjb3JuZXIuY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "EpicerieCorner",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/epiceriecorner.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 83,
+    "owner": "0x13B1d107c9a21141aD3D902476C75caf7ED1C428",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJHb1N1cHBzLmNvbSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vZ29zdXBwcy5jb20uY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "GoSupps.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/gosupps.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 84,
+    "owner": "0x323D8F58ac4322a1Ef5200e7b93B782B621717Da",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJLaXdpIENvcm5lciBEYWlyeSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20va2l3aWNvcm5lcmRhaXJ5LmNvbSIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8vcmVhcC5kZWFscyIsImNhcGFiaWxpdGllcyI6WyJDb21tZXJjZSIsIkVsZWN0cm9uaWNzIiwieDQwMiBQYXltZW50cyIsIkFjY2VwdHMgVVNEQyJdLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiTmV0d29yayIsInZhbHVlIjoiUmVhcCBQcm90b2NvbCJ9LHsidHJhaXRfdHlwZSI6IlZlcmlmaWNhdGlvbiIsInZhbHVlIjoiQ3VzdG9kaWFsIEVzY3JvdyJ9LHsidHJhaXRfdHlwZSI6IlJvbGUiLCJ2YWx1ZSI6Ik1lcmNoYW50In1dLCJzdXBwb3J0ZWRUcnVzdCI6WyJyZXB1dGF0aW9uIl19",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Kiwi Corner Dairy",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/kiwicornerdairy.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 85,
+    "owner": "0x762B89a0837abc7f9dd65214e4c3668b70c513E1",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTdWJobGF4bWkgR3JvY2VycyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vc3ViaGxheG1pZ3JvY2Vycy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Subhlaxmi Grocers",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/subhlaxmigrocers.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 86,
+    "owner": "0xCA65818C241038890deA155b8EE8F3A162b7dc19",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJSZXN0YXVyYW50IGFuZCBNb3JlIiwiZGVzY3JpcHRpb24iOiJPZmZpY2lhbCBFbGVjdHJvbmljcyAmIE9mZmljZSBTdXBwbGllcyBNZXJjaGFudC4gUG93ZXJlZCBieSB0aGUgeDQwMiBDb21tZXJjZSBHcmlkLiIsImltYWdlIjoiaHR0cHM6Ly9sb2dvLmNsZWFyYml0LmNvbS9yZXN0YXVyYW50YW5kbW9yZS5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Restaurant and More",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/restaurantandmore.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 87,
+    "owner": "0xB8657791F5872199670A5af0D32c8b5136a3d6A1",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJOYXR1cml0YXMiLCJkZXNjcmlwdGlvbiI6Ik9mZmljaWFsIEVsZWN0cm9uaWNzICYgT2ZmaWNlIFN1cHBsaWVzIE1lcmNoYW50LiBQb3dlcmVkIGJ5IHRoZSB4NDAyIENvbW1lcmNlIEdyaWQuIiwiaW1hZ2UiOiJodHRwczovL2xvZ28uY2xlYXJiaXQuY29tL25hdHVyaXRhcy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Naturitas",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/naturitas.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 88,
+    "owner": "0x4D8444d8A3ae8d00E5a1aa8F8631Ace6396Fd2de",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJTb3Bvc29wbyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vc29wb3NvcG8uY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Soposopo",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/soposopo.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 89,
+    "owner": "0x8DB762E44c2d042B11baD9cA098ffe9E9132E319",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJOdWxpbmUgVHJhZGVycyIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vbnVsaW5ldHJhZGVycy5jb20iLCJleHRlcm5hbF91cmwiOiJodHRwczovL3JlYXAuZGVhbHMiLCJjYXBhYmlsaXRpZXMiOlsiQ29tbWVyY2UiLCJFbGVjdHJvbmljcyIsIng0MDIgUGF5bWVudHMiLCJBY2NlcHRzIFVTREMiXSwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6Ik5ldHdvcmsiLCJ2YWx1ZSI6IlJlYXAgUHJvdG9jb2wifSx7InRyYWl0X3R5cGUiOiJWZXJpZmljYXRpb24iLCJ2YWx1ZSI6IkN1c3RvZGlhbCBFc2Nyb3cifSx7InRyYWl0X3R5cGUiOiJSb2xlIiwidmFsdWUiOiJNZXJjaGFudCJ9XSwic3VwcG9ydGVkVHJ1c3QiOlsicmVwdXRhdGlvbiJdfQ==",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Nuline Traders",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/nulinetraders.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  {
+    "id": 90,
+    "owner": "0x2CfB04383856d73412b86BA25bD34FbA556f4b27",
+    "rawUri": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJQdXNobXljYXJ0LmNvbSIsImRlc2NyaXB0aW9uIjoiT2ZmaWNpYWwgRWxlY3Ryb25pY3MgJiBPZmZpY2UgU3VwcGxpZXMgTWVyY2hhbnQuIFBvd2VyZWQgYnkgdGhlIHg0MDIgQ29tbWVyY2UgR3JpZC4iLCJpbWFnZSI6Imh0dHBzOi8vbG9nby5jbGVhcmJpdC5jb20vcHVzaG15Y2FydC5jb20uY29tIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9yZWFwLmRlYWxzIiwiY2FwYWJpbGl0aWVzIjpbIkNvbW1lcmNlIiwiRWxlY3Ryb25pY3MiLCJ4NDAyIFBheW1lbnRzIiwiQWNjZXB0cyBVU0RDIl0sImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJOZXR3b3JrIiwidmFsdWUiOiJSZWFwIFByb3RvY29sIn0seyJ0cmFpdF90eXBlIjoiVmVyaWZpY2F0aW9uIiwidmFsdWUiOiJDdXN0b2RpYWwgRXNjcm93In0seyJ0cmFpdF90eXBlIjoiUm9sZSIsInZhbHVlIjoiTWVyY2hhbnQifV0sInN1cHBvcnRlZFRydXN0IjpbInJlcHV0YXRpb24iXX0=",
+    "metadata": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Pushmycart.com",
+      "description": "Official Electronics & Office Supplies Merchant. Powered by the x402 Commerce Grid.",
+      "image": "https://logo.clearbit.com/pushmycart.com.com",
+      "external_url": "https://reap.deals",
+      "capabilities": [
+        "Commerce",
+        "Electronics",
+        "x402 Payments",
+        "Accepts USDC"
+      ],
+      "attributes": [
+        {
+          "trait_type": "Network",
+          "value": "Reap Protocol"
+        },
+        {
+          "trait_type": "Verification",
+          "value": "Custodial Escrow"
+        },
+        {
+          "trait_type": "Role",
+          "value": "Merchant"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  }
+]
