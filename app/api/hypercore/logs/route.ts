@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 // Hardcoded server address
-const HYPERCORE_SERVER_WS = 'ws://34.126.134.226:3001';
+const HYPERCORE_SERVER_WS = 'ws://34.124.252.96:3001';
 
 export async function GET(request: Request) {
   const encoder = new TextEncoder();
