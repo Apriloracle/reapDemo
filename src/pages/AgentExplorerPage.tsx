@@ -8,11 +8,13 @@ const AgentExplorerPage = () => {
   const agents = useTable('agents', agentDataStore);
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
+  const initialRegistry = searchParams.get('registry') || '';
+  const initialLimit = searchParams.get('limit') ? parseInt(searchParams.get('limit') as string) : 40;
 
   return (
     <div className="p-6">
       <h2 className="text-xl font-bold mb-4">Agent Explorer</h2>
-      <AgentFetcher query={initialQuery} />
+      <AgentFetcher query={initialQuery} registry={initialRegistry} limit={initialLimit} />
       <div className="grid gap-4">
         {Object.values(agents).map((agent: any) => (
           <div key={agent.id} className="border p-4 rounded shadow-sm bg-gray-50">
@@ -32,3 +34,4 @@ const AgentExplorerPage = () => {
 };
 
 export default AgentExplorerPage;
+
