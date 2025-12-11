@@ -1,66 +1,135 @@
-// AgentFetcher.tsx
 import React, { useState, useEffect } from 'react';
-import { agentDataStore } from '../stores/AgentDataStore';
+import { agentDataStore, addHolocronCoordinatesToAgent } from '../stores/AgentDataStore';
+import { Agent } from '../types/firefly';
 
 interface AgentFetcherProps {
   query?: string;
+  limit?: number;
+  registry?: string;
 }
 
-const AgentFetcher: React.FC<AgentFetcherProps> = ({ query = '' }) => {
-  const [searchQuery, setSearchQuery] = useState(query);
+export const AgentFetcher: React.FC<AgentFetcherProps> = ({ query: initialQuery, limit: initialLimit, registry: initialRegistry }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState<string>(initialQuery || 'customer support');
+  const [limit, setLimit] = useState<number>(initialLimit || 40);
+  const [registry, setRegistry] = useState<string>(initialRegistry || 'erc-8004');
 
   useEffect(() => {
-    // Automatically perform search when query prop changes
-    if (query) {
-      handleSearch(query);
+    if (initialQuery) {
+      handleSearch();
     }
-  }, [query]);
+  }, [initialQuery]);
 
-  const handleSearch = async (searchTerm: string) => {
-    if (!searchTerm.trim()) return;
+  const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
 
     try {
-      // Replace with your actual API endpoint
-      const response = await fetch(`/api/agents?q=${encodeURIComponent(searchTerm)}`);
-      const data = await response.json();
-
-      // Clear existing agents and add new ones
-      agentDataStore.delTable('agents');
-      data.forEach((agent: any) => {
-        agentDataStore.setRow('agents', agent.id, agent);
+      console.log(`Searching for agents with query: "${query}" in registry: "${registry}"`);
+      
+      const response = await fetch('/api/search-agents', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          query, 
+          limit,
+          registry
+        }),
       });
-    } catch (error) {
-      console.error('Error fetching agents:', error);
+
+      const searchResults = await response.json();
+      console.log('API Response:', searchResults);
+
+      if (!response.ok) {
+        throw new Error(searchResults.error || 'Search failed');
+      }
+
+      if (searchResults.hits.length > 0) {
+        const agents: Agent[] = searchResults.hits.map((hit: any) => ({
+          fireflyId: hit.id,
+          agentId: hit.uaid,
+          wallet: '', // Not available in hit
+          metadataUri: '', // Not available in hit
+          timestamp: hit.createdAt,
+          metadata: JSON.stringify(hit.metadata),
+          profile: JSON.stringify(hit.profile),
+        }));
+
+        const agentsWithCoords = await Promise.all(agents.map(addHolocronCoordinatesToAgent));
+
+        agentDataStore.transaction(() => {
+          agentDataStore.delTable('agents');
+          agentsWithCoords.forEach((agent, index) => {
+            const hit = searchResults.hits[index];
+            agentDataStore.setRow('agents', agent.fireflyId, {
+              uaid: agent.agentId,
+              registry: hit.registry,
+              name: hit.name,
+              description: hit.description,
+              endpoints: JSON.stringify(hit.endpoints),
+              metadata: agent.metadata || '',
+              profile: agent.profile || '',
+              createdAt: agent.timestamp,
+              updatedAt: hit.updatedAt,
+            });
+          });
+        });
+      } else {
+        agentDataStore.delTable('agents');
+      }
+    } catch (err: any) {
+      console.error("Search failed", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearch(searchQuery);
-  };
+  if (error) {
+    return <div className="text-red-500">Error: {error}</div>;
+  }
 
   return (
-    <div className="mb-6">
-      <form onSubmit={handleSubmit} className="flex gap-2">
+    <div className="p-6">
+      {/* Add Registry Selector */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Registry:</label>
+        <select 
+          value={registry} 
+          onChange={(e) => setRegistry(e.target.value)}
+          className="p-2 border rounded"
+        >
+          <option value="pulsemcp">PulseMCP</option>
+          <option value="">ERC-8004</option>
+          <option value="coinbase-x402-bazaar">Coinbase x402 Bazaar</option>
+          <option value="a2a-registry">A2A Regsitry</option>
+        </select>
+      </div>
+
+      <div className="flex items-center space-x-2 mb-6">
         <input
           type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search agents..."
-          className="flex-1 px-4 py-2 border rounded"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for agents (e.g., 'customer support')"
+          className="p-2 border rounded w-full"
         />
         <button
-          type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={handleSearch}
+          disabled={loading}
+          className="p-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400"
         >
-          Search
+          {loading ? 'Searching...' : 'Search'}
         </button>
-      </form>
+      </div>
+
+      {loading && <p>Searching for agents...</p>}
     </div>
   );
 };
-
-export default AgentFetcher;
 
 
 
