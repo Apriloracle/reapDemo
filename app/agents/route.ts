@@ -16,7 +16,7 @@ const MANIFEST = {
       network: 'base',
       asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Using the same asset as /search for consistency
       maxAmountRequired: '10000', // Fixed price of $0.01 for now
-      resource: 'https://reap.deals/tools/agents',
+      resource: 'https://reap.deals/agents',
       description: 'Get agent search results from the agent explorer.',
       mimeType: 'application/json',
       payTo: '0x31ab637bd325b4bf5018b39dd155681d03348189', // Using the same payment address
@@ -29,8 +29,18 @@ const MANIFEST = {
           bodyFields: {
             query: {
               type: 'string',
-              required: true,
+              required: false,
               description: 'Agent name or keyword to search for.',
+            },
+            limit: {
+              type: 'number',
+              required: false,
+              description: 'The maximum number of results to return.',
+            },
+            registry: {
+              type: 'string',
+              required: false,
+              description: 'The registry to search in.',
             },
           },
         },
@@ -39,13 +49,15 @@ const MANIFEST = {
           items: {
             type: 'object',
             properties: {
-              uaid: { type: 'string' },
-              registry: { type: 'string' },
-              name: { type: 'string' },
+              createdAt: { type: 'string' },
               description: { type: 'string' },
               endpoints: { type: 'string' },
               metadata: { type: 'string' },
+              name: { type: 'string' },
               profile: { type: 'string' },
+              registry: { type: 'string' },
+              uaid: { type: 'string' },
+              updatedAt: { type: 'string' },
             },
           },
         },
@@ -117,26 +129,10 @@ export async function POST(request: Request) {
   // --- SCENARIO 2: Authorization Header IS Present (Paid Request) ---
   // SECURITY: You must validate the `authHeader` token here to confirm payment.
   
-  let query: string | undefined;
   try {
     const body = await request.json();
-    query = body.query;
-  } catch (e) {
-    console.error("Could not parse request body as JSON:", e);
-    return new NextResponse(
-      JSON.stringify({ error: 'Invalid request body. Expected JSON.' }),
-      { status: 400, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
-    );
-  }
+    const { query = '', limit = 40, registry } = body;
 
-  if (!query) {
-    return new NextResponse(
-      JSON.stringify({ error: 'A "query" field is required in the request body.' }),
-      { status: 400, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  try {
     const agentEndpoint = 'http://localhost:8081'; // URL of the new agent search server
     
     const response = await fetch(agentEndpoint, {
@@ -144,7 +140,7 @@ export async function POST(request: Request) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, limit, registry }),
     });
 
     if (!response.ok) {
