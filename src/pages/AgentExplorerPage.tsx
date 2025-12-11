@@ -1,15 +1,18 @@
 import React from 'react';
-import { useTable } from 'tinybase/ui-react'; // Changed from 'tinybase/react'
+import { useTable } from 'tinybase/ui-react';
 import { agentDataStore } from '../stores/AgentDataStore';
 import { AgentFetcher } from '../components/AgentFetcher';
+import { useSearchParams } from 'react-router-dom';
 
 const AgentExplorerPage = () => {
   const agents = useTable('agents', agentDataStore);
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') || '';
 
   return (
     <div className="p-6">
       <h2 className="text-xl font-bold mb-4">Agent Explorer</h2>
-      <AgentFetcher />
+      <AgentFetcher query={initialQuery} />
       <div className="grid gap-4">
         {Object.values(agents).map((agent: any) => (
           <div key={agent.id} className="border p-4 rounded shadow-sm bg-gray-50">
