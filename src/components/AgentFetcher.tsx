@@ -12,7 +12,6 @@ export const AgentFetcher: React.FC<AgentFetcherProps> = ({ query: initialQuery,
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>(initialQuery || 'customer support');
-  const [limit, setLimit] = useState<number>(initialLimit || 40);
   const [registry, setRegistry] = useState<string>(initialRegistry || 'erc-8004');
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export const AgentFetcher: React.FC<AgentFetcherProps> = ({ query: initialQuery,
         },
         body: JSON.stringify({ 
           query, 
-          limit,
+          limit: initialLimit || 40,
           registry
         }),
       });
@@ -130,6 +129,7 @@ export const AgentFetcher: React.FC<AgentFetcherProps> = ({ query: initialQuery,
     </div>
   );
 };
+
 
 
 
