@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTable } from 'tinybase/ui-react';
 import { agentDataStore } from '../stores/AgentDataStore';
+import AgentFetcher from '../components/AgentFetcher';
 import { useSearchParams } from 'react-router-dom';
 
 const AgentExplorerPage = () => {
