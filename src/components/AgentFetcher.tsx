@@ -1,36 +1,66 @@
-import React from 'react';
-import { useTable } from 'tinybase/ui-react';
+// AgentFetcher.tsx
+import React, { useState, useEffect } from 'react';
 import { agentDataStore } from '../stores/AgentDataStore';
-import AgentFetcher from '../components/AgentFetcher';
-import { useSearchParams } from 'react-router-dom';
 
-const AgentExplorerPage = () => {
-  const agents = useTable('agents', agentDataStore);
-  const [searchParams] = useSearchParams();
-  const initialQuery = searchParams.get('q') || '';
+interface AgentFetcherProps {
+  query?: string;
+}
+
+const AgentFetcher: React.FC<AgentFetcherProps> = ({ query = '' }) => {
+  const [searchQuery, setSearchQuery] = useState(query);
+
+  useEffect(() => {
+    // Automatically perform search when query prop changes
+    if (query) {
+      handleSearch(query);
+    }
+  }, [query]);
+
+  const handleSearch = async (searchTerm: string) => {
+    if (!searchTerm.trim()) return;
+
+    try {
+      // Replace with your actual API endpoint
+      const response = await fetch(`/api/agents?q=${encodeURIComponent(searchTerm)}`);
+      const data = await response.json();
+
+      // Clear existing agents and add new ones
+      agentDataStore.delTable('agents');
+      data.forEach((agent: any) => {
+        agentDataStore.setRow('agents', agent.id, agent);
+      });
+    } catch (error) {
+      console.error('Error fetching agents:', error);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSearch(searchQuery);
+  };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Agent Explorer</h2>
-      <AgentFetcher query={initialQuery} />
-      <div className="grid gap-4">
-        {Object.values(agents).map((agent: any) => (
-          <div key={agent.id} className="border p-4 rounded shadow-sm bg-gray-50">
-            <div className="font-mono text-sm text-blue-600">ID: {agent.id}</div>
-            <div className="font-bold">{agent.name}</div>
-            <div className="text-xs text-gray-500 truncate" title={agent.description}>
-              {agent.description}
-            </div>
-            <div className="text-xs text-gray-400 mt-2">
-              Registered: {new Date(agent.createdAt).toLocaleString()}
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="mb-6">
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search agents..."
+          className="flex-1 px-4 py-2 border rounded"
+        />
+        <button
+          type="submit"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Search
+        </button>
+      </form>
     </div>
   );
 };
 
-export default AgentExplorerPage;
+export default AgentFetcher;
+
 
 
