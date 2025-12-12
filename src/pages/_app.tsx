@@ -2,6 +2,7 @@
 
 import '../lib/mcp-initializer';
 import '../lib/dynamic-mcp-initializer'; // Initialize the dynamic MCP server
+import '../lib/mcp-hypercore-bridge'; // Initialize the Hypercore bridge
 import { mcpToolManager } from '../lib/McpToolManager'; // Initialize the tool manager
 import '@/styles/globals.css'
 import '@/styles/Wallet.css'
@@ -69,4 +70,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp
+
+
 
