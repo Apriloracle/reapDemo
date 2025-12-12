@@ -1,4 +1,5 @@
 import { createStore } from 'tinybase';
+import { createLocalPersister } from 'tinybase/persisters/persister-browser';
 
 // The structure of a tool definition within the store
 export interface ToolDefinition {
@@ -18,6 +19,12 @@ class DynamicToolStore {
     this.store = createStore();
     // The table name will be the server name, and each row is a tool
     // This allows for multiple dynamic tool servers if needed in the future
+
+    if (typeof window !== 'undefined') {
+      const persister = createLocalPersister(this.store, 'dynamicToolStore');
+      persister.startAutoLoad();
+      persister.startAutoSave();
+    }
   }
 
   addTool(serverName: string, tool: ToolDefinition) {
@@ -38,3 +45,4 @@ class DynamicToolStore {
 }
 
 export const dynamicToolStore = new DynamicToolStore();
+
