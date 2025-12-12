@@ -56,3 +56,9 @@ export async function addHolocronCoordinatesToAgent(agent: Agent): Promise<Agent
 
   return newAgent;
 }
+
+export function getAgents() {
+  const agents = agentDataStore.getTable('agents');
+  return agents ? Object.values(agents) : [];
+}
+
