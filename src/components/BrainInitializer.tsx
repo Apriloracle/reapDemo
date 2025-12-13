@@ -10,6 +10,8 @@ import SimpleVectorize from './SimpleVectorize';
 import CoordinateCountDisplay from './CoordinateCountDisplay';
 import OnboardingFlow from './OnboardingFlow'; // Import the OnboardingFlow component
 import userProfileStore, { OnboardingChoices } from '../stores/UserProfileStore';
+import { initializeCisInstructionStore } from '../stores/CisInstructionStore';
+import { populateCisInstructionStore } from '../lib/populateCisInstructionStore';
 
 interface BrainInitializerProps {
   children: React.ReactNode;
@@ -53,6 +55,9 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
         setTimeout(() => {
           deviceDataStore.fetchAndStoreDeviceData();
         }, 100);
+
+        await initializeCisInstructionStore();
+        await populateCisInstructionStore();
 
         // Skip initialization of NTC and ESN for now
         console.log('NTC and ESN initialization skipped for performance optimization');
@@ -132,3 +137,4 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
 };
 
 export default BrainInitializer;
+
