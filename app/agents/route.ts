@@ -133,7 +133,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { query = '', limit = 40, registry } = body;
 
-    const agentEndpoint = 'http://localhost:8081'; // URL of the new agent search server
+    const agentEndpoint = 'https://agentserver1.reap.deals'; // URL of the new agent search server
     
     const response = await fetch(agentEndpoint, {
       method: 'POST',
