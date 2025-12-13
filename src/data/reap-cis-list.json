@@ -1,0 +1,87 @@
+{
+  "cis_announce": {
+    "description": "Broadcast Identity & Metadata",
+    "type": "discovery",
+    "tags": ["handshake", "hello", "identity", "broadcast", "metadata"]
+  },
+  "cis_search_products": {
+    "description": "Search for products across the mesh",
+    "type": "commerce",
+    "tags": ["search", "product", "catalog", "inventory", "list"]
+  },
+  "cis_get_price": {
+    "description": "Request Asset Price Quote",
+    "type": "commerce",
+    "tags": ["price", "pricing", "cost", "quote", "valuation"]
+  },
+  "cis_check_stock": {
+    "description": "Query Inventory Levels",
+    "type": "commerce",
+    "tags": ["stock", "inventory", "availability", "quantity"]
+  },
+  "cis_reserve_order": {
+    "description": "Temporarily hold inventory before payment",
+    "type": "transaction",
+    "tags": ["reserve", "hold", "booking", "pre-order"]
+  },
+  "cis_init_checkout": {
+    "description": "Start Purchase Flow",
+    "type": "transaction",
+    "tags": ["checkout", "order", "purchase", "buy", "cart"]
+  },
+  "cis_calculate_fees": {
+    "description": "Calculate taxes, shipping, and service fees",
+    "type": "transaction",
+    "tags": ["fees", "tax", "shipping-cost", "total"]
+  },
+  "cis_request_payment": {
+    "description": "Request payment details or invoice",
+    "type": "transaction",
+    "tags": ["invoice", "bill", "charge", "payment-request"]
+  },
+  "cis_request_kyc": {
+    "description": "Request identity verification",
+    "type": "compliance",
+    "tags": ["kyc", "identity", "verification", "compliance"]
+  },
+  "cis_settle_payment": {
+    "description": "Execute x402 V2 Payment",
+    "type": "transaction",
+    "tags": ["payment", "pay", "transaction", "settlement", "execution"]
+  },
+  "cis_allocate_pickup": {
+    "description": "Assign carrier or pickup location",
+    "type": "fulfillment",
+    "tags": ["pickup", "carrier", "assignment", "logistics"]
+  },
+  "cis_trigger_fulfillment": {
+    "description": "Initiate shipping or digital delivery",
+    "type": "fulfillment",
+    "tags": ["shipping", "delivery", "fulfill", "send"]
+  },
+  "cis_mark_delivered": {
+    "description": "Confirm successful delivery",
+    "type": "fulfillment",
+    "tags": ["delivered", "confirmation", "receipt", "complete"]
+  },
+  "cis_process_return": {
+    "description": "Handle product returns and refunds",
+    "type": "fulfillment",
+    "tags": ["return", "refund", "exchange", "rma"]
+  },
+  "cis_logistics_quote": {
+    "description": "Get Shipping Estimates",
+    "type": "logistics",
+    "tags": ["shipping-quote", "estimate", "freight", "shipping-rate"]
+  },
+  "cis_rate_agent": {
+    "description": "Submit Reputation Score",
+    "type": "social",
+    "tags": ["rate", "review", "score", "feedback", "reputation"]
+  },
+  "cis_get_reputation": {
+    "description": "Read Trust Score",
+    "type": "social",
+    "tags": ["trust", "score", "history", "verified"]
+  }
+}
