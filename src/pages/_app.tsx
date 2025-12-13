@@ -3,6 +3,7 @@
 import '../lib/mcp-initializer';
 import '../lib/dynamic-mcp-initializer'; // Initialize the dynamic MCP server
 import '../lib/mcp-hypercore-bridge'; // Initialize the Hypercore bridge
+import '../lib/mcp-initializer-hypercoretools.js';
 import { mcpToolManager } from '../lib/McpToolManager'; // Initialize the tool manager
 import '@/styles/globals.css'
 import '@/styles/Wallet.css'
@@ -18,12 +19,19 @@ import {
     WalletModalProvider
 } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
+import { initializeCisInstructionStore } from '../stores/CisInstructionStore';
+import { populateCisInstructionStore } from '../lib/populateCisInstructionStore';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    const initialize = async () => {
+      await initializeCisInstructionStore();
+      await populateCisInstructionStore();
+    };
+    initialize();
   }, []);
 
   // Default styles that can be overridden by your app
