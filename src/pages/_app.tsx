@@ -19,8 +19,8 @@ import {
     WalletModalProvider
 } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { initializeCisInstructionStore } from '../stores/CisInstructionStore';
-import { populateCisInstructionStore } from '../lib/populateCisInstructionStore';
+//import { initializeCisInstructionStore } from '../stores/CisInstructionStore';
+//import { populateCisInstructionStore } from '../lib/populateCisInstructionStore';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
