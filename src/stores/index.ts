@@ -16,6 +16,7 @@ import trajectoryStore from './TrajectoryStore';
 import { agentStore } from './AgentStore';
 import { dynamicToolStore } from './DynamicToolStore';
 import { agentDataStore } from './AgentDataStore';
+import { getCisInstructionStore } from './CisInstructionStore';
 
 const stores = {
   agentStore,
@@ -25,6 +26,7 @@ const stores = {
   dealsIndexStore: getDealsIndexStore(),
   categoryStore,
   coordinateIndexStore: getCoordinateStore(),
+  cisInstructionStore: getCisInstructionStore(),
   deviceDataStore,
   discoverySearchStore,
   favoriteStore,
