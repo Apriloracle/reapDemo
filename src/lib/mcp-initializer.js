@@ -2,6 +2,7 @@ import { registerTinybaseTools } from './mcp-tinybase-adapter';
 import * as stores from '../stores';
 import { userProfileStore } from '../stores/UserProfileStore';
 import { merchantProductsStore } from '../stores/MerchantProductsStore';
+import { hypercoreService } from '../services/HypercoreService';
 
 // Register all TinyBase stores with the MCP engine
 Object.keys(stores).forEach(storeName => {
@@ -32,25 +33,15 @@ registerTool('getAgentData', () => {
   return agentDataStore.getAgents();
 });
 
-// Register Hypercore tools that call API routes instead of direct service
+// Register Hypercore tools that call the new client-side service
 registerTool('startHypercoreAgent', async (args) => {
   const { coordinate } = args;
-  const response = await fetch('/api/hypercore', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: 'agent', coordinate })
-  });
-  return response.json();
+  return hypercoreService.startAgent(coordinate);
 });
 
 registerTool('startHypercoreManager', async (args) => {
-  const { coordinate, privateKey, targetMetadata } = args;
-  const response = await fetch('/api/hypercore', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: 'manager', coordinate, privateKey, targetMetadata })
-  });
-  return response.json();
+  const { coordinate, instruction } = args;
+  return hypercoreService.startManager(coordinate, instruction);
 });
 
 // Expose the invoke function globally for agents
