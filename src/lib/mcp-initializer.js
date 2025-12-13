@@ -20,7 +20,7 @@ Object.keys(stores).forEach(storeName => {
 
 import { registerTool } from './mcp-engine';
 import { shoppingProductsStore } from '../stores/ShoppingProductsStore';
-import { agentDataStore } from '../stores/AgentDataStore';
+import { agentDataStore, getAgents } from '../stores/AgentDataStore';
 
 // Register a custom tool for the shoppingProductsStore
 registerTool('getShoppingProducts', () => {
@@ -29,7 +29,7 @@ registerTool('getShoppingProducts', () => {
 
 // Register a custom tool for the agentDataStore
 registerTool('getAgentData', () => {
-  return agentDataStore.getAgents();
+  return getAgents();
 });
 
 // Register Hypercore tools that call API routes instead of direct service
