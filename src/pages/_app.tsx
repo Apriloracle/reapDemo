@@ -28,8 +28,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setIsClient(true);
     const initialize = async () => {
-      await initializeCisInstructionStore();
-      await populateCisInstructionStore();
+      //await initializeCisInstructionStore();
+      //await populateCisInstructionStore();
     };
     initialize();
   }, []);
