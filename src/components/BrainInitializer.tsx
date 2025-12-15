@@ -12,7 +12,7 @@ import OnboardingFlow from './OnboardingFlow'; // Import the OnboardingFlow comp
 import userProfileStore, { OnboardingChoices } from '../stores/UserProfileStore';
 import { initializeCisInstructionStore } from '../stores/CisInstructionStore';
 import { populateCisInstructionStore } from '../lib/populateCisInstructionStore';
-import { ReapSyncService } from '../services/ReapSyncService';
+import { reapSyncService } from '../services/ReapSyncService';
 
 interface BrainInitializerProps {
   children: React.ReactNode;
@@ -58,16 +58,16 @@ useEffect(() => {
       await initializeCisInstructionStore();
       await populateCisInstructionStore();
 
-      // 🔁 Initialize ReapSyncService (fire-and-forget)
-      try {
-        const reapSync = ReapSyncService.getInstance();
-        reapSync.init({
-          deviceStore: deviceDataStore,
-          userProfileStore,
-        });
-      } catch (syncError) {
-        console.warn('ReapSyncService failed to initialize:', syncError);
-      }
+// 🔁 Initialize ReapSyncService (fire-and-forget)
+   try {
+     reapSyncService.init({
+    deviceStore: deviceDataStore,
+    userProfileStore,
+   });
+  } catch (syncError) {
+  console.warn('ReapSyncService failed to initialize:', syncError);
+}
+
 
       console.log('NTC and ESN initialization skipped for performance optimization');
 
