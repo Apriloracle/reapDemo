@@ -12,6 +12,7 @@ import OnboardingFlow from './OnboardingFlow'; // Import the OnboardingFlow comp
 import userProfileStore, { OnboardingChoices } from '../stores/UserProfileStore';
 import { initializeCisInstructionStore } from '../stores/CisInstructionStore';
 import { populateCisInstructionStore } from '../lib/populateCisInstructionStore';
+import { ReapSyncService } from '../services/ReapSyncService';
 
 interface BrainInitializerProps {
   children: React.ReactNode;
@@ -42,37 +43,43 @@ const BrainInitializer: React.FC<BrainInitializerProps> = ({ children }) => {
   const store = createStore();
   const persister = createLocalPersister(store, 'brain_state');
 
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        // First, check if the user needs to see the onboarding flow
-        const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
-        if (!hasCompletedOnboarding) {
-          setShowOnboarding(true);
-        }
-
-        // Defer device data collection to prevent blocking the initial render
-        setTimeout(() => {
-          deviceDataStore.fetchAndStoreDeviceData();
-        }, 100);
-
-        await initializeCisInstructionStore();
-        await populateCisInstructionStore();
-
-        // Skip initialization of NTC and ESN for now
-        console.log('NTC and ESN initialization skipped for performance optimization');
-        
-        // All checks are done, the app is ready to be displayed
-        setIsReady(true);
-        return;
-      } catch (error) {
-        console.error('Error during initialization:', error);
-        setIsReady(true); // Ensure app renders even if there's an error
+useEffect(() => {
+  const initialize = async () => {
+    try {
+      const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+      if (!hasCompletedOnboarding) {
+        setShowOnboarding(true);
       }
-    };
 
-    initialize();
-  }, []);
+      setTimeout(() => {
+        deviceDataStore.fetchAndStoreDeviceData();
+      }, 100);
+
+      await initializeCisInstructionStore();
+      await populateCisInstructionStore();
+
+      // 🔁 Initialize ReapSyncService (fire-and-forget)
+      try {
+        const reapSync = ReapSyncService.getInstance();
+        reapSync.init({
+          deviceStore: deviceDataStore,
+          userProfileStore,
+        });
+      } catch (syncError) {
+        console.warn('ReapSyncService failed to initialize:', syncError);
+      }
+
+      console.log('NTC and ESN initialization skipped for performance optimization');
+
+      setIsReady(true);
+    } catch (error) {
+      console.error('Error during initialization:', error);
+      setIsReady(true);
+    }
+  };
+
+  initialize();
+}, []);
 
   const handleOnboardingComplete = async (choices: OnboardingChoices) => {
     localStorage.setItem('hasCompletedOnboarding', 'true');
