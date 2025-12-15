@@ -58,15 +58,7 @@ useEffect(() => {
       await initializeCisInstructionStore();
       await populateCisInstructionStore();
 
-// 🔁 Initialize ReapSyncService (fire-and-forget)
-   try {
-     reapSyncService.init({
-    deviceStore: deviceDataStore,
-    userProfileStore,
-   });
-  } catch (syncError) {
-  console.warn('ReapSyncService failed to initialize:', syncError);
-}
+
 
 
       console.log('NTC and ESN initialization skipped for performance optimization');
