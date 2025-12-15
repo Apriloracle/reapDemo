@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 
 // Point to one of your Backbone Nodes
-const ANCHOR_API = 'http://34.143.181.65:3001'; 
+const ANCHOR_API = 'https://reapnode.reap.deals'; 
 const ANCHOR_WS = 'ws://34.143.181.65:3001';
 
 class HypercoreService extends EventEmitter {
