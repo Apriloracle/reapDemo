@@ -58,6 +58,11 @@ useEffect(() => {
       await initializeCisInstructionStore();
       await populateCisInstructionStore();
 
+      reapSyncService.init({
+        deviceStore: deviceDataStore,
+        userProfileStore: userProfileStore,
+      });
+
 
 
 
