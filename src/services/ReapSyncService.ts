@@ -1,7 +1,7 @@
 import { agentDataStore } from '../stores/AgentDataStore';
 import { Agent } from '../types/firefly';
 
-const REAP_NODE_URL = 'https://reapnode.reap.deals';
+const REAP_NODE_URL = '/agentsapi';
 
 interface ReapSyncConfig {
   deviceStore?: any;
@@ -31,8 +31,8 @@ class ReapSyncService {
     for (const agentId in agents) {
       const agent = agents[agentId] as any; // Use 'any' since the stored data structure differs from Agent type
       try {
-        await fetch(`${REAP_NODE_URL}/api/storage`, {
-          method: 'PUT',
+        await fetch(REAP_NODE_URL, {
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -49,3 +49,4 @@ class ReapSyncService {
 }
 
 export const reapSyncService = new ReapSyncService();
+
