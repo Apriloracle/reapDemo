@@ -83,5 +83,70 @@
     "description": "Read Trust Score",
     "type": "social",
     "tags": ["trust", "score", "history", "verified"]
+  },
+  "cis_provide_packing_list": {
+    "description": "Submit detailed packing/weight list",
+    "type": "fulfillment",
+    "tags": ["packing-list", "weight", "manifest", "cargo-details", "shipment-prep"]
+  },
+  "cis_request_booking": {
+    "description": "Request transport capacity (Shipper's Letter)",
+    "type": "logistics",
+    "tags": ["booking", "transport", "capacity", "shipper-letter", "reservation"]
+  },
+  "cis_insure_cargo": {
+    "description": "Request or verify cargo insurance",
+    "type": "transaction",
+    "tags": ["insurance", "cargo", "coverage", "risk", "protection"]
+  },
+  "cis_issue_transport_doc": {
+    "description": "Issue BL, Waybill, or CMR",
+    "type": "logistics",
+    "tags": ["bill-of-lading", "waybill", "cmr", "transport-document", "shipping-doc"]
+  },
+  "cis_transfer_custody": {
+    "description": "Transfer title/possession (eBL/Receipts)",
+    "type": "logistics",
+    "tags": ["custody", "title", "transfer", "ebl", "possession", "receipt"]
+  },
+  "cis_submit_manifest": {
+    "description": "Submit cargo manifest to authorities",
+    "type": "compliance",
+    "tags": ["manifest", "cargo", "customs", "authorities", "declaration"]
+  },
+  "cis_declare_customs": {
+    "description": "Submit Import/Export Declaration",
+    "type": "compliance",
+    "tags": ["customs", "import", "export", "declaration", "border"]
+  },
+  "cis_certify_origin": {
+    "description": "Provide Certificate of Origin",
+    "type": "compliance",
+    "tags": ["certificate", "origin", "coo", "country", "provenance"]
+  },
+  "cis_certify_goods": {
+    "description": "Provide health/veterinary/inspection certs",
+    "type": "compliance",
+    "tags": ["certificate", "health", "veterinary", "inspection", "phytosanitary"]
+  },
+  "cis_apply_license": {
+    "description": "Apply for Export/Import License",
+    "type": "compliance",
+    "tags": ["license", "permit", "authorization", "export", "import"]
+  },
+  "cis_guarantee_duty": {
+    "description": "Provide Customs Bond/Excise Guarantee",
+    "type": "financial",
+    "tags": ["bond", "guarantee", "customs", "duty", "excise", "security"]
+  },
+  "cis_present_financial_doc": {
+    "description": "Present Letter of Credit/Bill of Exchange",
+    "type": "financial",
+    "tags": ["letter-of-credit", "lc", "bill-of-exchange", "documentary-credit", "trade-finance"]
+  },
+  "cis_confirm_settlement": {
+    "description": "Bank Payment Confirmation/Advice",
+    "type": "financial",
+    "tags": ["confirmation", "payment-advice", "settlement", "bank", "remittance"]
   }
 }
